@@ -8,10 +8,12 @@ import {
 export const getAllArticles = () => {
     return (dispatch) => {
         dispatch(getArticlesRequest())
-        axiosInstance.get('/articles/search').then((response) => {
+        axiosInstance.post('/articles/search',{
+            'tags' : [ 'western_union' ]
+        }).then((response) => {
             dispatch(getArticlesSuccess(response.data))
-        }).catch(() => {
-            dispatch(getArticlesFailed())
+        }).catch((error) => {
+            dispatch(getArticlesFailed(error))
         })
     }
 }

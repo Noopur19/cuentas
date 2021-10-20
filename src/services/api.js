@@ -2,9 +2,9 @@
 import axios from 'axios'
 // import { NOTIFICATION_TYPES } from '../constants/app';
 // import { notification } from './notification';
-import { getUser } from 'utils/helpers';
+import { getToken } from 'utils/helpers';
 import history from 'utils/history'
-const baseUrl = `${ process.env.REACT_APP_API_URL }/v1`;
+const baseUrl = `${ process.env.REACT_APP_API_URL }`;
 
 const axiosInstance =  axios.create({
     baseURL: baseUrl,
@@ -17,7 +17,7 @@ const axiosInstance =  axios.create({
     }
 })
 axiosInstance.interceptors.request.use(function (config) {
-    const token = getUser() && getUser().accessToken;
+    const token = getToken();
     config.headers.Authorization =  token ? `Bearer ${ token }` :  null ;
     return config;
 });

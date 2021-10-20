@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+const querystring = require('querystring')
+import { setLocalData } from 'utils/cache'
 import axiosInstance from 'services/api';
 import {
     loginRequest,
@@ -6,20 +9,20 @@ import {
 } from 'actions/login';
 
 export const login = (username, password) => {
-    return (dispatch) => {
-        dispatch(loginRequest(username, password))
-        axiosInstance.post('/oauth/token', {
+    return async(dispatch) => {
+        dispatch(loginRequest())
+        const result = await axiosInstance.post('/oauth/token', querystring.stringify({
             username,
             password,
             grant_type: 'password',
             client_id: 'knetik'
-        }).then((response) => {
-            dispatch(loginSuccess(response.data))
+        }))
+        if(result.status === 200){
+            setLocalData('accessToken', result.data.access_token)
+            dispatch(loginSuccess(result))
+        }else{
+            dispatch(loginFailed(result))
+        }
 
-            // set token in localStorage
-
-        }).catch(() => {
-            dispatch(loginFailed())
-        })
     }
 }

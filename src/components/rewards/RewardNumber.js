@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux'
-import { getAllArticles } from 'middleware/articles';
 import { postWUNumber } from 'middleware/wuNumber';
 import { Field, reduxForm } from 'redux-form';
-import renderField from 'utils/formUtils/renderField';
+import { renderField } from 'utils/formUtils';
 
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
     const { handleSubmit } = props;
-    useEffect(() => {
-        dispatch(getAllArticles())
-    }, [])
-
     const onSubmit = (values) => {
         console.log(values.WUNumber);
         if (values.WUNumber) {
@@ -27,7 +22,11 @@ const RewardNumberPage = (props) => {
             <form onSubmit={ handleSubmit( onSubmit ) }>
                 {!!isClicked &&
                 <>
-                    <Field name="WUNumber" component={ renderField } />
+                    <Field
+                        name="WUNumber"
+                        maxLength={ 9 }
+                        component={ renderField }
+                    />
                     <p>Enter 9-digit My WU Number</p>
                 </>
                 }
