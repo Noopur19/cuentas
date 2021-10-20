@@ -11,8 +11,9 @@ const axiosInstance =  axios.create({
     withCredentials: false,
     crossDomain: true,
     headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Access-Control-Allow-Origin': '*',
+        'x-knetikcloud-appid': 'cuentas'
     }
 })
 axiosInstance.interceptors.request.use(function (config) {

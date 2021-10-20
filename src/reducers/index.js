@@ -1,7 +1,14 @@
 import { combineReducers } from 'redux';
-import articles from './articles'
-const appReducer =  combineReducers({
-    articles: articles
+import articles from './articles';
+import wuNumber from './wuNumber';
+import login from './login';
+import { reducer as formReducer } from 'redux-form'
+
+const appReducer = combineReducers({
+    articles: articles,
+    wuNumber: wuNumber,
+    form: formReducer,
+    login: login
 });
 
 const rootReducer = (state, action) => {
