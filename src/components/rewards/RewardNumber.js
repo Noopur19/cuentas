@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
 import { postWUNumber } from 'middleware/wuNumber';
+import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form';
 import { renderField } from 'utils/formUtils';
 
@@ -26,17 +27,20 @@ const RewardNumberPage = (props) => {
                         name="WUNumber"
                         maxLength={ 9 }
                         component={ renderField }
+                        normalize={ val => (val || '').replace(/[^\d]/g, '') }
                     />
                     <p>Enter 9-digit My WU Number</p>
                 </>
                 }
+
+                <p>
+                    If you are a Western Union My WU Member you
+                    can enter your 9 digit My WU number to earn points on
+                    qualifying transactions.
+                </p>
+                <h6>No MyWU Rewards ?<a href="#!">Click here to register</a></h6>
+                { isClicked ? <button type='submit' className='btn btn-primary'>Next</button> : <Link to='/protect-form' className='btn btn-primary'>Next</Link> }
             </form>
-            <p>
-                If you are a Western Union My WU Member you
-                can enter your 9 digit My WU number to earn points on
-                qualifying transactions.
-            </p>
-            <h6>No MyWU Rewards ?<a href="#!">Click here to register</a></h6>
         </div >
     )
 }
