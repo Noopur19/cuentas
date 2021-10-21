@@ -1,6 +1,6 @@
 import Styled from 'styled-components'
 
-const RewardTitle = Styled.h3`
+const BorderTitle = Styled.h3`
     font-weight: bold;
     font-size: 22px;
     line-height: 26px;
@@ -9,7 +9,6 @@ const RewardTitle = Styled.h3`
     display: flex;
     align-items: flex-end;
     margin-bottom: 17px;
-    margin-top: 26px;
     &:after{
         content: "";
         background: #CECBDE;
@@ -21,4 +20,4 @@ const RewardTitle = Styled.h3`
     }
 
 `
-export default RewardTitle
+export default BorderTitle
