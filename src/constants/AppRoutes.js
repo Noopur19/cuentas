@@ -1,3 +1,5 @@
 export const ROUTES = {
-    ROOT: '/'
+    ROOT: '/',
+    RECEIVER_DETAILS_FORM: '/receiver-details-form',
+    PROTECT_FORM: '/protect-form'
 }
