@@ -9,9 +9,9 @@ import _ from 'lodash'
 export const Layout = (props) => {
     const dispatch = useDispatch()
     const articles = useSelector((state) => state.articles.articles)
-    console.log(articles)
+
     useEffect(async() => {
-        !getToken() && await dispatch(login('bg-1129@mailinator.com','123456789'))
+        !getToken() && await dispatch(login('cuentasalert22@mailinator.com','Test@1234'))
         _.isEmpty(articles) && dispatch(getAllArticles())
     }, [])
 

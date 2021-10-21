@@ -33,3 +33,20 @@ export const getAllCountriesFailed = () => {
         type: ActionTypes.GET_COUNTRIES_FAILED,
     }
 }
+export const getAllStatesRequest = (country) => {
+    return {
+        type: ActionTypes.GET_STATES_REQUEST,
+        payload:country
+    }
+}
+export const getAllStatesSuccess = (response) => {
+    return {
+        type: ActionTypes.GET_STATES_SUCCESS,
+        payload: response
+    }
+}
+export const getAllStatesFailed = () => {
+    return {
+        type: ActionTypes.GET_STATES_FAILED,
+    }
+}

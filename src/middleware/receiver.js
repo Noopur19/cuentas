@@ -5,7 +5,10 @@ import {
     getWUNumberFailed,
     getAllCountriesRequest,
     getAllCountriesSuccess,
-    getAllCountriesFailed
+    getAllCountriesFailed,
+    getAllStatesRequest,
+    getAllStatesSuccess,
+    getAllStatesFailed
 } from 'actions/receiver';
 
 export const postWUNumber = (wuNumber) => {
@@ -26,6 +29,17 @@ export const getAllCountries = ( ) => {
             dispatch(getAllCountriesSuccess(response.data))
         }).catch((error) => {
             dispatch(getAllCountriesFailed(error))
+        })
+    }
+}
+
+export const getAllStates = (country) => {
+    return (dispatch) => {
+        dispatch(getAllStatesRequest())
+        axiosInstance.get(`/incomm/wu/statecity?country=${ country }`).then((response) => {
+            dispatch(getAllStatesSuccess(response.data))
+        }).catch((error) => {
+            dispatch(getAllStatesFailed(error))
         })
     }
 }

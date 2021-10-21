@@ -6,10 +6,9 @@ const ProtectForm = (props) => {
 
     return (
         <div>
-            Protect Form
             <div>
 
-                { getParseHtmlArticle('es_wu_127') }
+                { getParseHtmlArticle('en_wu_119') }
                 <>
                     <button type='submit' className='btn btn-light'>Cancel</button>
                     <Link to='/receiver-details-form' className='btn btn-primary'>Next</Link>
