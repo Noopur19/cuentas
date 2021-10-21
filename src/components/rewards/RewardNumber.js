@@ -42,8 +42,9 @@ const RewardNumberPage = (props) => {
                     qualifying transactions.
                 </p>
                 <LinkText>No MyWU Rewards ? <Link className="link" bold color="orange" href="#!">Click here to register</Link></LinkText>
-                <Footer />
-                { isClicked ? <Button outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
+                <Footer >
+                    { isClicked ? <Button outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
+                </Footer>
             </form>
         </StyledContainer>
     )
