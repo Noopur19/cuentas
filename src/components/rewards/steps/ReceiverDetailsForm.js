@@ -5,13 +5,13 @@ import { renderField , renderSelectField } from 'utils/formUtils';
 import Button from 'components/shared/Button.styled'
 import Footer from 'components/shared/Footer'
 import { getAllCountries, getAllStates } from 'middleware/receiver'
-
+import _ from 'lodash'
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
-    const { handleSubmit,submitData } = props;
+    const { handleSubmit,submitData,receivers, initialize } = props;
     const countries = useSelector((state) => state.receiver.countries )
     const states = useSelector((state) => state.receiver.states )
-
+    const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
 
     console.log(states);
@@ -27,10 +27,12 @@ const ReceiverDetailsForm = (props) => {
     const getStatesOptions = () => {
         return states && states?.map((item) => ({ value: item.state, label: item.state } ))
     }
+    const isState = (value) => {
+        return value === 'Mexico' || value  === 'United States'
+    }
 
     const handleChangeCountry = (event) => {
-        console.log(event.value)
-        if(event.value === 'Mexico') {
+        if(isState(event.value)) {
             dispatch(getAllStates(event.value))
         }
     }
@@ -44,10 +46,37 @@ const ReceiverDetailsForm = (props) => {
         return state && state.city.map((item) => ({ value: item.city, label: item.city } ))
     }
 
+    const getReceivers = () =>{
+        return receivers && receivers.map((item) => ({ value: JSON.stringify(item), label: `${ item.name.first_name } ${ item.name.last_name }` }))
+        // receivers && receivers.map((item) => item)
+    }
+
+    const handleChangeReceiver = (event) => {
+        const data = event.value && JSON.parse(event.value)
+        initialize({
+            firstName: data?.name?.first_name,
+            lastName: data?.name?.last_name
+        })
+    }
     return (
         <div>
             <h3>Receiver Details</h3>
             <form onSubmit={ handleSubmit( submitData ) } >
+                { !_.isEmpty(receivers) &&
+                <>
+                    <p>Select Receiver</p>
+                    <Field
+                        name="receiver"
+                        placeholder="Receivers first name*"
+                        handleChange = { handleChangeReceiver }
+
+                        component={ renderSelectField }
+                        options={ getReceivers() }
+                    />
+                </>
+
+                }
+
                 <p>Enter new recipient</p>
                 <Field
                     name="firstName"
@@ -80,7 +109,7 @@ const ReceiverDetailsForm = (props) => {
                     options= { getCountriesOptions() }
                     component={ renderSelectField }
                 />
-                {!!states.length &&
+                {!!states.length && isState(form.values.country) &&
                 <>
                     <Field
                         name="state"
@@ -89,6 +118,7 @@ const ReceiverDetailsForm = (props) => {
                         options= { getStatesOptions() }
                         component={ renderSelectField }
                     />
+                    { form.values.state &&
                     <Field
                         name="city"
                         placeholder="City"
@@ -96,6 +126,7 @@ const ReceiverDetailsForm = (props) => {
                         options= { getCitiesOptions() }
                         component={ renderSelectField }
                     />
+                    }
                 </>
                 }
                 <Footer>

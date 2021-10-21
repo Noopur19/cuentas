@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { Router  } from 'react-router-dom';
 import browserHistory from 'utils/history';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
@@ -16,11 +16,11 @@ const store = configureStore();
 ReactDOM.render(
     <ThemeProvider theme={ mainTheme } >=
         <Provider store={ store }>
-            <BrowserRouter history={ browserHistory }>
+            <Router history={ browserHistory }>
                 <Suspense fallback={ '' }>
                     <App />
                 </Suspense>
-            </BrowserRouter>
+            </Router>
         </Provider>
     </ThemeProvider>,
     document.getElementById('root')

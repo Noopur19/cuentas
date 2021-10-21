@@ -10,11 +10,14 @@ import {
     getAllStatesSuccess,
     getAllStatesFailed
 } from 'actions/receiver';
+import history from 'utils/history'
+import { ROUTES } from 'constants/AppRoutes'
 
 export const postWUNumber = (wuNumber) => {
     return (dispatch) => {
         dispatch(getWUNumberRequest(wuNumber))
         axiosInstance.get(`incomm/wu/myWU?number=${ wuNumber }`).then((response) => {
+            history.push(ROUTES.PROTECT_FORM)
             dispatch(getWUNumberSuccess(response.data))
         }).catch((error) => {
             dispatch(getWUNumberFailed(error))

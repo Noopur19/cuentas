@@ -1,11 +1,13 @@
 import React, { useState  } from 'react'
 import PropTypes from 'prop-types';
 import { withRouter  } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 import ReceiverDetailsForm from  './steps/ReceiverDetailsForm'
 import TransactionDetailsForm from  './steps/TransactionDetailsForm'
 
 const RewardsStep = () => {
     const [ step, setStep ] = useState(1)
+    const receivers = useSelector((state) => state.receiver.receivers )
 
     const saveData = () =>{
     }
@@ -29,6 +31,7 @@ const RewardsStep = () => {
                 className="step-color-pallate"
                 saveData={ saveData }
                 submitData={ nextPage }
+                receivers={ receivers }
                 nextPage={ nextPage }
             />
         case 2:
