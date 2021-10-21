@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import articles from './articles';
-import wuNumber from './wuNumber';
+import receiver from './receiver';
 import login from './login';
 import { reducer as formReducer } from 'redux-form'
 
 const appReducer = combineReducers({
     articles: articles,
-    wuNumber: wuNumber,
+    receiver: receiver,
     form: formReducer,
     login: login
 });
