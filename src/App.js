@@ -5,7 +5,7 @@ import RewardNumberPage from 'components/rewards/RewardNumber';
 import ProtectForm from 'components/rewards/ProtectForm';
 import { PrivateRoute } from 'components/hoc/PrivateRoute';
 import { Layout } from 'components/shared/Layout';
-import ReceiverDetailsForm from 'components/rewards/ReceiverDetailsForm';
+import RewardsStep from 'components/rewards';
 
 function App() {
     return (
@@ -18,8 +18,8 @@ function App() {
                     component={ ProtectForm }
                 />
                 <PrivateRoute exact
-                    path={ ROUTES.RECEIVER_DETAILS_FORM }
-                    component={ ReceiverDetailsForm }  />
+                    path={ ROUTES.RECEIVER_DETAILS }
+                    component={ RewardsStep }  />
             </Switch>
         </Layout>
 

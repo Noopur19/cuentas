@@ -5,7 +5,7 @@
 */
 
 import React from 'react';
-
+import Select from 'react-select';
 export const Validations = (props) => {
     const {
         touched,
@@ -33,7 +33,6 @@ export const Validations = (props) => {
         </>
     );
 };
-
 const renderField = (props) => {
     const {
         input,
@@ -64,6 +63,44 @@ const renderField = (props) => {
     );
 };
 
+const renderSelectField = (props) => {
+    const {
+        input,
+        options,
+        selectedOption,
+        handleChange,
+        validationError,
+        meta: { touched, error, warning },
+        defaultWarning
+    } = props;
+
+    const changeValue=(event) => {
+        handleChange && handleChange(event)
+        input.onChange(event.value)
+    }
+
+    return (
+        <>
+            <Select
+                value={ selectedOption }
+                onChange={ changeValue }
+                options={ options || [] }
+            />
+
+            {defaultWarning && !input.value && <span className="default-warning"><i className="fas fa-exclamation-triangle"></i> {defaultWarning}</span>}
+            <Validations
+                props={ {
+                    touched,
+                    error,
+                    validationError,
+                    warning,
+                } }
+            />
+        </>
+    );
+};
+
 export {
     renderField,
+    renderSelectField
 };

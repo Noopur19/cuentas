@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
-import { postWUNumber } from 'middleware/wuNumber';
+import { postWUNumber } from 'middleware/receiver';
 import { Field, reduxForm } from 'redux-form';
 import { renderField } from 'utils/formUtils';
 import StyledContainer from 'components/shared/Container.styled'
