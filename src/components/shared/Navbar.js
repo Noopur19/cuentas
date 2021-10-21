@@ -1,13 +1,16 @@
 import * as React from 'react';
+import { NavbarTitle, Nav } from './Navbar.styled';
+import backIcon from '../../images/backIcon.svg'
 
 const Navbar = () => {
     return (
         <div>
-            <nav className="navbar navbar-dark bg-primary">
-                <span className="navbar-text">
-                    Send money with cuentas
-                </span>
-            </nav>
+            <Nav>
+                <img src={ backIcon } alt="back"/>
+                <NavbarTitle>Send money with cuentas
+                    <i>Powered by Western Union</i>
+                </NavbarTitle>
+            </Nav>
         </div>
     )
 }
