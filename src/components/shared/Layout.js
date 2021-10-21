@@ -1,6 +1,5 @@
 import React,{ useEffect } from 'react'
 import PropTypes from 'prop-types';
-import Footer from './Footer'
 import Navbar from './Navbar'
 import { getAllArticles } from 'middleware/articles';
 import { login } from 'middleware/login';
@@ -16,7 +15,6 @@ export const Layout = (props) => {
     return(<>
         <Navbar />
         {props.children }
-        <Footer />
     </>)
 }
 Layout.propTypes = {

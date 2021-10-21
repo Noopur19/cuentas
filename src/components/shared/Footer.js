@@ -1,14 +1,21 @@
 import * as React from 'react';
+import StyledContainer from './Container.styled'
+import Card from './Footer.styled'
+import LinkText from './LinkText.styled'
+import Link from './Link.styled'
+import footerLogo from '../../images/FooterHeading.svg'
 
 const Footer = () => {
     return (
         <>
-            <h3>Western Union</h3>
-            <ul className="list-group">
-                <li className="list-group-item-light">Western Union <a href="#!">Privacy Statement</a></li>
-                <li className="list-group-item-light">Western Union <a href="#!">Terms and Condition</a></li>
-                <li className="list-group-item-light">Western Union <a href="#!">FAQs</a></li>
-            </ul>
+            <Card>
+                <StyledContainer>
+                    <img className="mb-4" src={ footerLogo } alt="back"/>
+                    <LinkText>Western Union <Link className="link" bold color="orange" href="#!">Privacy Statement</Link></LinkText>
+                    <LinkText>Western Union <Link className="link" bold color="orange" href="#!">Terms and Condition</Link></LinkText>
+                    <LinkText>Western Union <Link className="link" bold color="orange" href="#!">FAQs</Link></LinkText>
+                </StyledContainer>
+            </Card>
         </>
     )
 }
