@@ -41,10 +41,9 @@ const RewardNumberPage = (props) => {
                     can enter your 9 digit My WU number to earn points on
                     qualifying transactions.
                 </p>
-                <LinkText>No MyWU Rewards ? <Link className="link" bold color="orange" href="#!">Click here to register</Link></LinkText>
-                <Footer >
-                    { isClicked ? <Button outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
-                </Footer>
+                <LinkText>No MyWU Rewards ? <Link className="link" bold color="orange" to="#!">Click here to register</Link></LinkText>
+                <Footer />
+                { isClicked ? <Button outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
             </form>
         </StyledContainer>
     )

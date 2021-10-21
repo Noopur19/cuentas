@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import browserHistory from 'utils/history';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store';
+import mainTheme from 'theme/mainTheme'
+import { ThemeProvider } from 'styled-components';
 
 import 'bootstrap/dist/css/bootstrap.css';
 const store = configureStore();
 
 ReactDOM.render(
-    <Provider store={ store }>
-        <React.StrictMode>
-            <Router history={ browserHistory }>
-                <App />
-            </Router>
-        </React.StrictMode>
-    </Provider>,
+    <ThemeProvider theme={ mainTheme } >=
+        <Provider store={ store }>
+            <BrowserRouter history={ browserHistory }>
+                <Suspense fallback={ '' }>
+                    <App />
+                </Suspense>
+            </BrowserRouter>
+        </Provider>
+    </ThemeProvider>,
     document.getElementById('root')
 );
 
