@@ -4,8 +4,8 @@ import Card from './Footer.styled'
 import LinkText from './LinkText.styled'
 import Link from './Link.styled'
 import footerLogo from '../../images/FooterHeading.svg'
-
-const Footer = () => {
+import PropTypes from 'prop-types'
+const Footer = (props) => {
     return (
         <>
             <Card>
@@ -16,8 +16,13 @@ const Footer = () => {
                     <LinkText>Western Union <Link className="link" bold color="orange" href="#!">FAQs</Link></LinkText>
                 </StyledContainer>
             </Card>
+            <div className='footer-button'>{props.children}</div>
         </>
     )
+}
+
+Footer.propTypes = {
+    children: PropTypes.children
 }
 
 export default Footer;
