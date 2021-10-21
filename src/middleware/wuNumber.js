@@ -10,8 +10,8 @@ export const postWUNumber = (wuNumber) => {
         dispatch(getWUNumberRequest(wuNumber))
         axiosInstance.get(`incomm/wu/myWU?number=${ wuNumber }`).then((response) => {
             dispatch(getWUNumberSuccess(response.data))
-        }).catch(() => {
-            dispatch(getWUNumberFailed())
+        }).catch((error) => {
+            dispatch(getWUNumberFailed(error))
         })
     }
 }
