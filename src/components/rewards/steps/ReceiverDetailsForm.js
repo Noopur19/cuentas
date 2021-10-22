@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { receiverFormSubmissionValidate as submissionValidate, receiverFormValidate as validate } from 'utils/validates'
 import { useDispatch, useSelector } from 'react-redux'
 import { renderField , renderSelectField } from 'utils/formUtils';
 import Button from 'components/shared/Button.styled'
@@ -11,15 +12,26 @@ import Link from '../../shared/Link.styled'
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
-    const { handleSubmit,submitData,receivers, initialize } = props;
+    const { handleSubmit,submitData,receivers,myWUNumber, initialize } = props;
     const countries = useSelector((state) => state.receiver.countries )
+    const statesLoading = useSelector((state) => state.receiver.statesLoading )
     const states = useSelector((state) => state.receiver.states )
     const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
-
+    const [ disableSubmit, setDisableSubmit ] = useState(false);
     useEffect(() => {
         dispatch(getAllCountries())
     },[])
+
+    useEffect(() => {
+        setDisableSubmit(statesLoading)
+    },[ statesLoading ])
+
+    const submit = (values) => {
+        if(submissionValidate(values,states)){
+            submitData(values)
+        }
+    }
 
     const getCountriesOptions = () => {
         return countries && countries.map((item) => ({ value: item.country, label: item.country } ))
@@ -29,14 +41,9 @@ const ReceiverDetailsForm = (props) => {
         return states && states?.map((item) => ({ value: item.state, label: item.state } ))
     }
 
-    const isState = (value) => {
-        return value === 'Mexico' || value  === 'United States'
-    }
-
     const handleChangeCountry = (event) => {
-        if(isState(event.value)) {
-            dispatch(getAllStates(event.value))
-        }
+        setDisableSubmit(true)
+        dispatch(getAllStates(event.value))
     }
 
     const handleChangeState = (event) => {
@@ -64,10 +71,10 @@ const ReceiverDetailsForm = (props) => {
     return (
         <div>
             <h3>Receiver Details</h3>
-            <form onSubmit={ handleSubmit( submitData ) } >
-                { !_.isEmpty(receivers) &&
+            <form onSubmit={ handleSubmit( submit ) } >
+                { (!_.isEmpty(receivers)) &&
                 <>
-                    <b>MY WU </b>
+                    <b>MY WU # { myWUNumber } </b>
                     <LinkText>View <Link className="link" bold color="textOrange" to="/transaction-history">Transaction History</Link></LinkText>
                     <p>Select your past receiver</p>
                     <Field
@@ -113,7 +120,7 @@ const ReceiverDetailsForm = (props) => {
                     options= { getCountriesOptions() }
                     component={ renderSelectField }
                 />
-                {!!states.length && isState(form.values.country) &&
+                {!!states.length  &&
                 <>
                     <Field
                         name="state"
@@ -135,7 +142,7 @@ const ReceiverDetailsForm = (props) => {
                 }
                 <Footer>
                     <Button >Back</Button>
-                    <Button outlined type='submit'>Continue</Button>
+                    <Button outlined disabled={ disableSubmit } type='submit'>Continue</Button>
                 </Footer>
             </form>
         </div>
@@ -145,5 +152,6 @@ const ReceiverDetailsForm = (props) => {
 export default reduxForm({
     form: 'receiver_details', // a unique identifier for this form
     destroyOnUnmount: false,
+    validate
 
 })(ReceiverDetailsForm);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { postWUNumber } from 'middleware/receiver';
 import { reduxForm, Field } from 'redux-form';
@@ -11,16 +11,26 @@ import Footer from '../shared/Footer'
 import RewardNumber from './RewardNumber.styles'
 import { Card } from '../shared/Footer.styled'
 import footerLogo from '../../images/FooterHeading.svg'
+import { setLocalData, getLocalData } from 'utils/cache';
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
-    const { handleSubmit } = props;
+    const { handleSubmit, initialize } = props;
+    const myWUNumber = getLocalData('myWUNumber')
     const onSubmit = (values) => {
         console.log(values.WUNumber);
         if (values.WUNumber) {
+            setLocalData('myWUNumber',values.WUNumber)
             dispatch(postWUNumber(values.WUNumber));
         }
     }
+
+    useEffect(() => {
+        initialize({
+            WUNumber: myWUNumber
+        })
+        myWUNumber && setIsClicked(true)
+    },[ myWUNumber ])
 
     return (
         <RewardNumber>

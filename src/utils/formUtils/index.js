@@ -41,15 +41,25 @@ const renderField = (props) => {
         placeholder,
         disabled,
         validationError,
+        handleChange,
         meta: { touched, error, warning },
         maxLength,
         rows,
         defaultWarning
     } = props;
 
+    const changeData = (event) => {
+        handleChange && handleChange(event.currentTarget.value)
+        input.onChange(event.currentTarget.value)
+    }
+
     return (
         <>
+<<<<<<< HEAD
             <Input rows={ rows } { ...input }  maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
+=======
+            <input rows={ rows } { ...input } onChange={ changeData }   maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
+>>>>>>> 71f8614... work on validation
 
             {defaultWarning && !input.value && <span className="default-warning"><i className="fas fa-exclamation-triangle"></i> {defaultWarning}</span>}
             <Validations

@@ -1,13 +1,29 @@
-import React, { useState  } from 'react'
+import React, { useState, useEffect  } from 'react'
 import PropTypes from 'prop-types';
 import { withRouter  } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import ReceiverDetailsForm from  './steps/ReceiverDetailsForm'
 import TransactionDetailsForm from  './steps/TransactionDetailsForm'
+import { getLocalData } from 'utils/cache'
+import { useDispatch } from 'react-redux'
+import { callMyNUNumber } from 'middleware/receiver'
 
 const RewardsStep = () => {
+    const dispatch = useDispatch()
     const [ step, setStep ] = useState(1)
+    const myWUNumber  = getLocalData('myWUNumber')
+
     const receivers = useSelector((state) => state.receiver.receivers )
+
+    const handleLoad = () => {
+        dispatch(callMyNUNumber(myWUNumber))
+    }
+    useEffect(() => {
+        window.addEventListener('load', handleLoad);
+        return () => {
+            window.removeEventListener('load', handleLoad);
+        }
+    },[])
 
     const saveData = () =>{
     }
@@ -28,6 +44,7 @@ const RewardsStep = () => {
         switch(step){
         case 1:
             return <ReceiverDetailsForm
+                myWUNumber={ myWUNumber }
                 className="step-color-pallate"
                 saveData={ saveData }
                 submitData={ nextPage }

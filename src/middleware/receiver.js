@@ -24,6 +24,16 @@ export const postWUNumber = (wuNumber) => {
         })
     }
 }
+export const callMyNUNumber = (wuNumber) => {
+    return (dispatch) => {
+        dispatch(getWUNumberRequest(wuNumber))
+        axiosInstance.get(`incomm/wu/myWU?number=${ wuNumber }`).then((response) => {
+            dispatch(getWUNumberSuccess(response.data))
+        }).catch((error) => {
+            dispatch(getWUNumberFailed(error))
+        })
+    }
+}
 
 export const getAllCountries = ( ) => {
     return (dispatch) => {

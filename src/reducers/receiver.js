@@ -4,6 +4,7 @@ const initialState = {
     isValid: false,
     receivers: [],
     countries: [],
+    statesLoading: false,
     states: [],
     cities: []
 }
@@ -23,11 +24,11 @@ export default (state = initialState, action) => {
     case ActionTypes.GET_COUNTRIES_FAILED:
         return { ...state, loading: false, isValid: false };
     case ActionTypes.GET_STATES_REQUEST:
-        return { ...state, loading: true };
+        return { ...state, loading: true, statesLoading:  true };
     case ActionTypes.GET_STATES_SUCCESS:
-        return { ...state,loading: false, states: action.payload };
+        return { ...state,loading: false, statesLoading: false,states: action.payload };
     case ActionTypes.GET_STATES_FAILED:
-        return { ...state, loading: false, isValid: false };
+        return { ...state, loading: false,statesLoading:false, isValid: false };
     default:
         return state;
     }
