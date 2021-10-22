@@ -1,6 +1,13 @@
 import { MESSAGE } from 'constants/app'
 import { SubmissionError } from 'redux-form'
 
+export const rewardNumberValidation = values => {
+    const errors = {};
+    if (!values.WUNumber) {
+        errors.WUNumber = MESSAGE.REQUIRE('WUNumber');
+    }
+    return errors;
+}
 export const receiverFormValidate = values => {
     const errors = {};
     if (!values.firstName) {

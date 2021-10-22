@@ -55,11 +55,7 @@ const renderField = (props) => {
 
     return (
         <>
-<<<<<<< HEAD
-            <Input rows={ rows } { ...input }  maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
-=======
-            <input rows={ rows } { ...input } onChange={ changeData }   maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
->>>>>>> 71f8614... work on validation
+            <Input rows={ rows } { ...input } onChange={ changeData }   maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
 
             {defaultWarning && !input.value && <span className="default-warning"><i className="fas fa-exclamation-triangle"></i> {defaultWarning}</span>}
             <Validations

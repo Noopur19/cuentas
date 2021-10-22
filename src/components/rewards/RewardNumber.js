@@ -12,6 +12,7 @@ import RewardNumber from './RewardNumber.styles'
 import { Card } from '../shared/Footer.styled'
 import footerLogo from '../../images/FooterHeading.svg'
 import { setLocalData, getLocalData } from 'utils/cache';
+import { rewardNumberValidation as validate } from 'utils/validates'
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
@@ -76,5 +77,6 @@ const RewardNumberPage = (props) => {
 }
 
 export default reduxForm({
-    form: 'simple', // a unique identifier for this form
+    form: 'rewardNumber', // a unique identifier for this form
+    validate
 })(RewardNumberPage);
