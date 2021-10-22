@@ -2,8 +2,9 @@ import { getLocalData } from './cache'
 import ReactHtmlParser from 'react-html-parser';
 
 export const getUser = () => {
-    return { }
+    return getLocalData('user') && JSON.parse(getLocalData('user'))
 }
+
 export const getToken = () => {
     return getLocalData('accessToken')
 }

@@ -17,8 +17,6 @@ const ReceiverDetailsForm = (props) => {
     const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
 
-    console.log(countries.filter((country) => country.currency));
-
     useEffect(() => {
         dispatch(getAllCountries())
     },[])
@@ -70,7 +68,7 @@ const ReceiverDetailsForm = (props) => {
                 { !_.isEmpty(receivers) &&
                 <>
                     <b>MY WU </b>
-                    <LinkText>View <Link className="link" bold color="textOrange" href="#!">Transaction History</Link></LinkText>
+                    <LinkText>View <Link className="link" bold color="textOrange" to="/transaction-history">Transaction History</Link></LinkText>
                     <p>Select your past receiver</p>
                     <Field
                         name="receiver"

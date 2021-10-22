@@ -6,6 +6,7 @@ import ProtectForm from 'components/rewards/ProtectForm';
 import { PrivateRoute } from 'components/hoc/PrivateRoute';
 import { Layout } from 'components/shared/Layout';
 import RewardsStep from 'components/rewards';
+import TransactionHistory from 'components/transactionDetails/transactionHistory';
 
 function App() {
     return (
@@ -17,9 +18,16 @@ function App() {
                     path={ ROUTES.PROTECT_FORM }
                     component={ ProtectForm }
                 />
-                <PrivateRoute exact
+                <PrivateRoute
+                    exact
                     path={ ROUTES.RECEIVER_DETAILS }
-                    component={ RewardsStep }  />
+                    component={ RewardsStep }
+                />
+                <PrivateRoute
+                    exact
+                    path={ ROUTES.TRANSACTION_HISTORY }
+                    component={ TransactionHistory }
+                />
             </Switch>
         </Layout>
 

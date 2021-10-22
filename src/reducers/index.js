@@ -2,13 +2,17 @@ import { combineReducers } from 'redux';
 import articles from './articles';
 import receiver from './receiver';
 import login from './login';
+import user from './user';
+import transactionHistory from './transactionDetails/transactionHistory';
 import { reducer as formReducer } from 'redux-form'
 
 const appReducer = combineReducers({
     articles: articles,
     receiver: receiver,
     form: formReducer,
-    login: login
+    login: login,
+    user: user,
+    transactionHistory: transactionHistory
 });
 
 const rootReducer = (state, action) => {
