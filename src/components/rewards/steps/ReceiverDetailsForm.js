@@ -6,6 +6,9 @@ import Button from 'components/shared/Button.styled'
 import Footer from 'components/shared/Footer'
 import { getAllCountries, getAllStates } from 'middleware/receiver'
 import _ from 'lodash'
+import LinkText from '../../shared/LinkText.styled'
+import Link from '../../shared/Link.styled'
+
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
     const { handleSubmit,submitData,receivers, initialize } = props;
@@ -14,7 +17,7 @@ const ReceiverDetailsForm = (props) => {
     const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
 
-    console.log(states);
+    console.log(countries.filter((country) => country.currency));
 
     useEffect(() => {
         dispatch(getAllCountries())
@@ -27,6 +30,7 @@ const ReceiverDetailsForm = (props) => {
     const getStatesOptions = () => {
         return states && states?.map((item) => ({ value: item.state, label: item.state } ))
     }
+
     const isState = (value) => {
         return value === 'Mexico' || value  === 'United States'
     }
@@ -53,6 +57,7 @@ const ReceiverDetailsForm = (props) => {
 
     const handleChangeReceiver = (event) => {
         const data = event.value && JSON.parse(event.value)
+        console.log(data);
         initialize({
             firstName: data?.name?.first_name,
             lastName: data?.name?.last_name
@@ -64,12 +69,13 @@ const ReceiverDetailsForm = (props) => {
             <form onSubmit={ handleSubmit( submitData ) } >
                 { !_.isEmpty(receivers) &&
                 <>
-                    <p>Select Receiver</p>
+                    <b>MY WU </b>
+                    <LinkText>View <Link className="link" bold color="textOrange" href="#!">Transaction History</Link></LinkText>
+                    <p>Select your past receiver</p>
                     <Field
                         name="receiver"
                         placeholder="Receivers first name*"
                         handleChange = { handleChangeReceiver }
-
                         component={ renderSelectField }
                         options={ getReceivers() }
                     />
@@ -130,10 +136,11 @@ const ReceiverDetailsForm = (props) => {
                 </>
                 }
                 <Footer>
-                    <Button outlined type='submit'>Next</Button>
+                    <Button >Back</Button>
+                    <Button outlined type='submit'>Continue</Button>
                 </Footer>
             </form>
-        </div >
+        </div>
     )
 }
 
