@@ -4,6 +4,7 @@
  * With some validations over these fields
 */
 
+import Input from 'components/shared/Input.styled';
 import React from 'react';
 import Select from 'react-select';
 export const Validations = (props) => {
@@ -48,7 +49,7 @@ const renderField = (props) => {
 
     return (
         <>
-            <input rows={ rows } { ...input }  maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
+            <Input rows={ rows } { ...input }  maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
 
             {defaultWarning && !input.value && <span className="default-warning"><i className="fas fa-exclamation-triangle"></i> {defaultWarning}</span>}
             <Validations

@@ -5,6 +5,12 @@ const LinkText = Styled.p`
     font-size: 16px;
     line-height: 150%;
     text-align: center;
-    color: #B3B9C2;
+    color: ${ props => props.theme.secondary };
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .link {
+        padding-left: 1px;
+    }
 `
 export default LinkText

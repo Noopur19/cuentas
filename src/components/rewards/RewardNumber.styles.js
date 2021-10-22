@@ -1,13 +1,56 @@
 import Styled from 'styled-components'
 
 const RewardNumber = Styled.div`
-    padding-top: 16px;
-    background: ${ props => props.theme.light };
     height: calc(100vh - 81px);
-    .description {
+    h3 {
+        padding: 20px 24px 0;
+        background: ${ props => props.theme.light };
+    }
+    .rewardWrapper {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 100px;
+        height: calc(100vh - 81px);
+        background: ${ props => props.theme.light };
+        button {
+            margin: 0 24px;
+            width: auto;
+        }
+        .register {
+            flex-wrap: wrap;
+            padding: 0 24px;
+        }
+        .description {
+            line-height: 21px;
+            margin-top: 0px;
+            margin-bottom: 12px;
+            padding: 0;
+        }
+    }
+    p {
+        margin-top: 17px;
+    }
+
+    
+    .wu-number {
+        background: ${ props => props.theme.white };
+        box-shadow: 0px 5px 10px rgba(102, 62, 51, 0.02), 0px 10px 20px rgba(8, 32, 160, 0.22), 0px 10px 30px rgba(102, 62, 51, 0.06);
+        border-radius: 24px;
+        padding: 22px 14px 22px 22px;
+        display: flex;
+        align-item: center;
+        justify-content: space-between;
+        margin: 0 24px;
+    }
+    .note-para {
+        font-weight: 500;
+        font-size: 13px;
         line-height: 21px;
-        margin-top: 29px;
-        margin-bottom: 28px;
+        color: ${ props => props.theme.secondary };
+        margin: 0 0 0 15px;
+    }
+    .card-link {
+        text-align: center;
     }
 
 `

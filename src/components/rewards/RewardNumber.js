@@ -1,15 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
 import { postWUNumber } from 'middleware/receiver';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { renderField } from 'utils/formUtils';
-import StyledContainer from 'components/shared/Container.styled'
 import Button from '../shared/Button.styled'
 import Link from '../shared/Link.styled'
 import BorderTitle from '../shared/BorderTitle.styled'
 import LinkText from '../shared/LinkText.styled'
 import Footer from '../shared/Footer'
 import RewardNumber from './RewardNumber.styles'
+import { Card } from '../shared/Footer.styled'
+import footerLogo from '../../images/FooterHeading.svg'
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
@@ -23,33 +24,43 @@ const RewardNumberPage = (props) => {
 
     return (
         <RewardNumber>
-            <StyledContainer>
-                <BorderTitle> Have a MyWU Rewards Number?</BorderTitle>
-                {!isClicked && <Button onClick={ () => setIsClicked(true) }>Click here to enter</Button>}
-                <form onSubmit={ handleSubmit( onSubmit ) }>
+            <form onSubmit={ handleSubmit( onSubmit ) }>
+                <div className="rewardWrapper">
+                    <BorderTitle> Have a MyWU Rewards Number?</BorderTitle>
+                    {!isClicked && <Button onClick={ () => setIsClicked(true) }>Click here to enter</Button>}
                     {!!isClicked &&
-                    <>
-                        <Field
-                            name="WUNumber"
-                            maxLength={ 9 }
-                            component={ renderField }
-                            normalize={ val => (val || '').replace(/[^\d]/g, '') }
-                        />
-                        <p>Enter 9-digit My WU Number</p>
-                    </>
+                        <>
+                            <div className="wu-number">
+                                <Field
+                                    name="WUNumber"
+                                    maxLength={ 9 }
+                                    component={ renderField }
+                                    normalize={ val => (val || '').replace(/[^\d]/g, '') }
+                                />
+                                <p className="note-para">Enter 9-digit My WU Number</p>
+                            </div>
+                        </>
                     }
-                    <p className="description">
-                        If you are a Western Union My WU Member you
-                        can enter your 9 digit My WU number to earn points on
-                        qualifying transactions.
-                    </p>
-                    <LinkText>No MyWU Rewards ? <Link className="link" bold color="textOrange" href="#!">Click here to register</Link></LinkText>
+                    <LinkText className="register">No MyWU Rewards ? <Link className="link" bold color="textOrange" href="#!">Click here to register</Link></LinkText>
 
-                    <Footer>
-                        { isClicked ? <Button outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
-                    </Footer>
-                </form>
-            </StyledContainer>
+                    <Card>
+                        <p className="description">
+                            If you are a Western Union My WU Member you
+                            can enter your 9 digit My WU number to earn points on
+                            qualifying transactions.
+                        </p>
+                        <div className="card-link">
+                            <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
+                            <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Privacy Statement</Link></LinkText>
+                            <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Terms and Condition</Link></LinkText>
+                            <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">FAQs</Link></LinkText>
+                        </div>
+                    </Card>
+                </ div>
+                <Footer>
+                    { isClicked ? <Button outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
+                </Footer>
+            </form>
         </RewardNumber>
     )
 }

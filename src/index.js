@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 const store = configureStore();
 
 ReactDOM.render(
-    <ThemeProvider theme={ mainTheme } >=
+    <ThemeProvider theme={ mainTheme } >
         <Provider store={ store }>
             <Router history={ browserHistory }>
                 <Suspense fallback={ '' }>

@@ -1,13 +1,31 @@
+@font-face {
+  font-family: 'sf_pro_display';
+  src: url("./fonts/SFPRODISPLAYBLACKITALIC.OTF");
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'sf_pro_display';
+  src: url("./fonts/SFPRODISPLAYBOLD.OTF");
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'sf_pro_display';
+  src: url("./fonts/SFPRODISPLAYMEDIUM.OTF");
+  font-weight: medium;
+}
+@font-face {
+  font-family: 'sf_pro_display';
+  src: url("./fonts/SFPRODISPLAYREGULAR.OTF");
+  font-weight: regular;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'sf_pro_display',sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: normal;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'sf_pro_display', sans-serif;
 }

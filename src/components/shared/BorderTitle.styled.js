@@ -14,7 +14,7 @@ const BorderTitle = Styled.h3`
         background: #CECBDE;
         opacity: 0.5;
         height: 2px;
-        width: 60%;
+        width: 54%;
         display: inline-block;
 
     }
