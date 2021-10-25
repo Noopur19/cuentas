@@ -5,6 +5,7 @@ const initialState = {
     receivers: [],
     countries: [],
     statesLoading: false,
+    transferDetails: {},
     states: [],
     cities: []
 }
@@ -29,6 +30,8 @@ export default (state = initialState, action) => {
         return { ...state,loading: false, statesLoading: false,states: action.payload };
     case ActionTypes.GET_STATES_FAILED:
         return { ...state, loading: false,statesLoading:false, isValid: false };
+    case ActionTypes.POST_TRANSACTION_DETAILS:
+        return { ...state, loading: false, transferDetails: action.payload }
     default:
         return state;
     }

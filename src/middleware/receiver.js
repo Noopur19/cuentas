@@ -8,7 +8,11 @@ import {
     getAllCountriesFailed,
     getAllStatesRequest,
     getAllStatesSuccess,
-    getAllStatesFailed
+    getAllStatesFailed,
+
+    postTransactionDetailsRequest,
+    postTransactionDetailsSuccess,
+    postTransactionDetailsFailed
 } from 'actions/receiver';
 import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
@@ -53,6 +57,21 @@ export const getAllStates = (country) => {
             dispatch(getAllStatesSuccess(response.data))
         }).catch((error) => {
             dispatch(getAllStatesFailed(error))
+        })
+    }
+}
+
+export const postTransactionDetails = (data) => {
+    return(dispatch) => {
+        dispatch(postTransactionDetailsRequest())
+        axiosInstance.post('incomm/wu/feeinquiry',data,{
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            dispatch(postTransactionDetailsSuccess(response.data))
+        }).catch((error) => {
+            dispatch(postTransactionDetailsFailed(error))
         })
     }
 }

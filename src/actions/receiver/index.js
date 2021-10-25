@@ -50,3 +50,21 @@ export const getAllStatesFailed = () => {
         type: ActionTypes.GET_STATES_FAILED,
     }
 }
+
+export const postTransactionDetailsRequest = (country) => {
+    return {
+        type: ActionTypes.POST_TRANSACTION_DETAILS_REQUST,
+        payload:country
+    }
+}
+export const postTransactionDetailsSuccess = (response) => {
+    return {
+        type: ActionTypes.POST_TRANSACTION_DETAILS,
+        payload: response
+    }
+}
+export const postTransactionDetailsFailed = () => {
+    return {
+        type: ActionTypes.POST_TRANSACTION_DETAILS_FAILED,
+    }
+}

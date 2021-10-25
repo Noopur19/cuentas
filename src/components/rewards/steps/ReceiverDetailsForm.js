@@ -35,7 +35,7 @@ const ReceiverDetailsForm = (props) => {
     }
 
     const getCountriesOptions = () => {
-        return countries && countries.map((item) => ({ value: item.country, label: item.country } ))
+        return countries && countries.map((item) => ({ value: JSON.stringify(item), label: item.country } ))
     }
 
     const getStatesOptions = () => {
@@ -44,7 +44,10 @@ const ReceiverDetailsForm = (props) => {
 
     const handleChangeCountry = (event) => {
         setDisableSubmit(true)
-        dispatch(getAllStates(event.value))
+        if(event.value){
+            const obj = event.value && JSON.parse(event.value)
+            dispatch(getAllStates(obj.country))
+        }
     }
 
     const handleChangeState = (event) => {
@@ -63,10 +66,12 @@ const ReceiverDetailsForm = (props) => {
 
     const handleChangeReceiver = (event) => {
         const data = event.value && JSON.parse(event.value)
-        console.log(data);
+        const obj =  countries && countries.filter((item) => item.currency[ item?.currency?.length -1  ][ 'country_cd' ] === data.address.country_iso_code)
+        dispatch(getAllStates(obj[ 0 ].country))
         initialize({
             firstName: data?.name?.first_name,
-            lastName: data?.name?.last_name
+            lastName: data?.name?.last_name,
+            country: obj[ 0 ] && JSON.stringify(obj[ 0 ] )
         })
     }
     return (

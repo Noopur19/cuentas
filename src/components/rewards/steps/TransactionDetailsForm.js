@@ -1,44 +1,101 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
 import { renderField } from 'utils/formUtils';
-
+import { postTransactionDetails } from 'middleware/receiver'
 const TransactionDetailsForm = (props) => {
     console.log(props)
-    const { handleSubmit, submitData } = props;
+    const { handleSubmit, submitData, initialize } = props;
+    const dispatch = useDispatch()
     const userInfo = useSelector((state) => state.form.receiver_details)
 
+    const transferDetails = useSelector((state) => state.receiver.transferDetails)
+    const formValues = userInfo?.values || {}
+    const country  = formValues.country && JSON.parse(formValues.country)
+    const [ currencyChecked , setCurrencyChecked ] = useState(country?.currency && country?.currency[ 0 ].currency_cd)
+
+    const isUSD = () => {
+        return country?.currency && country?.currency[ 0 ].currency_cd === 'USD'
+    }
+
+    const transactionDetails = (currencyCd) => {
+        const data = {
+            transactionType: isUSD(country) ? 'WMN' : 'WMF',
+            amount: 1000,
+            destCurrency: currencyCd || country?.currency && country?.currency[ 0 ].currency_cd,
+            destCountry: country?.currency && country?.currency[ 0 ].country_cd
+        }
+        if(formValues?.state) data[ 'destState' ] = formValues?.state
+        if(formValues?.city) data[ 'destCity' ] = formValues?.city
+        dispatch(postTransactionDetails(data))
+    }
+    useEffect(() => {
+        transactionDetails()
+    },[])
+
+    const handleChangeRadio = ( value ) => {
+        setCurrencyChecked(value)
+        transactionDetails(value)
+    }
+
+    const handleChangeAmountCalculation = (value,type) => {
+        const serviceOption = transferDetails?.service_options?.service_option[ 0 ]
+        const exchangeRate = serviceOption?.payment_details.exchange_rate && parseFloat(serviceOption?.payment_details.exchange_rate)
+        debugger
+        if(type === 'USD'){
+            initialize({
+                amount: exchangeRate*parseFloat(value)
+            })
+        }else{
+            initialize({
+                amountUSD: parseFloat(value)/ exchangeRate
+            })
+        }
+    }
     return (
         <div>
             <h2>Transaction details</h2>
-            <h5>Final Reciever</h5>
+            <h5>Reciever information </h5>
             <div>Full name {`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</div>
-            <div>Payout country {userInfo.values.country || ''}</div>
-            <div>Payout city {userInfo.values.city || ''}</div>
-            <div>Payout state {userInfo.values.state || ''}</div>
+            <div>Payout country {country?.country || ''}</div>
+            {formValues.city && <div>Payout city {formValues.city || ''}</div>}
+            {formValues.state && <div>Payout state {formValues.state || ''}</div>}
 
             <h5>Your account information</h5>
             <b>Current Balance: </b>
 
             <h5>Payout currency</h5>
             <form onSubmit={ handleSubmit(submitData) } >
-                <label>
-                    <Field
-                        name="payoutCurrency"
-                        type="radio"
-                        component={ renderField }
-                    />
-                    Pesos
-                </label>
-                <label>
-                    <Field
-                        name="payoutCurrency"
-                        type="radio"
-                        component={ renderField }
-                    />
-                    US Dollar
-                </label>
+                { country?.currency && country?.currency.map((item, index) => {
+                    return( <label key={ index }>
+                        <Field
+                            name="payoutCurrency"
+                            type="radio"
+                            handleChange={ handleChangeRadio }
+                            value={ item.currency_cd }
+                            checked={ currencyChecked === item.currency_cd }
 
+                            component={ renderField }
+                        />
+                        { item.currency }
+                    </label>
+                    )
+                })}
+                <h5>Amount to send</h5>
+                <Field
+                    name="amountUSD"
+                    type="number"
+                    placeholder={ 'USD' }
+                    handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
+                    component={ renderField }
+                />to
+                <Field
+                    name="amount"
+                    type="number"
+                    placeholder={ currencyChecked }
+                    handleChange={ (value) => handleChangeAmountCalculation(value,'other') }
+                    component={ renderField }
+                />
                 <h5>Promotional Code</h5>
                 <Field
                     name="promoCode"
@@ -51,7 +108,7 @@ const TransactionDetailsForm = (props) => {
 }
 
 export default reduxForm({
-    form: 'transaction_details', // a unique identifier for this form
+    form: 'receiver_details', // a unique identifier for this form
     destroyOnUnmount: false,
 
 })(TransactionDetailsForm);
