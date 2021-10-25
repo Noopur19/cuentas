@@ -4,6 +4,7 @@ const mainTheme = {
     white : '#FFFFFF',
     light: '#F8F8FB',
     blue: '#255DC8',
+    darkblue: '#151c81',
     textBlack: '#030303',
     textLight: '#B3B9C2',
     textOrange: '#FFB701',

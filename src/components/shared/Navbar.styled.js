@@ -22,4 +22,7 @@ export const Nav = Styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 24px;
+    position: Fixed;
+    top:0;
+    border: 1px solid ${ (props) => props.theme.darkblue };
 `;

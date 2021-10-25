@@ -54,7 +54,7 @@ const RewardNumberPage = (props) => {
                     }
                     <LinkText className="register">No MyWU Rewards ? <Link className="link" bold color="textOrange" href="#!">Click here to register</Link></LinkText>
 
-                    <Card>
+                    <Card className="main-card">
                         <p className="description">
                             If you are a Western Union My WU Member you
                             can enter your 9 digit My WU number to earn points on

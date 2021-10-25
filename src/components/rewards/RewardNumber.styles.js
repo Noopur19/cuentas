@@ -9,9 +9,10 @@ const RewardNumber = Styled.div`
     .rewardWrapper {
         display: flex;
         flex-direction: column;
-        padding-bottom: 100px;
+        // padding-bottom: 100px;
         height: calc(100vh - 81px);
-        background: ${ props => props.theme.light };
+        background: ${ props => props.theme.light };    
+        padding-top: 81px;
         button {
             margin: 0 24px;
             width: auto;
@@ -25,6 +26,9 @@ const RewardNumber = Styled.div`
             margin-top: 0px;
             margin-bottom: 12px;
             padding: 0;
+        }
+        .main-card {
+            margin-bottom: 0;
         }
     }
     p {

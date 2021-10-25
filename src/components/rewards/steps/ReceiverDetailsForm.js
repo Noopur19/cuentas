@@ -9,6 +9,7 @@ import { getAllCountries, getAllStates } from 'middleware/receiver'
 import _ from 'lodash'
 import LinkText from '../../shared/LinkText.styled'
 import Link from '../../shared/Link.styled'
+import { Card } from '../../shared/Footer.styled'
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
@@ -69,83 +70,85 @@ const ReceiverDetailsForm = (props) => {
         })
     }
     return (
-        <div>
-            <h3>Receiver Details</h3>
-            <form onSubmit={ handleSubmit( submit ) } >
-                { (!_.isEmpty(receivers)) &&
-                <>
-                    <b>MY WU # { myWUNumber } </b>
-                    <LinkText>View <Link className="link" bold color="textOrange" to="/transaction-history">Transaction History</Link></LinkText>
-                    <p>Select your past receiver</p>
-                    <Field
-                        name="receiver"
-                        placeholder="Receivers first name*"
-                        handleChange = { handleChangeReceiver }
-                        component={ renderSelectField }
-                        options={ getReceivers() }
-                    />
-                </>
+        <Card>
+            <div>
+                <h3>Receiver Details</h3>
+                <form onSubmit={ handleSubmit( submit ) } >
+                    { (!_.isEmpty(receivers)) &&
+                    <>
+                        <b>MY WU # { myWUNumber } </b>
+                        <LinkText>View <Link className="link" bold color="textOrange" to="/transaction-history">Transaction History</Link></LinkText>
+                        <p>Select your past receiver</p>
+                        <Field
+                            name="receiver"
+                            placeholder="Receivers first name*"
+                            handleChange = { handleChangeReceiver }
+                            component={ renderSelectField }
+                            options={ getReceivers() }
+                        />
+                    </>
 
-                }
-
-                <p>Enter new recipient</p>
-                <Field
-                    name="firstName"
-                    type="text"
-                    placeholder="Receivers first name*"
-                    component={ renderField }
-                />
-                <Field
-                    name="middleName"
-                    type="text"
-                    placeholder="Receivers middle name"
-                    component={ renderField }
-                />
-                <Field
-                    name="lastName"
-                    type="text"
-                    placeholder="Receivers last name*"
-                    component={ renderField }
-                />
-                <Field
-                    name="email"
-                    type="email"
-                    placeholder="E-mail"
-                    component={ renderField }
-                />
-                <Field
-                    name="country"
-                    placeholder="Country"
-                    handleChange = { handleChangeCountry }
-                    options= { getCountriesOptions() }
-                    component={ renderSelectField }
-                />
-                {!!states.length  &&
-                <>
-                    <Field
-                        name="state"
-                        placeholder="State"
-                        handleChange = { handleChangeState }
-                        options= { getStatesOptions() }
-                        component={ renderSelectField }
-                    />
-                    { form.values.state &&
-                    <Field
-                        name="city"
-                        placeholder="City"
-                        handleChange = { null }
-                        options= { getCitiesOptions() }
-                        component={ renderSelectField }
-                    />
                     }
-                </>
-                }
-                <Footer>
-                    <Button >Back</Button>
-                    <Button outlined disabled={ disableSubmit } type='submit'>Continue</Button>
-                </Footer>
-            </form>
-        </div>
+
+                    <p>Enter new recipient</p>
+                    <Field
+                        name="firstName"
+                        type="text"
+                        placeholder="Receivers first name*"
+                        component={ renderField }
+                    />
+                    <Field
+                        name="middleName"
+                        type="text"
+                        placeholder="Receivers middle name"
+                        component={ renderField }
+                    />
+                    <Field
+                        name="lastName"
+                        type="text"
+                        placeholder="Receivers last name*"
+                        component={ renderField }
+                    />
+                    <Field
+                        name="email"
+                        type="email"
+                        placeholder="E-mail"
+                        component={ renderField }
+                    />
+                    <Field
+                        name="country"
+                        placeholder="Country"
+                        handleChange = { handleChangeCountry }
+                        options= { getCountriesOptions() }
+                        component={ renderSelectField }
+                    />
+                    {!!states.length  &&
+                    <>
+                        <Field
+                            name="state"
+                            placeholder="State"
+                            handleChange = { handleChangeState }
+                            options= { getStatesOptions() }
+                            component={ renderSelectField }
+                        />
+                        { form.values.state &&
+                        <Field
+                            name="city"
+                            placeholder="City"
+                            handleChange = { null }
+                            options= { getCitiesOptions() }
+                            component={ renderSelectField }
+                        />
+                        }
+                    </>
+                    }
+                    <Footer>
+                        <Button >Back</Button>
+                        <Button outlined disabled={ disableSubmit } type='submit'>Continue</Button>
+                    </Footer>
+                </form>
+            </div>
+        </Card>
     )
 }
 
