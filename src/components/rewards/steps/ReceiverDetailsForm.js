@@ -12,16 +12,19 @@ import Link from '../../shared/Link.styled'
 import { Card } from '../../shared/Footer.styled'
 import CardFooter from '../../shared/CardFooter'
 import BorderTitle from '../../shared/BorderTitle.styled'
+import { getLocalData } from 'utils/cache'
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
-    const { handleSubmit,submitData,receivers,myWUNumber, initialize } = props;
+    const { handleSubmit,receivers, initialize } = props;
     const countries = useSelector((state) => state.receiver.countries )
     const statesLoading = useSelector((state) => state.receiver.statesLoading )
     const states = useSelector((state) => state.receiver.states )
     const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
     const [ disableSubmit, setDisableSubmit ] = useState(false);
+    const myWUNumber  = getLocalData('myWUNumber')
+
     useEffect(() => {
         dispatch(getAllCountries())
     },[])

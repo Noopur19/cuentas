@@ -7,6 +7,7 @@ import { PrivateRoute } from 'components/hoc/PrivateRoute';
 import { Layout } from 'components/shared/Layout';
 import RewardsStep from 'components/rewards';
 import TransactionHistory from 'components/transactionDetails/transactionHistory';
+import TransactionHistoryDetails from 'components/transactionDetails/transactionHistory/view';
 
 function App() {
     return (
@@ -27,6 +28,11 @@ function App() {
                     exact
                     path={ ROUTES.TRANSACTION_HISTORY }
                     component={ TransactionHistory }
+                />
+                <PrivateRoute
+                    exact
+                    path={ ROUTES.TRANSACTION_HISTORY_DETAILS }
+                    component={ TransactionHistoryDetails }
                 />
             </Switch>
         </Layout>
