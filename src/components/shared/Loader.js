@@ -2,7 +2,7 @@ import * as React from 'react';
 import  Loader from '../shared/Loader.styled';
 import loaderIcon from '../../images/app_icon_gold.png'
 
-const Navbar = () => {
+const MainLoader = () => {
     return (
         <Loader className="loader">
             <img className="img-fluid" src={ loaderIcon } alt="loaderIcon"/>
@@ -10,4 +10,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+export default MainLoader;

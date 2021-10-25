@@ -33,7 +33,7 @@ const ProtectForm = (props) => {
                     </div>
                 </Card>
                 <Footer>
-                    <Button >Back</Button>
+                    <Button onClick={ () => history.goBack() } >Back</Button>
                     <Button outlined onClick={ () => onClickHandler() } type='submit'>Continue</Button>
                 </Footer>
             </div>
