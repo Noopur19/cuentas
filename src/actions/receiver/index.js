@@ -53,7 +53,7 @@ export const getAllStatesFailed = () => {
 
 export const postTransactionDetailsRequest = (country) => {
     return {
-        type: ActionTypes.POST_TRANSACTION_DETAILS_REQUST,
+        type: ActionTypes.POST_TRANSACTION_DETAILS_REQUEST,
         payload:country
     }
 }
