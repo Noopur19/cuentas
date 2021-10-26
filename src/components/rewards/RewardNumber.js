@@ -13,6 +13,8 @@ import { Card } from '../shared/Footer.styled'
 import CardFooter from '../shared/CardFooter'
 import { setLocalData, getLocalData } from 'utils/cache';
 import { rewardNumberValidation as validate } from 'utils/validates'
+import PropTypes from 'prop-types';
+
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
@@ -66,6 +68,10 @@ const RewardNumberPage = (props) => {
     )
 }
 
+RewardNumberPage.propTypes = {
+    handleSubmit: PropTypes.func,
+    initialize: PropTypes.object
+};
 export default reduxForm({
     form: 'rewardNumber', // a unique identifier for this form
     validate

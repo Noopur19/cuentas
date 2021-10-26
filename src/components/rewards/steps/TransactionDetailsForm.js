@@ -12,12 +12,13 @@ import BorderTitle from '../../shared/BorderTitle.styled'
 import Transaction from './TransactionDetailsForm.styled'
 import Vector from '../../../images/Vector.svg'
 import CardFooter from '../../shared/CardFooter'
+import PropTypes from 'prop-types';
 
 import { getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 const TransactionDetailsForm = (props) => {
     console.log(props)
-    const { handleSubmit, initialize , submitData } = props;
+    const { handleSubmit, initialize ,prevPage, submitData } = props;
     const dispatch = useDispatch()
     const userInfo = useSelector((state) => state.form.receiver_details)
 
@@ -165,7 +166,7 @@ const TransactionDetailsForm = (props) => {
                     {getParseHtmlArticle('en_wu_111')}
                     {getParseHtmlArticle('en_wu_114')}
                     <Footer>
-                        <Button >Back</Button>
+                        <Button onClick={ prevPage }>Back</Button>
                         <Button outlined type='submit'>Continue</Button>
                     </Footer>
                 </form>
@@ -174,7 +175,12 @@ const TransactionDetailsForm = (props) => {
 
     )
 }
-
+TransactionDetailsForm.propTypes = {
+    handleSubmit: PropTypes.func,
+    initialize: PropTypes.object,
+    prevPage: PropTypes.func,
+    submitData: PropTypes.func
+};
 export default reduxForm({
     form: 'receiver_details', // a unique identifier for this form
     destroyOnUnmount: false,

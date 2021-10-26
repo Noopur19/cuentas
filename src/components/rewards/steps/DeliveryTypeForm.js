@@ -6,10 +6,11 @@ import { Card } from '../../shared/Footer.styled'
 import Button from 'components/shared/Button.styled'
 import Footer from 'components/shared/Footer'
 import { getParseHtmlArticle } from 'utils/helpers'
+import PropTypes from 'prop-types';
 import { transactionDetailsValidate as validate } from 'utils/validates'
 const DelievryTypeForm = (props) => {
     console.log(props)
-    const { handleSubmit, initialize , submitData } = props;
+    const { handleSubmit, initialize , prevPage,submitData } = props;
     const dispatch = useDispatch()
     const userInfo = useSelector((state) => state.form.receiver_details)
     const transferDetails = useSelector((state) => state.receiver.transferDetails)
@@ -38,7 +39,7 @@ const DelievryTypeForm = (props) => {
 
                     {getParseHtmlArticle('en_wu_111')}
                     <Footer>
-                        <Button >Back</Button>
+                        <Button onClick={ prevPage } >Back</Button>
                         <Button outlined type='submit'>Continue</Button>
                     </Footer>
                 </form>
@@ -48,6 +49,12 @@ const DelievryTypeForm = (props) => {
     )
 }
 
+DelievryTypeForm.propTypes = {
+    handleSubmit: PropTypes.func,
+    initialize: PropTypes.object,
+    prevPage: PropTypes.func,
+    submitData: PropTypes.func
+};
 export default reduxForm({
     form: 'receiver_details', // a unique identifier for this form
     destroyOnUnmount: false,

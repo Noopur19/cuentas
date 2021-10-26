@@ -10,6 +10,8 @@ import { getLocalData } from 'utils/cache'
 import { useDispatch } from 'react-redux'
 import { callMyNUNumber } from 'middleware/receiver'
 import { getIncomeDetails } from 'middleware/user'
+import Steps from './steps.styles'
+
 const RewardsStep = () => {
     const dispatch = useDispatch()
     const [ step, setStep ] = useState(1)
@@ -76,9 +78,18 @@ const RewardsStep = () => {
         }
     }
     return(
-        <>
+        <Steps>
+            <div className="progress-wrapper">
+                <h3>Receiver Details</h3>
+                <ul className="progressbar">
+                    <li className="active">Progress</li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
             {handleView()}
-        </>
+        </Steps>
     )
 }
 RewardsStep.propTypes = {

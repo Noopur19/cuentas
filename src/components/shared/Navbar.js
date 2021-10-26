@@ -16,15 +16,6 @@ const Navbar = () => {
                 </NavbarTitle>
                 <div></div>
             </div>
-            <div className="progress-wrapper">
-                <h3>Receiver Details</h3>
-                <ul className="progressbar">
-                    <li className="active">Progress</li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
         </Nav>
     )
 }

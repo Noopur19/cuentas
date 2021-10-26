@@ -13,6 +13,7 @@ import { Card } from '../../shared/Footer.styled'
 import CardFooter from '../../shared/CardFooter'
 import BorderTitle from '../../shared/BorderTitle.styled'
 import { getLocalData } from 'utils/cache'
+import PropTypes from 'prop-types';
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
@@ -161,6 +162,13 @@ const ReceiverDetailsForm = (props) => {
         </Card>
     )
 }
+ReceiverDetailsForm.propTypes = {
+    handleSubmit: PropTypes.func,
+    initialize: PropTypes.object,
+    prevPage: PropTypes.func,
+    receivers: PropTypes.array,
+    submitData: PropTypes.func
+};
 
 export default reduxForm({
     form: 'receiver_details', // a unique identifier for this form
