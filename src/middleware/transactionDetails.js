@@ -2,9 +2,19 @@ import axiosInstance from 'services/api';
 import {
     getTransactionHistoryRequest,
     getTransactionHistorySuccess,
-    getTransactionHistoryFailed
+    getTransactionHistoryFailed,
+    postTransactionEnquiryRequest,
+    postTransactionEnquirySuccess,
+    postTransactionEnquiryFailed,
+    postSendEmailRequest,
+    postSendEmailSuccess,
+    postSendEmailFailed,
+    postCancelTransactionRequest,
+    postCancelTransactionSuccess,
+    postCancelTransactionFailed
 } from 'actions/transaction-details';
 import { getUser } from 'utils/helpers'
+import { INCOMM_HEADERS } from 'constants/app'
 
 export const getTransactionHistory = () => {
     const user = getUser()
@@ -15,6 +25,81 @@ export const getTransactionHistory = () => {
                 dispatch(getTransactionHistorySuccess(response.data))
             }).catch((error) => {
                 dispatch(getTransactionHistoryFailed(error))
+            })
+    }
+}
+
+export const postTransactionEnquiry = (receiver,sender,mtcn) => {
+    const receiverData = {
+        'receiver': {
+            'name': {
+                'first_name': receiver.name.first_name,
+                'last_name':  receiver.name.last_name
+            },
+            'address': {
+                'country_iso_code': receiver.address.country_iso_code
+            }
+        },
+        'mtcn': mtcn
+    }
+    const senderData = {
+        'receiver': {
+            'name': {
+                'first_name': sender.name.first_name,
+                'last_name':  sender.name.last_name
+            },
+            'address': {
+                'country_iso_code': sender.address.country_iso_code
+            }
+        },
+        'mtcn': mtcn
+    }
+    const errorText = 'E0203 TRANSACTION DOES NOT EXIST OR ACCOUNT NOT VALID'
+    return  (dispatch) => {
+        dispatch(postTransactionEnquiryRequest())
+        axiosInstance.post('incomm/wu/transaction/enquiry',receiverData,
+            { headers: INCOMM_HEADERS } )
+            .then((result) => {
+                dispatch(postTransactionEnquirySuccess(result.data))
+            }).catch((error) => {
+                if(error.response.data.result[ 0 ].cause.root.Envelope.Body.Fault.detail[ 'error-reply' ].error === errorText) {
+                    dispatch(postTransactionEnquiryRequest())
+                    axiosInstance.post('incomm/wu/transaction/enquiry',senderData,
+                        { headers: INCOMM_HEADERS })
+                        .then((result) => {
+                            dispatch(postTransactionEnquirySuccess(result.data))
+                        }).catch((err) => {
+                            dispatch(postTransactionEnquiryFailed(err))
+                        })
+                } else {
+                    dispatch(postTransactionEnquiryFailed(error))
+                }
+            })
+    }
+}
+
+export const postSendEmail = (invoiceId) => {
+    return (dispatch) => {
+        dispatch(postSendEmailRequest())
+        axiosInstance.post('incomm/wu/sms/sendEmail', {
+            invoiceId
+        }, { headers: INCOMM_HEADERS })
+            .then((response) => {
+                dispatch(postSendEmailSuccess(response.data))
+            }).catch((error) => {
+                dispatch(postSendEmailFailed(error))
+            })
+    }
+}
+
+export const postCancelTransaction = (data) => {
+    return (dispatch) => {
+        dispatch(postCancelTransactionRequest())
+        axiosInstance.post('incomm/wu/cancel', data, { headers: INCOMM_HEADERS })
+            .then((response) => {
+                dispatch(postCancelTransactionSuccess(response.data))
+            }).catch((error) => {
+                dispatch(postCancelTransactionFailed(error))
             })
     }
 }

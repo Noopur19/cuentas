@@ -6,6 +6,7 @@ const TransactionDetails = (props) => {
     const { transactions } = props;
     const parsedServiceType = JSON.parse(transactions.additional_properties.wu_product.value)
     const paymentDetails = JSON.parse(transactions.additional_properties.payment_details.value)
+    const dfDetails = JSON.parse(transactions.additional_properties.df_details.value)
 
     const getTransferFee = () => {
         const fee = _.get(paymentDetails,'fees')
@@ -34,6 +35,11 @@ const TransactionDetails = (props) => {
         return parseInt(principalAmount) > 0 ? parseInt(principalAmount) / 100 : 0;
     };
 
+    const getOtherFee = () => {
+        const otherFee = _.get(dfDetails,'pay_side_charge');
+        return parseInt(otherFee) > 0 ? parseInt(otherFee) / 100 : 0;
+    };
+
     const getPromotionalDiscount = () => {
         const promotionDiscount = _.get(paymentDetails,
             'promotion.discount', 0);
@@ -49,21 +55,22 @@ const TransactionDetails = (props) => {
         return (
             getPrincipalAmount() +
             getTransferFee() +
-            getTotalTaxes() -
+            getTotalTaxes() +
+            getOtherFee() -
             getPromotionalDiscount()
         );
     };
 
     return (
         <div>
-            <h3>Transaction Details -------------</h3>
+            <h3>Transaction Details ----------</h3>
             <div>Service type----{parsedServiceType.name} </div>
             <div>Transfer amount---- {getPrincipalAmount()}</div>
             <div>Transfer fees---- +{getTransferFee()}</div>
             <div>Additional fees----</div>
             <div>Transfer taxes---- +{getTotalTaxes()}</div>
             <div>Promotional discount----  -{getPromotionalDiscount()}</div>
-            <div>Other fees</div>
+            <div>Other fees---- {getOtherFee()}</div>
             <h4>Total to Final Receiver {getPrincipalAmount()}</h4>
             <h4>Total -{getTotalAmount()}</h4>
             <div>----------------------------</div>

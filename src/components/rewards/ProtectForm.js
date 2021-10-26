@@ -8,8 +8,7 @@ import LinkText from '../shared/LinkText.styled'
 import Link from '../shared/Link.styled'
 import footerLogo from '../../images/FooterHeading.svg'
 
-const ProtectForm = (props) => {
-    console.log(props)
+const ProtectForm = () => {
 
     const onClickHandler = () => {
         history.push('/receiver-details')

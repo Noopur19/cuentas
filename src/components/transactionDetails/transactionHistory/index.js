@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getTransactionHistory } from 'middleware/transactionDetails'
 import history from 'utils/history'
 import moment from 'moment'
+import { Card } from '../../shared/Footer.styled'
 
 const TransactionHistory = () => {
     const dispatch = useDispatch()
@@ -37,10 +38,12 @@ const TransactionHistory = () => {
     }, [])
 
     return (
-        <div>
-            <h3>My WU History</h3>
-            {renderCard()}
-        </div>
+        <Card>
+            <div>
+                <h3>My WU History</h3>
+                {renderCard()}
+            </div>
+        </Card>
     )
 }
 

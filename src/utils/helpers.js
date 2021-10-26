@@ -23,3 +23,21 @@ export const getParseHtmlArticle = (id) => {
     const article = getArticle(id)
     return article?.body ? ReactHtmlParser(article?.body) : null
 }
+
+export const getTransactionStatus = (status) => {
+    switch (status) {
+    case 'AVAILABLE':
+        return 'Cancel'
+    case 'CANCELLED':
+        return 'Cancelled';
+    case 'PAID':
+        return 'Refunded';
+    default:
+        return '';
+    }
+}
+
+export const getCountryName = (countries, code) => {
+    const country = countries.filter((item) => item.currency[ 0 ].country_cd === code)
+    return country && country[ 0 ].country
+}
