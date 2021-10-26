@@ -30,16 +30,14 @@ function App() {
                     path={ ROUTES.TRANSACTION_HISTORY }
                     component={ TransactionHistory }
                 />
-<<<<<<< HEAD
                 <PrivateRoute
                     exact
                     path={ ROUTES.TRANSACTION_HISTORY_DETAILS }
                     component={ TransactionHistoryDetails }
-=======
+                />
                 <Route exact
                     path={ ROUTES.LANDING_PAGE }
                     component={ LandingPage }
->>>>>>> 2450a04... working transaction details screen
                 />
             </Switch>
         </Layout>

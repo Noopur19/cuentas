@@ -16,7 +16,7 @@ import { getLocalData } from 'utils/cache'
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
-    const { handleSubmit,receivers, initialize } = props;
+    const { handleSubmit,receivers, initialize, submitData } = props;
     const countries = useSelector((state) => state.receiver.countries )
     const statesLoading = useSelector((state) => state.receiver.statesLoading )
     const states = useSelector((state) => state.receiver.states )

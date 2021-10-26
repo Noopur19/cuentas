@@ -9,6 +9,7 @@ import {
 
 } from 'actions/user';
 import { setLocalDataJSON } from 'utils/cache'
+import { INCOMM_HEADERS } from 'constants/app'
 
 export const getUserDetails = () => {
     return (dispatch) => {
@@ -25,7 +26,11 @@ export const getUserDetails = () => {
 export const getIncomeDetails = (incomeId) => {
     return (dispatch) => {
         dispatch(getIncomeDetailsRequest())
-        axiosInstance.get(`/incomm/customers/${ incomeId }/account`).then((response) => {
+        axiosInstance.get(`/incomm/customers/${ incomeId }/account`,
+            {
+                headers: INCOMM_HEADERS
+            }
+        ).then((response) => {
             dispatch(getIncomeDetailsSuccess(response.data))
         }).catch((error) => {
             dispatch(getIncomeDetailsFailed(error))
