@@ -11,6 +11,12 @@ export default (state = initialState, action) => {
         return { ...state,loading: false };
     case ActionTypes.GET_USER_FAILED:
         return { ...state, loading: false };
+    case ActionTypes.GET_INCOME_DETAILS_REQUEST:
+        return { ...state, loading: true };
+    case ActionTypes.GET_INCOME_DETAILS_SUCCESS:
+        return { ...state, loading: false };
+    case ActionTypes.GET_INCOME_DETAILS_FAILED:
+        return { ...state, loading: false };
     default:
         return state;
     }

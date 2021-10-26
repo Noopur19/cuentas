@@ -6,6 +6,7 @@ import ProtectForm from 'components/rewards/ProtectForm';
 import { PrivateRoute } from 'components/hoc/PrivateRoute';
 import { Layout } from 'components/shared/Layout';
 import RewardsStep from 'components/rewards';
+import LandingPage  from 'components/landingPage';
 import TransactionHistory from 'components/transactionDetails/transactionHistory';
 import TransactionHistoryDetails from 'components/transactionDetails/transactionHistory/view';
 
@@ -29,10 +30,16 @@ function App() {
                     path={ ROUTES.TRANSACTION_HISTORY }
                     component={ TransactionHistory }
                 />
+<<<<<<< HEAD
                 <PrivateRoute
                     exact
                     path={ ROUTES.TRANSACTION_HISTORY_DETAILS }
                     component={ TransactionHistoryDetails }
+=======
+                <Route exact
+                    path={ ROUTES.LANDING_PAGE }
+                    component={ LandingPage }
+>>>>>>> 2450a04... working transaction details screen
                 />
             </Switch>
         </Layout>

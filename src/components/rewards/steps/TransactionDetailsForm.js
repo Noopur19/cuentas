@@ -13,6 +13,8 @@ import Transaction from './TransactionDetailsForm.styled'
 import Vector from '../../../images/Vector.svg'
 import CardFooter from '../../shared/CardFooter'
 
+import { getParseHtmlArticle } from 'utils/helpers'
+import { transactionDetailsValidate as validate } from 'utils/validates'
 const TransactionDetailsForm = (props) => {
     console.log(props)
     const { handleSubmit, initialize , submitData } = props;
@@ -73,11 +75,12 @@ const TransactionDetailsForm = (props) => {
     const saveData = (values) => {
         const data = {
             transactionType: values.payoutCurrency === 'USD' ? 'WMN' : 'WMF',
-            amount: values.amount && parseFloat(values.amount),
-            destCurrency: values.payoutCurrency,
+            amount: values.amountUSD && parseFloat(values.amountUSD),
+            destCurrency: values.payoutCurrency || currencyChecked,
             destCountry: country?.currency && country?.currency[ 0 ].country_cd,
             promoCode: values?.promoCode
         }
+        debugger
         dispatch(postTransactionDetails(data))
         submitData(data)
     }
@@ -140,7 +143,7 @@ const TransactionDetailsForm = (props) => {
                             </div>
                             <p className="text-center"><b>Exchange Rate: 1 USD = {transferDetails?.service_options?.service_option[ 0 ]?.payment_details.exchange_rate  } { currencyChecked }</b></p>
                         </> :  <Field
-                            name="amount"
+                            name="amountUSD"
                             type="number"
                             placeholder={ currencyChecked }
                             component={ renderField }
@@ -155,6 +158,10 @@ const TransactionDetailsForm = (props) => {
                         component={ renderField }
                     />
                     <CardFooter></CardFooter>
+                    {getParseHtmlArticle('en_wu_109')}
+                    {getParseHtmlArticle('en_wu_115')}
+                    {getParseHtmlArticle('en_wu_111')}
+                    {getParseHtmlArticle('en_wu_114')}
                     <Footer>
                         <Button >Back</Button>
                         <Button outlined type='submit'>Continue</Button>
@@ -169,5 +176,6 @@ const TransactionDetailsForm = (props) => {
 export default reduxForm({
     form: 'receiver_details', // a unique identifier for this form
     destroyOnUnmount: false,
+    validate
 
 })(TransactionDetailsForm);

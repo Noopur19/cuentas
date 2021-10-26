@@ -69,8 +69,10 @@ export const postTransactionDetails = (data) => {
                 'Content-Type': 'application/json',
             }
         }).then((response) => {
+            debugger
             dispatch(postTransactionDetailsSuccess(response.data))
         }).catch((error) => {
+            debugger
             dispatch(postTransactionDetailsFailed(error))
         })
     }

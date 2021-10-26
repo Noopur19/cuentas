@@ -16,3 +16,19 @@ export const getUserFailed = () => {
         type: ActionTypes.GET_USER_FAILED,
     }
 }
+export const getIncomeDetailsRequest = () => {
+    return {
+        type: ActionTypes.GET_INCOME_DETAILS_REQUEST
+    }
+}
+export const getIncomeDetailsSuccess = (response) => {
+    return {
+        type: ActionTypes.GET_INCOME_DETAILS_SUCCESS,
+        payload: response
+    }
+}
+export const getIncomeDetailsFailed = () => {
+    return {
+        type: ActionTypes.GET_INCOME_DETAILS_FAILED,
+    }
+}

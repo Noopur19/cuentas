@@ -2,7 +2,11 @@ import axiosInstance from 'services/api';
 import {
     getUserRequest,
     getUserSuccess,
-    getUserFailed
+    getUserFailed,
+    getIncomeDetailsRequest,
+    getIncomeDetailsSuccess,
+    getIncomeDetailsFailed
+
 } from 'actions/user';
 import { setLocalDataJSON } from 'utils/cache'
 
@@ -14,6 +18,17 @@ export const getUserDetails = () => {
             dispatch(getUserSuccess(response.data))
         }).catch((error) => {
             dispatch(getUserFailed(error))
+        })
+    }
+}
+
+export const getIncomeDetails = (incomeId) => {
+    return (dispatch) => {
+        dispatch(getIncomeDetailsRequest())
+        axiosInstance.get(`/incomm/customers/${ incomeId }/account`).then((response) => {
+            dispatch(getIncomeDetailsSuccess(response.data))
+        }).catch((error) => {
+            dispatch(getIncomeDetailsFailed(error))
         })
     }
 }

@@ -4,6 +4,8 @@ import { withRouter  } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import ReceiverDetailsForm from  './steps/ReceiverDetailsForm'
 import TransactionDetailsForm from  './steps/TransactionDetailsForm'
+import DeliveryTypeForm from  './steps/DeliveryTypeForm'
+
 import { getLocalData } from 'utils/cache'
 import { useDispatch } from 'react-redux'
 import { callMyNUNumber } from 'middleware/receiver'
@@ -16,7 +18,7 @@ const RewardsStep = () => {
     const receivers = useSelector((state) => state.receiver.receivers )
 
     const handleLoad = () => {
-        dispatch(callMyNUNumber(myWUNumber))
+        myWUNumber && dispatch(callMyNUNumber(myWUNumber))
     }
     useEffect(() => {
         window.addEventListener('load', handleLoad);
@@ -32,9 +34,9 @@ const RewardsStep = () => {
         saveData()
     }
 
-    // const prevPage = () =>  {
-    //     setStep(step-1)
-    // }
+    const prevPage = () =>  {
+        setStep(step-1)
+    }
 
     // const finalSubmit = () =>{
 
@@ -55,11 +57,18 @@ const RewardsStep = () => {
             return <TransactionDetailsForm
                 className="step-color-pallate"
                 saveData={ saveData }
+                prevPage={ prevPage }
                 submitData={ nextPage }
                 nextPage={ nextPage }
             />
         case 3:
-            return null
+            return  <DeliveryTypeForm
+                className="step-color-pallate"
+                saveData={ saveData }
+                prevPage={ prevPage }
+                submitData={ nextPage }
+                nextPage={ nextPage }
+            />
         default:
             return null
         }

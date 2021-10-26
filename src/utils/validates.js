@@ -41,3 +41,14 @@ export const receiverFormSubmissionValidate = (values, states) => {
     }
     return true;
 }
+export const transactionDetailsValidate = (values) => {
+    const errors = {};
+    if (!values.amount) {
+        errors.amount = MESSAGE.REQUIRE('amount');
+    }
+    if (!values.amountUSD) {
+        errors.amountUSD = MESSAGE.REQUIRE('amount');
+    }
+
+    return errors;
+}

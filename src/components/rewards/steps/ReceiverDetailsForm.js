@@ -61,7 +61,7 @@ const ReceiverDetailsForm = (props) => {
     }
 
     const getCitiesOptions = () => {
-        return state && state.city.map((item) => ({ value: item.city, label: item.city } ))
+        return state && state.city && state.city.map((item) => ({ value: item.city, label: item.city } )) || []
     }
 
     const getReceivers = () =>{
@@ -131,7 +131,7 @@ const ReceiverDetailsForm = (props) => {
                         options= { getCountriesOptions() }
                         component={ renderSelectField }
                     />
-                    {!!states.length  &&
+                    {!!states.length  && states[ 0 ].city &&
                     <>
                         <Field
                             name="state"
