@@ -20,7 +20,7 @@ export const login = (username, password) => {
         }))
         if(result.status === 200){
             setLocalData('accessToken', result.data.access_token)
-            dispatch(getUserDetails())
+            await dispatch(getUserDetails())
             dispatch(loginSuccess(result))
         }else{
             dispatch(loginFailed(result))

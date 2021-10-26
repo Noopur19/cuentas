@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import { getToken, getUser } from 'utils/helpers'
+import { getUser } from 'utils/helpers'
 import { login } from 'middleware/login';
 import { getIncomeDetails } from 'middleware/user'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,9 +13,11 @@ const LandingPage = (props) => {
     const articles = useSelector((state) => state.articles.articles)
 
     useEffect(async()=>{
-        !getToken() && await dispatch(login('cuentasalert22@mailinator.com','Test@1234'))
+        //await dispatch(login('cuentasalert22@mailinator.com','Test@1234'))
+        await dispatch(login('tk2041@gmail.com','Secure@123'))
         _.isEmpty(articles) && dispatch(getAllArticles())
-        dispatch(getIncomeDetails(getUser()?.additional_properties?.incomm_customer_id?.value))
+        const incomeId = getUser()?.additional_properties?.incomm_customer_id?.value
+        dispatch(getIncomeDetails(incomeId))
         history.push('/')
     },[])
 

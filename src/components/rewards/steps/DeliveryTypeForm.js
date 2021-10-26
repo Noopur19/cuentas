@@ -20,7 +20,6 @@ const DelievryTypeForm = (props) => {
     }
     const getStatesOptions = () => {
         const serviceOptions = transferDetails.service_options.service_option
-        debugger
         return serviceOptions.map((item) => ({ value: JSON.stringify(item.wu_product), label: item.wu_product.name }))
     }
     return (

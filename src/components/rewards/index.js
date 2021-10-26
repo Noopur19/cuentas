@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux'
 import ReceiverDetailsForm from  './steps/ReceiverDetailsForm'
 import TransactionDetailsForm from  './steps/TransactionDetailsForm'
 import DeliveryTypeForm from  './steps/DeliveryTypeForm'
-
+import { getUser } from 'utils/helpers'
 import { getLocalData } from 'utils/cache'
 import { useDispatch } from 'react-redux'
 import { callMyNUNumber } from 'middleware/receiver'
-
+import { getIncomeDetails } from 'middleware/user'
 const RewardsStep = () => {
     const dispatch = useDispatch()
     const [ step, setStep ] = useState(1)
@@ -19,6 +19,8 @@ const RewardsStep = () => {
 
     const handleLoad = () => {
         myWUNumber && dispatch(callMyNUNumber(myWUNumber))
+        const incomeId = getUser()?.additional_properties?.incomm_customer_id?.value
+        dispatch(getIncomeDetails(incomeId))
     }
     useEffect(() => {
         window.addEventListener('load', handleLoad);

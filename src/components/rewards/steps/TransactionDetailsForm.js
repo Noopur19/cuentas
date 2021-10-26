@@ -22,6 +22,9 @@ const TransactionDetailsForm = (props) => {
     const userInfo = useSelector((state) => state.form.receiver_details)
 
     const transferDetails = useSelector((state) => state.receiver.transferDetails)
+    const accountDetail = useSelector((state) => state.user.accountDetail)
+    const availBail = accountDetail?.spendingAccount?.availableBalance
+
     const formValues = userInfo?.values || {}
     const country  = formValues.country && JSON.parse(formValues.country)
     const [ currencyChecked , setCurrencyChecked ] = useState(country?.currency && country?.currency[ 0 ].currency_cd)
@@ -80,7 +83,6 @@ const TransactionDetailsForm = (props) => {
             destCountry: country?.currency && country?.currency[ 0 ].country_cd,
             promoCode: values?.promoCode
         }
-        debugger
         dispatch(postTransactionDetails(data))
         submitData(data)
     }
@@ -101,7 +103,7 @@ const TransactionDetailsForm = (props) => {
                 {formValues.state && <div>Payout state {formValues.state || ''}</div>}
 
                 <BorderTitle smallText className="mt-4">Your account information</BorderTitle>
-                <p className="text-center"><b>Current Balance: </b> </p>
+                <p className="text-center"><b>Current Balance: { availBail }</b> </p>
 
                 <BorderTitle smallText className="mt-4">Payout currency</BorderTitle>
                 <form onSubmit={ handleSubmit(saveData) } >
