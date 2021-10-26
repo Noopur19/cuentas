@@ -1,4 +1,4 @@
-import Styled from "styled-components";
+import Styled from 'styled-components';
 
 const Loader = Styled.div`  
     position: absolute;
@@ -10,6 +10,7 @@ const Loader = Styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9;
     img {
     width: 50px;
     border-radius: 50px;

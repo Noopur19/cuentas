@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
@@ -7,6 +8,10 @@ import { Card } from '../../shared/Footer.styled'
 import _ from 'lodash'
 import Button from 'components/shared/Button.styled'
 import Footer from 'components/shared/Footer'
+import BorderTitle from '../../shared/BorderTitle.styled'
+import Transaction from './TransactionDetailsForm.styled'
+import Vector from '../../../images/Vector.svg'
+import CardFooter from '../../shared/CardFooter'
 
 const TransactionDetailsForm = (props) => {
     console.log(props)
@@ -79,52 +84,61 @@ const TransactionDetailsForm = (props) => {
     return (
         <Card>
 
-            <div>
-                <h2>Transaction details</h2>
-                <h5>Reciever information </h5>
-                <div>Full name {`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</div>
-                <div>Payout country {country?.country || ''}</div>
+            <Transaction className="transaction">
+                <BorderTitle smallText>Reciever information </BorderTitle>
+                <div className="d-flex justify-content-between">
+                    <span>Full name</span>
+                    <span> {`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</span>
+                </div>
+                <div className="d-flex justify-content-between">
+                    <span>Payout country</span>
+                    <span> {country?.country || ''}</span>
+                </div>
                 {formValues.city && <div>Payout city {formValues.city || ''}</div>}
                 {formValues.state && <div>Payout state {formValues.state || ''}</div>}
 
-                <h5>Your account information</h5>
-                <b>Current Balance: </b>
+                <BorderTitle smallText className="mt-4">Your account information</BorderTitle>
+                <p className="text-center"><b>Current Balance: </b> </p>
 
-                <h5>Payout currency</h5>
+                <BorderTitle smallText className="mt-4">Payout currency</BorderTitle>
                 <form onSubmit={ handleSubmit(saveData) } >
                     { country?.currency && country?.currency.map((item, index) => {
-                        return( <label key={ index }>
-                            <Field
-                                name="payoutCurrency"
-                                type="radio"
-                                handleChange={ handleChangeRadio }
-                                value={ item.currency_cd }
-                                checked={ currencyChecked === item.currency_cd }
-
-                                component={ renderField }
-                            />
-                            { item.currency }
-                        </label>
+                        return(
+                            <div className="radio-wrapper">
+                                <label key={ index }> { item.currency }</label>
+                                <Field
+                                    name="payoutCurrency"
+                                    type="radio"
+                                    handleChange={ handleChangeRadio }
+                                    value={ item.currency_cd }
+                                    checked={ currencyChecked === item.currency_cd }
+                                    component={ renderField }
+                                />
+                            </div>
                         )
                     })}
-                    <h5>Amount to send</h5>
+                    <BorderTitle smallText className="mt-4">Amount to send</BorderTitle>
                     { (formValues?.payoutCurrency || currencyChecked) !== 'USD' ?
                         <>
-                            <Field
-                                name="amountUSD"
-                                type="number"
-                                placeholder={ 'USD' }
-                                handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
-                                component={ renderField }
-                            />to
-                            <Field
-                                name="amount"
-                                type="number"
-                                placeholder={ currencyChecked }
-                                handleChange={ (value) => handleChangeAmountCalculation(value,'other') }
-                                component={ renderField }
-                            />
-                            <p>Exchange Rate: 1 USD = {transferDetails?.service_options?.service_option[ 0 ]?.payment_details.exchange_rate  } { currencyChecked } </p>
+                            <div className="converter d-flex justify-content-between">
+                                <Field
+                                    name="amountUSD"
+                                    type="number"
+                                    placeholder={ 'USD' }
+                                    handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
+                                    component={ renderField }
+                                />
+                                <img src={ Vector } alt="back"/>
+                                <Field
+                                    name="amount"
+                                    type="number"
+                                    placeholder={ currencyChecked }
+                                    handleChange={ (value) => handleChangeAmountCalculation(value,'other') }
+                                    component={ renderField }
+                                />
+
+                            </div>
+                            <p className="text-center"><b>Exchange Rate: 1 USD = {transferDetails?.service_options?.service_option[ 0 ]?.payment_details.exchange_rate  } { currencyChecked }</b></p>
                         </> :  <Field
                             name="amount"
                             type="number"
@@ -134,18 +148,19 @@ const TransactionDetailsForm = (props) => {
 
                     }
 
-                    <h5>Promotional Code</h5>
+                    <BorderTitle smallText className="mt-4">Promotional Code</BorderTitle>
                     <Field
                         name="promoCode"
                         type="text"
                         component={ renderField }
                     />
+                    <CardFooter></CardFooter>
                     <Footer>
                         <Button >Back</Button>
                         <Button outlined type='submit'>Continue</Button>
                     </Footer>
                 </form>
-            </div>
+            </Transaction>
         </Card>
 
     )

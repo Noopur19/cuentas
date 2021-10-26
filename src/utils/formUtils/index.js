@@ -4,7 +4,7 @@
  * With some validations over these fields
 */
 
-import Input from 'components/shared/Input.styled';
+import { Input } from 'components/shared/Input.styled';
 import React from 'react';
 import Select from 'react-select';
 export const Validations = (props) => {
@@ -81,6 +81,12 @@ const renderSelectField = (props) => {
         meta: { touched, error, warning },
         defaultWarning
     } = props;
+    const customSelect = {
+        background: '#F7F7FA',
+        border:' 0.5px solid #D5D8DE',
+        boxSizing: 'border-box',
+        borderRadius: '6px',
+    }
 
     const changeValue=(event) => {
         handleChange && handleChange(event)
@@ -90,6 +96,7 @@ const renderSelectField = (props) => {
     return (
         <>
             <Select
+                styles={ customSelect }
                 value={ selectedOption }
                 onChange={ changeValue }
                 options={ options || [] }

@@ -34,3 +34,10 @@ body {
 code {
   font-family: 'sf_pro_display', sans-serif;
 }
+.field_error {
+  color: red;
+  font-size: 12px;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -10,6 +10,8 @@ import _ from 'lodash'
 import LinkText from '../../shared/LinkText.styled'
 import Link from '../../shared/Link.styled'
 import { Card } from '../../shared/Footer.styled'
+import CardFooter from '../../shared/CardFooter'
+import BorderTitle from '../../shared/BorderTitle.styled'
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
@@ -77,7 +79,6 @@ const ReceiverDetailsForm = (props) => {
     return (
         <Card>
             <div>
-                <h3>Receiver Details</h3>
                 <form onSubmit={ handleSubmit( submit ) } >
                     { (!_.isEmpty(receivers)) &&
                     <>
@@ -95,7 +96,7 @@ const ReceiverDetailsForm = (props) => {
 
                     }
 
-                    <p>Enter new recipient</p>
+                    <BorderTitle smallText>Enter new recipient</BorderTitle>
                     <Field
                         name="firstName"
                         type="text"
@@ -147,6 +148,7 @@ const ReceiverDetailsForm = (props) => {
                         }
                     </>
                     }
+                    <CardFooter></CardFooter>
                     <Footer>
                         <Button >Back</Button>
                         <Button outlined disabled={ disableSubmit } type='submit'>Continue</Button>

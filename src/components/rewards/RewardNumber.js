@@ -10,7 +10,7 @@ import LinkText from '../shared/LinkText.styled'
 import Footer from '../shared/Footer'
 import RewardNumber from './RewardNumber.styles'
 import { Card } from '../shared/Footer.styled'
-import footerLogo from '../../images/FooterHeading.svg'
+import CardFooter from '../shared/CardFooter'
 import { setLocalData, getLocalData } from 'utils/cache';
 import { rewardNumberValidation as validate } from 'utils/validates'
 const RewardNumberPage = (props) => {
@@ -55,17 +55,7 @@ const RewardNumberPage = (props) => {
                     <LinkText className="register">No MyWU Rewards ? <Link className="link" bold color="textOrange" href="#!">Click here to register</Link></LinkText>
 
                     <Card className="main-card">
-                        <p className="description">
-                            If you are a Western Union My WU Member you
-                            can enter your 9 digit My WU number to earn points on
-                            qualifying transactions.
-                        </p>
-                        <div className="card-link">
-                            <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
-                            <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Privacy Statement</Link></LinkText>
-                            <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Terms and Condition</Link></LinkText>
-                            <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">FAQs</Link></LinkText>
-                        </div>
+                        <CardFooter></CardFooter>
                     </Card>
                 </ div>
                 <Footer>
