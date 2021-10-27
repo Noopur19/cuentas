@@ -8,7 +8,7 @@ const SenderDetails = (props) => {
     return (
         <div>
             <h3>Sender Information --------</h3>
-            <div>Name---- {parsedSender.name.first_name} {parsedSender.name.last_name}</div>
+            <div>Name---- {parsedSender.name.first_name || ''} {parsedSender.name.middle_name || ''} {parsedSender.name.last_name || ''}</div>
             <div>Pay from Account---- {parsedSender.bank_account.name}</div>
             <div>Sender City---- {parsedSender.address.city}</div>
             <div>Sender State---- {parsedSender.address.state}</div>

@@ -1,12 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import _ from 'lodash'
+import { getCurrencySymbol } from 'utils/helpers';
 
 const TransactionDetails = (props) => {
     const { transactions } = props;
     const parsedServiceType = JSON.parse(transactions.additional_properties.wu_product.value)
     const paymentDetails = JSON.parse(transactions.additional_properties.payment_details.value)
+    const receiver = JSON.parse(transactions.additional_properties.receiver.value)
     const dfDetails = JSON.parse(transactions.additional_properties.df_details.value)
+    const currencyCode = _.get(paymentDetails,'origination.currency_iso_code')
+    const receiverCurrencyCode = _.get(paymentDetails,'destination.currency_iso_code')
 
     const getTransferFee = () => {
         const fee = _.get(paymentDetails,'fees')
@@ -43,9 +47,21 @@ const TransactionDetails = (props) => {
     const getPromotionalDiscount = () => {
         const promotionDiscount = _.get(paymentDetails,
             'promotion.discount', 0);
-        return parseInt(promotionDiscount) > 0
-            ? parseInt(promotionDiscount) / 100
-            : 0;
+        return parseInt(promotionDiscount) > 0 ? parseInt(promotionDiscount) / 100 : 0;
+    };
+
+    const getPayoutAmount = () => {
+        const payoutAmount = _.get(paymentDetails,'destination.expected_payout_amount');
+        return parseInt(payoutAmount) > 0 ? parseInt(payoutAmount) / 100 : 0
+    };
+
+    const getExchangeRate = () => {
+        const rate = _.get(paymentDetails,'exchange_rate');
+        return  getCurrencySymbol(currencyCode) +
+        ` 1 ${ currencyCode } =` +
+        getCurrencySymbol(currencyCode) +
+        `${ rate }` +
+        `(${ receiverCurrencyCode })`
     };
 
     const getTotalAmount = () => {
@@ -65,14 +81,16 @@ const TransactionDetails = (props) => {
         <div>
             <h3>Transaction Details ----------</h3>
             <div>Service type----{parsedServiceType.name} </div>
-            <div>Transfer amount---- {getPrincipalAmount()}</div>
-            <div>Transfer fees---- +{getTransferFee()}</div>
-            <div>Additional fees----</div>
-            <div>Transfer taxes---- +{getTotalTaxes()}</div>
-            <div>Promotional discount----  -{getPromotionalDiscount()}</div>
-            <div>Other fees---- {getOtherFee()}</div>
-            <h4>Total to Final Receiver {getPrincipalAmount()}</h4>
-            <h4>Total -{getTotalAmount()}</h4>
+            <div>Transfer amount---- {getCurrencySymbol(currencyCode)} {getPrincipalAmount()} {`(${ currencyCode })`}</div>
+            <div>Transfer fees---- +{getCurrencySymbol(currencyCode)} {getTransferFee()} {`(${ currencyCode })`}</div>
+            <div>Additional fees----{getCurrencySymbol(currencyCode)} {0} {`(${ currencyCode })`}</div>
+            <div>Transfer taxes---- +{getCurrencySymbol(currencyCode)} {getTotalTaxes()} {`(${ currencyCode })`}</div>
+            <div>Promotional discount----  -{getCurrencySymbol(currencyCode)} {getPromotionalDiscount()} {`(${ currencyCode })`}</div>
+            <div>Other fees---- {getCurrencySymbol(currencyCode)} {getOtherFee()} {`(${ currencyCode })`}</div>
+            {receiver.address.country_iso_code !== 'US' && <div>Exchange Rate {getExchangeRate()}</div>}
+            <div>Transfer amount---- {getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</div>
+            <h4>Total to Final Receiver {getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</h4>
+            <h4>Total -{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</h4>
             <div>----------------------------</div>
         </div>
     )

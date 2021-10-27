@@ -10,7 +10,14 @@ import {  useSelector } from 'react-redux'
 export const Layout = (props) => {
     // const dispatch = useDispatch()
     // const articles = useSelector((state) => state.articles.articles)
-    const loading = useSelector((state) => state.articles.loading || state.login.loading || state.receiver.loading || state.user.loading)
+    const loading = useSelector((state) =>
+        state.articles.loading ||
+        state.login.loading ||
+        state.receiver.loading ||
+        state.user.loading ||
+        state.transactionHistory.loading ||
+        state.transactionHistory.enquiryLoading
+    )
 
     useEffect(async() => {
         // _.isEmpty(articles) && dispatch(getAllArticles())

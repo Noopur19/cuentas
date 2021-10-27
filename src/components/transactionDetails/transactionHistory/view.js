@@ -23,7 +23,12 @@ const TransactionHistoryDetails = (props) => {
     return (
         <Card>
             <div>
-                <AdditionalDetails transactions={ filteredTransaction }/>
+                <AdditionalDetails
+                    transactions={ filteredTransaction }
+                    receiver={ receiver }
+                    sender={ sender }
+                    mtcn={ mtcn }
+                />
                 <SenderDetails transactions={ filteredTransaction }/>
                 <ReceiverDetails transactions={ filteredTransaction }/>
                 <TransactionDetails transactions={ filteredTransaction }/>

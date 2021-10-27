@@ -33,11 +33,11 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
     const receiverData = {
         'receiver': {
             'name': {
-                'first_name': receiver.name.first_name,
-                'last_name':  receiver.name.last_name
+                'first_name': receiver.name.first_name || '',
+                'last_name':  receiver.name.last_name || ''
             },
             'address': {
-                'country_iso_code': receiver.address.country_iso_code
+                'country_iso_code': receiver.address.country_iso_code || ''
             }
         },
         'mtcn': mtcn
@@ -45,11 +45,11 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
     const senderData = {
         'receiver': {
             'name': {
-                'first_name': sender.name.first_name,
-                'last_name':  sender.name.last_name
+                'first_name': sender.name.first_name || '',
+                'last_name':  sender.name.last_name || ''
             },
             'address': {
-                'country_iso_code': sender.address.country_iso_code
+                'country_iso_code': sender.address.country_iso_code || ''
             }
         },
         'mtcn': mtcn
@@ -62,7 +62,7 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
             .then((result) => {
                 dispatch(postTransactionEnquirySuccess(result.data))
             }).catch((error) => {
-                if(error.response.data.result[ 0 ].cause.root.Envelope.Body.Fault.detail[ 'error-reply' ].error === errorText) {
+                if(error?.response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error === errorText) {
                     dispatch(postTransactionEnquiryRequest())
                     axiosInstance.post('incomm/wu/transaction/enquiry',senderData,
                         { headers: INCOMM_HEADERS })
@@ -92,12 +92,16 @@ export const postSendEmail = (invoiceId) => {
     }
 }
 
-export const postCancelTransaction = (data) => {
+export const postCancelTransaction = (data, receiver, sender, mtcn) => {
     return (dispatch) => {
         dispatch(postCancelTransactionRequest())
         axiosInstance.post('incomm/wu/cancel', data, { headers: INCOMM_HEADERS })
             .then((response) => {
                 dispatch(postCancelTransactionSuccess(response.data))
+                if (response.data && response.data.transaction_status === 'REFUND FORCE PAID' ||
+                response.data.transaction_status === 'CANCEL COMPLETED') {
+                    dispatch(postTransactionEnquiry(receiver, sender, mtcn))
+                }
             }).catch((error) => {
                 dispatch(postCancelTransactionFailed(error))
             })

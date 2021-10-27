@@ -38,7 +38,7 @@ export const getTransactionStatus = (status) => {
 }
 
 export const getCountryName = (countries, code) => {
-    const country = countries.filter((item) => item.currency[ 0 ].country_cd === code)
+    const country = countries?.filter((item) => item.currency[ 0 ].country_cd === code)
     return country && country[ 0 ].country
 }
 
@@ -64,5 +64,15 @@ export const delieveryTypeRequestPayload = (receiver) => {
         receiver: receiver,
         mywu_number: null,
         selectedDeliveryType: null
+    }
+}
+export const getCurrencySymbol = (currencyCode) => {
+    switch (currencyCode) {
+    case 'USD':
+        return '$'
+    case 'EUR':
+        return '€'
+    default:
+        return '$';
     }
 }
