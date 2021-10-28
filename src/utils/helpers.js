@@ -44,8 +44,6 @@ export const getCountryName = (countries, code) => {
 
 export const delieveryTypeRequestPayload = (data, incomeDetail) => {
     const accountDetail = incomeDetail.accountDetail
-    accountDetail.spendingAccount.accountNumber
-
     const receiver = {
         first_name: data.firstName ,
         middle_name: data.middleName,
@@ -69,7 +67,9 @@ export const delieveryTypeRequestPayload = (data, incomeDetail) => {
         receiver: receiver,
         mywu_number: null,
         selectedDeliveryType: null,
-        wu_product: data.deliveryType && JSON.parse(data.deliveryType)?.wu_product || {}
+        wu_product: data.deliveryType && JSON.parse(data.deliveryType)?.wu_product || {},
+        transaction_type: data.deliveryType && JSON.parse(data.deliveryType)?.transaction_type || '',
+        payment_details: data.deliveryType && JSON.parse(data.deliveryType)?.payment_details || {},
     }
 }
 export const getCurrencySymbol = (currencyCode) => {

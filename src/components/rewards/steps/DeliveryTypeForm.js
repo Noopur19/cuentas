@@ -11,14 +11,13 @@ import PropTypes from 'prop-types';
 import { postDeliveryData } from 'middleware/receiver'
 import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
+
 const DelievryTypeForm = (props) => {
-    console.log(props)
-    const { handleSubmit, initialize , prevPage,submitData } = props;
+    const { handleSubmit, initialize , prevPage } = props;
     const dispatch = useDispatch()
     const formValues = useSelector((state) => state.form.receiver_details)
     const incomeDetail = useSelector((state) => state.user.incomeDetail)
     const transferDetails = useSelector((state) => state.receiver.transferDetails)
-    console.log(transferDetails,dispatch,initialize , submitData )
 
     useEffect(() =>{
         dispatch({
@@ -26,22 +25,18 @@ const DelievryTypeForm = (props) => {
             data: { title: 'Delivery Type', step: 3 }
         })
         const serviceOptions = transferDetails.service_options.service_option
-        // const val =  [ { value: JSON.stringify(serviceOptions[ 0 ].wu_product), label: serviceOptions[ 0 ].wu_product.name } ]
         const obj = _.merge(formValues.values, { deliveryType: JSON.stringify(serviceOptions[ 0 ]) })
         initialize(obj)
     },[])
 
     const saveData = (values) => {
-        console.log(values)
         dispatch(postDeliveryData(values,incomeDetail))
-
     }
     const getServiceOptions = () => {
         const serviceOptions = transferDetails.service_options.service_option
         return serviceOptions.map((item) => ({ value: JSON.stringify(item), label: item.wu_product.name }))
     }
     const getFeesData = (values) => {
-        console.log(values)
         const delieveryType = values.deliveryType && JSON.parse(values.deliveryType)
         const charges = delieveryType?.payment_details?.fees?.charges && parseFloat(delieveryType?.payment_details?.fees?.charges) / 100
         return <div>

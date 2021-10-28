@@ -17,7 +17,6 @@ import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import { getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 const TransactionDetailsForm = (props) => {
-    console.log(props)
     const { handleSubmit, initialize ,prevPage, submitData } = props;
     const dispatch = useDispatch()
     const userInfo = useSelector((state) => state.form.receiver_details)

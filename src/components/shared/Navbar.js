@@ -10,7 +10,6 @@ import NavbarCard from './NavbarCard';
 const Navbar = (props)  => {
     const { showProgressBar } = props
     const stepData =  useSelector((state) => state.theme.stepData)
-    console.log(stepData)
 
     const handleBack = () => {
         history.goBack()
