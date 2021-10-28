@@ -4,8 +4,7 @@ import Link from '../shared/Link.styled'
 import footerLogo from '../../images/FooterHeading.svg'
 import CardBottom from '../shared/CardFooter.styled'
 
-const CardFooter = (props) => {
-    console.log(props)
+const CardFooter = () => {
 
     return (
         <>

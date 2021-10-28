@@ -10,7 +10,6 @@ import history from 'utils/history'
 import StyledContainer from '../shared/Container.styled'
 // import _ from 'lodash'
 export const Layout = (props) => {
-    console.log(history)
     // const dispatch = useDispatch()
     // const articles = useSelector((state) => state.articles.articles)
     const showProgressBar = () => {
