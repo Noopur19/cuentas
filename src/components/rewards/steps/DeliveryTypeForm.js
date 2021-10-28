@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
 import { renderSelectField } from 'utils/formUtils';
@@ -7,22 +7,39 @@ import Button from 'components/shared/Button.styled'
 import Footer from 'components/shared/Footer'
 import { getParseHtmlArticle } from 'utils/helpers'
 import PropTypes from 'prop-types';
+import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 const DelievryTypeForm = (props) => {
     console.log(props)
     const { handleSubmit, initialize , prevPage,submitData } = props;
     const dispatch = useDispatch()
-    const userInfo = useSelector((state) => state.form.receiver_details)
+    const formValues = useSelector((state) => state.form.receiver_details)
     const transferDetails = useSelector((state) => state.receiver.transferDetails)
-    console.log(userInfo, transferDetails,dispatch,initialize , submitData )
+    console.log(transferDetails,dispatch,initialize , submitData )
+
+    useEffect(() =>{
+        const serviceOptions = transferDetails.service_options.service_option
+        // const val =  [ { value: JSON.stringify(serviceOptions[ 0 ].wu_product), label: serviceOptions[ 0 ].wu_product.name } ]
+        const obj = _.merge(formValues.values, { deliveryType: JSON.stringify(serviceOptions[ 0 ]) })
+        initialize(obj)
+    },[])
 
     const saveData = (values) => {
         console.log(values)
     }
-    const getStatesOptions = () => {
+    const getServiceOptions = () => {
         const serviceOptions = transferDetails.service_options.service_option
-        return serviceOptions.map((item) => ({ value: JSON.stringify(item.wu_product), label: item.wu_product.name }))
+        return serviceOptions.map((item) => ({ value: JSON.stringify(item), label: item.wu_product.name }))
     }
+    const getFeesData = (values) => {
+        console.log(values)
+        const delieveryType = values.deliveryType && JSON.parse(values.deliveryType)
+        const charges = delieveryType?.payment_details?.fees?.charges && parseFloat(delieveryType?.payment_details?.fees?.charges) / 100
+        return <div>
+            <span>{ delieveryType?.wu_product.name }  ${ parseFloat(charges).toFixed(2) }</span>
+        </div>
+    }
+
     return (
         <Card>
 
@@ -33,9 +50,11 @@ const DelievryTypeForm = (props) => {
                     <Field
                         name="deliveryType"
                         placeholder="deliveryType"
-                        options= { getStatesOptions() }
+                        selectedOption={ { value: formValues?.values?.deliveryType, label: formValues?.values?.deliveryType && JSON.parse(formValues?.values?.deliveryType).wu_product.name } }
+                        options= { getServiceOptions() }
                         component={ renderSelectField }
                     />
+                    { getFeesData(formValues.values) }
 
                     {getParseHtmlArticle('en_wu_111')}
                     <Footer>

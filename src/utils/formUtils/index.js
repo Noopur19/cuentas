@@ -93,11 +93,16 @@ const renderSelectField = (props) => {
         input.onChange(event.value)
     }
 
+    const getSelectedOption = (value) => {
+        debugger
+        return options.filter((item) => item.value === value )
+    }
+
     return (
         <>
             <Select
                 styles={ customSelect }
-                value={ selectedOption }
+                value={ selectedOption || getSelectedOption(input?.value) }
                 onChange={ changeValue }
                 options={ options || [] }
             />

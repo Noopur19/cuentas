@@ -31,7 +31,7 @@ const throwError = (type,error) => {
     })
 }
 export const receiverFormSubmissionValidate = (values, states) => {
-    if (states.length > 0) {
+    if (states.length > 0 && states[ 0 ]?.city ) {
         if (!values.state) {
             throwError( 'state',MESSAGE.REQUIRE('state'))
         }
