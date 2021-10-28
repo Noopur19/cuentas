@@ -1,6 +1,6 @@
+/* eslint-disable camelcase */
 import { getLocalData } from './cache'
 import ReactHtmlParser from 'react-html-parser';
-import _ from 'lodash'
 export const getUser = () => {
     return getLocalData('user') && JSON.parse(getLocalData('user'))
 }
@@ -42,7 +42,18 @@ export const getCountryName = (countries, code) => {
     return country && country[ 0 ]?.country
 }
 
-export const delieveryTypeRequestPayload = (receiver) => {
+export const delieveryTypeRequestPayload = (data, incomeDetail) => {
+    const accountDetail = incomeDetail.accountDetail
+    accountDetail.spendingAccount.accountNumber
+
+    const receiver = {
+        first_name: data.firstName ,
+        middle_name: data.middleName,
+        last_name: data.lastName,
+        country_iso_code: data.country && JSON.parse(data.country).currency[ 0 ].country_cd,
+        state: data.state,
+        city: data.city,
+    }
 
     return{
         sender: {
@@ -50,20 +61,15 @@ export const delieveryTypeRequestPayload = (receiver) => {
             currency_iso_code: 'USD',
             bank_account: {
                 name: 'Cuentas',
-                account_number: _.get(
-                    userInfoIncomm,
-                    'accountDetail.spendingAccount.accountNumber',
-                ),
-                routing_number: _.get(
-                    userInfoIncomm,
-                    'accountDetail.spendingAccount.routingNumber',
-                ),
+                account_number: accountDetail?.spendingAccount?.accountNumber,
+                routing_number: accountDetail.spendingAccount.routingNumber,
                 account_type: 'CheckingAcct', //TODO
             },
         },
         receiver: receiver,
         mywu_number: null,
-        selectedDeliveryType: null
+        selectedDeliveryType: null,
+        wu_product: data.deliveryType && JSON.parse(data.deliveryType)?.wu_product || {}
     }
 }
 export const getCurrencySymbol = (currencyCode) => {

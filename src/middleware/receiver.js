@@ -12,10 +12,15 @@ import {
 
     postTransactionDetailsRequest,
     postTransactionDetailsSuccess,
-    postTransactionDetailsFailed
+    postTransactionDetailsFailed,
+
+    postDeliveryDataRequest,
+    postDeliveryDataSuccess,
+    postDeliveryDataFailed
 } from 'actions/receiver';
 import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
+import { delieveryTypeRequestPayload } from 'utils/helpers'
 
 export const postWUNumber = (wuNumber) => {
     return (dispatch) => {
@@ -72,6 +77,22 @@ export const postTransactionDetails = (data) => {
             dispatch(postTransactionDetailsSuccess(response.data))
         }).catch((error) => {
             dispatch(postTransactionDetailsFailed(error))
+        })
+    }
+}
+
+export const postDeliveryData = (values, incomeDetail) => {
+    const data = delieveryTypeRequestPayload(values,incomeDetail)
+    return(dispatch) => {
+        dispatch(postDeliveryDataRequest())
+        axiosInstance.post('incomm/wu/smv',data,{
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            dispatch(postDeliveryDataSuccess(response.data))
+        }).catch((error) => {
+            dispatch(postDeliveryDataFailed(error))
         })
     }
 }
