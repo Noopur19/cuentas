@@ -32,8 +32,8 @@ const ProtectForm = () => {
                     </div>
                 </Card>
                 <Footer>
-                    <Button onClick={ () => history.goBack() } >Back</Button>
-                    <Button outlined onClick={ () => onClickHandler() } type='submit'>Continue</Button>
+                    <Button onClick={ () => history.goBack() } >Cancel</Button>
+                    <Button outlined onClick={ () => onClickHandler() } type='submit'>Agree</Button>
                 </Footer>
             </div>
         </>

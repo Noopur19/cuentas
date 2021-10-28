@@ -9,7 +9,11 @@ export const getAllArticles = () => {
     return (dispatch) => {
         dispatch(getArticlesRequest())
         axiosInstance.post('/articles/search',{
-            'tags' : [ 'western_union' ]
+            'tags': [
+                'western_union'
+            ],
+            'size' : 50
+        }, { headers: { 'Content-Type' : 'application/json' }
         }).then((response) => {
             setLocalDataJSON('articles',response.data.result)
             dispatch(getArticlesSuccess(response.data))

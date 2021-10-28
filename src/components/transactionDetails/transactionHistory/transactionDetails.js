@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import _ from 'lodash'
 import { getCurrencySymbol } from 'utils/helpers';
+import { getParseHtmlArticle } from 'utils/helpers'
 
 const TransactionDetails = (props) => {
     const { transactions } = props;
@@ -92,6 +93,8 @@ const TransactionDetails = (props) => {
             <h4>Total to Final Receiver {getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</h4>
             <h4>Total -{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</h4>
             <div>----------------------------</div>
+            { getParseHtmlArticle('en_wu_111') }
+            { getParseHtmlArticle('en_wu_109') }
         </div>
     )
 }
