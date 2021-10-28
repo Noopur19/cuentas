@@ -94,7 +94,6 @@ const renderSelectField = (props) => {
     }
 
     const getSelectedOption = (value) => {
-        debugger
         return options.filter((item) => item.value === value )
     }
 
