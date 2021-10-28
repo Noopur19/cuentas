@@ -68,3 +68,20 @@ export const postTransactionDetailsFailed = () => {
         type: ActionTypes.POST_TRANSACTION_DETAILS_FAILED,
     }
 }
+export const postDeliveryDataRequest = (country) => {
+    return {
+        type: ActionTypes.POST_DELIVERY_DATA_REQUEST,
+        payload:country
+    }
+}
+export const postDeliveryDataSuccess = (response) => {
+    return {
+        type: ActionTypes.POST_DELIVERY_DATA,
+        payload: response
+    }
+}
+export const postDeliveryDataFailed = () => {
+    return {
+        type: ActionTypes.POST_DELIVERY_DATA_FAILED,
+    }
+}

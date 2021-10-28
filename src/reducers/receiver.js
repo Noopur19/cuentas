@@ -34,6 +34,14 @@ export default (state = initialState, action) => {
         return { ...state, loading: true }
     case ActionTypes.POST_TRANSACTION_DETAILS:
         return { ...state, loading: false, transferDetails: action.payload }
+    case ActionTypes.POST_TRANSACTION_DETAILS_FAILED:
+        return { ...state, loading: false }
+    case ActionTypes.POST_DELIVERY_DATA_REQUEST:
+        return { ...state, loading: true }
+    case ActionTypes.POST_DELIVERY_DATA:
+        return { ...state, loading: false }
+    case ActionTypes.POST_DELIVERY_DATA_FAILED:
+        return { ...state, loading: false }
     default:
         return state;
     }

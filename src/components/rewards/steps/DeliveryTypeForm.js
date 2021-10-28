@@ -8,6 +8,7 @@ import Footer from 'components/shared/Footer'
 import { getParseHtmlArticle } from 'utils/helpers'
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import PropTypes from 'prop-types';
+import { postDeliveryData } from 'middleware/receiver'
 import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 const DelievryTypeForm = (props) => {
@@ -15,6 +16,7 @@ const DelievryTypeForm = (props) => {
     const { handleSubmit, initialize , prevPage,submitData } = props;
     const dispatch = useDispatch()
     const formValues = useSelector((state) => state.form.receiver_details)
+    const incomeDetail = useSelector((state) => state.user.incomeDetail)
     const transferDetails = useSelector((state) => state.receiver.transferDetails)
     console.log(transferDetails,dispatch,initialize , submitData )
 
@@ -31,6 +33,8 @@ const DelievryTypeForm = (props) => {
 
     const saveData = (values) => {
         console.log(values)
+        dispatch(postDeliveryData(values,incomeDetail))
+
     }
     const getServiceOptions = () => {
         const serviceOptions = transferDetails.service_options.service_option
