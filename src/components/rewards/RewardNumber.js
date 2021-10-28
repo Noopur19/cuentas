@@ -61,7 +61,7 @@ const RewardNumberPage = (props) => {
                     </Card>
                 </ div>
                 <Footer>
-                    { isClicked ? <Button outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
+                    { isClicked ? <Button className="w-100" outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
                 </Footer>
             </form>
         </RewardNumber>

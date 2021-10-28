@@ -3,6 +3,7 @@ const mainTheme = {
     secondary: '#B3B9C2',
     white : '#FFFFFF',
     light: '#F8F8FB',
+    inputBg: '#F7F7FA',
     lightGrey: '#CECBDE',
     blue: '#255DC8',
     darkblue: '#151c81',
@@ -12,7 +13,6 @@ const mainTheme = {
     textLight: '#B3B9C2',
     textOrange: '#FFB701',
     textBlue: '#255DC8',
-
 }
 
 export default mainTheme

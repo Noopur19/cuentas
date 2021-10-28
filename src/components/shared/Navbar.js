@@ -15,6 +15,15 @@ const Navbar = () => {
                     <i>Powered by Western Union</i>
                 </NavbarTitle>
                 <div></div>
+                <div className="progress-wrapper">
+                    <h3>Receiver Details</h3>
+                    <ul className="progressbar">
+                        <li className="active">Progress</li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </div>
         </Nav>
     )

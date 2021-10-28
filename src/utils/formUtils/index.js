@@ -82,10 +82,14 @@ const renderSelectField = (props) => {
         defaultWarning
     } = props;
     const customSelect = {
-        background: '#F7F7FA',
-        border:' 0.5px solid #D5D8DE',
-        boxSizing: 'border-box',
-        borderRadius: '6px',
+        control: (provided) => ({
+            ...provided,
+            background: '#F7F7FA',
+        }),
+        indicatorSeparator: (provided) => ({
+            ...provided,
+            display: 'none',
+        }),
     }
 
     const changeValue=(event) => {
@@ -100,6 +104,7 @@ const renderSelectField = (props) => {
     return (
         <>
             <Select
+                className="test"
                 styles={ customSelect }
                 value={ selectedOption || getSelectedOption(input?.value) }
                 onChange={ changeValue }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash'
 import { getCurrencySymbol } from 'utils/helpers';
 import { getParseHtmlArticle } from 'utils/helpers'
+import BorderTitle from '../../shared/BorderTitle.styled'
 
 const TransactionDetails = (props) => {
     const { transactions } = props;
@@ -80,7 +81,7 @@ const TransactionDetails = (props) => {
 
     return (
         <div>
-            <h3>Transaction Details ----------</h3>
+            <BorderTitle smallText className="mt-4">Transaction Details</BorderTitle>
             <div>Service type----{parsedServiceType.name} </div>
             <div>Transfer amount---- {getCurrencySymbol(currencyCode)} {getPrincipalAmount()} {`(${ currencyCode })`}</div>
             <div>Transfer fees---- +{getCurrencySymbol(currencyCode)} {getTransferFee()} {`(${ currencyCode })`}</div>

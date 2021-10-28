@@ -79,7 +79,7 @@ const RewardsStep = () => {
     }
     return(
         <Steps>
-            <div className="progress-wrapper">
+            {/* <div className="progress-wrapper">
                 <h3>Receiver Details</h3>
                 <ul className="progressbar">
                     <li className="active">Progress</li>
@@ -87,7 +87,7 @@ const RewardsStep = () => {
                     <li></li>
                     <li></li>
                 </ul>
-            </div>
+            </div> */}
             {handleView()}
         </Steps>
     )

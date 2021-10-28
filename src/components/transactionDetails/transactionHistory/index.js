@@ -6,6 +6,9 @@ import moment from 'moment'
 import { Card } from '../../shared/Footer.styled'
 import _ from 'lodash'
 import { getCurrencySymbol } from 'utils/helpers'
+import HistoryCard from '../HistoryCard.styled'
+import BorderTitle from '../../shared/BorderTitle.styled'
+import historyIcon from '../../../images/historyIcon.png'
 
 const TransactionHistory = () => {
     const dispatch = useDispatch()
@@ -21,17 +24,28 @@ const TransactionHistory = () => {
             const time = mtcnDate.substring(mtcnDate.indexOf('T') + 1)
             const formattedTime =  moment(time, 'hh:mm:ss').format('hh:mm A');
             const currencyCode = JSON.parse(invoices.additional_properties.payment_details.value).origination.currency_iso_code
-
+            const dateTime = JSON.parse(invoices.additional_properties.transaction_response.value).response.date_time
+            const date = (dateTime.split('T')[ 0 ]).trim();
+            const formattedDate = moment(date).format('DD MMMM,YYYY')
             return invoices?.items?.map((invoice) => {
                 return (
-                    <div key="" onClick={ () => onClickHandler(invoices) }>
-                        <div>Name {invoice.item_name} </div>
-                        <div>Invoice Id {invoice.invoice_id} </div>
-                        <div>Status {invoice.current_fulfillment_status}</div>
-                        <div>Unit Price -{getCurrencySymbol(currencyCode)} {invoice.unit_price}</div>
-                        <div>{formattedTime}</div>
-                        <div>-----------------------</div>
-                    </div>
+                    <HistoryCard key="" onClick={ () => onClickHandler(invoices) } className="history-card">
+                        <h5>{ formattedDate }</h5>
+                        <div className="card-item">
+                            <div className="img-wrapper">
+                                <img src={ historyIcon } alt="history-icon"/>
+                            </div>
+                            <div className="detail">
+                                <h6> {invoice.item_name} </h6>
+                                <p className="invoice">Invoice: {invoice.invoice_id} </p>
+                                <p className="status">{invoice.current_fulfillment_status}</p>
+                            </div>
+                            <div className="pricing">
+                                <h6 className="price">{getCurrencySymbol(currencyCode)} {invoice.unit_price}</h6>
+                                <p className="time">{formattedTime}</p>
+                            </div>
+                        </div>
+                    </HistoryCard>
                 )
             })
         })
@@ -44,7 +58,7 @@ const TransactionHistory = () => {
     return (
         <Card>
             <div>
-                <h3>My WU History</h3>
+                <BorderTitle>My WU History</BorderTitle>
                 {renderCard()}
             </div>
         </Card>

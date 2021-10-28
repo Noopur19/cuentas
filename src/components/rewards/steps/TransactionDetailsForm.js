@@ -160,11 +160,11 @@ const TransactionDetailsForm = (props) => {
                         type="text"
                         component={ renderField }
                     />
-                    <CardFooter></CardFooter>
                     {getParseHtmlArticle('en_wu_109')}
                     {getParseHtmlArticle('en_wu_115')}
                     {getParseHtmlArticle('en_wu_111')}
                     {getParseHtmlArticle('en_wu_114')}
+                    <CardFooter></CardFooter>
                     <Footer>
                         <Button onClick={ prevPage }>Back</Button>
                         <Button outlined type='submit'>Continue</Button>

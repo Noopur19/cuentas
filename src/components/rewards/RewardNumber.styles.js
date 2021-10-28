@@ -42,17 +42,30 @@ const RewardNumber = Styled.div`
         border-radius: 24px;
         padding: 22px 14px 22px 22px;
         display: flex;
+        flex-wrap: wrap;
         align-item: center;
         justify-content: space-between;
         margin: 0 24px;
+        input {
+            width: 50%;
+            order: 1;
+        }
+        p {
+            order: 3;
+            margin:0;
+        }
+        .note-para {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 21px;
+            color: ${ props => props.theme.secondary };
+            margin: 0 0 0 15px;
+            width: calc(50% - 15px);
+            order: 2;
+        }
+        
     }
-    .note-para {
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 21px;
-        color: ${ props => props.theme.secondary };
-        margin: 0 0 0 15px;
-    }
+   
     .card-link {
         text-align: center;
     }

@@ -9,6 +9,7 @@ import {
     postCancelTransaction ,
 } from 'middleware/transactionDetails';
 import Modal from 'components/shared/Modal';
+import BorderTitle from '../../shared/BorderTitle.styled'
 
 const AdditionalDetails = (props) => {
     const { transactions, receiver, sender, mtcn } = props;
@@ -67,7 +68,7 @@ const AdditionalDetails = (props) => {
             <div onClick={ () => toggleModal() }>{getTransactionStatus(enquiry.transaction_status)}</div>
             {renderModal()}
             <p>{ formattedDate } | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
-            <h3>Additional Detail-------------</h3>
+            <BorderTitle>Additional Detail</BorderTitle>
             <div>Amount Paid---- {getCurrencySymbol(currencyCode)} { transactions.additional_properties.amount.value }</div>
             <div>Transfer to----
                 { parsedReceiver.name.first_name || '' }

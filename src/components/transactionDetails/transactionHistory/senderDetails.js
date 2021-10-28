@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import BorderTitle from '../../shared/BorderTitle.styled'
 
 const SenderDetails = (props) => {
     const { transactions } = props;
@@ -7,7 +8,7 @@ const SenderDetails = (props) => {
 
     return (
         <div>
-            <h3>Sender Information --------</h3>
+            <BorderTitle smallText className="mt-4">Sender Information</BorderTitle>
             <div>Name---- {parsedSender.name.first_name || ''} {parsedSender.name.middle_name || ''} {parsedSender.name.last_name || ''}</div>
             <div>Pay from Account---- {parsedSender.bank_account.name}</div>
             <div>Sender City---- {parsedSender.address.city}</div>
