@@ -2,7 +2,7 @@ export const MESSAGE = {
     REQUIRE: (value) => `Please enter ${ value }`,
     VALID_ENTER: (value) => `Please enter valid ${ value }`,
 }
-
+export const GET_STEP_PROGRESSBAR = 'GET_STEP_PROGRESSBAR'
 export const INCOMM_HEADERS = {
     'x-knetikcloud-date': 'Fri Oct 22 2021 18:58:55 GMT+0530 (IST)',
     'x-knetikcloud-channel': 'app',

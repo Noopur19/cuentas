@@ -6,6 +6,7 @@ import { Card } from '../../shared/Footer.styled'
 import Button from 'components/shared/Button.styled'
 import Footer from 'components/shared/Footer'
 import { getParseHtmlArticle } from 'utils/helpers'
+import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import PropTypes from 'prop-types';
 import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
@@ -18,6 +19,10 @@ const DelievryTypeForm = (props) => {
     console.log(transferDetails,dispatch,initialize , submitData )
 
     useEffect(() =>{
+        dispatch({
+            type: GET_STEP_PROGRESSBAR,
+            data: { title: 'Delivery Type', step: 3 }
+        })
         const serviceOptions = transferDetails.service_options.service_option
         // const val =  [ { value: JSON.stringify(serviceOptions[ 0 ].wu_product), label: serviceOptions[ 0 ].wu_product.name } ]
         const obj = _.merge(formValues.values, { deliveryType: JSON.stringify(serviceOptions[ 0 ]) })

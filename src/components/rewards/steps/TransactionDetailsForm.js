@@ -13,7 +13,7 @@ import Transaction from './TransactionDetailsForm.styled'
 import Vector from '../../../images/Vector.svg'
 import CardFooter from '../../shared/CardFooter'
 import PropTypes from 'prop-types';
-
+import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import { getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 const TransactionDetailsForm = (props) => {
@@ -47,6 +47,10 @@ const TransactionDetailsForm = (props) => {
     }
     useEffect(() => {
         transactionDetails()
+        dispatch({
+            type: GET_STEP_PROGRESSBAR,
+            data: { title: 'Transfer Details', step: 2 }
+        })
     },[])
 
     const handleChangeRadio = ( value ) => {

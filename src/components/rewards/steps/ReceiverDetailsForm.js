@@ -14,7 +14,7 @@ import CardFooter from '../../shared/CardFooter'
 import BorderTitle from '../../shared/BorderTitle.styled'
 import { getLocalData } from 'utils/cache'
 import PropTypes from 'prop-types';
-
+import { GET_STEP_PROGRESSBAR } from 'constants/app'
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
     const { handleSubmit,receivers, initialize, submitData } = props;
@@ -28,6 +28,10 @@ const ReceiverDetailsForm = (props) => {
 
     useEffect(() => {
         dispatch(getAllCountries())
+        dispatch({
+            type: GET_STEP_PROGRESSBAR,
+            data: { title: 'Receiver Details', step: 1 }
+        })
     },[])
 
     useEffect(() => {

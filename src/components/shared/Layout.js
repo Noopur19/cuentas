@@ -1,15 +1,23 @@
 import React,{ useEffect } from 'react'
 import PropTypes from 'prop-types';
+import { ROUTES } from 'constants/AppRoutes'
 import Navbar from './Navbar'
 import MainLoader from './Loader'
 // import { getAllArticles } from 'middleware/articles';
 // import { useDispatch, useSelector } from 'react-redux'
 import {  useSelector } from 'react-redux'
-
+import history from 'utils/history'
 // import _ from 'lodash'
 export const Layout = (props) => {
+    console.log(history)
     // const dispatch = useDispatch()
     // const articles = useSelector((state) => state.articles.articles)
+    const showProgressBar = () => {
+        return [ ROUTES.RECEIVER_DETAILS ].includes(history.location.pathname)
+    }
+    const activeCard = () =>{
+        return history?.location?.pathname?.match('transaction-history-details')
+    }
     const loading = useSelector((state) =>
         state.articles.loading ||
         state.login.loading ||
@@ -23,11 +31,11 @@ export const Layout = (props) => {
         // _.isEmpty(articles) && dispatch(getAllArticles())
     }, [])
 
-    return(<>
-        <Navbar />
+    return(<div className={ `main-layout ${ showProgressBar() && 'active-progress-bar' } ${ activeCard() && 'active-card' }` }>
+        <Navbar showProgressBar={ showProgressBar } />
         {loading && <MainLoader />}
         {props.children }
-    </>)
+    </div>)
 }
 Layout.propTypes = {
     children: PropTypes.children
