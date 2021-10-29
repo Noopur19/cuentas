@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter  } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import ReceiverDetailsForm from  './steps/ReceiverDetailsForm'
+import ConfirmTransfer from  './steps/ConfirmTransfer'
 import TransactionDetailsForm from  './steps/TransactionDetailsForm'
 import DeliveryTypeForm from  './steps/DeliveryTypeForm'
 import { getUser } from 'utils/helpers'
@@ -74,7 +75,13 @@ const RewardsStep = () => {
                 nextPage={ nextPage }
             />
         default:
-            return null
+            return <ConfirmTransfer
+                className="step-color-pallate"
+                saveData={ saveData }
+                prevPage={ prevPage }
+                submitData={ nextPage }
+                nextPage={ nextPage }
+            />
         }
     }
     return(

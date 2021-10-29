@@ -14,7 +14,7 @@ import { transactionDetailsValidate as validate } from 'utils/validates'
 import { FeeData } from './TransactionDetailsForm.styled'
 
 const DelievryTypeForm = (props) => {
-    const { handleSubmit, initialize , prevPage } = props;
+    const { handleSubmit, initialize ,submitData, prevPage } = props;
     const dispatch = useDispatch()
     const formValues = useSelector((state) => state.form.receiver_details)
     const incomeDetail = useSelector((state) => state.user.incomeDetail)
@@ -32,6 +32,7 @@ const DelievryTypeForm = (props) => {
 
     const saveData = (values) => {
         dispatch(postDeliveryData(values,incomeDetail))
+        submitData(values)
     }
     const getServiceOptions = () => {
         const serviceOptions = transferDetails.service_options.service_option

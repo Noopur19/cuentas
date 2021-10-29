@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import BorderTitle from '../../shared/BorderTitle.styled'
 
 const SenderDetails = (props) => {
-    const { transactions } = props;
-    const parsedSender = JSON.parse(transactions.additional_properties.sender.value)
+    const { transactions,  sender  } = props;
+    const parsedSender = sender ||  transactions?.additional_properties?.sender?.value && JSON.parse(transactions?.additional_properties?.sender?.value)
 
     return (
         <div className="sender-info">
@@ -39,6 +39,7 @@ const SenderDetails = (props) => {
 
 SenderDetails.propTypes = {
     transactions: PropTypes.object,
+    sender: PropTypes.object
 };
 
 export default SenderDetails
