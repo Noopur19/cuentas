@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { postDeliveryData } from 'middleware/receiver'
 import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
+import { FeeData } from './TransactionDetailsForm.styled'
 
 const DelievryTypeForm = (props) => {
     const { handleSubmit, initialize , prevPage } = props;
@@ -45,7 +46,7 @@ const DelievryTypeForm = (props) => {
     }
 
     return (
-        <Card>
+        <Card className="progress-card">
 
             <div>
                 <h5>Select a Delivery Type</h5>
@@ -58,7 +59,11 @@ const DelievryTypeForm = (props) => {
                         options= { getServiceOptions() }
                         component={ renderSelectField }
                     />
-                    { getFeesData(formValues.values) }
+
+                    <FeeData className="FeesData">
+                        { getFeesData(formValues.values) }
+
+                    </FeeData>
 
                     {getParseHtmlArticle('en_wu_111')}
                     <Footer>

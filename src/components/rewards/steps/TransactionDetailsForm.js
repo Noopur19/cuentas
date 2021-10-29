@@ -9,7 +9,7 @@ import _ from 'lodash'
 import Button from 'components/shared/Button.styled'
 import Footer from 'components/shared/Footer'
 import BorderTitle from '../../shared/BorderTitle.styled'
-import Transaction from './TransactionDetailsForm.styled'
+import { Transaction } from './TransactionDetailsForm.styled'
 import Vector from '../../../images/Vector.svg'
 import CardFooter from '../../shared/CardFooter'
 import PropTypes from 'prop-types';
@@ -91,7 +91,7 @@ const TransactionDetailsForm = (props) => {
         submitData(data)
     }
     return (
-        <Card>
+        <Card className="progress-card">
 
             <Transaction className="transaction">
                 <BorderTitle smallText>Reciever information </BorderTitle>

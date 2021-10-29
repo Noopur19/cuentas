@@ -1,6 +1,6 @@
 import Styled from 'styled-components'
 
-const Transaction = Styled.div`
+export const Transaction = Styled.div`
     .radio-wrapper {
         display: flex;
         align-items: center;
@@ -37,4 +37,9 @@ const Transaction = Styled.div`
     } 
     
 `
-export default Transaction
+export const FeeData = Styled.div`
+    background: #FFB701;
+    border: 0.5px solid #D5D8DE;
+    padding: 15px;
+    margin-bottom: 10px;
+`
