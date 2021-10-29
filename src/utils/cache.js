@@ -7,3 +7,6 @@ export const setLocalDataJSON = async(name, value) => {
 export const getLocalData = (name) => {
     return localStorage.getItem(name)
 }
+export const removeLocalData = (name) => {
+    return localStorage.removeItem(name)
+}

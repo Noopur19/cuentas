@@ -32,7 +32,7 @@ export const Layout = (props) => {
     }, [])
 
     return(<StyledContainer className={ `main-layout ${ showProgressBar() && 'active-progress-bar' } ${ activeCard() && 'active-card' }` }>
-        <Navbar showProgressBar={ showProgressBar } />
+        <Navbar showProgressBar={ showProgressBar } activeCard={ activeCard } />
         {loading && <MainLoader />}
         {props.children }
     </StyledContainer>)
