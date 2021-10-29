@@ -80,22 +80,57 @@ const TransactionDetails = (props) => {
     };
 
     return (
-        <div>
+        <div className="transactional-details-wrap">
             <BorderTitle smallText className="mt-4">Transaction Details</BorderTitle>
-            <div>Service type----{parsedServiceType.name} </div>
-            <div>Transfer amount---- {getCurrencySymbol(currencyCode)} {getPrincipalAmount()} {`(${ currencyCode })`}</div>
-            <div>Transfer fees---- +{getCurrencySymbol(currencyCode)} {getTransferFee()} {`(${ currencyCode })`}</div>
-            <div>Additional fees----{getCurrencySymbol(currencyCode)} {0} {`(${ currencyCode })`}</div>
-            <div>Transfer taxes---- +{getCurrencySymbol(currencyCode)} {getTotalTaxes()} {`(${ currencyCode })`}</div>
-            <div>Promotional discount----  -{getCurrencySymbol(currencyCode)} {getPromotionalDiscount()} {`(${ currencyCode })`}</div>
-            <div>Other fees---- {getCurrencySymbol(currencyCode)} {getOtherFee()} {`(${ currencyCode })`}</div>
-            {receiver.address.country_iso_code !== 'US' && <div>Exchange Rate {getExchangeRate()}</div>}
-            <div>Transfer amount---- {getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</div>
-            <h4>Total to Final Receiver {getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</h4>
-            <h4>Total -{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</h4>
-            <div>----------------------------</div>
-            { getParseHtmlArticle('en_wu_111') }
-            { getParseHtmlArticle('en_wu_109') }
+            <div className="d-flex justify-content-between info">
+                <p>Service type</p>
+                <span>{parsedServiceType.name}</span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Transfer amount</p>
+                <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount()} {`(${ currencyCode })`}</span></div>
+            <div className="d-flex justify-content-between info">
+                <p>Transfer fees</p>
+                <span>+{getCurrencySymbol(currencyCode)} {getTransferFee()} {`(${ currencyCode })`}</span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Additional fees</p>
+                <span>{getCurrencySymbol(currencyCode)} {0} {`(${ currencyCode })`}</span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Transfer taxes</p>
+                <span>+{getCurrencySymbol(currencyCode)} {getTotalTaxes()} {`(${ currencyCode })`}</span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Promotional discount</p>
+                <span>-{getCurrencySymbol(currencyCode)} {getPromotionalDiscount()} {`(${ currencyCode })`}</span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Other fees</p>
+                <span>{getCurrencySymbol(currencyCode)} {getOtherFee()} {`(${ currencyCode })`}</span>
+            </div>
+            {receiver.address.country_iso_code !== 'US' &&
+            <div className="d-flex justify-content-between info">
+                <p>Exchange Rate </p>
+                <span>{getExchangeRate()}</span>
+            </div>}
+            <div className="d-flex justify-content-between info">
+                <p>Transfer amount</p>
+                <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</span>
+            </div>
+            <div className="d-flex justify-content-between info-heading mt-3">
+                <h4 >Total to Final Receiver </h4>
+                <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}
+                </span>
+            </div>
+            <div className="d-flex justify-content-between info-heading">
+                <h4>Total</h4>
+                <span>{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</span>
+            </div>
+            <div className="article">
+                { getParseHtmlArticle('en_wu_111') }
+                { getParseHtmlArticle('en_wu_109') }
+            </div>
         </div>
     )
 }

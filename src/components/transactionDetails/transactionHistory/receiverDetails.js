@@ -25,15 +25,47 @@ const ReceiverDetails = (props) => {
     }
 
     return (
-        <div>
+        <div className="final-receiver">
             <BorderTitle smallText className="mt-4">Final Receiver</BorderTitle>
-            <div>Name----{ parsedReceiver.name.first_name || '' } { parsedReceiver.name.middle_name || ''} { parsedReceiver.name.last_name || ''}</div>
-            <div>{payoutLocationText()}----{getCountryName(countries, parsedReceiver.address.country_iso_code)}</div>
-            {parsedReceiver.address.city && <div>Payout City---- { parsedReceiver.address.city }</div>}
-            {parsedReceiver.address.state && <div>Payout State---- { parsedReceiver.address.state }</div>}
-            <BorderTitle smallText className="mt-4">Receiver Information --------</BorderTitle>
-            <div>Pay from Account----{ 'Associate Checking'}</div>
-            <div>Payout Country----{getCountryName(countries, parsedReceiver.address.country_iso_code)}</div>
+
+            <div className="d-flex justify-content-between info">
+                <p>Name</p>
+                <span><b> { parsedReceiver.name.first_name || '' } { parsedReceiver.name.middle_name || ''} { parsedReceiver.name.last_name || ''}</b>
+                </span>
+            </div>
+
+            <div className="d-flex justify-content-between info">
+                <p>{payoutLocationText()}</p>
+                <span><b>{getCountryName(countries, parsedReceiver.address.country_iso_code)}</b>
+                </span>
+            </div>
+            {parsedReceiver.address.city &&
+                <div className="d-flex justify-content-between info">
+                    <p>Payout City</p>
+                    <span><b>{ parsedReceiver.address.city }</b>
+                    </span>
+                </div>
+            }
+            {parsedReceiver.address.state &&
+                <div className="d-flex justify-content-between info">
+                    <p>Payout State </p>
+                    <span><b>{ parsedReceiver.address.state }</b>
+                    </span>
+                </div>
+            }
+            <BorderTitle smallText className="mt-4">Receiver Information</BorderTitle>
+
+            <div className="d-flex justify-content-between info">
+                <p>Pay from Account </p>
+                <span><b>{ 'Associate Checking'}</b>
+                </span>
+            </div>
+
+            <div className="d-flex justify-content-between info">
+                <p>Payout Country</p>
+                <span><b>{getCountryName(countries, parsedReceiver.address.country_iso_code)}</b>
+                </span>
+            </div>
         </div>
     )
 }

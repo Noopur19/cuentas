@@ -7,14 +7,32 @@ const SenderDetails = (props) => {
     const parsedSender = JSON.parse(transactions.additional_properties.sender.value)
 
     return (
-        <div>
+        <div className="sender-info">
             <BorderTitle smallText className="mt-4">Sender Information</BorderTitle>
-            <div>Name---- {parsedSender.name.first_name || ''} {parsedSender.name.middle_name || ''} {parsedSender.name.last_name || ''}</div>
-            <div>Pay from Account---- {parsedSender.bank_account.name}</div>
-            <div>Sender City---- {parsedSender.address.city}</div>
-            <div>Sender State---- {parsedSender.address.state}</div>
-            <div>Sender Zip Code---- {parsedSender.address.postal_code}</div>
-            <div>Sender Phone---- {parsedSender.contact_phone}</div>
+            <div className="d-flex justify-content-between info">
+                <p>Name</p>
+                <span><b>{parsedSender.name.first_name || ''} {parsedSender.name.middle_name || ''} {parsedSender.name.last_name || ''}</b></span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Pay from Account</p>
+                <span><b>{parsedSender.bank_account.name}</b></span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Sender City</p>
+                <span><b>{parsedSender.address.city}</b></span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Sender State</p>
+                <span><b>{parsedSender.address.state}</b></span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Sender Zip Code</p>
+                <span><b>{parsedSender.address.postal_code}</b></span>
+            </div>
+            <div className="d-flex justify-content-between info">
+                <p>Sender Phone</p>
+                <span><b>{parsedSender.contact_phone}</b></span>
+            </div>
         </div>
     )
 }

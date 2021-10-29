@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import TransactionDetails from './transactionDetails'
 import { Card } from '../../shared/Footer.styled'
 import { postTransactionEnquiry } from 'middleware/transactionDetails'
+import { HistoryDetail } from './transactionHistory.styled'
+import CardFooter from '../../shared/CardFooter.styled'
 
 const TransactionHistoryDetails = (props) => {
     const dispatch = useDispatch();
@@ -22,17 +24,18 @@ const TransactionHistoryDetails = (props) => {
 
     return (
         <Card className="transactionHistoryDetail">
-            <div>
-                <AdditionalDetails
-                    transactions={ filteredTransaction }
-                    receiver={ receiver }
-                    sender={ sender }
-                    mtcn={ mtcn }
-                />
+            <AdditionalDetails
+                transactions={ filteredTransaction }
+                receiver={ receiver }
+                sender={ sender }
+                mtcn={ mtcn }
+            />
+            <HistoryDetail className="historyWrapper">
                 <SenderDetails transactions={ filteredTransaction }/>
                 <ReceiverDetails transactions={ filteredTransaction }/>
                 <TransactionDetails transactions={ filteredTransaction }/>
-            </div>
+            </HistoryDetail>
+            <CardFooter></CardFooter>
         </Card>
     )
 }
