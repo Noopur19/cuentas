@@ -15,11 +15,26 @@ const Transaction = Styled.div`
             box-shadow: none;
         }
     }
-    .converter input {
-        width: 38%;
-        height: 56px;
-        margin-bottom: 20px;
-    }
+    .converter {
+        flex-wrap: wrap;
+        input {
+            width: 35%;
+            height: 56px;
+            margin-bottom: 10px;
+            order: 0;
+        }
+        img {
+            width: calc(20% - 30px);
+            margin: 0 30px;
+            order: 0;
+        }
+        p {
+            width: 35%;
+            order: 1;
+            text-align:left;
+            min-height: 20px;
+        }
+    } 
     
 `
 export default Transaction

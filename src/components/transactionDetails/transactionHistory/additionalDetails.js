@@ -58,7 +58,8 @@ const AdditionalDetails = (props) => {
             >
                 <h3>Status: Pending</h3>
                 <h4>(MTCN){transactions.additional_properties.mtcn.value}</h4>
-                <h5>Would you like to cancel your transaction ?</h5>
+                <p>Would you like to cancel your transaction ?</p>
+
             </Modal>
         )
     }
@@ -117,9 +118,13 @@ const AdditionalDetails = (props) => {
                         <span>{myWUNumber}
                         </span>
                     </div>
+                    {transactions.additional_properties?.total_points?.value &&
+                        <div className="d-flex justify-content-between info">
+                            <p>Total point</p>
+                            <span>{transactions.additional_properties.total_points.value}</span>
+                        </div>
+                    }
                 </div>
-                {transactions.additional_properties?.total_points?.value &&
-                <div className="d-flex justify-content-between info">Total point{transactions.additional_properties.total_points.value}</div>}
             </AdditionalDetailWrap></>
     )
 }

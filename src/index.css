@@ -36,3 +36,7 @@ code {
   display: flex;
   justify-content: flex-end;
 }
+form input > p {
+  min-height: 14px;
+  
+}

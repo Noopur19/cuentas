@@ -1,6 +1,10 @@
 import Styled from 'styled-components'
 
 export const HistoryDetail = Styled.div`
+    background: #fff;
+    margin: 30px -22px;
+    padding: 4px 25px;
+    border-radius: 25px 25px0 0;
     .info {
         p {
             width: 50%;
@@ -8,6 +12,7 @@ export const HistoryDetail = Styled.div`
         span {
             width: 50%;
             text-align: right;
+            word-break: break-all;
         }
     }
     .info-heading {
@@ -23,6 +28,7 @@ export const HistoryDetail = Styled.div`
             line-height: 22px;
             width: 40%;
             text-align: right;
+            word-break: break-all;
         }
     }
     .transactional-details-wrap {
@@ -31,6 +37,7 @@ export const HistoryDetail = Styled.div`
             span{
                 font-size: 12px;
                 margin-bottom: 4px;
+                word-break: break-all;
 
             }
         }
@@ -62,6 +69,7 @@ export const AdditionalDetailWrap = Styled.div`
             span {
                 width: 50%;
                 text-align: right;
+                word-break: break-all;
             }
         }
     }

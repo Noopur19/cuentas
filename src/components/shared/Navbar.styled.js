@@ -82,7 +82,6 @@ export const HeaderCard = Styled.div`
     padding: 22px;
     margin-top: 20px;
     width: 100%;
-    margin-bottom: -65px;
     z-index: 1;
     display: none;
     .amount-paid {

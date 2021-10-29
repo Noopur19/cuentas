@@ -57,20 +57,18 @@ const NavbarCard = () => {
     }
 
     return (
-        <div>
-            <HeaderCard className="header-card">
-                <div className="amount-paid">
-                    <h2>Amount Paid</h2>
-                    <span>{getCurrencySymbol(currencyCode)} {filteredTransaction?.additional_properties?.amount?.value}</span>
-                    <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
-                </div>
-                <div className="amount-img">
-                    <img className="img-fluid" src={ historyIcon } alt="history-icon" />
-                    {renderModal()}
-                    <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
-                </div>
-            </HeaderCard>
-        </div>
+        <HeaderCard className="header-card">
+            <div className="amount-paid">
+                <h2>Amount Paid</h2>
+                <span>{getCurrencySymbol(currencyCode)} {filteredTransaction?.additional_properties?.amount?.value}</span>
+                <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
+            </div>
+            <div className="amount-img">
+                <img className="img-fluid" src={ historyIcon } alt="history-icon" />
+                {renderModal()}
+                <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
+            </div>
+        </HeaderCard>
     )
 }
 

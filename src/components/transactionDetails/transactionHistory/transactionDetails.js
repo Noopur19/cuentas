@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { getCurrencySymbol } from 'utils/helpers';
 import { getParseHtmlArticle } from 'utils/helpers'
 import BorderTitle from '../../shared/BorderTitle.styled'
+import CardFooter  from '../../shared/CardFooter';
 
 const TransactionDetails = (props) => {
     const { transactions } = props;
@@ -131,6 +132,7 @@ const TransactionDetails = (props) => {
                 { getParseHtmlArticle('en_wu_111') }
                 { getParseHtmlArticle('en_wu_109') }
             </div>
+            <CardFooter></CardFooter>
         </div>
     )
 }

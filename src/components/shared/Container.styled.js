@@ -9,7 +9,11 @@ const StyledContainer = Styled.div`
          .myu-head {
             font-size: 22px;
             line-height: 26px;
-         }
+         } 
+         form p {
+            min-height: 15px;
+            margin-bottom: 12px;
+        }        
       }
    } 
    &.active-card {
@@ -19,7 +23,7 @@ const StyledContainer = Styled.div`
    }
    .transactionHistoryDetail {
       margin-bottom: 0;
-      top: 246px;
+      top: 290px;
       border-radius: 0;
       background: ${ props => props.theme.light }
    }

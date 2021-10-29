@@ -10,7 +10,7 @@ const LinkText = Styled.p`
     align-items: center;
     justify-content: center;
     .link {
-        padding-left: 1px;
+        padding-left: 4px;
     }
 `
 export default LinkText
