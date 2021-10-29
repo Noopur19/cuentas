@@ -15,6 +15,7 @@ import {
 } from 'actions/transaction-details';
 import { getUser } from 'utils/helpers'
 import { INCOMM_HEADERS } from 'constants/app'
+import _ from 'lodash'
 
 export const getTransactionHistory = () => {
     const user = getUser()
@@ -96,6 +97,7 @@ export const postCancelTransaction = (data, receiver, sender, mtcn) => {
     return (dispatch) => {
         dispatch(postCancelTransactionRequest())
         axiosInstance.post('incomm/wu/cancel', data, { headers: INCOMM_HEADERS })
+        { _.merge(INCOMM_HEADERS, { 'x-knetikcloud-channel' : 'app' })
             .then((response) => {
                 dispatch(postCancelTransactionSuccess(response.data))
                 if (response.data && response.data.transaction_status === 'REFUND FORCE PAID' ||
@@ -105,5 +107,6 @@ export const postCancelTransaction = (data, receiver, sender, mtcn) => {
             }).catch((error) => {
                 dispatch(postCancelTransactionFailed(error))
             })
+        }
     }
 }

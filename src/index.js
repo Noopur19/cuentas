@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import { Router  } from 'react-router-dom';
 import browserHistory from 'utils/history';
@@ -11,6 +10,7 @@ import mainTheme from 'theme/mainTheme'
 import { ThemeProvider } from 'styled-components';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
 const store = configureStore();
 
 ReactDOM.render(

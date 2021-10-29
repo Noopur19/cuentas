@@ -7,6 +7,7 @@ import MainLoader from './Loader'
 // import { useDispatch, useSelector } from 'react-redux'
 import {  useSelector } from 'react-redux'
 import history from 'utils/history'
+import StyledContainer from '../shared/Container.styled'
 // import _ from 'lodash'
 export const Layout = (props) => {
     console.log(history)
@@ -31,11 +32,11 @@ export const Layout = (props) => {
         // _.isEmpty(articles) && dispatch(getAllArticles())
     }, [])
 
-    return(<div className={ `main-layout ${ showProgressBar() && 'active-progress-bar' } ${ activeCard() && 'active-card' }` }>
+    return(<StyledContainer className={ `main-layout ${ showProgressBar() && 'active-progress-bar' } ${ activeCard() && 'active-card' }` }>
         <Navbar showProgressBar={ showProgressBar } />
         {loading && <MainLoader />}
         {props.children }
-    </div>)
+    </StyledContainer>)
 }
 Layout.propTypes = {
     children: PropTypes.children

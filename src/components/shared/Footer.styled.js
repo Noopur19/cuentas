@@ -1,12 +1,17 @@
 import Styled from 'styled-components';
 
 export const Card = Styled.div`
-  background: white;
+  background: ${ props => props.theme.white };
   border-radius: 30px 30px 0 0;
   flex: 1;
   padding: 24px;
   overflow: auto;
-  margin-top: 81px;
+  position: fixed;
+  top: 110px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: -30px;
   margin-bottom: 113px; 
 `;
 

@@ -13,6 +13,7 @@ const mainTheme = {
     textLight: '#B3B9C2',
     textOrange: '#FFB701',
     textBlue: '#255DC8',
+    price: '${ props => props.theme.price }',
 }
 
 export default mainTheme

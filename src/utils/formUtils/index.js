@@ -84,7 +84,8 @@ const renderSelectField = (props) => {
     const customSelect = {
         control: (provided) => ({
             ...provided,
-            background: '#F7F7FA',
+            background: (touched && error) ? '#f5dcdc96' : '#F7F7FA',
+            border: (touched && error) ? '0.3px solid red' : '0.5px solid #D5D8DE',
         }),
         indicatorSeparator: (provided) => ({
             ...provided,
@@ -103,8 +104,10 @@ const renderSelectField = (props) => {
 
     return (
         <>
+
             <Select
-                className="test"
+
+                className={ error && 'has-error' }
                 styles={ customSelect }
                 value={ selectedOption || getSelectedOption(input?.value) }
                 onChange={ changeValue }

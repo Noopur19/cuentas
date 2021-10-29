@@ -48,6 +48,8 @@ h5 {
         }
         
         .status {
+            font-size: 12px;
+            line-height: 22px;
             color: green;
             margin:0;
         }
@@ -70,7 +72,7 @@ h5 {
             font-weight: bold;
             font-size: 16px;
             line-height: 21px;
-            color: #EB5757;
+            color: ${ props => props.theme.price };
             text-align: right;
             margin: 0;
         }

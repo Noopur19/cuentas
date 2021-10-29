@@ -56,7 +56,7 @@ const TransactionHistory = () => {
     }, [])
 
     return (
-        <Card>
+        <Card className="transaction-card mb-0">
             <div>
                 <BorderTitle>My WU History</BorderTitle>
                 {renderCard()}

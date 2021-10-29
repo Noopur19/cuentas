@@ -21,7 +21,7 @@ const TransactionHistoryDetails = (props) => {
     }, [])
 
     return (
-        <Card>
+        <Card className="transactionHistoryDetail">
             <div>
                 <AdditionalDetails
                     transactions={ filteredTransaction }

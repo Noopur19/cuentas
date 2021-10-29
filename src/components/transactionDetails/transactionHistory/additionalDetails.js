@@ -10,6 +10,8 @@ import {
 } from 'middleware/transactionDetails';
 import Modal from 'components/shared/Modal';
 import BorderTitle from '../../shared/BorderTitle.styled'
+import historyIcon from '../../../images/historyIcon.png'
+import { AdditionalDetailWrap } from './transactionHistory.styled'
 
 const AdditionalDetails = (props) => {
     const { transactions, receiver, sender, mtcn } = props;
@@ -62,27 +64,63 @@ const AdditionalDetails = (props) => {
     }
 
     return (
-        <div>
+        <>
             <button onClick={ () => onClickHandler() }>Send Email</button>
-            <h2>Amount Paid {getCurrencySymbol(currencyCode)} { transactions.additional_properties.amount.value }</h2>
-            <div onClick={ () => toggleModal() }>{getTransactionStatus(enquiry.transaction_status)}</div>
-            {renderModal()}
-            <p>{ formattedDate } | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
-            <BorderTitle>Additional Detail</BorderTitle>
-            <div>Amount Paid---- {getCurrencySymbol(currencyCode)} { transactions.additional_properties.amount.value }</div>
-            <div>Transfer to----
-                { parsedReceiver.name.first_name || '' }
-                { parsedReceiver.name.middle_name || ''}
-                { parsedReceiver.name.last_name || ''}
-            </div>
-            <div>Details---- { transactions.invoice_number }</div>
-            <div>Tracking Number---- (MTCN) { transactions.additional_properties.mtcn.value }</div>
-            <div>Date of transaction----{ formattedDate }</div>
-            <div>Time of transaction----{ formattedTime }</div>
-            <div>My WU number---- {myWUNumber}</div>
-            {transactions.additional_properties?.total_points?.value &&
-            <div>Total point---- { transactions.additional_properties.total_points.value }</div>}
-        </div>
+
+            <AdditionalDetailWrap className="additionalDetails">
+                <BorderTitle>Additional Detail</BorderTitle>
+                <div className="header-card d-none">
+                    <div className="amount-paid">
+                        <h2>Amount Paid</h2>
+                        <span>{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</span>
+                        <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry.transaction_status)}</p>
+                    </div>
+                    <div className="amount-img">
+                        <img className="img-fluid" src={ historyIcon } alt="history-icon" />
+                        {renderModal()}
+                        <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
+                    </div>
+                </div>
+                <div className="additionalDetailsCard">
+                    <div className="d-flex justify-content-between">
+                        <p>Amount Paid</p>
+                        <sapn className="price">{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</sapn>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <p>Transfer to</p>
+                        <span>{parsedReceiver.name.first_name || ''}
+                            {parsedReceiver.name.middle_name || ''}
+                            {parsedReceiver.name.last_name || ''}
+                        </span>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <p>Details</p>
+                        <span> {transactions.invoice_number}
+                        </span>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <p>Tracking Number</p>
+                        <span>(MTCN) {transactions.additional_properties.mtcn.value}
+                        </span>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <p>Date of transaction</p>
+                        <span>{formattedDate}
+                        </span>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <p>Time of transaction</p>
+                        <span>{formattedTime}</span>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        <p>My WU number</p>
+                        <span>{myWUNumber}
+                        </span>
+                    </div>
+                </div>
+                {transactions.additional_properties?.total_points?.value &&
+                <div className="d-flex justify-content-between">Total point----{transactions.additional_properties.total_points.value}</div>}
+            </AdditionalDetailWrap></>
     )
 }
 

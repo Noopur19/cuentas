@@ -85,14 +85,14 @@ const ReceiverDetailsForm = (props) => {
         })
     }
     return (
-        <Card>
+        <Card className="progress-card">
             <div>
                 <form onSubmit={ handleSubmit( submit ) } >
                     { (!_.isEmpty(receivers)) &&
                     <>
-                        <b>MY WU # { myWUNumber } </b>
+                        <p className="text-center myu-head"><b>MY WU # { myWUNumber } </b></p>
                         <LinkText>View <Link className="link" bold color="textOrange" to="/transaction-history">Transaction History</Link></LinkText>
-                        <p>Select your past receiver</p>
+                        <BorderTitle smallText>Select your past receiver</BorderTitle>
                         <Field
                             name="receiver"
                             placeholder="Receivers first name*"
