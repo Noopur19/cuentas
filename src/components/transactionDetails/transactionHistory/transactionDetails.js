@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react'
 import PropTypes from 'prop-types';
 import _ from 'lodash'
@@ -7,11 +8,11 @@ import BorderTitle from '../../shared/BorderTitle.styled'
 import CardFooter  from '../../shared/CardFooter';
 
 const TransactionDetails = (props) => {
-    const { transactions } = props;
-    const parsedServiceType = JSON.parse(transactions.additional_properties.wu_product.value)
-    const paymentDetails = JSON.parse(transactions.additional_properties.payment_details.value)
-    const receiver = JSON.parse(transactions.additional_properties.receiver.value)
-    const dfDetails = JSON.parse(transactions.additional_properties.df_details.value)
+    const { transactions,receiverData, payment, wu_product } = props;
+    const parsedServiceType = wu_product || transactions && JSON.parse(transactions?.additional_properties?.wu_product?.value)
+    const paymentDetails = payment || transactions && JSON.parse(transactions?.additional_properties?.payment_details?.value)
+    const receiver = receiverData || transactions&& JSON.parse(transactions?.additional_properties?.receiver?.value)
+    const dfDetails = transactions && JSON.parse(transactions?.additional_properties?.df_details?.value) || {}
     const currencyCode = _.get(paymentDetails,'origination.currency_iso_code')
     const receiverCurrencyCode = _.get(paymentDetails,'destination.currency_iso_code')
 
@@ -128,17 +129,23 @@ const TransactionDetails = (props) => {
                 <h4>Total</h4>
                 <span>{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</span>
             </div>
-            <div className="article">
-                { getParseHtmlArticle('en_wu_111') }
-                { getParseHtmlArticle('en_wu_109') }
-            </div>
-            <CardFooter></CardFooter>
+            {!payment && <>
+                <div className="article">
+                    { getParseHtmlArticle('en_wu_111') }
+                    { getParseHtmlArticle('en_wu_109') }
+                </div>
+                <CardFooter></CardFooter>
+            </>
+            }
         </div>
     )
 }
 
 TransactionDetails.propTypes = {
     transactions: PropTypes.object,
+    receiverData: PropTypes.object,
+    payment: PropTypes.object,
+    wu_product: PropTypes.object,
 };
 
 export default TransactionDetails

@@ -38,6 +38,9 @@ const RewardsStep = () => {
         setStep(step+1)
         saveData()
     }
+    const editDetails = () => {
+        setStep(1)
+    }
 
     const prevPage = () =>  {
         setStep(step-1)
@@ -78,7 +81,7 @@ const RewardsStep = () => {
             return <ConfirmTransfer
                 className="step-color-pallate"
                 saveData={ saveData }
-                prevPage={ prevPage }
+                editDetails={ editDetails }
                 submitData={ nextPage }
                 nextPage={ nextPage }
             />

@@ -9,11 +9,13 @@ import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import PropTypes from 'prop-types';
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
+import TransactionDetails from 'components/transactionDetails/transactionHistory/transactionDetails'
+
 import { postDeliveryData } from 'middleware/receiver'
 import BorderTitle from 'components/shared/BorderTitle.styled';
 
 const ConfirmTransfer = (props) => {
-    const { handleSubmit, prevPage } = props;
+    const { handleSubmit, editDetails } = props;
     const dispatch = useDispatch()
     const formValues = useSelector((state) => state.form.receiver_details)
     const incomeDetail = useSelector((state) => state.user.incomeDetail)
@@ -75,9 +77,11 @@ const ConfirmTransfer = (props) => {
                             </span>
                         </div>
                     }
+                    {postDeliveryDetails?.payment_details && <TransactionDetails receiverData={ postDeliveryDetails?.receiver } wu_product={ postDeliveryDetails?.wu_product }  payment={ postDeliveryDetails?.payment_details } />}
+
                     {getParseHtmlArticle('en_wu_117')}
                     {getParseHtmlArticle('en_wu_114')}
-                    <Button onClick={ prevPage } >Edit details</Button>
+                    <Button onClick={ editDetails } >Edit details</Button>
                     <Button outlined type='submit'>Confirm and Send</Button>
                     {getParseHtmlArticle('en_wu_115')}
                     {getParseHtmlArticle('en_wu_111')}
@@ -92,7 +96,7 @@ const ConfirmTransfer = (props) => {
 ConfirmTransfer.propTypes = {
     handleSubmit: PropTypes.func,
     initialize: PropTypes.object,
-    prevPage: PropTypes.func,
+    editDetails: PropTypes.func,
     submitData: PropTypes.func
 };
 export default reduxForm({
