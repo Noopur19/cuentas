@@ -39,7 +39,7 @@ export const getTransactionStatus = (status) => {
 
 export const getCountryName = (countries, code) => {
     const country = countries?.filter((item) => item.currency[ 0 ].country_cd === code)
-    return country && country[ 0 ].country
+    return country && country[ 0 ]?.country
 }
 
 export const delieveryTypeRequestPayload = (receiver) => {

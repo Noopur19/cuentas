@@ -38,10 +38,10 @@ const TransactionHistory = () => {
                             <div className="detail">
                                 <h6> {invoice.item_name} </h6>
                                 <p className="invoice">Invoice: {invoice.invoice_id} </p>
-                                <p className="status">{invoice.current_fulfillment_status}</p>
+                                <p className="status">Done</p>
                             </div>
                             <div className="pricing">
-                                <h6 className="price">{getCurrencySymbol(currencyCode)} {invoice.unit_price}</h6>
+                                <h6 className="price">-{getCurrencySymbol(currencyCode)} {invoice.unit_price}</h6>
                                 <p className="time">{formattedTime}</p>
                             </div>
                         </div>

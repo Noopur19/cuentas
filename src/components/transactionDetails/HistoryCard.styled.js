@@ -16,6 +16,7 @@ h5 {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 10px;
+    padding-right: 17px;
     .img-wrapper {
         width: 30%;
         background: rgb(235 87 87 / 10%);
@@ -27,8 +28,8 @@ h5 {
         justify-content: center;
     }
     .detail {
-        width: calc(40% - 10px);
-        margin: 0 5px;
+        width: calc(40% - 2 0px);
+        margin: 0 10px;
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { NavbarTitle, Nav, HeaderCard } from './Navbar.styled';
+import { NavbarTitle, Nav } from './Navbar.styled';
 import backIcon from '../../images/backIcon.svg'
 import history from 'utils/history'
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
-import historyIcon from '../../images/historyIcon.png';
+import NavbarCard from './NavbarCard';
 
 const Navbar = (props)  => {
     const { showProgressBar } = props
@@ -37,19 +37,7 @@ const Navbar = (props)  => {
                     </ul>
                 </div>
                 }
-
-                <HeaderCard className="header-card">
-                    <div className="amount-paid">
-                        <h2>Amount Paid</h2>
-                        <span>$6</span>
-                        <p>Cancelar</p>
-                    </div>
-                    <div className="amount-img">
-                        <img className="img-fluid" src={ historyIcon } alt="history-icon"/>
-                        <p> 26 October, 2021 | 08:37 </p>
-                    </div>
-                </HeaderCard>
-
+                <NavbarCard />
             </div>
         </Nav>
     )

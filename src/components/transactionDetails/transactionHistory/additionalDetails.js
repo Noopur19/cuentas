@@ -82,44 +82,44 @@ const AdditionalDetails = (props) => {
                     </div>
                 </div>
                 <div className="additionalDetailsCard">
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between info">
                         <p>Amount Paid</p>
-                        <sapn className="price">{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</sapn>
+                        <span className="price">{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</span>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between info">
                         <p>Transfer to</p>
                         <span>{parsedReceiver.name.first_name || ''}
                             {parsedReceiver.name.middle_name || ''}
                             {parsedReceiver.name.last_name || ''}
                         </span>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between info">
                         <p>Details</p>
                         <span> {transactions.invoice_number}
                         </span>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between info">
                         <p>Tracking Number</p>
                         <span>(MTCN) {transactions.additional_properties.mtcn.value}
                         </span>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between info">
                         <p>Date of transaction</p>
                         <span>{formattedDate}
                         </span>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between info">
                         <p>Time of transaction</p>
                         <span>{formattedTime}</span>
                     </div>
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between info">
                         <p>My WU number</p>
                         <span>{myWUNumber}
                         </span>
                     </div>
                 </div>
                 {transactions.additional_properties?.total_points?.value &&
-                <div className="d-flex justify-content-between">Total point----{transactions.additional_properties.total_points.value}</div>}
+                <div className="d-flex justify-content-between info">Total point{transactions.additional_properties.total_points.value}</div>}
             </AdditionalDetailWrap></>
     )
 }
