@@ -10,7 +10,6 @@ import history from 'utils/history'
 import StyledContainer from '../shared/Container.styled'
 // import _ from 'lodash'
 export const Layout = (props) => {
-    console.log(history)
     // const dispatch = useDispatch()
     // const articles = useSelector((state) => state.articles.articles)
     const showProgressBar = () => {
@@ -33,7 +32,7 @@ export const Layout = (props) => {
     }, [])
 
     return(<StyledContainer className={ `main-layout ${ showProgressBar() && 'active-progress-bar' } ${ activeCard() && 'active-card' }` }>
-        <Navbar showProgressBar={ showProgressBar } />
+        <Navbar showProgressBar={ showProgressBar } activeCard={ activeCard } />
         {loading && <MainLoader />}
         {props.children }
     </StyledContainer>)

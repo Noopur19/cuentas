@@ -11,7 +11,6 @@ export const Card = Styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  margin-top: -30px;
   margin-bottom: 113px; 
 `;
 

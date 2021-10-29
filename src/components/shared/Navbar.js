@@ -8,9 +8,8 @@ import PropTypes from 'prop-types';
 import NavbarCard from './NavbarCard';
 
 const Navbar = (props)  => {
-    const { showProgressBar } = props
+    const { showProgressBar, activeCard } = props
     const stepData =  useSelector((state) => state.theme.stepData)
-    console.log(stepData)
 
     const handleBack = () => {
         history.goBack()
@@ -37,13 +36,14 @@ const Navbar = (props)  => {
                     </ul>
                 </div>
                 }
-                <NavbarCard />
+                {activeCard() && <NavbarCard />}
             </div>
         </Nav>
     )
 }
 Navbar.propTypes = {
-    showProgressBar: PropTypes.func
+    showProgressBar: PropTypes.func,
+    activeCard: PropTypes.func
 }
 
 export default withRouter(Navbar);

@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case ActionTypes.GET_INCOME_DETAILS_REQUEST:
         return { ...state, loading: true };
     case ActionTypes.GET_INCOME_DETAILS_SUCCESS:
-        return { ...state, loading: false, accountDetail: action.payload.accountDetail };
+        return { ...state, loading: false,incomeDetail: action.payload, accountDetail: action.payload.accountDetail };
     case ActionTypes.GET_INCOME_DETAILS_FAILED:
         return { ...state, loading: false };
     default:

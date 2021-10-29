@@ -28,7 +28,7 @@ h5 {
         justify-content: center;
     }
     .detail {
-        width: calc(40% - 2 0px);
+        width: calc(40% - 20px);
         margin: 0 10px;
         display: flex;
         flex-wrap: wrap;

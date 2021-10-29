@@ -19,7 +19,7 @@ const StyledContainer = Styled.div`
    }
    .transactionHistoryDetail {
       margin-bottom: 0;
-      top: 246px;
+      top: 275px;
       border-radius: 0;
       background: ${ props => props.theme.light }
    }
