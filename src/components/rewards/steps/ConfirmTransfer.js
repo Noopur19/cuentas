@@ -49,7 +49,7 @@ const ConfirmTransfer = (props) => {
     }
 
     return (
-        <Card>
+        <Card className="progress-card">
 
             <div>
                 <form onSubmit={ handleSubmit(saveData) } >
