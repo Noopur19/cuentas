@@ -11,10 +11,10 @@ import Footer from '../shared/Footer'
 import RewardNumber from './RewardNumber.styles'
 import { Card } from '../shared/Footer.styled'
 import CardFooter from '../shared/CardFooter'
-import { setLocalData, getLocalData } from 'utils/cache';
+import { setLocalData, getLocalData, removeLocalData } from 'utils/cache';
 import { rewardNumberValidation as validate } from 'utils/validates'
 import PropTypes from 'prop-types';
-
+import history from 'utils/history'
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
@@ -25,6 +25,9 @@ const RewardNumberPage = (props) => {
         if (values.WUNumber) {
             setLocalData('myWUNumber',values.WUNumber)
             dispatch(postWUNumber(values.WUNumber));
+        }else{
+            removeLocalData('myWUNumber')
+            history.push('/protect-form')
         }
     }
 

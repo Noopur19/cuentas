@@ -3,8 +3,8 @@ import { SubmissionError } from 'redux-form'
 
 export const rewardNumberValidation = values => {
     const errors = {};
-    if (!values.WUNumber) {
-        errors.WUNumber = MESSAGE.REQUIRE('WUNumber');
+    if (values.WUNumber && values.WUNumber.length < 9 ) {
+        errors.WUNumber = MESSAGE.VALID_ENTER('WUNumber');
     }
     return errors;
 }
