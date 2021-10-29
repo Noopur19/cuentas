@@ -7,9 +7,9 @@ import { Card } from '../shared/Footer.styled'
 import LinkText from '../shared/LinkText.styled'
 import Link from '../shared/Link.styled'
 import footerLogo from '../../images/FooterHeading.svg'
+import { ROUTES } from 'constants/AppRoutes'
 
 const ProtectForm = () => {
-
     const onClickHandler = () => {
         history.push('/receiver-details')
     }
@@ -32,7 +32,7 @@ const ProtectForm = () => {
                     </div>
                 </Card>
                 <Footer>
-                    <Button onClick={ () => history.goBack() } >Cancel</Button>
+                    <Button onClick={ () => history.push(ROUTES.ROOT) } >Cancel</Button>
                     <Button outlined onClick={ () => onClickHandler() } type='submit'>Agree</Button>
                 </Footer>
             </div>

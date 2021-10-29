@@ -14,10 +14,12 @@ import CardFooter from '../../shared/CardFooter'
 import BorderTitle from '../../shared/BorderTitle.styled'
 import { getLocalData } from 'utils/cache'
 import PropTypes from 'prop-types';
+import history from 'utils/history'
+import { ROUTES } from 'constants/AppRoutes'
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
-    const { handleSubmit,receivers, initialize, submitData } = props;
+    const { handleSubmit,receivers, initialize ,submitData } = props;
     const countries = useSelector((state) => state.receiver.countries )
     const statesLoading = useSelector((state) => state.receiver.statesLoading )
     const states = useSelector((state) => state.receiver.states )
@@ -26,12 +28,20 @@ const ReceiverDetailsForm = (props) => {
     const [ disableSubmit, setDisableSubmit ] = useState(false);
     const myWUNumber  = getLocalData('myWUNumber')
 
+    // const resetForm = () => {
+    //     initialize({
+    //         firstName: null,
+    //         lastName: null,
+    //         country: null
+    //     })
+    // }
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch({
             type: GET_STEP_PROGRESSBAR,
             data: { title: 'Receiver Details', step: 1 }
         })
+        // resetForm()
     },[])
 
     useEffect(() => {
@@ -84,6 +94,7 @@ const ReceiverDetailsForm = (props) => {
             country: obj[ 0 ] && JSON.stringify(obj[ 0 ] )
         })
     }
+
     return (
         <Card className="progress-card">
             <div>
@@ -158,7 +169,10 @@ const ReceiverDetailsForm = (props) => {
                     }
                     <CardFooter></CardFooter>
                     <Footer>
-                        <Button >Back</Button>
+                        <Button type='button' onClick={ () =>
+                        {
+                            history.push(ROUTES.PROTECT_FORM)
+                        } } >Back</Button>
                         <Button outlined disabled={ disableSubmit } type='submit'>Continue</Button>
                     </Footer>
                 </form>

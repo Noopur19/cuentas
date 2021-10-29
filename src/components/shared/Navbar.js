@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { NavbarTitle, Nav } from './Navbar.styled';
 import backIcon from '../../images/backIcon.svg'
-import history from 'utils/history'
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import NavbarCard from './NavbarCard';
+import { useHistory } from 'react-router-dom';
 
 const Navbar = (props)  => {
     const { showProgressBar, activeCard } = props
+    const history = useHistory();
+
     const stepData =  useSelector((state) => state.theme.stepData)
 
     const handleBack = () => {

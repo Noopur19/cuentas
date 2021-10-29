@@ -18,7 +18,7 @@ const RewardsStep = () => {
     const [ step, setStep ] = useState(1)
     const myWUNumber  = getLocalData('myWUNumber')
 
-    const receivers = useSelector((state) => state.receiver.receivers )
+    const receivers = myWUNumber && useSelector((state) => state.receiver.receivers ) || []
 
     const handleLoad = () => {
         myWUNumber && dispatch(callMyNUNumber(myWUNumber))
