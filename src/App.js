@@ -9,6 +9,7 @@ import RewardsStep from 'components/rewards';
 import LandingPage  from 'components/landingPage';
 import TransactionHistory from 'components/transactionDetails/transactionHistory';
 import TransactionHistoryDetails from 'components/transactionDetails/transactionHistory/view';
+import Success from 'components/success/index';
 
 function App() {
     return (
@@ -38,6 +39,10 @@ function App() {
                 <Route exact
                     path={ ROUTES.LANDING_PAGE }
                     component={ LandingPage }
+                />
+                <Route exact
+                    path={ ROUTES.SUCCESS_PAGE }
+                    component={ Success }
                 />
             </Switch>
         </Layout>

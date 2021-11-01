@@ -1,33 +1,36 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { reduxForm } from 'redux-form';
-import { Card } from '../../shared/Footer.styled'
 import Button from 'components/shared/Button.styled'
-import Footer from 'components/shared/Footer'
 import { getCountryName, getParseHtmlArticle } from 'utils/helpers'
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import PropTypes from 'prop-types';
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import TransactionDetails from 'components/transactionDetails/transactionHistory/transactionDetails'
-
 import { postDeliveryData } from 'middleware/receiver'
 import BorderTitle from 'components/shared/BorderTitle.styled';
+import moment from 'moment'
+import CardFooter from 'components/shared/CardFooter';
+import { Card } from 'components/shared/Footer.styled';
+import history from 'utils/history';
+import { ROUTES } from 'constants/AppRoutes';
 
 const ConfirmTransfer = (props) => {
     const { handleSubmit, editDetails } = props;
     const dispatch = useDispatch()
-    const formValues = useSelector((state) => state.form.receiver_details)
     const incomeDetail = useSelector((state) => state.user.incomeDetail)
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries )
+    const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
+    const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
+    const formattedDate = date && moment(date).format('DD MMMM,YYYY')
 
     useEffect(() => {
         dispatch({
             type: GET_STEP_PROGRESSBAR,
             data: { title: 'Confirm Transfer', step: 4 }
         })
-        console.log(formValues, postDeliveryDetails)
     }, [])
 
     const saveData = (values) => {
@@ -50,11 +53,10 @@ const ConfirmTransfer = (props) => {
 
     return (
         <Card className="progress-card">
-
             <div>
                 <form onSubmit={ handleSubmit(saveData) } >
                     <h5>NOT A RECEIPT</h5>
-                    <p>Date of transaction: </p>
+                    <p>Date of transaction: {formattedDate}</p>
                     {getParseHtmlArticle('en_wu_118')}
                     {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
                     <BorderTitle smallText className="mt-4">Final Receiver</BorderTitle>
@@ -82,10 +84,10 @@ const ConfirmTransfer = (props) => {
                     {getParseHtmlArticle('en_wu_117')}
                     {getParseHtmlArticle('en_wu_114')}
                     <Button onClick={ editDetails } >Edit details</Button>
-                    <Button outlined type='submit'>Confirm and Send</Button>
+                    <Button outlined onClick={ () => history.push(ROUTES.SUCCESS_PAGE) } type='submit'>Confirm and Send</Button>
                     {getParseHtmlArticle('en_wu_115')}
                     {getParseHtmlArticle('en_wu_111')}
-                    <Footer/>
+                    <CardFooter/>
                 </form>
             </div>
         </Card>
