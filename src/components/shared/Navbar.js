@@ -6,9 +6,11 @@ import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import NavbarCard from './NavbarCard';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = (props)  => {
     const { showProgressBar, activeCard } = props
+    const { t } = useTranslation()
     const history = useHistory();
 
     const stepData =  useSelector((state) => state.theme.stepData)
@@ -23,15 +25,15 @@ const Navbar = (props)  => {
         <Nav>
             <div className="top-header">
                 <a href="#" onClick={ handleBack } ><img src={ backIcon } alt="back"/> </a>
-                <NavbarTitle>Send money with cuentas
-                    <i>Powered by Western Union</i>
+                <NavbarTitle>{t('SEND_MONEY_WITH_CUENTAS')}
+                    <i>{t('POWERED_BY_WESTERN_UNION')}</i>
                 </NavbarTitle>
                 <div></div>
                 { showProgressBar() &&
                 <div className="progress-wrapper">
                     <h3>{stepData?.title}</h3>
                     <ul className="progressbar">
-                        <li className={ getActiveBar(1) }>Progress</li>
+                        <li className={ getActiveBar(1) }>{t('PROGRESS_TEXT')}</li>
                         <li className={ getActiveBar(2) }></li>
                         <li className={ getActiveBar(3) }></li>
                         <li className={ getActiveBar(4) }></li>

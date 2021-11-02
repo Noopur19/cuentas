@@ -9,8 +9,11 @@ import { getCurrencySymbol } from 'utils/helpers'
 import HistoryCard from '../HistoryCard.styled'
 import BorderTitle from '../../shared/BorderTitle.styled'
 import historyIcon from '../../../images/historyIcon.png'
+import { useTranslation } from 'react-i18next';
 
 const TransactionHistory = () => {
+    const { t } = useTranslation()
+
     const dispatch = useDispatch()
     const transactions = useSelector((state) => state.transactionHistory.invoices)
 
@@ -58,7 +61,7 @@ const TransactionHistory = () => {
     return (
         <Card className="transaction-card mb-0">
             <div>
-                <BorderTitle>My WU History</BorderTitle>
+                <BorderTitle>{t('MYWU_HISTORY')}</BorderTitle>
                 {renderCard()}
             </div>
         </Card>

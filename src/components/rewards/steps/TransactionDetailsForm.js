@@ -16,7 +16,10 @@ import PropTypes from 'prop-types';
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import { getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
+import { useTranslation } from 'react-i18next';
+
 const TransactionDetailsForm = (props) => {
+    const { t } = useTranslation()
     const { handleSubmit, initialize ,prevPage, submitData } = props;
     const dispatch = useDispatch()
     const userInfo = useSelector((state) => state.form.receiver_details)
@@ -48,7 +51,7 @@ const TransactionDetailsForm = (props) => {
         transactionDetails()
         dispatch({
             type: GET_STEP_PROGRESSBAR,
-            data: { title: 'Transfer Details', step: 2 }
+            data: { title: t('TRANSFER_DETAL'), step: 2 }
         })
     },[])
 
@@ -94,22 +97,22 @@ const TransactionDetailsForm = (props) => {
         <Card className="progress-card">
 
             <Transaction className="transaction">
-                <BorderTitle smallText>Reciever information </BorderTitle>
+                <BorderTitle smallText>{t('RECIVER_INFO')} </BorderTitle>
                 <div className="d-flex justify-content-between">
-                    <span>Full name</span>
+                    <span>{t('FULL_NAME')}</span>
                     <span> {`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</span>
                 </div>
                 <div className="d-flex justify-content-between">
-                    <span>Payout country</span>
+                    <span>{t('PAYOUT_COUNTRY')}y</span>
                     <span> {country?.country || ''}</span>
                 </div>
-                {formValues.city && <div>Payout city {formValues.city || ''}</div>}
-                {formValues.state && <div>Payout state {formValues.state || ''}</div>}
+                {formValues.city && <div>{t('PAYOUT_CITY')} {formValues.city || ''}</div>}
+                {formValues.state && <div>{t('PAYOUT_STATE')} {formValues.state || ''}</div>}
 
-                <BorderTitle smallText className="mt-4">Your account information</BorderTitle>
-                <p className="text-center"><b>Current Balance: { availBail }</b> </p>
+                <BorderTitle smallText className="mt-4">{t('YOUR_ACCOUNT_INFO')}</BorderTitle>
+                <p className="text-center"><b>{t('CURRENT_BALANCE')} { availBail }</b> </p>
 
-                <BorderTitle smallText className="mt-4">Payout currency</BorderTitle>
+                <BorderTitle smallText className="mt-4">{t('PAYOUT_CURRENCY')}</BorderTitle>
                 <form onSubmit={ handleSubmit(saveData) } >
                     { country?.currency && country?.currency.map((item, index) => {
                         return(
@@ -126,7 +129,7 @@ const TransactionDetailsForm = (props) => {
                             </div>
                         )
                     })}
-                    <BorderTitle smallText className="mt-4">Amount to send</BorderTitle>
+                    <BorderTitle smallText className="mt-4">{t('AMOUNT2SEND')}</BorderTitle>
                     { (formValues?.payoutCurrency || currencyChecked) !== 'USD' ?
                         <>
                             <div className="converter d-flex justify-content-between">
@@ -147,7 +150,7 @@ const TransactionDetailsForm = (props) => {
                                 />
 
                             </div>
-                            <p className="text-center"><b>Exchange Rate: 1 USD = {transferDetails?.service_options?.service_option[ 0 ]?.payment_details.exchange_rate  } { currencyChecked }</b></p>
+                            <p className="text-center"><b>{t('EXCHANGE_RATE')}: 1 USD = {transferDetails?.service_options?.service_option[ 0 ]?.payment_details.exchange_rate  } { currencyChecked }</b></p>
                         </> :  <Field
                             name="amountUSD"
                             type="number"
@@ -157,20 +160,20 @@ const TransactionDetailsForm = (props) => {
 
                     }
 
-                    <BorderTitle smallText className="mt-4">Promotional Code</BorderTitle>
+                    <BorderTitle smallText className="mt-4">{t('PROMO_CODE')}</BorderTitle>
                     <Field
                         name="promoCode"
                         type="text"
                         component={ renderField }
                     />
-                    {getParseHtmlArticle('en_wu_109')}
-                    {getParseHtmlArticle('en_wu_115')}
-                    {getParseHtmlArticle('en_wu_111')}
-                    {getParseHtmlArticle('en_wu_114')}
+                    {getParseHtmlArticle('wu_109')}
+                    {getParseHtmlArticle('wu_115')}
+                    {getParseHtmlArticle('wu_111')}
+                    {getParseHtmlArticle('wu_114')}
                     <CardFooter></CardFooter>
                     <Footer>
-                        <Button onClick={ prevPage }>Back</Button>
-                        <Button outlined type='submit'>Continue</Button>
+                        <Button onClick={ prevPage }>{t('BACK')}</Button>
+                        <Button outlined type='submit'>{t('CONTINUE')}</Button>
                     </Footer>
                 </form>
             </Transaction>

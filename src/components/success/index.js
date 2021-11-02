@@ -4,67 +4,69 @@ import { Card } from '../shared/Footer.styled'
 import { getCountryName, getParseHtmlArticle } from 'utils/helpers'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import BorderTitle from 'components/shared/BorderTitle.styled';
+import { useTranslation } from 'react-i18next';
 
 const Success = () => {
+    const { t } = useTranslation()
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries)
 
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
             if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
-                return 'Expected Foreign Country Payout Location'
+                return  t('EXPECTED_FOREIGN_COUNTRY_PAYOUT_LOCATION')
             } else {
-                return 'Foreign Country Payout Location'
+                return  t('FOREIGN_COUNTRY_PAYOUT_LOCATION')
             }
         } else if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
-            return 'Expected Payout Location'
+            return t('EXPECTED_COUNTRY_PAYOUT_LOCATION')
         } else {
-            return 'Payout Location'
+            return t('COUNTRY_PAYOUT_LOCATION')
         }
     }
 
     return (
         <Card>
             <div>
-                <h3>Success</h3>
-                {getParseHtmlArticle('en_wu_130')}
-                <BorderTitle smallText className="mt-4">Tracking Information</BorderTitle>
+                <h3>{t('SUCCESS')}</h3>
+                {getParseHtmlArticle('wu_130')}
+                <BorderTitle smallText className="mt-4">{t('TRACKING_INFO')}</BorderTitle>
                 <div className="d-flex justify-content-between info">
-                    <p>Tracking Number</p>
+                    <p>{t('TRACKING_NUMBER')}</p>
                     <span><b>##########</b></span>
                 </div>
-                <span>{getParseHtmlArticle('en_wu_134')}</span>
+                <span>{getParseHtmlArticle('wu_134')}</span>
 
-                <BorderTitle smallText className="mt-4">Transaction Details</BorderTitle>
+                <BorderTitle smallText className="mt-4">{t('TRANSACTION_DETAILS')}</BorderTitle>
                 <div className="d-flex justify-content-between info">
-                    <p>Date of transaction</p>
+                    <p>{t('DATE_OF_TRANSACTION')}</p>
                     <span><b>-----</b>
                     </span>
                 </div>
 
                 <div className="d-flex justify-content-between info">
-                    <p>Time of transaction</p>
+                    <p>{t('TIME_OF_TRANSACTION')}</p>
                     <span><b>-----</b>
                     </span>
                 </div>
 
                 <div className="d-flex justify-content-between info">
-                    <p>My WU number</p>
+                    <p>{t('MY_WU_NUMBER')}</p>
                     <span><b>-----</b>
                     </span>
                 </div>
 
                 <div className="d-flex justify-content-between info">
-                    <p>Total points</p>
+                    <p>{t('TOTAL_POINTS')}</p>
                     <span><b>-----</b>
                     </span>
                 </div>
 
                 {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
 
-                <BorderTitle smallText className="mt-4">Final Receiver</BorderTitle>
+                <BorderTitle smallText className="mt-4">{t('FINAL_RECEIVER')}</BorderTitle>
                 <div className="d-flex justify-content-between info">
-                    <p>Name</p>
+                    <p>{t('NAME_TEXT')}</p>
                     <span><b> {postDeliveryDetails?.receiver?.name?.first_name || ''} {postDeliveryDetails?.receiver?.name?.middle_name || ''} {postDeliveryDetails?.receiver?.name.last_name || ''}</b>
                     </span>
                 </div>
@@ -76,46 +78,46 @@ const Success = () => {
                 </div>
                 {postDeliveryDetails?.receiver?.address.city &&
                     <div className="d-flex justify-content-between info">
-                        <p>Payout City</p>
+                        <p>{t('PAYOUT_CITY')}</p>
                         <span><b>{postDeliveryDetails?.receiver?.address.city}</b>
                         </span>
                     </div>
                 }
                 {postDeliveryDetails?.receiver?.address.state &&
                 <div className="d-flex justify-content-between info">
-                    <p>Payout State</p>
+                    <p>{t('PAYOUT_STATE')}</p>
                     <span><b>{postDeliveryDetails?.receiver?.address.state}</b>
                     </span>
                 </div>}
                 <div className="d-flex justify-content-between info">
-                    <p>Exchange Rate </p>
+                    <p>{t('EXCHANGE_RATE')} </p>
                     <span>------</span>
                 </div>
                 <div className="d-flex justify-content-between info">
-                    <p>Transfer amount</p>
+                    <p>{t('TRANSFER_AMOUNT')}</p>
                     <span>-------</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading mt-3">
-                    <h4 >Total to Final Receiver </h4>
+                    <h4 >{t('TOTAL_TO_RECEIVER')}</h4>
                     <span>-------</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading">
-                    <h4>Total</h4>
+                    <h4>{t('TOTAL')}</h4>
                     <span>-------</span>
                 </div>
-                {getParseHtmlArticle('en_wu_117')}
-                {getParseHtmlArticle('en_wu_127')}
-                {getParseHtmlArticle('en_wu_121')}
-                {getParseHtmlArticle('en_wu_115')}
-                {getParseHtmlArticle('en_wu_122')}
-                {postDeliveryDetails?.sender?.address?.state === 'CA' && getParseHtmlArticle('en_wu_104')}
+                {getParseHtmlArticle('wu_117')}
+                {getParseHtmlArticle('wu_127')}
+                {getParseHtmlArticle('wu_121')}
+                {getParseHtmlArticle('wu_115')}
+                {getParseHtmlArticle('wu_122')}
+                {postDeliveryDetails?.sender?.address?.state === 'CA' && getParseHtmlArticle('wu_104')}
                 {postDeliveryDetails?.receiver?.address?.country_iso_code==='US' &&
                 postDeliveryDetails?.sender.address.state ==='TX' &&
-                getParseHtmlArticle('en_wu_105')
+                getParseHtmlArticle('wu_105')
                 }
-                {getParseHtmlArticle('en_wu_109')}
-                {getParseHtmlArticle('en_wu_110')}
-                {getParseHtmlArticle('en_wu_111')}
+                {getParseHtmlArticle('wu_109')}
+                {getParseHtmlArticle('wu_110')}
+                {getParseHtmlArticle('wu_111')}
             </div>
         </Card>
     )

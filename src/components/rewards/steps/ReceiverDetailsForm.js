@@ -17,8 +17,12 @@ import PropTypes from 'prop-types';
 import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
+import { useTranslation } from 'react-i18next';
+
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
+    const { t } = useTranslation()
+
     const { handleSubmit,receivers, initialize ,submitData } = props;
     const countries = useSelector((state) => state.receiver.countries )
     const statesLoading = useSelector((state) => state.receiver.statesLoading )
@@ -39,7 +43,7 @@ const ReceiverDetailsForm = (props) => {
         dispatch(getAllCountries())
         dispatch({
             type: GET_STEP_PROGRESSBAR,
-            data: { title: 'Receiver Details', step: 1 }
+            data: { title: `${ t('RECIEVER') } ${ t('DETAILS') }`, step: 1 }
         })
         // resetForm()
     },[])
@@ -102,8 +106,8 @@ const ReceiverDetailsForm = (props) => {
                     { (!_.isEmpty(receivers)) &&
                     <>
                         <p className="text-center myu-head"><b>MY WU # { myWUNumber } </b></p>
-                        <LinkText>View <Link className="link" bold color="textOrange" to="/transaction-history">Transaction History</Link></LinkText>
-                        <BorderTitle smallText>Select your past receiver</BorderTitle>
+                        <LinkText>{t('VIEW')} <Link className="link" bold color="textOrange" to="/transaction-history">{t('TRANSACTION_HISTORY')}</Link></LinkText>
+                        <BorderTitle smallText>{t('SELECT_YOUR_PAST_RECEIVERS')}</BorderTitle>
                         <Field
                             name="receiver"
                             placeholder="Receivers first name*"
@@ -115,34 +119,34 @@ const ReceiverDetailsForm = (props) => {
 
                     }
 
-                    <BorderTitle smallText>Enter new recipient</BorderTitle>
+                    <BorderTitle smallText>{(!_.isEmpty(receivers))  ? t('OR_ENTER_NEW_RECIPIENT') : t('ENTER_NEW_RECIPIENT')}</BorderTitle>
                     <Field
                         name="firstName"
                         type="text"
-                        placeholder="Receivers first name*"
+                        placeholder={ t('RECEIVERS_FIRST_NAME_STAR') }
                         component={ renderField }
                     />
                     <Field
                         name="middleName"
                         type="text"
-                        placeholder="Receivers middle name"
+                        placeholder={ t('RECEIVERS_MIDDLE_NAME') }
                         component={ renderField }
                     />
                     <Field
                         name="lastName"
                         type="text"
-                        placeholder="Receivers last name*"
+                        placeholder={ t('RECEIVERS_LAST_NAME_STAR') }
                         component={ renderField }
                     />
                     <Field
                         name="email"
                         type="email"
-                        placeholder="E-mail"
+                        placeholder={ t('E_MAIL') }
                         component={ renderField }
                     />
                     <Field
                         name="country"
-                        placeholder="Country"
+                        placeholder={ t('COUNTRY') }
                         handleChange = { handleChangeCountry }
                         options= { getCountriesOptions() }
                         component={ renderSelectField }
@@ -151,7 +155,7 @@ const ReceiverDetailsForm = (props) => {
                     <>
                         <Field
                             name="state"
-                            placeholder="State"
+                            placeholder={ t('STATE_TEXT') }
                             handleChange = { handleChangeState }
                             options= { getStatesOptions() }
                             component={ renderSelectField }
@@ -159,7 +163,7 @@ const ReceiverDetailsForm = (props) => {
                         { form.values.state &&
                         <Field
                             name="city"
-                            placeholder="City"
+                            placeholder={ t('CITY_TEXT') }
                             handleChange = { null }
                             options= { getCitiesOptions() }
                             component={ renderSelectField }
@@ -172,8 +176,8 @@ const ReceiverDetailsForm = (props) => {
                         <Button type='button' onClick={ () =>
                         {
                             history.push(ROUTES.PROTECT_FORM)
-                        } } >Back</Button>
-                        <Button outlined disabled={ disableSubmit } type='submit'>Continue</Button>
+                        } } >{ t('BACK') }</Button>
+                        <Button outlined disabled={ disableSubmit } type='submit'>{t('CONTINUE')}</Button>
                     </Footer>
                 </form>
             </div>

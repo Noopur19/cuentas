@@ -12,8 +12,10 @@ import { postDeliveryData } from 'middleware/receiver'
 import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { FeeData } from './TransactionDetailsForm.styled'
+import { useTranslation } from 'react-i18next';
 
 const DelievryTypeForm = (props) => {
+    const { t } = useTranslation()
     const { handleSubmit, initialize ,submitData, prevPage } = props;
     const dispatch = useDispatch()
     const formValues = useSelector((state) => state.form.receiver_details)
@@ -50,7 +52,7 @@ const DelievryTypeForm = (props) => {
         <Card className="progress-card">
 
             <div>
-                <h5>Select a Delivery Type</h5>
+                <h5>{t('SELECT_DELIVERY_TYPE')}</h5>
                 <form onSubmit={ handleSubmit(saveData) } >
 
                     <Field
@@ -66,10 +68,10 @@ const DelievryTypeForm = (props) => {
 
                     </FeeData>
 
-                    {getParseHtmlArticle('en_wu_111')}
+                    {getParseHtmlArticle('wu_111')}
                     <Footer>
-                        <Button onClick={ prevPage } >Back</Button>
-                        <Button outlined type='submit'>Continue</Button>
+                        <Button onClick={ prevPage } >{t('BACK')}</Button>
+                        <Button outlined type='submit'>{t('CONTINUE')}</Button>
                     </Footer>
                 </form>
             </div>

@@ -12,8 +12,11 @@ import Modal from 'components/shared/Modal';
 import BorderTitle from '../../shared/BorderTitle.styled'
 import historyIcon from '../../../images/historyIcon.png'
 import { AdditionalDetailWrap } from './transactionHistory.styled'
+import { useTranslation } from 'react-i18next';
 
 const AdditionalDetails = (props) => {
+    const { t } = useTranslation()
+
     const { transactions, receiver, sender, mtcn } = props;
     const dispatch = useDispatch()
 
@@ -56,9 +59,9 @@ const AdditionalDetails = (props) => {
                 handleClose={ () => toggleModal() }
                 handleCancel={ () => onCancelHandler() }
             >
-                <h3>Status: Pending</h3>
+                <h3>{t('STATUS_PENDING')}</h3>
                 <h4>(MTCN){transactions.additional_properties.mtcn.value}</h4>
-                <p>Would you like to cancel your transaction ?</p>
+                <p>{t('CANCEL_CONFIRMATION')}</p>
 
             </Modal>
         )
@@ -66,13 +69,13 @@ const AdditionalDetails = (props) => {
 
     return (
         <>
-            <button onClick={ () => onClickHandler() }>Send Email</button>
+            <button onClick={ () => onClickHandler() }>{t('SEND_EMAIL')}</button>
 
             <AdditionalDetailWrap className="additionalDetails">
-                <BorderTitle>Additional Detail</BorderTitle>
+                <BorderTitle>{t('ADDITIONAL_DETAILS')}</BorderTitle>
                 <div className="header-card d-none">
                     <div className="amount-paid">
-                        <h2>Amount Paid</h2>
+                        <h2>{t('AMOUNT_PAID')}</h2>
                         <span>{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</span>
                         <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry.transaction_status)}</p>
                     </div>
@@ -84,43 +87,43 @@ const AdditionalDetails = (props) => {
                 </div>
                 <div className="additionalDetailsCard">
                     <div className="d-flex justify-content-between info">
-                        <p>Amount Paid</p>
+                        <p>{t('AMOUNT_PAID')}</p>
                         <span className="price">{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</span>
                     </div>
                     <div className="d-flex justify-content-between info">
-                        <p>Transfer to</p>
+                        <p>{t('TRANSFER_TO')}</p>
                         <span>{parsedReceiver.name.first_name || ''}
                             {parsedReceiver.name.middle_name || ''}
                             {parsedReceiver.name.last_name || ''}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">
-                        <p>Details</p>
+                        <p>{t('DETAILS')}</p>
                         <span> {transactions.invoice_number}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">
-                        <p>Tracking Number</p>
+                        <p>{t('TRACKING_NUMBER')}</p>
                         <span>(MTCN) {transactions.additional_properties.mtcn.value}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">
-                        <p>Date of transaction</p>
+                        <p>{t('DATE_OF_TRANSACTION')}</p>
                         <span>{formattedDate}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">
-                        <p>Time of transaction</p>
+                        <p>{t('TIME_OF_TRANSACTION')}</p>
                         <span>{formattedTime}</span>
                     </div>
                     <div className="d-flex justify-content-between info">
-                        <p>My WU number</p>
+                        <p>{t('MY_WU_NUMBER')}</p>
                         <span>{myWUNumber}
                         </span>
                     </div>
                     {transactions.additional_properties?.total_points?.value &&
                         <div className="d-flex justify-content-between info">
-                            <p>Total point</p>
+                            <p>{t('TOTAL_POINTS')}</p>
                             <span>{transactions.additional_properties.total_points.value}</span>
                         </div>
                     }

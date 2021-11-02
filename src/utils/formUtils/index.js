@@ -77,6 +77,7 @@ const renderSelectField = (props) => {
         options,
         selectedOption,
         handleChange,
+        placeholder,
         validationError,
         meta: { touched, error, warning },
         defaultWarning
@@ -112,6 +113,7 @@ const renderSelectField = (props) => {
                 value={ selectedOption || getSelectedOption(input?.value) }
                 onChange={ changeValue }
                 options={ options || [] }
+                placeholder={ placeholder }
             />
 
             {defaultWarning && !input.value && <span className="default-warning"><i className="fas fa-exclamation-triangle"></i> {defaultWarning}</span>}

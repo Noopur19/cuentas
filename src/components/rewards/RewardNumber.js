@@ -15,11 +15,13 @@ import { setLocalData, getLocalData, removeLocalData } from 'utils/cache';
 import { rewardNumberValidation as validate } from 'utils/validates'
 import PropTypes from 'prop-types';
 import history from 'utils/history'
+import { useTranslation } from 'react-i18next';
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
     const { handleSubmit, initialize } = props;
     const myWUNumber = getLocalData('myWUNumber')
+    const { t } = useTranslation();
     const onSubmit = (values) => {
         console.log(values.WUNumber);
         if (values.WUNumber) {
@@ -42,8 +44,8 @@ const RewardNumberPage = (props) => {
         <RewardNumber>
             <form onSubmit={ handleSubmit( onSubmit ) }>
                 <div className="rewardWrapper">
-                    <BorderTitle> Have a MyWU Rewards Number?</BorderTitle>
-                    {!isClicked && <Button onClick={ () => setIsClicked(true) }>Click here to enter</Button>}
+                    <BorderTitle> {t('HAVE_MY_WU_REWARDS_NUMBER')}</BorderTitle>
+                    {!isClicked && <Button onClick={ () => setIsClicked(true) }>{t('CLICK_HEAR_TO_ENTER')}</Button>}
                     {!!isClicked &&
                         <>
                             <div className="wu-number">
@@ -53,18 +55,18 @@ const RewardNumberPage = (props) => {
                                     component={ renderField }
                                     normalize={ val => (val || '').replace(/[^\d]/g, '') }
                                 />
-                                <p className="note-para">Enter 9-digit My WU Number</p>
+                                <p className="note-para">{t('ENTER_WU_NUMBER')}</p>
                             </div>
                         </>
                     }
-                    <LinkText className="register">No MyWU Rewards ? <Link className="link" bold color="textOrange" href="#!">Click here to register</Link></LinkText>
+                    <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" href="#!">{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
 
                     <Card className="main-card">
                         <CardFooter></CardFooter>
                     </Card>
                 </ div>
                 <Footer>
-                    { isClicked ? <Button className="w-100" outlined type='submit'>Next</Button> : <Link to='/protect-form' >Next</Link> }
+                    { isClicked ? <Button className="w-100" outlined type='submit'>{t('NEXT')}</Button> : <Link to='/protect-form' >{t('NEXT')}</Link> }
                 </Footer>
             </form>
         </RewardNumber>

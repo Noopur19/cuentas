@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { getLocalData } from './cache'
+import { getLocalData, setLocalData } from './cache'
 import ReactHtmlParser from 'react-html-parser';
 export const getUser = () => {
     return getLocalData('user') && JSON.parse(getLocalData('user'))
@@ -18,9 +18,14 @@ export const getArticle = (id) => {
     const articles = getArticles()
     return articles.filter((article) => article.id === id )[ 0 ]
 }
-
+export const locale = () => {
+    return getLocalData('locale')
+}
+export const setLocale = (val) => {
+    return setLocalData('locale',val)
+}
 export const getParseHtmlArticle = (id) => {
-    const article = getArticle(id)
+    const article = getArticle(`${ locale() }_${ id }`)
     return article?.body ? ReactHtmlParser(article?.body) : null
 }
 

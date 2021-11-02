@@ -6,8 +6,10 @@ import { getCurrencySymbol } from 'utils/helpers';
 import { getParseHtmlArticle } from 'utils/helpers'
 import BorderTitle from '../../shared/BorderTitle.styled'
 import CardFooter  from '../../shared/CardFooter';
+import { useTranslation } from 'react-i18next';
 
 const TransactionDetails = (props) => {
+    const { t } = useTranslation()
     const { transactions,receiverData, payment, wu_product } = props;
     const parsedServiceType = wu_product || transactions && JSON.parse(transactions?.additional_properties?.wu_product?.value)
     const paymentDetails = payment || transactions && JSON.parse(transactions?.additional_properties?.payment_details?.value)
@@ -83,56 +85,56 @@ const TransactionDetails = (props) => {
 
     return (
         <div className="transactional-details-wrap">
-            <BorderTitle smallText className="mt-4">Transaction Details</BorderTitle>
+            <BorderTitle smallText className="mt-4">{t('TRANSACTION_DETAILS')}</BorderTitle>
             <div className="d-flex justify-content-between info">
-                <p>Service type</p>
+                <p>{t('SERVICE_TYPE')}</p>
                 <span>{parsedServiceType.name}</span>
             </div>
             <div className="d-flex justify-content-between info">
-                <p>Transfer amount</p>
+                <p>{t('TRANSFER_AMOUNT')}</p>
                 <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount()} {`(${ currencyCode })`}</span></div>
             <div className="d-flex justify-content-between info">
-                <p>Transfer fees</p>
+                <p>{t('TRANSFER_FEES')}</p>
                 <span>+{getCurrencySymbol(currencyCode)} {getTransferFee()} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
-                <p>Additional fees</p>
+                <p>{t('ADDITIONAL_FEES')}</p>
                 <span>{getCurrencySymbol(currencyCode)} {0} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
-                <p>Transfer taxes</p>
+                <p>{t('TRANSFER_TAXES')}</p>
                 <span>+{getCurrencySymbol(currencyCode)} {getTotalTaxes()} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
-                <p>Promotional discount</p>
+                <p>{t('PROMOTION_DISCOUNT')}</p>
                 <span>-{getCurrencySymbol(currencyCode)} {getPromotionalDiscount()} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
-                <p>Other fees</p>
+                <p>{t('OTHER_FEES')}</p>
                 <span>{getCurrencySymbol(currencyCode)} {getOtherFee()} {`(${ currencyCode })`}</span>
             </div>
             {receiver.address.country_iso_code !== 'US' &&
             <div className="d-flex justify-content-between info">
-                <p>Exchange Rate </p>
+                <p>{t('EXCHANGE_RATE')} </p>
                 <span>{getExchangeRate()}</span>
             </div>}
             <div className="d-flex justify-content-between info">
-                <p>Transfer amount</p>
+                <p>{t('TRANSFER_AMOUNT')}</p>
                 <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info-heading mt-3">
-                <h4 >Total to Final Receiver </h4>
+                <h4 >{t('TOTAL_TO_RECEIVER')} </h4>
                 <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}
                 </span>
             </div>
             <div className="d-flex justify-content-between info-heading">
-                <h4>Total</h4>
+                <h4>{t('TOTAL')}</h4>
                 <span>{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</span>
             </div>
             {!payment && <>
                 <div className="article">
-                    { getParseHtmlArticle('en_wu_111') }
-                    { getParseHtmlArticle('en_wu_109') }
+                    { getParseHtmlArticle('wu_111') }
+                    { getParseHtmlArticle('wu_109') }
                 </div>
                 <CardFooter></CardFooter>
             </>

@@ -11,8 +11,11 @@ import { ThemeProvider } from 'styled-components';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-const store = configureStore();
+import 'translations/i18n';
+import { setLocale } from 'utils/helpers'
 
+const store = configureStore();
+setLocale('es')
 ReactDOM.render(
     <ThemeProvider theme={ mainTheme } >
         <Provider store={ store }>

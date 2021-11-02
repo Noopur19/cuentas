@@ -15,8 +15,10 @@ import CardFooter from 'components/shared/CardFooter';
 import { Card } from 'components/shared/Footer.styled';
 import history from 'utils/history';
 import { ROUTES } from 'constants/AppRoutes';
+import { useTranslation } from 'react-i18next';
 
 const ConfirmTransfer = (props) => {
+    const { t } = useTranslation()
     const { handleSubmit, editDetails } = props;
     const dispatch = useDispatch()
     const incomeDetail = useSelector((state) => state.user.incomeDetail)
@@ -40,14 +42,14 @@ const ConfirmTransfer = (props) => {
     const payoutLocationText =  () => {
         if(postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
             if(postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
-                return 'Expected Foreign Country Payout Location'
+                return t('EXPECTED_FOREIGN_COUNTRY_PAYOUT_LOCATION')
             } else {
-                return 'Foreign Country Payout Location'
+                return t('FOREIGN_COUNTRY_PAYOUT_LOCATION')
             }
         } else if(postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
-            return 'Expected Payout Location'
+            return t('EXPECTED_COUNTRY_PAYOUT_LOCATION')
         } else {
-            return 'Payout Location'
+            return t('COUNTRY_PAYOUT_LOCATION')
         }
     }
 
@@ -55,14 +57,14 @@ const ConfirmTransfer = (props) => {
         <Card className="progress-card">
             <div>
                 <form onSubmit={ handleSubmit(saveData) } >
-                    <h5>NOT A RECEIPT</h5>
-                    <p>Date of transaction: {formattedDate}</p>
-                    {getParseHtmlArticle('en_wu_118')}
+                    <h5>{t('NOT_A_RECEIPT')}</h5>
+                    <p>{t('DATE_OF_TRANSACTION')}: {formattedDate}</p>
+                    {getParseHtmlArticle('wu_118')}
                     {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
-                    <BorderTitle smallText className="mt-4">Final Receiver</BorderTitle>
+                    <BorderTitle smallText className="mt-4">{t('FINAL_RECEIVER')}</BorderTitle>
 
                     <div className="d-flex justify-content-between info">
-                        <p>Name</p>
+                        <p>{t('NAME_TEXT')}</p>
                         <span><b> {postDeliveryDetails?.receiver?.name?.first_name || ''} {postDeliveryDetails?.receiver?.name?.middle_name || ''} {postDeliveryDetails?.receiver?.name.last_name || ''}</b>
                         </span>
                     </div>
@@ -74,19 +76,19 @@ const ConfirmTransfer = (props) => {
                     </div>
                     {postDeliveryDetails?.receiver?.address.city &&
                         <div className="d-flex justify-content-between info">
-                            <p>Payout City</p>
+                            <p>{t('PAYOUT_CITY')}</p>
                             <span><b>{postDeliveryDetails?.receiver?.address.city}</b>
                             </span>
                         </div>
                     }
                     {postDeliveryDetails?.payment_details && <TransactionDetails receiverData={ postDeliveryDetails?.receiver } wu_product={ postDeliveryDetails?.wu_product }  payment={ postDeliveryDetails?.payment_details } />}
 
-                    {getParseHtmlArticle('en_wu_117')}
-                    {getParseHtmlArticle('en_wu_114')}
-                    <Button onClick={ editDetails } >Edit details</Button>
-                    <Button outlined onClick={ () => history.push(ROUTES.SUCCESS_PAGE) } type='submit'>Confirm and Send</Button>
-                    {getParseHtmlArticle('en_wu_115')}
-                    {getParseHtmlArticle('en_wu_111')}
+                    {getParseHtmlArticle('wu_117')}
+                    {getParseHtmlArticle('wu_114')}
+                    <Button onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
+                    <Button outlined onClick={ () => history.push(ROUTES.SUCCESS_PAGE) } type='submit'>{t('CONFIRM_SEND')}</Button>
+                    {getParseHtmlArticle('wu_115')}
+                    {getParseHtmlArticle('wu_111')}
                     <CardFooter/>
                 </form>
             </div>

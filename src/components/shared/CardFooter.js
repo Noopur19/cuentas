@@ -3,9 +3,9 @@ import LinkText from '../shared/LinkText.styled'
 import Link from '../shared/Link.styled'
 import footerLogo from '../../images/FooterHeading.svg'
 import CardBottom from '../shared/CardFooter.styled'
-
+import { useTranslation } from 'react-i18next';
 const CardFooter = () => {
-
+    const { t } = useTranslation()
     return (
         <>
             <CardBottom className="CardFooter">
@@ -17,9 +17,9 @@ const CardFooter = () => {
                 </p>
                 <div className="card-link">
                     <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
-                    <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Privacy Statement</Link></LinkText>
-                    <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Terms and Condition</Link></LinkText>
-                    <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">FAQs</Link></LinkText>
+                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" href="#!">{t('PRIVACY_STATEMENT')}</Link></LinkText>
+                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" href="#!">{t('TERMS_CONDITIONS')}</Link></LinkText>
+                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" href="#!">{t('FAQS')}</Link></LinkText>
                 </div>
 
             </CardBottom>

@@ -18,7 +18,7 @@ const ProtectForm = () => {
         <>
             <div className="ProtectForm">
                 <Card>
-                    { getParseHtmlArticle('en_wu_119') }
+                    { getParseHtmlArticle('wu_119') }
                     <p className="description">
                         If you are a Western Union My WU Member you
                         can enter your 9 digit My WU number to earn points on
