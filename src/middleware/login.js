@@ -7,7 +7,7 @@ import {
     loginSuccess,
     loginFailed
 } from 'actions/login';
-import { getUserDetails } from './user';
+import { getStoreDetails, getUserDetails } from './user';
 
 export const login = (username, password) => {
     return async(dispatch) => {
@@ -21,6 +21,7 @@ export const login = (username, password) => {
         if(result.status === 200){
             setLocalData('accessToken', result.data.access_token)
             await dispatch(getUserDetails())
+            await dispatch(getStoreDetails())
             dispatch(loginSuccess(result))
         }else{
             dispatch(loginFailed(result))

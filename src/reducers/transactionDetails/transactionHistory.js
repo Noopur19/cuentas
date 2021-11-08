@@ -4,6 +4,7 @@ const initialState = {
     enquiryLoading: false,
     emailLoading: false,
     cancelLoading: false,
+    confirmLoading: false,
     invoices: [],
     enquiryDetails: {},
     cancelDetails: {}
@@ -35,6 +36,12 @@ export default (state = initialState, action) => {
         return { ...state, cancelLoading: false , cancelDetails: action.payload };
     case ActionTypes.POST_CANCEL_TRANSACTION_FAILED:
         return { ...state, cancelLoading: false };
+    case ActionTypes.POST_CONFIRM_TRANSFER_REQUEST:
+        return { ...state, confirmLoading: true };
+    case ActionTypes.POST_CONFIRM_TRANSFER_SUCCESS:
+        return { ...state, confirmLoading: false };
+    case ActionTypes.POST_CONFIRM_TRANSFER_FAILED:
+        return { ...state, confirmLoading: false };
     default:
         return state;
     }

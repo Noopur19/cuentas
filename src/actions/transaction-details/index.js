@@ -59,3 +59,18 @@ export const postCancelTransactionFailed = () => {
         type: ActionTypes.POST_SEND_EMAIL_FAILED,
     }
 }
+
+export const postConfirmTransferRequest = () => {
+    return { type: ActionTypes.POST_CONFIRM_TRANSFER_REQUEST }
+}
+export const postConfirmTransferSuccess = (response) => {
+    return {
+        type: ActionTypes.POST_CONFIRM_TRANSFER_SUCCESS,
+        payload: response
+    }
+}
+export const postConfirmTransferFailed = () => {
+    return {
+        type: ActionTypes.POST_CONFIRM_TRANSFER_FAILED,
+    }
+}

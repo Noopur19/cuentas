@@ -11,11 +11,15 @@ import {
     postSendEmailFailed,
     postCancelTransactionRequest,
     postCancelTransactionSuccess,
-    postCancelTransactionFailed
+    postCancelTransactionFailed,
+    postConfirmTransferRequest,
+    postConfirmTransferSuccess,
+    postConfirmTransferFailed
 } from 'actions/transaction-details';
 import { getUser } from 'utils/helpers'
 import { INCOMM_HEADERS } from 'constants/app'
 import _ from 'lodash'
+import { confirmTransferRequestPayload } from '../utils/helpers';
 
 export const getTransactionHistory = () => {
     const user = getUser()
@@ -105,6 +109,20 @@ export const postCancelTransaction = (data, receiver, sender, mtcn) => {
                 }
             }).catch((error) => {
                 dispatch(postCancelTransactionFailed(error))
+            })
+    }
+}
+
+export const postConfirmTransfer = (data, finalAmount, stores) => {
+    const postData = confirmTransferRequestPayload(data, finalAmount, stores)
+    return (dispatch) => {
+        dispatch(postConfirmTransferRequest())
+        axiosInstance.post('/incomm/wu/sms', postData,
+            { headers: _.merge(INCOMM_HEADERS, { 'x-knetikcloud-channel' : 'app' }) } )
+            .then((response) => {
+                dispatch(postConfirmTransferSuccess(response.data))
+            }).catch((error) => {
+                dispatch(postConfirmTransferFailed(error))
             })
     }
 }

@@ -48,7 +48,11 @@ export const getCountryName = (countries, code) => {
     return country && country[ 0 ]?.country
 }
 
-export const delieveryTypeRequestPayload = (data, incomeDetail) => {
+export const getWUStore = (stores) => {
+    return stores && stores?.result?.filter((item) => item.name === 'Western Union by Cuentas')[ 0 ]
+}
+
+export const deliveryTypeRequestPayload = (data, incomeDetail) => {
     const accountDetail = incomeDetail.accountDetail
     const receiver = {
         first_name: data.firstName ,
@@ -86,5 +90,42 @@ export const getCurrencySymbol = (currencyCode) => {
         return '€'
     default:
         return '$';
+    }
+}
+
+export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
+    const wustore = getWUStore(stores)
+    return{
+        item_notes: wustore && wustore?.additional_properties?._thumbnail.url,
+        paid_amount: finalAmount,
+        price_override: finalAmount,
+        sku: wustore && wustore?.skus[ 0 ]?.sku,
+        transaction_details: 'not sure',
+        transaction_type: 'not sure',
+        template: 'wu_invoice',
+        additional_properties: {
+            amount: {
+                type: 'text',
+                value: finalAmount,
+            },
+            retail_url: {
+                type: 'text',
+                value: wustore && wustore?.skus[ 0 ]?.additional_properties?.retail_url?.value || null,
+            },
+            sku_discount: {
+                type: 'text',
+                value:  wustore && wustore?.skus[ 0 ]?.additional_properties?.sku_discount?.value || null,
+            },
+        },
+        paymentVendor: 'incomm',
+        sender: data.sender || {},
+        receiver: data.receiver || {},
+        wu_product: data.wu_product || {},
+        wu_transaction_type: data.transaction_type,
+        payment_details: data.payment_details || {},
+        temp_transaction_id: data.temp_transaction_id || '' ,
+        transaction_digest: data.transaction_digest || '',
+        date_time: data.date_time || '',
+        df_detail: data.df_detail || ''
     }
 }

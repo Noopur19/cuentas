@@ -32,3 +32,19 @@ export const getIncomeDetailsFailed = () => {
         type: ActionTypes.GET_INCOME_DETAILS_FAILED,
     }
 }
+export const getStoreRequest = () => {
+    return {
+        type: ActionTypes.GET_STORE_REQUEST
+    }
+}
+export const getStoreSuccess = (response) => {
+    return {
+        type: ActionTypes.GET_STORE_SUCCESS,
+        payload: response
+    }
+}
+export const getStoreFailed = () => {
+    return {
+        type: ActionTypes.GET_STORE_FAILED,
+    }
+}

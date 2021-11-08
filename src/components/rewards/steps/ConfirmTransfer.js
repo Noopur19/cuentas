@@ -9,6 +9,7 @@ import { transactionDetailsValidate as validate } from 'utils/validates'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import TransactionDetails from 'components/transactionDetails/transactionHistory/transactionDetails'
 import { postDeliveryData } from 'middleware/receiver'
+import { postConfirmTransfer } from 'middleware/transactionDetails'
 import BorderTitle from 'components/shared/BorderTitle.styled';
 import moment from 'moment'
 import CardFooter from 'components/shared/CardFooter';
@@ -16,12 +17,14 @@ import { Card } from 'components/shared/Footer.styled';
 import history from 'utils/history';
 import { ROUTES } from 'constants/AppRoutes';
 import { useTranslation } from 'react-i18next';
+import _ from 'lodash'
 
 const ConfirmTransfer = (props) => {
     const { t } = useTranslation()
     const { handleSubmit, editDetails } = props;
     const dispatch = useDispatch()
     const incomeDetail = useSelector((state) => state.user.incomeDetail)
+    const storeDetails = useSelector((state) => state.user.storeDetail)
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries )
     const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
@@ -39,6 +42,8 @@ const ConfirmTransfer = (props) => {
         dispatch(postDeliveryData(values, incomeDetail))
     }
 
+    console.log(postDeliveryDetails);
+
     const payoutLocationText =  () => {
         if(postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
             if(postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
@@ -51,6 +56,16 @@ const ConfirmTransfer = (props) => {
         } else {
             return t('COUNTRY_PAYOUT_LOCATION')
         }
+    }
+
+    const getFinalAmount = () => {
+        const finalAmount = _.get(postDeliveryDetails?.payment_details,'origination.gross_amount');
+        return parseInt(finalAmount) > 0 ? parseInt(finalAmount) / 100 : 0;
+    };
+
+    const onConfirmHandler = () => {
+        history.push(ROUTES.SUCCESS_PAGE)
+        dispatch(postConfirmTransfer(postDeliveryDetails, getFinalAmount(),storeDetails))
     }
 
     return (
@@ -81,12 +96,17 @@ const ConfirmTransfer = (props) => {
                             </span>
                         </div>
                     }
-                    {postDeliveryDetails?.payment_details && <TransactionDetails receiverData={ postDeliveryDetails?.receiver } wu_product={ postDeliveryDetails?.wu_product }  payment={ postDeliveryDetails?.payment_details } />}
+                    {postDeliveryDetails?.payment_details &&
+                    <TransactionDetails
+                        receiverData={ postDeliveryDetails?.receiver }
+                        wu_product={ postDeliveryDetails?.wu_product }
+                        payment={ postDeliveryDetails?.payment_details }
+                    />}
 
                     {getParseHtmlArticle('wu_117')}
                     {getParseHtmlArticle('wu_114')}
                     <Button onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
-                    <Button outlined onClick={ () => history.push(ROUTES.SUCCESS_PAGE) } type='submit'>{t('CONFIRM_SEND')}</Button>
+                    <Button outlined onClick={ () =>  onConfirmHandler() } type='submit'>{t('CONFIRM_SEND')}</Button>
                     {getParseHtmlArticle('wu_115')}
                     {getParseHtmlArticle('wu_111')}
                     <CardFooter/>

@@ -20,7 +20,7 @@ import {
 } from 'actions/receiver';
 import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
-import { delieveryTypeRequestPayload } from 'utils/helpers'
+import { deliveryTypeRequestPayload } from 'utils/helpers'
 
 export const postWUNumber = (wuNumber) => {
     return (dispatch) => {
@@ -82,7 +82,7 @@ export const postTransactionDetails = (data) => {
 }
 
 export const postDeliveryData = (values, incomeDetail) => {
-    const data = delieveryTypeRequestPayload(values,incomeDetail)
+    const data = deliveryTypeRequestPayload(values,incomeDetail)
     return(dispatch) => {
         dispatch(postDeliveryDataRequest())
         axiosInstance.post('incomm/wu/smv',data,{

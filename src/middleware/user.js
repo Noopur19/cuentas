@@ -5,8 +5,10 @@ import {
     getUserFailed,
     getIncomeDetailsRequest,
     getIncomeDetailsSuccess,
-    getIncomeDetailsFailed
-
+    getIncomeDetailsFailed,
+    getStoreRequest,
+    getStoreSuccess,
+    getStoreFailed
 } from 'actions/user';
 import _ from 'lodash'
 import { setLocalDataJSON } from 'utils/cache'
@@ -36,6 +38,24 @@ export const getIncomeDetails = (incomeId) => {
             dispatch(getIncomeDetailsSuccess(response.data))
         }).catch((error) => {
             dispatch(getIncomeDetailsFailed(error))
+        })
+    }
+}
+
+export const getStoreDetails = () => {
+    return (dispatch) => {
+        dispatch(getStoreRequest())
+        axiosInstance.post('/store/search',
+            {
+                tags:[ 'retail' ]
+            },
+            {
+                headers: _.merge(INCOMM_HEADERS,{ 'x-knetikcloud-channel' : 'app' })
+            }
+        ).then((response) => {
+            dispatch(getStoreSuccess(response.data))
+        }).catch((error) => {
+            dispatch(getStoreFailed(error))
         })
     }
 }

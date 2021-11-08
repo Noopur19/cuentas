@@ -5,11 +5,19 @@ import { getCountryName, getParseHtmlArticle } from 'utils/helpers'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import BorderTitle from 'components/shared/BorderTitle.styled';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment'
+import { getLocalData } from 'utils/cache'
 
 const Success = () => {
     const { t } = useTranslation()
+    const myWUNumber  = getLocalData('myWUNumber')
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries)
+    const dateTime = postDeliveryDetails && postDeliveryDetails.date_time
+    const date = (dateTime.split('T')[ 0 ]).trim();
+    const time = dateTime.substring(dateTime.indexOf('T') + 1)
+    const formattedDate = moment(date).format('DD MMMM,YYYY')
+    const formattedTime =  moment(time, 'hh:mm:ss').format('hh:mm A');
 
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
@@ -33,20 +41,20 @@ const Success = () => {
                 <BorderTitle smallText className="mt-4">{t('TRACKING_INFO')}</BorderTitle>
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRACKING_NUMBER_MTCN')}</p>
-                    <span><b>##########</b></span>
+                    <span><b>{myWUNumber || 0}</b></span>
                 </div>
                 <span>{getParseHtmlArticle('wu_134')}</span>
 
                 <BorderTitle smallText className="mt-4">{t('TRANSACTION_DETAILS')}</BorderTitle>
                 <div className="d-flex justify-content-between info">
                     <p>{t('DATE_OF_TRANSACTION')}</p>
-                    <span><b>-----</b>
+                    <span><b>{formattedDate}</b>
                     </span>
                 </div>
 
                 <div className="d-flex justify-content-between info">
                     <p>{t('TIME_OF_TRANSACTION')}</p>
-                    <span><b>-----</b>
+                    <span><b>{formattedTime}</b>
                     </span>
                 </div>
 
