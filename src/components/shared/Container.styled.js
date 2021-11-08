@@ -15,10 +15,20 @@ const StyledContainer = Styled.div`
             margin-bottom: 12px;
         }        
       }
+      .CardFooter {
+         .description {
+           display: none;
+         }
+      }
    } 
    &.active-card {
       .header-card {
          display: flex;
+      }
+      .top-header {
+         .sentIcon {
+            display: block;
+         }
       }
    }
    .transactionHistoryDetail {

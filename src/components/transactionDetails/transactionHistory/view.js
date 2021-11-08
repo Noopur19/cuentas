@@ -22,7 +22,7 @@ const TransactionHistoryDetails = (props) => {
     }, [])
 
     return (
-        <Card className="transactionHistoryDetail">
+        <Card className="transactionHistoryDetail pb-0">
             <AdditionalDetails
                 transactions={ filteredTransaction }
                 receiver={ receiver }

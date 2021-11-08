@@ -6,7 +6,7 @@ import Footer from 'components/shared/Footer'
 import { Card } from '../shared/Footer.styled'
 import LinkText from '../shared/LinkText.styled'
 import Link from '../shared/Link.styled'
-import footerLogo from '../../images/FooterHeading.svg'
+import footerLogo from '../../images/wu_icon.png'
 import { ROUTES } from 'constants/AppRoutes'
 
 const ProtectForm = () => {
@@ -24,7 +24,7 @@ const ProtectForm = () => {
                         can enter your 9 digit My WU number to earn points on
                         qualifying transactions.
                     </p>
-                    <div className="card-link">
+                    <div className="card-link text-center">
                         <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
                         <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Privacy Statement</Link></LinkText>
                         <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Terms and Condition</Link></LinkText>

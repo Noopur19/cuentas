@@ -3,7 +3,7 @@ import Styled from 'styled-components'
 const RewardNumber = Styled.div`
     height: calc(100vh - 81px);
     h3 {
-        padding: 20px 24px 0;
+        // padding: 20px 24px 0;
         background: ${ props => props.theme.light };
     }
     .rewardWrapper {
@@ -28,6 +28,10 @@ const RewardNumber = Styled.div`
         .main-card {
             position: unset;
             margin-top: 0;
+        }
+        > div:first-child {
+            padding: 24px;
+            padding-bottom: 0;
         }
     }
     p {

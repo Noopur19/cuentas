@@ -107,7 +107,7 @@ const ReceiverDetailsForm = (props) => {
                     <>
                         <p className="text-center myu-head"><b>MY WU # { myWUNumber } </b></p>
                         <LinkText>{t('VIEW')} <Link className="link" bold color="textOrange" to="/transaction-history">{t('TRANSACTION_HISTORY')}</Link></LinkText>
-                        <BorderTitle smallText>{t('SELECT_YOUR_PAST_RECEIVERS')}</BorderTitle>
+                        <BorderTitle smallText><h3>{t('SELECT_YOUR_PAST_RECEIVERS')}</h3></BorderTitle>
                         <Field
                             name="receiver"
                             placeholder="Receivers first name*"
@@ -119,7 +119,7 @@ const ReceiverDetailsForm = (props) => {
 
                     }
 
-                    <BorderTitle smallText>{(!_.isEmpty(receivers))  ? t('OR_ENTER_NEW_RECIPIENT') : t('ENTER_NEW_RECIPIENT')}</BorderTitle>
+                    <BorderTitle smallText><h3>{(!_.isEmpty(receivers))  ? t('OR_ENTER_NEW_RECIPIENT') : t('ENTER_NEW_RECIPIENT')}</h3></BorderTitle>
                     <Field
                         name="firstName"
                         type="text"

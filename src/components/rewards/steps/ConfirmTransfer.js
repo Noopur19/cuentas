@@ -61,7 +61,7 @@ const ConfirmTransfer = (props) => {
                     <p>{t('DATE_OF_TRANSACTION')}: {formattedDate}</p>
                     {getParseHtmlArticle('wu_118')}
                     {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
-                    <BorderTitle smallText className="mt-4">{t('FINAL_RECEIVER')}</BorderTitle>
+                    <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}</h3></BorderTitle>
 
                     <div className="d-flex justify-content-between info">
                         <p>{t('NAME_TEXT')}</p>

@@ -97,7 +97,7 @@ const TransactionDetailsForm = (props) => {
         <Card className="progress-card">
 
             <Transaction className="transaction">
-                <BorderTitle smallText>{t('RECIVER_INFO')} </BorderTitle>
+                <BorderTitle smallText><h3>{t('RECIVER_INFO')}</h3></BorderTitle>
                 <div className="d-flex justify-content-between">
                     <span>{t('FULL_NAME')}</span>
                     <span> {`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</span>
@@ -109,10 +109,10 @@ const TransactionDetailsForm = (props) => {
                 {formValues.city && <div>{t('PAYOUT_CITY')} {formValues.city || ''}</div>}
                 {formValues.state && <div>{t('PAYOUT_STATE')} {formValues.state || ''}</div>}
 
-                <BorderTitle smallText className="mt-4">{t('YOUR_ACCOUNT_INFO')}</BorderTitle>
+                <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}</h3></BorderTitle>
                 <p className="text-center"><b>{t('CURRENT_BALANCE')} { availBail }</b> </p>
 
-                <BorderTitle smallText className="mt-4">{t('PAYOUT_CURRENCY')}</BorderTitle>
+                <BorderTitle smallText className="mt-4"><h3>{t('PAYOUT_CURRENCY')}</h3></BorderTitle>
                 <form onSubmit={ handleSubmit(saveData) } >
                     { country?.currency && country?.currency.map((item, index) => {
                         return(
@@ -129,7 +129,7 @@ const TransactionDetailsForm = (props) => {
                             </div>
                         )
                     })}
-                    <BorderTitle smallText className="mt-4">{t('AMOUNT2SEND')}</BorderTitle>
+                    <BorderTitle smallText className="mt-4"><h3>{t('AMOUNT2SEND')}</h3></BorderTitle>
                     { (formValues?.payoutCurrency || currencyChecked) !== 'USD' ?
                         <>
                             <div className="converter d-flex justify-content-between">
@@ -160,7 +160,7 @@ const TransactionDetailsForm = (props) => {
 
                     }
 
-                    <BorderTitle smallText className="mt-4">{t('PROMO_CODE')}</BorderTitle>
+                    <BorderTitle smallText className="mt-4"><h3>{t('PROMO_CODE')}</h3></BorderTitle>
                     <Field
                         name="promoCode"
                         type="text"
