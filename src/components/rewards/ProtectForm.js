@@ -8,8 +8,11 @@ import LinkText from '../shared/LinkText.styled'
 import Link from '../shared/Link.styled'
 import footerLogo from '../../images/FooterHeading.svg'
 import { ROUTES } from 'constants/AppRoutes'
+import { useTranslation } from 'react-i18next';
 
 const ProtectForm = () => {
+
+    const { t } = useTranslation();
     const onClickHandler = () => {
         history.push('/receiver-details')
     }
@@ -26,9 +29,9 @@ const ProtectForm = () => {
                     </p>
                     <div className="card-link">
                         <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
-                        <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Privacy Statement</Link></LinkText>
-                        <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">Terms and Condition</Link></LinkText>
-                        <LinkText>Western Union <Link className="link" bold color="textOrange" href="#!">FAQs</Link></LinkText>
+                        <LinkText>{t('WESTERN_UNION')}<Link className="link" bold color="textOrange" href="#!">{t('PRIVACY_STATEMENT')}</Link></LinkText>
+                        <LinkText>{t('WESTERN_UNION')}<Link className="link" bold color="textOrange" href="#!">{t('TERMS_CONDITIONS')}</Link></LinkText>
+                        <LinkText>{t('WESTERN_UNION')}<Link className="link" bold color="textOrange" href="#!">{t('FAQS')}</Link></LinkText>
                     </div>
                 </Card>
                 <Footer>

@@ -32,7 +32,7 @@ const Success = () => {
                 {getParseHtmlArticle('wu_130')}
                 <BorderTitle smallText className="mt-4">{t('TRACKING_INFO')}</BorderTitle>
                 <div className="d-flex justify-content-between info">
-                    <p>{t('TRACKING_NUMBER')}</p>
+                    <p>{t('TRACKING_NUMBER_MTCN')}</p>
                     <span><b>##########</b></span>
                 </div>
                 <span>{getParseHtmlArticle('wu_134')}</span>

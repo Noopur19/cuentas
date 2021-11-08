@@ -43,7 +43,7 @@ const AdditionalDetails = (props) => {
     }
 
     const toggleModal = () => {
-        getTransactionStatus(enquiry.transaction_status) === 'Cancel' ?
+        getTransactionStatus(enquiry.transaction_status) === `${ t('CLOSE_TEXT') }` ?
             setIsOpen(!isOpen) : setIsOpen(isOpen) ;
     }
 

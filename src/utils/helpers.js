@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { getLocalData, setLocalData } from './cache'
 import ReactHtmlParser from 'react-html-parser';
+
 export const getUser = () => {
     return getLocalData('user') && JSON.parse(getLocalData('user'))
 }
