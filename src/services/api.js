@@ -4,7 +4,7 @@ import axios from 'axios'
 // import { notification } from './notification';
 import { getToken } from 'utils/helpers';
 import history from 'utils/history'
-const baseUrl = `${ process.env.REACT_APP_API_URL }`;
+const baseUrl = `https://ue6lzai48c.execute-api.us-east-1.amazonaws.com/prodsandbox`;
 
 const axiosInstance =  axios.create({
     baseURL: baseUrl,
