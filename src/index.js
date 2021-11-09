@@ -6,10 +6,11 @@ import browserHistory from 'utils/history';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store';
+import { ToastContainer } from 'react-toastify';
 import mainTheme from 'theme/mainTheme'
 import { ThemeProvider } from 'styled-components';
-
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import 'translations/i18n';
 import { setLocale } from 'utils/helpers'
@@ -19,6 +20,17 @@ setLocale('es')
 ReactDOM.render(
     <ThemeProvider theme={ mainTheme } >
         <Provider store={ store }>
+            <ToastContainer
+                position="top-center"
+                autoClose={ 5000 }
+                hideProgressBar={ false }
+                newestOnTop={ false }
+                closeOnClick
+                rtl={ false }
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <Router history={ browserHistory }>
                 <Suspense fallback={ '' }>
                     <App />

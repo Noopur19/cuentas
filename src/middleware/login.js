@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 const querystring = require('querystring')
 import { setLocalData } from 'utils/cache'
+import { notification } from 'services/notification';
 import axiosInstance from 'services/api';
 import {
     loginRequest,
@@ -25,6 +26,7 @@ export const login = (username, password) => {
             dispatch(loginSuccess(result))
         }else{
             dispatch(loginFailed(result))
+            notification('error','Sorry token has been expired')
         }
 
     }
