@@ -16,6 +16,7 @@ import { rewardNumberValidation as validate } from 'utils/validates'
 import PropTypes from 'prop-types';
 import history from 'utils/history'
 import { useTranslation } from 'react-i18next';
+import { getParseHtmlArticle } from 'utils/helpers';
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
@@ -62,6 +63,7 @@ const RewardNumberPage = (props) => {
                     <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" href="#!">{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
 
                     <Card className="main-card">
+                        { getParseHtmlArticle('wu_131') }
                         <CardFooter></CardFooter>
                     </Card>
                 </ div>

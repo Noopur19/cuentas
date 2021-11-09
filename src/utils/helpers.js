@@ -17,7 +17,7 @@ export const getArticles = () => {
 
 export const getArticle = (id) => {
     const articles = getArticles()
-    return articles.filter((article) => article.id === id )[ 0 ]
+    return articles?.filter((article) => article.id === id )[ 0 ]
 }
 export const locale = () => {
     return getLocalData('locale')
@@ -44,7 +44,7 @@ export const getTransactionStatus = (status) => {
 }
 
 export const getCountryName = (countries, code) => {
-    const country = countries?.filter((item) => item.currency[ 0 ].country_cd === code)
+    const country = countries?.filter((item) => item?.currency[ 0 ].country_cd === code)
     return country && country[ 0 ]?.country
 }
 
@@ -53,14 +53,14 @@ export const getWUStore = (stores) => {
 }
 
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
-    const accountDetail = incomeDetail.accountDetail
+    const accountDetail = incomeDetail?.accountDetail
     const receiver = {
-        first_name: data.firstName ,
-        middle_name: data.middleName,
-        last_name: data.lastName,
-        country_iso_code: data.country && JSON.parse(data.country).currency[ 0 ].country_cd,
-        state: data.state,
-        city: data.city,
+        first_name: data?.firstName || '' ,
+        middle_name: data?.middleName || '',
+        last_name: data?.lastName || '',
+        country_iso_code: data?.country && JSON.parse(data?.country)?.currency[ 0 ]?.country_cd,
+        state: data?.state,
+        city: data?.city,
     }
 
     return{
@@ -70,16 +70,16 @@ export const deliveryTypeRequestPayload = (data, incomeDetail) => {
             bank_account: {
                 name: 'Cuentas',
                 account_number: accountDetail?.spendingAccount?.accountNumber,
-                routing_number: accountDetail.spendingAccount.routingNumber,
+                routing_number: accountDetail?.spendingAccount?.routingNumber,
                 account_type: 'CheckingAcct', //TODO
             },
         },
         receiver: receiver,
         mywu_number: null,
         selectedDeliveryType: null,
-        wu_product: data.deliveryType && JSON.parse(data.deliveryType)?.wu_product || {},
-        transaction_type: data.deliveryType && JSON.parse(data.deliveryType)?.transaction_type || '',
-        payment_details: data.deliveryType && JSON.parse(data.deliveryType)?.payment_details || {},
+        wu_product: data?.deliveryType && JSON.parse(data?.deliveryType)?.wu_product || {},
+        transaction_type: data?.deliveryType && JSON.parse(data?.deliveryType)?.transaction_type || '',
+        payment_details: data?.deliveryType && JSON.parse(data?.deliveryType)?.payment_details || {},
     }
 }
 export const getCurrencySymbol = (currencyCode) => {
@@ -118,14 +118,14 @@ export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
             },
         },
         paymentVendor: 'incomm',
-        sender: data.sender || {},
-        receiver: data.receiver || {},
-        wu_product: data.wu_product || {},
-        wu_transaction_type: data.transaction_type,
-        payment_details: data.payment_details || {},
-        temp_transaction_id: data.temp_transaction_id || '' ,
-        transaction_digest: data.transaction_digest || '',
-        date_time: data.date_time || '',
-        df_detail: data.df_detail || ''
+        sender: data?.sender || {},
+        receiver: data?.receiver || {},
+        wu_product: data?.wu_product || {},
+        wu_transaction_type: data?.transaction_type,
+        payment_details: data?.payment_details || {},
+        temp_transaction_id: data?.temp_transaction_id || '' ,
+        transaction_digest: data?.transaction_digest || '',
+        date_time: data?.date_time || '',
+        df_detail: data?.df_detail || ''
     }
 }
