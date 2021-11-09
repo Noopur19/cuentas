@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import { getLocalData, setLocalData } from './cache'
 import ReactHtmlParser from 'react-html-parser';
-
+import { TRANSLATIONS_EN }  from 'translations/locales/en'
+import { TRANSLATIONS_ES } from 'translations/locales/es'
 export const getUser = () => {
     return getLocalData('user') && JSON.parse(getLocalData('user'))
 }
@@ -93,6 +94,12 @@ export const getCurrencySymbol = (currencyCode) => {
     }
 }
 
+export const getLocalByTitle = (title) => {
+    const localType = locale()
+    const TRANSLATION = localType == 'es' ? TRANSLATIONS_ES: TRANSLATIONS_EN
+    return TRANSLATION[ title ]
+
+}
 export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
     const wustore = getWUStore(stores)
     return{

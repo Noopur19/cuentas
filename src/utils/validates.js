@@ -1,6 +1,6 @@
 import { MESSAGE } from 'constants/app'
 import { SubmissionError } from 'redux-form'
-
+import {  getLocalByTitle } from 'utils/helpers'
 export const rewardNumberValidation = values => {
     const errors = {};
     if (values.WUNumber && values.WUNumber.length < 9 ) {
@@ -11,7 +11,7 @@ export const rewardNumberValidation = values => {
 export const receiverFormValidate = values => {
     const errors = {};
     if (!values.firstName) {
-        errors.firstName = MESSAGE.REQUIRE('first name');
+        errors.firstName = getLocalByTitle('FIRST_NAME')
     }
     if (!values.lastName) {
         errors.lastName = MESSAGE.REQUIRE('last name');
