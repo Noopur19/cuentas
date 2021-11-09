@@ -12,7 +12,7 @@ export const getAllArticles = () => {
             'tags': [
                 'western_union'
             ],
-            'size' : 50
+            'size' : 100
         }, { headers: { 'Content-Type' : 'application/json' }
         }).then((response) => {
             setLocalDataJSON('articles',response.data.result)
