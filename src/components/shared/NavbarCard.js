@@ -8,8 +8,10 @@ import moment from 'moment'
 import Modal from 'components/shared/Modal';
 import { postCancelTransaction } from 'middleware/transactionDetails';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 const NavbarCard = () => {
+    const { t } = useTranslation();
     const [ isOpen, setIsOpen ] = useState(false);
     const dispatch = useDispatch()
     const transactions = useSelector((state) => state.transactionHistory?.invoices)
@@ -26,7 +28,7 @@ const NavbarCard = () => {
     const formattedDate = moment(date).format('DD MMMM,YYYY')
 
     const toggleModal = () => {
-        getTransactionStatus(enquiry?.transaction_status) === 'Cancel' ?
+        getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
             setIsOpen(!isOpen) : setIsOpen(isOpen) ;
     }
 
@@ -49,9 +51,9 @@ const NavbarCard = () => {
                 handleClose={ () => toggleModal() }
                 handleCancel={ () => onCancelHandler() }
             >
-                <h3>Status: Pending</h3>
+                <h3>{t('STATUS_PENDING')}</h3>
                 <h4>(MTCN){transactions?.additional_properties?.mtcn.value}</h4>
-                <h5>Would you like to cancel your transaction ?</h5>
+                <h5>{t('CANCEL_CONFIRMATION')}</h5>
             </Modal>
         )
     }
@@ -59,7 +61,7 @@ const NavbarCard = () => {
     return (
         <HeaderCard className="header-card">
             <div className="amount-paid">
-                <h2>Amount Paid</h2>
+                <h2>{t('AMOUNT_PAID')}</h2>
                 <span>{getCurrencySymbol(currencyCode)} {filteredTransaction?.additional_properties?.amount?.value}</span>
                 <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
             </div>

@@ -12,10 +12,10 @@ import { HistoryDetail } from './transactionHistory.styled'
 const TransactionHistoryDetails = (props) => {
     const dispatch = useDispatch();
     const transactions = useSelector((state) => state.transactionHistory.invoices)
-    const filteredTransaction = transactions?.content?.filter((invoices) => invoices.id === +props.match.params.id) [ 0 ];
-    const receiver = JSON.parse(filteredTransaction.additional_properties.receiver.value)
-    const sender = JSON.parse(filteredTransaction.additional_properties.sender.value)
-    const mtcn = filteredTransaction.additional_properties.mtcn.value
+    const filteredTransaction = transactions && transactions?.content?.filter((invoices) => invoices.id === +props.match.params.id) [ 0 ];
+    const receiver = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties?.receiver?.value)
+    const sender = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties?.sender?.value)
+    const mtcn = filteredTransaction && filteredTransaction?.additional_properties?.mtcn?.value
 
     useEffect(() => {
         dispatch(postTransactionEnquiry(receiver,sender,mtcn))

@@ -14,7 +14,7 @@ const Modal = ({ handleClose, handleCancel, show, children }) => {
                 <div className="modal-container">
                     {children}
                     <Button onClick={ handleClose }>{t('CLOSE_TEXT')}</Button>
-                    <Button  onClick={ handleCancel } outlined type='submit'>Cancel Transaction</Button>
+                    <Button  onClick={ handleCancel } outlined type='submit'>{t('CANCEL_TRANSFER')}</Button>
                 </div>
             </div>
         </ModalWrapper>

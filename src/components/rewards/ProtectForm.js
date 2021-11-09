@@ -22,11 +22,6 @@ const ProtectForm = () => {
             <div className="ProtectForm">
                 <Card>
                     { getParseHtmlArticle('wu_119') }
-                    <p className="description">
-                        If you are a Western Union My WU Member you
-                        can enter your 9 digit My WU number to earn points on
-                        qualifying transactions.
-                    </p>
                     <div className="card-link">
                         <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
                         <LinkText>{t('WESTERN_UNION')}<Link className="link" bold color="textOrange" href="#!">{t('PRIVACY_STATEMENT')}</Link></LinkText>
@@ -35,8 +30,8 @@ const ProtectForm = () => {
                     </div>
                 </Card>
                 <Footer>
-                    <Button onClick={ () => history.push(ROUTES.ROOT) } >Cancel</Button>
-                    <Button outlined onClick={ () => onClickHandler() } type='submit'>Agree</Button>
+                    <Button onClick={ () => history.push(ROUTES.ROOT) } >{t('CANCEL_TEXT')}</Button>
+                    <Button outlined onClick={ () => onClickHandler() } type='submit'>{t('AGREE_TEXT')}</Button>
                 </Footer>
             </div>
         </>

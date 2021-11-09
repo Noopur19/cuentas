@@ -23,13 +23,13 @@ const TransactionHistory = () => {
 
     const renderCard = () => {
         return transactions && transactions?.content?.map((invoices) => {
-            const mtcnDate = invoices.additional_properties.mtcn_date_time.value;
-            const time = mtcnDate.substring(mtcnDate.indexOf('T') + 1)
+            const mtcnDate = invoices?.additional_properties?.mtcn_date_time?.value;
+            const time = mtcnDate?.substring(mtcnDate.indexOf('T') + 1)
             const formattedTime =  moment(time, 'hh:mm:ss').format('hh:mm A');
-            const currencyCode = JSON.parse(invoices.additional_properties.payment_details.value).origination.currency_iso_code
-            const dateTime = JSON.parse(invoices.additional_properties.transaction_response.value).response.date_time
-            const date = (dateTime.split('T')[ 0 ]).trim();
-            const formattedDate = moment(date).format('DD MMMM,YYYY')
+            const currencyCode = invoices && JSON.parse(invoices?.additional_properties?.payment_details?.value).origination?.currency_iso_code
+            const dateTime = invoices && JSON.parse(invoices?.additional_properties?.transaction_response?.value).response?.date_time
+            const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
+            const formattedDate = date && moment(date).format('DD MMMM,YYYY')
             return invoices?.items?.map((invoice) => {
                 return (
                     <HistoryCard key="" onClick={ () => onClickHandler(invoices) } className="history-card">
@@ -39,12 +39,12 @@ const TransactionHistory = () => {
                                 <img src={ historyIcon } alt="history-icon"/>
                             </div>
                             <div className="detail">
-                                <h6> {invoice.item_name} </h6>
-                                <p className="invoice">{t('INVOICE')} {invoice.invoice_id}</p>
+                                <h6> {invoice?.item_name} </h6>
+                                <p className="invoice">{t('INVOICE')} {invoice?.invoice_id}</p>
                                 <p className="status">{t('DONE')}</p>
                             </div>
                             <div className="pricing">
-                                <h6 className="price">-{getCurrencySymbol(currencyCode)} {invoice.unit_price}</h6>
+                                <h6 className="price">-{getCurrencySymbol(currencyCode)} {invoice?.unit_price}</h6>
                                 <p className="time">{formattedTime}</p>
                             </div>
                         </div>

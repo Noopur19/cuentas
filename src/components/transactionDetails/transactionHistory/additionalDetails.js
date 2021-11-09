@@ -23,19 +23,19 @@ const AdditionalDetails = (props) => {
     const [ isOpen, setIsOpen ] = useState(false);
     const myWUNumber  = getLocalData('myWUNumber')
     const enquiry = useSelector((state) => state.transactionHistory.enquiryDetails)
-    const parsedReceiver = JSON.parse(transactions.additional_properties.receiver.value)
-    const dateTime = JSON.parse(transactions.additional_properties.transaction_response.value).response.date_time
-    const date = (dateTime.split('T')[ 0 ]).trim();
-    const time = dateTime.substring(dateTime.indexOf('T') + 1)
+    const parsedReceiver = transactions && JSON.parse(transactions?.additional_properties?.receiver?.value)
+    const dateTime = transactions && JSON.parse(transactions?.additional_properties?.transaction_response?.value).response?.date_time
+    const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
+    const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
     const formattedDate = moment(date).format('DD MMMM,YYYY')
     const formattedTime =  moment(time, 'hh:mm:ss').format('hh:mm A');
-    const currencyCode = JSON.parse(transactions.additional_properties?.payment_details?.value).origination?.currency_iso_code
+    const currencyCode = transactions && JSON.parse(transactions.additional_properties?.payment_details?.value).origination?.currency_iso_code
 
     const cancelTransData = {
-        'amount': transactions.additional_properties?.amount?.value || null,
+        'amount': transactions?.additional_properties?.amount?.value || null,
         'invoiceId': transactions?.id || null,
-        'transactionId': transactions.additional_properties?.transaction_id?.value || null,
-        'mtcn': transactions.additional_properties?.mtcn?.value || null,
+        'transactionId': transactions?.additional_properties?.transaction_id?.value || null,
+        'mtcn': transactions?.additional_properties?.mtcn?.value || null,
     }
 
     const onClickHandler = () => {
@@ -43,7 +43,7 @@ const AdditionalDetails = (props) => {
     }
 
     const toggleModal = () => {
-        getTransactionStatus(enquiry.transaction_status) === `${ t('CLOSE_TEXT') }` ?
+        getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
             setIsOpen(!isOpen) : setIsOpen(isOpen) ;
     }
 
@@ -60,7 +60,7 @@ const AdditionalDetails = (props) => {
                 handleCancel={ () => onCancelHandler() }
             >
                 <h3>{t('STATUS_PENDING')}</h3>
-                <h4>(MTCN){transactions.additional_properties.mtcn.value}</h4>
+                <h4>(MTCN){transactions && transactions?.additional_properties?.mtcn?.value}</h4>
                 <p>{t('CANCEL_CONFIRMATION')}</p>
 
             </Modal>
@@ -76,8 +76,8 @@ const AdditionalDetails = (props) => {
                 <div className="header-card d-none">
                     <div className="amount-paid">
                         <h2>{t('AMOUNT_PAID')}</h2>
-                        <span>{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</span>
-                        <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry.transaction_status)}</p>
+                        <span>{getCurrencySymbol(currencyCode)} {transactions?.additional_properties?.amount?.value}</span>
+                        <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
                     </div>
                     <div className="amount-img">
                         <img className="img-fluid" src={ historyIcon } alt="history-icon" />
@@ -88,23 +88,23 @@ const AdditionalDetails = (props) => {
                 <div className="additionalDetailsCard">
                     <div className="d-flex justify-content-between info">
                         <p>{t('AMOUNT_PAID')}</p>
-                        <span className="price">{getCurrencySymbol(currencyCode)} {transactions.additional_properties.amount.value}</span>
+                        <span className="price">{getCurrencySymbol(currencyCode)} {transactions?.additional_properties?.amount?.value}</span>
                     </div>
                     <div className="d-flex justify-content-between info">
                         <p>{t('TRANSFER_TO')}</p>
-                        <span>{parsedReceiver.name.first_name || ''}
-                            {parsedReceiver.name.middle_name || ''}
-                            {parsedReceiver.name.last_name || ''}
+                        <span>{parsedReceiver?.name?.first_name || ''}
+                            {parsedReceiver?.name?.middle_name || ''}
+                            {parsedReceiver?.name?.last_name || ''}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">
                         <p>{t('DETAILS')}</p>
-                        <span> {transactions.invoice_number}
+                        <span> {transactions?.invoice_number}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">
                         <p>{t('TRACKING_NUMBER')}</p>
-                        <span>(MTCN) {transactions.additional_properties.mtcn.value}
+                        <span>(MTCN) {transactions?.additional_properties?.mtcn?.value}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">
@@ -121,10 +121,10 @@ const AdditionalDetails = (props) => {
                         <span>{myWUNumber}
                         </span>
                     </div>
-                    {transactions.additional_properties?.total_points?.value &&
+                    {transactions?.additional_properties?.total_points?.value &&
                         <div className="d-flex justify-content-between info">
                             <p>{t('TOTAL_POINTS')}</p>
-                            <span>{transactions.additional_properties.total_points.value}</span>
+                            <span>{transactions?.additional_properties?.total_points?.value}</span>
                         </div>
                     }
                 </div>

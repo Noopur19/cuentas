@@ -10,11 +10,11 @@ const ReceiverDetails = (props) => {
 
     const { transactions } = props;
     const countries = useSelector((state) => state.receiver.countries )
-    const parsedReceiver = JSON.parse(transactions.additional_properties.receiver.value)
-    const paymentDetails = JSON.parse(transactions.additional_properties.payment_details.value).fix_on_send
+    const parsedReceiver = transactions && JSON.parse(transactions?.additional_properties?.receiver?.value)
+    const paymentDetails = transactions && JSON.parse(transactions?.additional_properties?.payment_details?.value)?.fix_on_send
 
     const payoutLocationText =  () => {
-        if(parsedReceiver.address.country_iso_code !== 'US') {
+        if(parsedReceiver?.address?.country_iso_code !== 'US') {
             if(paymentDetails === 'N') {
                 return t('EXPECTED_FOREIGN_COUNTRY_PAYOUT_LOCATION')
             } else {
@@ -33,26 +33,26 @@ const ReceiverDetails = (props) => {
 
             <div className="d-flex justify-content-between info">
                 <p>{t('NAME_TEXT')}</p>
-                <span><b> { parsedReceiver.name.first_name || '' } { parsedReceiver.name.middle_name || ''} { parsedReceiver.name.last_name || ''}</b>
+                <span><b> { parsedReceiver?.name?.first_name || '' } { parsedReceiver?.name?.middle_name || ''} { parsedReceiver?.name?.last_name || ''}</b>
                 </span>
             </div>
 
             <div className="d-flex justify-content-between info">
                 <p>{payoutLocationText()}</p>
-                <span><b>{getCountryName(countries, parsedReceiver.address.country_iso_code)}</b>
+                <span><b>{getCountryName(countries, parsedReceiver?.address?.country_iso_code)}</b>
                 </span>
             </div>
-            {parsedReceiver.address.city &&
+            {parsedReceiver?.address?.city &&
                 <div className="d-flex justify-content-between info">
                     <p>{t('PAYOUT_CITY')}</p>
-                    <span><b>{ parsedReceiver.address.city }</b>
+                    <span><b>{ parsedReceiver?.address?.city }</b>
                     </span>
                 </div>
             }
-            {parsedReceiver.address.state &&
+            {parsedReceiver?.address?.state &&
                 <div className="d-flex justify-content-between info">
                     <p>{t('PAYOUT_STATE')} </p>
-                    <span><b>{ parsedReceiver.address.state }</b>
+                    <span><b>{ parsedReceiver?.address?.state }</b>
                     </span>
                 </div>
             }
@@ -66,7 +66,7 @@ const ReceiverDetails = (props) => {
 
             <div className="d-flex justify-content-between info">
                 <p>{t('PAYOUT_COUNTRY')}</p>
-                <span><b>{getCountryName(countries, parsedReceiver.address.country_iso_code)}</b>
+                <span><b>{getCountryName(countries, parsedReceiver?.address?.country_iso_code)}</b>
                 </span>
             </div>
         </div>

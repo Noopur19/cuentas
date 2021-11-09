@@ -88,7 +88,7 @@ const TransactionDetails = (props) => {
             <BorderTitle smallText className="mt-4">{t('TRANSACTION_DETAILS')}</BorderTitle>
             <div className="d-flex justify-content-between info">
                 <p>{t('SERVICE_TYPE')}</p>
-                <span>{parsedServiceType.name}</span>
+                <span>{parsedServiceType?.name}</span>
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('TRANSFER_AMOUNT')}</p>
@@ -113,7 +113,7 @@ const TransactionDetails = (props) => {
                 <p>{t('OTHER_FEES')}</p>
                 <span>{getCurrencySymbol(currencyCode)} {getOtherFee()} {`(${ currencyCode })`}</span>
             </div>
-            {receiver.address.country_iso_code !== 'US' &&
+            {receiver?.address?.country_iso_code !== 'US' &&
             <div className="d-flex justify-content-between info">
                 <p>{t('EXCHANGE_RATE')} </p>
                 <span>{getExchangeRate()}</span>
