@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import TransactionDetails from 'components/transactionDetails/transactionHistory/transactionDetails'
-import { postDeliveryData } from 'middleware/receiver'
+//import { postDeliveryData } from 'middleware/receiver'
 import { postConfirmTransfer } from 'middleware/transactionDetails'
 import BorderTitle from 'components/shared/BorderTitle.styled';
 import moment from 'moment'
@@ -21,7 +21,7 @@ const ConfirmTransfer = (props) => {
     const { t } = useTranslation()
     const { handleSubmit, editDetails } = props;
     const dispatch = useDispatch()
-    const incomeDetail = useSelector((state) => state.user.incomeDetail)
+    // const incomeDetail = useSelector((state) => state.user.incomeDetail)
     const storeDetails = useSelector((state) => state.user.storeDetail)
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries )
@@ -36,8 +36,14 @@ const ConfirmTransfer = (props) => {
         })
     }, [])
 
-    const saveData = (values) => {
-        dispatch(postDeliveryData(values, incomeDetail))
+    const getFinalAmount = () => {
+        const finalAmount = _.get(postDeliveryDetails?.payment_details,'origination.gross_amount');
+        return parseInt(finalAmount) > 0 ? parseInt(finalAmount) / 100 : 0;
+    };
+
+    const saveData = () => {
+        dispatch(postConfirmTransfer(postDeliveryDetails, getFinalAmount(),storeDetails))
+
     }
 
     const payoutLocationText =  () => {
@@ -52,15 +58,6 @@ const ConfirmTransfer = (props) => {
         } else {
             return t('COUNTRY_PAYOUT_LOCATION')
         }
-    }
-
-    const getFinalAmount = () => {
-        const finalAmount = _.get(postDeliveryDetails?.payment_details,'origination.gross_amount');
-        return parseInt(finalAmount) > 0 ? parseInt(finalAmount) / 100 : 0;
-    };
-
-    const onConfirmHandler = () => {
-        dispatch(postConfirmTransfer(postDeliveryDetails, getFinalAmount(),storeDetails))
     }
 
     return (
@@ -101,7 +98,7 @@ const ConfirmTransfer = (props) => {
                     {getParseHtmlArticle('wu_117')}
                     {getParseHtmlArticle('wu_114')}
                     <Button onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
-                    <Button outlined onClick={ () =>  onConfirmHandler() } type='submit'>{t('CONFIRM_SEND')}</Button>
+                    <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
                     {getParseHtmlArticle('wu_115')}
                     {getParseHtmlArticle('wu_111')}
                     <CardFooter/>
