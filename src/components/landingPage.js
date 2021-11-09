@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import history from 'utils/history'
 import { getAllArticles } from 'middleware/articles';
 import _ from 'lodash'
-const LandingPage = (props) => {
-    console.log(props)
+const LandingPage = () => {
     const dispatch = useDispatch()
     const articles = useSelector((state) => state.articles.articles)
 

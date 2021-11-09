@@ -188,7 +188,7 @@ ReceiverDetailsForm.propTypes = {
     handleSubmit: PropTypes.func,
     initialize: PropTypes.object,
     prevPage: PropTypes.func,
-    receivers: PropTypes.array,
+    receivers: PropTypes.func,
     submitData: PropTypes.func
 };
 

@@ -38,5 +38,5 @@ export const Layout = (props) => {
     </StyledContainer>)
 }
 Layout.propTypes = {
-    children: PropTypes.children
+    children: PropTypes.object
 }

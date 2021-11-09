@@ -24,6 +24,6 @@ Modal.propTypes = {
     handleClose: PropTypes.func,
     handleCancel: PropTypes.func,
     show: PropTypes.bool,
-    children: PropTypes.children
+    children: PropTypes.object
 };
 export default Modal;

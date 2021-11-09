@@ -11,9 +11,9 @@ const CardFooter = () => {
             <CardBottom className="CardFooter">
                 <div className="card-link text-center">
                     <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
-                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" href="#!">{t('PRIVACY_STATEMENT')}</Link></LinkText>
-                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" href="#!">{t('TERMS_CONDITIONS')}</Link></LinkText>
-                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" href="#!">{t('FAQS')}</Link></LinkText>
+                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" to="#!">{t('PRIVACY_STATEMENT')}</Link></LinkText>
+                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" to="#!">{t('TERMS_CONDITIONS')}</Link></LinkText>
+                    <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" to="#!">{t('FAQS')}</Link></LinkText>
                 </div>
 
             </CardBottom>

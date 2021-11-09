@@ -1,23 +1,26 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Card } from '../shared/Footer.styled'
-import { getCountryName, getParseHtmlArticle } from 'utils/helpers'
+import { getCountryName, getCurrencySymbol, getParseHtmlArticle } from 'utils/helpers'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import BorderTitle from 'components/shared/BorderTitle.styled';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment'
 import { getLocalData } from 'utils/cache'
+import _ from 'lodash'
 
 const Success = () => {
     const { t } = useTranslation()
     const myWUNumber  = getLocalData('myWUNumber')
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries)
-    const dateTime = postDeliveryDetails && postDeliveryDetails.date_time
-    const date = (dateTime.split('T')[ 0 ]).trim();
-    const time = dateTime.substring(dateTime.indexOf('T') + 1)
-    const formattedDate = moment(date).format('DD MMMM,YYYY')
-    const formattedTime =  moment(time, 'hh:mm:ss').format('hh:mm A');
+    const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
+    const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
+    const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
+    const formattedDate = date && moment(date).format('DD MMMM,YYYY')
+    const formattedTime = time && moment(time, 'hh:mm:ss').format('hh:mm A');
+    const currencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'origination.currency_iso_code')
+    const receiverCurrencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'destination.currency_iso_code')
 
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
@@ -32,6 +35,71 @@ const Success = () => {
             return t('COUNTRY_PAYOUT_LOCATION')
         }
     }
+
+    const getTransferFee = () => {
+        const fee = postDeliveryDetails &&_.get(postDeliveryDetails?.payment_details,'fees')
+        const transferFee = !_.isEmpty(fee)
+            ? parseFloat(_.get(fee, 'base_charges', 0)) +
+        parseFloat(_.get(fee, 'delivery_charges', 0)) +
+        parseFloat(_.get(fee, 'other_charges', 0)) +
+        parseFloat(_.get(fee, 'charges', 0))
+            : 0;
+        return parseInt(transferFee) > 0 ? parseInt(transferFee) / 100 : 0;
+    }
+
+    const getTotalTaxes = () => {
+        const taxes = postDeliveryDetails &&_.get(postDeliveryDetails?.payment_details, 'taxes');
+        const taxAmount = !_.isEmpty(taxes)
+            ? parseFloat(_.get(taxes, 'municipal_tax', 0)) +
+        parseFloat(_.get(taxes, 'state_tax', 0)) +
+        parseFloat(_.get(taxes, 'county_tax', 0))
+            : 0;
+        return parseInt(taxAmount) > 0 ? parseInt(taxAmount) / 100 : 0;
+    };
+
+    const getPrincipalAmount = () => {
+        const principalAmount = postDeliveryDetails && _.get(postDeliveryDetails?.payment_details,
+            'origination.principal_amount',0);
+        return parseInt(principalAmount) > 0 ? parseInt(principalAmount) / 100 : 0;
+    };
+
+    const getOtherFee = () => {
+        const otherFee = postDeliveryDetails && _.get(postDeliveryDetails?.df_details,'pay_side_charge');
+        return parseInt(otherFee) > 0 ? parseInt(otherFee) / 100 : 0;
+    };
+
+    const getPromotionalDiscount = () => {
+        const promotionDiscount = postDeliveryDetails && _.get(postDeliveryDetails?.payment_details,
+            'promotion.discount', 0);
+        return parseInt(promotionDiscount) > 0 ? parseInt(promotionDiscount) / 100 : 0;
+    };
+
+    const getExchangeRate = () => {
+        const rate = postDeliveryDetails && _.get(postDeliveryDetails?.payment_details,'exchange_rate');
+        return  getCurrencySymbol(currencyCode) +
+        ` 1 ${ currencyCode } =` +
+        getCurrencySymbol(currencyCode) +
+        `${ rate }` +
+        `(${ receiverCurrencyCode })`
+    };
+
+    const getPayoutAmount = () => {
+        const payoutAmount = postDeliveryDetails && _.get(postDeliveryDetails?.payment_details,'destination.expected_payout_amount');
+        return parseInt(payoutAmount) > 0 ? parseInt(payoutAmount) / 100 : 0
+    };
+
+    const getTotalAmount = () => {
+        if (_.isEmpty(postDeliveryDetails?.payment_details)){
+            return 0;
+        }
+        return (
+            getPrincipalAmount() +
+            getTransferFee() +
+            getTotalTaxes() +
+            getOtherFee() -
+            getPromotionalDiscount()
+        );
+    };
 
     return (
         <Card>
@@ -99,29 +167,52 @@ const Success = () => {
                 </div>}
                 <div className="d-flex justify-content-between info">
                     <p>{t('EXCHANGE_RATE')} </p>
-                    <span>------</span>
+                    <span>{getExchangeRate()}</span>
                 </div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRANSFER_AMOUNT')}</p>
-                    <span>-------</span>
+                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading mt-3">
                     <h4 >{t('TOTAL_TO_RECEIVER')}</h4>
-                    <span>-------</span>
+                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading">
                     <h4>{t('TOTAL')}</h4>
-                    <span>-------</span>
+                    <span>{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</span>
                 </div>
                 {getParseHtmlArticle('wu_117')}
                 {getParseHtmlArticle('wu_127')}
+                {
+                    postDeliveryDetails?.receiver?.address?.country_iso_code!=='US' &&
+                    postDeliveryDetails?.receiver?.address?.country_iso_code!=='USA' &&
+                    +postDeliveryDetails?.payment_details.origination.principal_amount > 1501 &&
+                    (
+                        'For questions or complaints about Western Union, contact:\nSending customer State regulatory name:{0}\nSending customer state regulatory phone #1: {1}\nSending customer state regulatory phone #2: {2}\nState regulatory agency website url: {3}\nConsumer Financial Protection Bureau CFPB phone #1: {4}\nCFPB phone #2: {5}\nCFPB website url: {6}'
+                        // eslint-disable-next-line no-unexpected-multiline
+                        `${ state_agency_name }`,
+                        `${ csb_phone1 }`,
+                        `${ csb_phone2 }`,
+                        `${ csb_url }`,
+                        `${ cfb_phone1 }`,
+                        `${ cfb_phone2 }`,
+                        `${ cfb_url }`
+                    )
+                }
                 {getParseHtmlArticle('wu_121')}
                 {getParseHtmlArticle('wu_115')}
                 {getParseHtmlArticle('wu_122')}
                 {postDeliveryDetails?.sender?.address?.state === 'CA' && getParseHtmlArticle('wu_104')}
-                {postDeliveryDetails?.receiver?.address?.country_iso_code==='US' &&
-                postDeliveryDetails?.sender.address.state ==='TX' &&
-                getParseHtmlArticle('wu_105')
+                {
+                    postDeliveryDetails?.receiver?.address?.country_iso_code==='US' &&
+                    postDeliveryDetails?.sender.address.state ==='TX' &&
+                    getParseHtmlArticle('wu_105')
+                }
+                {
+                    postDeliveryDetails?.receiver?.address?.country_iso_code!=='US' &&
+                    postDeliveryDetails?.sender.address.state ==='TX' &&
+                    +postDeliveryDetails?.payment_details.origination.principal_amount < 1501 &&
+                    getParseHtmlArticle('wu_105')
                 }
                 {getParseHtmlArticle('wu_109')}
                 {getParseHtmlArticle('wu_110')}

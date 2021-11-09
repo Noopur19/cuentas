@@ -42,8 +42,6 @@ const ConfirmTransfer = (props) => {
         dispatch(postDeliveryData(values, incomeDetail))
     }
 
-    console.log(postDeliveryDetails);
-
     const payoutLocationText =  () => {
         if(postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
             if(postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
