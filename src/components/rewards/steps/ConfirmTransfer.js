@@ -14,8 +14,6 @@ import BorderTitle from 'components/shared/BorderTitle.styled';
 import moment from 'moment'
 import CardFooter from 'components/shared/CardFooter';
 import { Card } from 'components/shared/Footer.styled';
-import history from 'utils/history';
-import { ROUTES } from 'constants/AppRoutes';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash'
 
@@ -62,7 +60,6 @@ const ConfirmTransfer = (props) => {
     };
 
     const onConfirmHandler = () => {
-        history.push(ROUTES.SUCCESS_PAGE)
         dispatch(postConfirmTransfer(postDeliveryDetails, getFinalAmount(),storeDetails))
     }
 

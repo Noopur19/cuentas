@@ -1,10 +1,9 @@
-import { MESSAGE } from 'constants/app'
 import { SubmissionError } from 'redux-form'
 import {  getLocalByTitle } from 'utils/helpers'
 export const rewardNumberValidation = values => {
     const errors = {};
     if (values.WUNumber && values.WUNumber.length < 9 ) {
-        errors.WUNumber = MESSAGE.VALID_ENTER('WUNumber');
+        errors.WUNumber = getLocalByTitle('ENTER_VALID_NUMBER');
     }
     return errors;
 }
@@ -14,13 +13,13 @@ export const receiverFormValidate = values => {
         errors.firstName = getLocalByTitle('FIRST_NAME')
     }
     if (!values.lastName) {
-        errors.lastName = MESSAGE.REQUIRE('last name');
+        errors.lastName = getLocalByTitle('LAST_NAME');
     }
     if(values.email && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))){
-        errors.email = MESSAGE.VALID_ENTER('email');
+        errors.email = getLocalByTitle('CHECK_MAIL_LENGTH');
     }
     if (!values.country) {
-        errors.country = MESSAGE.REQUIRE('country');
+        errors.country = getLocalByTitle('COUNTRY_ERROR');
     }
     return errors;
 }
@@ -33,10 +32,10 @@ const throwError = (type,error) => {
 export const receiverFormSubmissionValidate = (values, states) => {
     if (states.length > 0 && states[ 0 ]?.city ) {
         if (!values.state) {
-            throwError( 'state',MESSAGE.REQUIRE('state'))
+            throwError( 'state',getLocalByTitle('STATE_ERROR'))
         }
         if (!values.city) {
-            throwError( 'city',MESSAGE.REQUIRE('city'))
+            throwError( 'city',getLocalByTitle('CITY_ERROR'))
         }
     }
     return true;
@@ -44,10 +43,10 @@ export const receiverFormSubmissionValidate = (values, states) => {
 export const transactionDetailsValidate = (values) => {
     const errors = {};
     if (!values.amount) {
-        errors.amount = MESSAGE.REQUIRE('amount');
+        errors.amount = getLocalByTitle('PLEASE_ENTER_AMOUNT');
     }
     if (!values.amountUSD) {
-        errors.amountUSD = MESSAGE.REQUIRE('amount');
+        errors.amountUSD = getLocalByTitle('PLEASE_ENTER_AMOUNT');
     }
 
     return errors;

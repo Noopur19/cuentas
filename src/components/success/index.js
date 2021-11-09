@@ -101,6 +101,48 @@ const Success = () => {
         );
     };
 
+    const isDoddFrank = () => {
+        const countryCode = postDeliveryDetails && _.get(postDeliveryDetails,'receiver.address.country_iso_code','');
+        const principalAmount = postDeliveryDetails && _.get(postDeliveryDetails,'payment_details.origination.principal_amount','');
+        if (
+            countryCode !== 'US' &&
+            countryCode !== 'USA' &&
+            principalAmount >= 1501
+        ) {
+            return true;
+        }
+        return false;
+    };
+
+    const renderWUContactDetails = () => {
+        if (isDoddFrank() && postDeliveryDetails?.df_details) {
+            const {
+                state_agency_name,
+                csb_phone1,
+                csb_phone2,
+                csb_url,
+                cfb_phone1,
+                cfb_phone2,
+                cfb_url,
+            } = postDeliveryDetails.df_details;
+            return (
+                <div>
+                    {
+                        `${ state_agency_name }`,
+                        `${ csb_phone1 }`,
+                        `${ csb_phone2 }`,
+                        `${ csb_url }`,
+                        `${ cfb_phone1 }`,
+                        `${ cfb_phone2 }`,
+                        `${ cfb_url }`
+                    }
+                </div>
+            );
+        } else {
+            return null;
+        }
+    };
+
     return (
         <Card>
             <div>
@@ -187,17 +229,12 @@ const Success = () => {
                     postDeliveryDetails?.receiver?.address?.country_iso_code!=='US' &&
                     postDeliveryDetails?.receiver?.address?.country_iso_code!=='USA' &&
                     +postDeliveryDetails?.payment_details.origination.principal_amount > 1501 &&
-                    (
-                        'For questions or complaints about Western Union, contact:\nSending customer State regulatory name:{0}\nSending customer state regulatory phone #1: {1}\nSending customer state regulatory phone #2: {2}\nState regulatory agency website url: {3}\nConsumer Financial Protection Bureau CFPB phone #1: {4}\nCFPB phone #2: {5}\nCFPB website url: {6}'
-                        // eslint-disable-next-line no-unexpected-multiline
-                        `${ state_agency_name }`,
-                        `${ csb_phone1 }`,
-                        `${ csb_phone2 }`,
-                        `${ csb_url }`,
-                        `${ cfb_phone1 }`,
-                        `${ cfb_phone2 }`,
-                        `${ cfb_url }`
-                    )
+                    <>
+                        {
+                            'For questions or complaints about Western Union, contact:\nSending customer State regulatory name:{0}\nSending customer state regulatory phone #1: {1}\nSending customer state regulatory phone #2: {2}\nState regulatory agency website url: {3}\nConsumer Financial Protection Bureau CFPB phone #1: {4}\nCFPB phone #2: {5}\nCFPB website url: {6}'
+                        }
+                        { renderWUContactDetails() }
+                    </>
                 }
                 {getParseHtmlArticle('wu_121')}
                 {getParseHtmlArticle('wu_115')}

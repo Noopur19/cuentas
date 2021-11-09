@@ -20,6 +20,8 @@ import { getUser } from 'utils/helpers'
 import { INCOMM_HEADERS } from 'constants/app'
 import _ from 'lodash'
 import { confirmTransferRequestPayload } from '../utils/helpers';
+import history from 'utils/history';
+import { ROUTES } from 'constants/AppRoutes';
 
 export const getTransactionHistory = () => {
     const user = getUser()
@@ -121,6 +123,7 @@ export const postConfirmTransfer = (data, finalAmount, stores) => {
             { headers: _.merge(INCOMM_HEADERS, { 'x-knetikcloud-channel' : 'app' }) } )
             .then((response) => {
                 dispatch(postConfirmTransferSuccess(response.data))
+                history.push(ROUTES.SUCCESS_PAGE)
             }).catch((error) => {
                 dispatch(postConfirmTransferFailed(error))
             })
