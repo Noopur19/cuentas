@@ -6,7 +6,7 @@ import Footer from 'components/shared/Footer'
 import { Card } from '../shared/Footer.styled'
 import LinkText from '../shared/LinkText.styled'
 import Link from '../shared/Link.styled'
-import footerLogo from '../../images/FooterHeading.svg'
+import footerLogo from '../../images/wu_icon.png'
 import { ROUTES } from 'constants/AppRoutes'
 import { useTranslation } from 'react-i18next';
 
@@ -22,7 +22,7 @@ const ProtectForm = () => {
             <div className="ProtectForm">
                 <Card>
                     { getParseHtmlArticle('wu_119') }
-                    <div className="card-link">
+                    <div className="card-link text-center">
                         <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
                         <LinkText>{t('WESTERN_UNION')}<Link className="link" bold color="textOrange" href="#!">{t('PRIVACY_STATEMENT')}</Link></LinkText>
                         <LinkText>{t('WESTERN_UNION')}<Link className="link" bold color="textOrange" href="#!">{t('TERMS_CONDITIONS')}</Link></LinkText>

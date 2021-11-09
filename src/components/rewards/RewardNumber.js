@@ -44,7 +44,7 @@ const RewardNumberPage = (props) => {
         <RewardNumber>
             <form onSubmit={ handleSubmit( onSubmit ) }>
                 <div className="rewardWrapper">
-                    <BorderTitle> {t('HAVE_MY_WU_REWARDS_NUMBER')}</BorderTitle>
+                    <BorderTitle> <h3>{t('HAVE_MY_WU_REWARDS_NUMBER')}</h3></BorderTitle>
                     {!isClicked && <Button onClick={ () => setIsClicked(true) }>{t('CLICK_HEAR_TO_ENTER')}</Button>}
                     {!!isClicked &&
                         <>

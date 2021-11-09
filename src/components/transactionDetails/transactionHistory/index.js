@@ -61,7 +61,7 @@ const TransactionHistory = () => {
     return (
         <Card className="transaction-card mb-0">
             <div>
-                <BorderTitle>{t('MYWU_HISTORY')}</BorderTitle>
+                <BorderTitle><h3>{t('MYWU_HISTORY')}</h3></BorderTitle>
                 {renderCard()}
             </div>
         </Card>

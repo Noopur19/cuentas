@@ -29,6 +29,9 @@ export const Nav = Styled.nav`
         a {
             width: 10%;
         }
+        .sentIcon {
+            display: none;
+        }
     }
     .progress-wrapper {
         width: 100%;

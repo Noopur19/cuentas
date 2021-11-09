@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment'
 import { useSelector,useDispatch } from 'react-redux'
 import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
-import {
-    postSendEmail,
-    postCancelTransaction ,
-} from 'middleware/transactionDetails';
+import { postCancelTransaction } from 'middleware/transactionDetails';
 import Modal from 'components/shared/Modal';
 import BorderTitle from '../../shared/BorderTitle.styled'
 import historyIcon from '../../../images/historyIcon.png'
@@ -38,10 +35,6 @@ const AdditionalDetails = (props) => {
         'mtcn': transactions?.additional_properties?.mtcn?.value || null,
     }
 
-    const onClickHandler = () => {
-        dispatch(postSendEmail(transactions.id))
-    }
-
     const toggleModal = () => {
         getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
             setIsOpen(!isOpen) : setIsOpen(isOpen) ;
@@ -69,10 +62,8 @@ const AdditionalDetails = (props) => {
 
     return (
         <>
-            <button onClick={ () => onClickHandler() }>{t('SEND_EMAIL')}</button>
-
             <AdditionalDetailWrap className="additionalDetails">
-                <BorderTitle>{t('ADDITIONAL_DETAILS')}</BorderTitle>
+                <BorderTitle><h3>{t('ADDITIONAL_DETAILS')}</h3></BorderTitle>
                 <div className="header-card d-none">
                     <div className="amount-paid">
                         <h2>{t('AMOUNT_PAID')}</h2>

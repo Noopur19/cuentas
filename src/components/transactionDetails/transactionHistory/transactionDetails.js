@@ -85,7 +85,7 @@ const TransactionDetails = (props) => {
 
     return (
         <div className="transactional-details-wrap">
-            <BorderTitle smallText className="mt-4">{t('TRANSACTION_DETAILS')}</BorderTitle>
+            <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}</h3></BorderTitle>
             <div className="d-flex justify-content-between info">
                 <p>{t('SERVICE_TYPE')}</p>
                 <span>{parsedServiceType?.name}</span>

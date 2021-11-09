@@ -10,7 +10,7 @@ const SenderDetails = (props) => {
 
     return (
         <div className="sender-info">
-            <BorderTitle smallText className="mt-4">{t('SENDER_INFO')}</BorderTitle>
+            <BorderTitle smallText className="mt-4"><h3>{t('SENDER_INFO')}</h3></BorderTitle>
             <div className="d-flex justify-content-between info">
                 <p>{t('NAME_TEXT')}</p>
                 <span><b>{parsedSender?.name?.first_name || ''} {parsedSender?.name?.middle_name || ''} {parsedSender?.name?.last_name || ''}</b></span>

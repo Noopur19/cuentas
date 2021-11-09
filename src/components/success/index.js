@@ -38,14 +38,14 @@ const Success = () => {
             <div>
                 <h3>{t('SUCCESS')}</h3>
                 {getParseHtmlArticle('wu_130')}
-                <BorderTitle smallText className="mt-4">{t('TRACKING_INFO')}</BorderTitle>
+                <BorderTitle smallText className="mt-4"><h3>{t('TRACKING_INFO')}</h3></BorderTitle>
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRACKING_NUMBER_MTCN')}</p>
                     <span><b>{myWUNumber || 0}</b></span>
                 </div>
                 <span>{getParseHtmlArticle('wu_134')}</span>
 
-                <BorderTitle smallText className="mt-4">{t('TRANSACTION_DETAILS')}</BorderTitle>
+                <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}</h3></BorderTitle>
                 <div className="d-flex justify-content-between info">
                     <p>{t('DATE_OF_TRANSACTION')}</p>
                     <span><b>{formattedDate}</b>
@@ -72,7 +72,7 @@ const Success = () => {
 
                 {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
 
-                <BorderTitle smallText className="mt-4">{t('FINAL_RECEIVER')}</BorderTitle>
+                <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}</h3></BorderTitle>
                 <div className="d-flex justify-content-between info">
                     <p>{t('NAME_TEXT')}</p>
                     <span><b> {postDeliveryDetails?.receiver?.name?.first_name || ''} {postDeliveryDetails?.receiver?.name?.middle_name || ''} {postDeliveryDetails?.receiver?.name.last_name || ''}</b>
