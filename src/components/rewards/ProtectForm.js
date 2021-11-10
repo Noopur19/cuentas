@@ -21,7 +21,6 @@ const ProtectForm = () => {
                 <Card>
                     { getParseHtmlArticle('wu_119') }
                     <div className="card-link text-center">
-                        <p className="description">{ getParseHtmlArticle('wu_131') }</p>
                         <CardFooter></CardFooter>
                     </div>
                 </Card>

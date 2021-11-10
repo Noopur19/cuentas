@@ -13,6 +13,7 @@ import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { FeeData } from './TransactionDetailsForm.styled'
 import { useTranslation } from 'react-i18next';
+import CardFooter from 'components/shared/CardFooter';
 
 const DelievryTypeForm = (props) => {
     const { t } = useTranslation()
@@ -69,6 +70,11 @@ const DelievryTypeForm = (props) => {
                     </FeeData>
 
                     {getParseHtmlArticle('wu_111')}
+                    <Card>
+                        <div className="card-link text-center">
+                            <CardFooter></CardFooter>
+                        </div>
+                    </Card>
                     <Footer>
                         <Button onClick={ prevPage } >{t('BACK')}</Button>
                         <Button outlined type='submit'>{t('CONTINUE')}</Button>
