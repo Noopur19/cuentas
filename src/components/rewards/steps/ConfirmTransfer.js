@@ -65,7 +65,9 @@ const ConfirmTransfer = (props) => {
                     <p className="px-24">{t('DATE_OF_TRANSACTION')}: {formattedDate}</p>
                     <p  className="px-24">{getParseHtmlArticle('wu_118')}
                         {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
-                        <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}</h3></BorderTitle>
+                        <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}
+                            <span className="underline"></span></h3>
+                        </BorderTitle>
                     </p>
 
                     <div className="d-flex justify-content-between info px-24">

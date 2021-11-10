@@ -85,7 +85,7 @@ export const Nav = Styled.nav`
             line-height: 150%;
             text-align: center;
             color: #896200;
-            margin-top: -22px;
+            margin-top: -12px;
             padding: 10px;
         }     
     }

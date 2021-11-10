@@ -16,6 +16,7 @@ export const HistoryDetail = Styled.div`
         }
     }
     .info-heading {
+        font-weight: 700;
         h4 {
             font-weight: bold;
             font-size: 16px;
@@ -31,21 +32,29 @@ export const HistoryDetail = Styled.div`
             word-break: break-all;
         }
     }
-    .transactional-details-wrap {
-        .info {
-            p,
-            span{
-                font-size: 12px;
-                margin-bottom: 4px;
-                word-break: break-all;
 
-            }
+`
+
+export const Transaction = Styled.div`
+    .info {
+        p,
+        span{
+            font-size: 12px;
+            margin-bottom: 4px;
+            word-break: break-all;
+
         }
-        .info-heading {
-            font-weigth: bold;
-            h4{
-                font-weigth: bold;
-            }
+    }
+    .info-heading {
+        font-weight: 800;
+        h4 {
+            font-weight: 800;
+            font-size: 16px;
+            line-height: 22px;
+        }
+        span {
+            font-size: 18px;
+            line-height: 21px;
         }
     }
     .article {

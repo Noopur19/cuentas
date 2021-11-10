@@ -7,6 +7,7 @@ import { getParseHtmlArticle } from 'utils/helpers'
 import BorderTitle from '../../shared/BorderTitle.styled'
 import CardFooter  from '../../shared/CardFooter';
 import { useTranslation } from 'react-i18next';
+import { Transaction } from './transactionHistory.styled'
 
 const TransactionDetails = (props) => {
     const { t } = useTranslation()
@@ -85,8 +86,10 @@ const TransactionDetails = (props) => {
     };
 
     return (
-        <div className="transactional-details-wrap">
-            <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}</h3></BorderTitle>
+        <Transaction className="transactional-details-wrap">
+            <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}
+                <span className="underline"></span></h3>
+            </BorderTitle>
             <div className="d-flex justify-content-between info">
                 <p>{t('SERVICE_TYPE')}</p>
                 <span>{parsedServiceType?.name}</span>
@@ -140,7 +143,7 @@ const TransactionDetails = (props) => {
                 <CardFooter></CardFooter>
             </>
             }
-        </div>
+        </Transaction>
     )
 }
 

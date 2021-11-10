@@ -64,7 +64,9 @@ const AdditionalDetails = (props) => {
     return (
         <>
             <AdditionalDetailWrap className="additionalDetails">
-                <BorderTitle><h3>{t('ADDITIONAL_DETAILS')}</h3></BorderTitle>
+                <BorderTitle><h3>{t('ADDITIONAL_DETAILS')}
+                    <span className="underline"></span></h3>
+                </BorderTitle>
                 <div className="header-card d-none">
                     <div className="amount-paid">
                         <h2>{t('AMOUNT_PAID')}</h2>
