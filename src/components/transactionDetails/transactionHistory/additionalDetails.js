@@ -27,6 +27,7 @@ const AdditionalDetails = (props) => {
     const formattedDate = moment(date).format('DD MMMM,YYYY')
     const formattedTime =  moment(time, 'hh:mm:ss').format('hh:mm A');
     const currencyCode = transactions && JSON.parse(transactions.additional_properties?.payment_details?.value).origination?.currency_iso_code
+    const amountPaid = transactions && transactions?.additional_properties?.amount?.value
 
     const cancelTransData = {
         'amount': transactions?.additional_properties?.amount?.value || null,
@@ -67,7 +68,7 @@ const AdditionalDetails = (props) => {
                 <div className="header-card d-none">
                     <div className="amount-paid">
                         <h2>{t('AMOUNT_PAID')}</h2>
-                        <span>{getCurrencySymbol(currencyCode)} {transactions?.additional_properties?.amount?.value}</span>
+                        <span> {'-'} {getCurrencySymbol(currencyCode)} {amountPaid}</span>
                         <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
                     </div>
                     <div className="amount-img">
@@ -79,7 +80,7 @@ const AdditionalDetails = (props) => {
                 <div className="additionalDetailsCard">
                     <div className="d-flex justify-content-between info">
                         <p>{t('AMOUNT_PAID')}</p>
-                        <span className="price">{getCurrencySymbol(currencyCode)} {transactions?.additional_properties?.amount?.value}</span>
+                        <span className="price"> {'-'} {getCurrencySymbol(currencyCode)} {amountPaid}</span>
                     </div>
                     <div className="d-flex justify-content-between info">
                         <p>{t('TRANSFER_TO')}</p>

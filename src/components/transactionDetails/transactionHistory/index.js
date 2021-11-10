@@ -44,7 +44,7 @@ const TransactionHistory = () => {
                                 <p className="status">{t('DONE')}</p>
                             </div>
                             <div className="pricing">
-                                <h6 className="price">-{getCurrencySymbol(currencyCode)} {invoice?.unit_price}</h6>
+                                <h6 className="price">-{getCurrencySymbol(currencyCode)} {(invoice?.unit_price).toFixed(2)}</h6>
                                 <p className="time">{formattedTime}</p>
                             </div>
                         </div>

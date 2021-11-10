@@ -213,15 +213,15 @@ const Success = () => {
                 </div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRANSFER_AMOUNT')}</p>
-                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</span>
+                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading mt-3">
                     <h4 >{t('TOTAL_TO_RECEIVER')}</h4>
-                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</span>
+                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading">
                     <h4>{t('TOTAL')}</h4>
-                    <span>{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</span>
+                    <span>-{getCurrencySymbol(currencyCode)} {getTotalAmount().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 {getParseHtmlArticle('wu_117')}
                 {getParseHtmlArticle('wu_127')}

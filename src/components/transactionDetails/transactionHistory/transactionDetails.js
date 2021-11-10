@@ -62,8 +62,9 @@ const TransactionDetails = (props) => {
     };
 
     const getExchangeRate = () => {
-        const rate = _.get(paymentDetails,'exchange_rate');
-        return  getCurrencySymbol(currencyCode) +
+        const rate = (_.get(paymentDetails,'exchange_rate'));
+        console.log(rate);
+        return  rate && getCurrencySymbol(currencyCode) +
         ` 1 ${ currencyCode } =` +
         getCurrencySymbol(currencyCode) +
         `${ rate }` +
@@ -92,26 +93,26 @@ const TransactionDetails = (props) => {
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('TRANSFER_AMOUNT')}</p>
-                <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount()} {`(${ currencyCode })`}</span></div>
+                <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount().toFixed(2)} {`(${ currencyCode })`}</span></div>
             <div className="d-flex justify-content-between info">
                 <p>{t('TRANSFER_FEES')}</p>
-                <span>+{getCurrencySymbol(currencyCode)} {getTransferFee()} {`(${ currencyCode })`}</span>
+                <span>+{getCurrencySymbol(currencyCode)} {getTransferFee().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('ADDITIONAL_FEES')}</p>
-                <span>{getCurrencySymbol(currencyCode)} {0} {`(${ currencyCode })`}</span>
+                <span>+{getCurrencySymbol(currencyCode)} {(0).toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('TRANSFER_TAXES')}</p>
-                <span>+{getCurrencySymbol(currencyCode)} {getTotalTaxes()} {`(${ currencyCode })`}</span>
+                <span>+{getCurrencySymbol(currencyCode)} {getTotalTaxes().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('PROMOTION_DISCOUNT')}</p>
-                <span>-{getCurrencySymbol(currencyCode)} {getPromotionalDiscount()} {`(${ currencyCode })`}</span>
+                <span>-{getCurrencySymbol(currencyCode)} {getPromotionalDiscount().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('OTHER_FEES')}</p>
-                <span>{getCurrencySymbol(currencyCode)} {getOtherFee()} {`(${ currencyCode })`}</span>
+                <span>+{getCurrencySymbol(currencyCode)} {getOtherFee().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             {receiver?.address?.country_iso_code !== 'US' &&
             <div className="d-flex justify-content-between info">
@@ -120,16 +121,16 @@ const TransactionDetails = (props) => {
             </div>}
             <div className="d-flex justify-content-between info">
                 <p>{t('TRANSFER_AMOUNT')}</p>
-                <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}</span>
+                <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info-heading mt-3">
                 <h4 >{t('TOTAL_TO_RECEIVER')} </h4>
-                <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount()} {`(${ receiverCurrencyCode })`}
+                <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}
                 </span>
             </div>
             <div className="d-flex justify-content-between info-heading">
                 <h4>{t('TOTAL')}</h4>
-                <span>{getCurrencySymbol(currencyCode)} {getTotalAmount()} {`(${ currencyCode })`}</span>
+                <span>-{getCurrencySymbol(currencyCode)} {getTotalAmount().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             {!payment && <>
                 <div className="article">

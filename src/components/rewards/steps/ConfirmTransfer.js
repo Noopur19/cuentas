@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import TransactionDetails from 'components/transactionDetails/transactionHistory/transactionDetails'
-//import { postDeliveryData } from 'middleware/receiver'
 import { postConfirmTransfer } from 'middleware/transactionDetails'
 import BorderTitle from 'components/shared/BorderTitle.styled';
 import moment from 'moment'
@@ -21,7 +20,6 @@ const ConfirmTransfer = (props) => {
     const { t } = useTranslation()
     const { handleSubmit, editDetails } = props;
     const dispatch = useDispatch()
-    // const incomeDetail = useSelector((state) => state.user.incomeDetail)
     const storeDetails = useSelector((state) => state.user.storeDetail)
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries )
@@ -104,12 +102,6 @@ const ConfirmTransfer = (props) => {
                             <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
                         </div>
                     </p>
-                    {postDeliveryDetails?.payment_details &&
-                    <TransactionDetails
-                        receiverData={ postDeliveryDetails?.receiver }
-                        wu_product={ postDeliveryDetails?.wu_product }
-                        payment={ postDeliveryDetails?.payment_details }
-                    />}
                     <p className="px-24 pt-4">
                         {getParseHtmlArticle('wu_115')}
                         {getParseHtmlArticle('wu_111')}
