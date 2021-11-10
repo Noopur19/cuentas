@@ -38,7 +38,7 @@ export const Nav = Styled.nav`
         color: ${ (props) => props.theme.white };
         h3 {
             font-weight: bold;
-            font-size: 28px;
+            font-size: 26px;
             line-height: 21px;
             margin-top: 25px;
         }

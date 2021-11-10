@@ -41,6 +41,12 @@ export const HistoryDetail = Styled.div`
 
             }
         }
+        .info-heading {
+            font-weigth: bold;
+            h4{
+                font-weigth: bold;
+            }
+        }
     }
     .article {
         font-size: 12px;

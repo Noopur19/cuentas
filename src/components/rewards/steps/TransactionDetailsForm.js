@@ -104,16 +104,22 @@ const TransactionDetailsForm = (props) => {
 
             <Transaction className="transaction">
                 <BorderTitle smallText><h3>{t('RECIVER_INFO')}</h3></BorderTitle>
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between pb-2">
                     <span>{t('FULL_NAME')}</span>
-                    <span> {`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</span>
+                    <span><b>{`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</b></span>
                 </div>
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between pb-2">
                     <span>{t('PAYOUT_COUNTRY')}y</span>
-                    <span> {country?.country || ''}</span>
+                    <span><b> {country?.country || ''}</b></span>
                 </div>
-                {formValues.city && <div>{t('PAYOUT_CITY')} {formValues.city || ''}</div>}
-                {formValues.state && <div>{t('PAYOUT_STATE')} {formValues.state && getStateName(formValues.state) || ''}</div>}
+                {formValues.city && <div className="d-flex justify-content-between pb-2">
+                    <span>{t('PAYOUT_CITY')}</span>
+                    <span><b> {formValues.city || ''} </b></span>
+                </div>}
+                {formValues.state && <div className="d-flex justify-content-between pb-2">
+                    <span>{t('PAYOUT_STATE')}</span>
+                    <span><b>{formValues.state && getStateName(formValues.state) || ''}</b></span>
+                </div>}
 
                 <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}</h3></BorderTitle>
                 <p className="text-center"><b>{t('CURRENT_BALANCE')} { availBail }</b> </p>
@@ -138,7 +144,7 @@ const TransactionDetailsForm = (props) => {
                     <BorderTitle smallText className="mt-4"><h3>{t('AMOUNT2SEND')}</h3></BorderTitle>
                     { (formValues?.payoutCurrency || currencyChecked) !== 'USD' ?
                         <>
-                            <div className="converter d-flex justify-content-between">
+                            <div className="converter d-flex justify-content-between pb-2">
                                 <Field
                                     name="amountUSD"
                                     type="number"
@@ -171,6 +177,7 @@ const TransactionDetailsForm = (props) => {
                         name="promoCode"
                         type="text"
                         component={ renderField }
+                        placeholder="Promotional code"
                     />
                     {getParseHtmlArticle('wu_109')}
                     {getParseHtmlArticle('wu_115')}
