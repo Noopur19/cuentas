@@ -13,7 +13,7 @@ import _ from 'lodash'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { FeeData } from './TransactionDetailsForm.styled'
 import { useTranslation } from 'react-i18next';
-
+import { locale  } from 'utils/helpers';
 const DelievryTypeForm = (props) => {
     const { t } = useTranslation()
     const { handleSubmit, initialize ,submitData, prevPage } = props;
@@ -22,22 +22,36 @@ const DelievryTypeForm = (props) => {
     const incomeDetail = useSelector((state) => state.user.incomeDetail)
     const transferDetails = useSelector((state) => state.receiver.transferDetails)
 
+    const getValidCode = deliveryTypeArray => {
+        if (locale() === 'en') {
+            return [ '000', '300' ];
+        }
+        var index = deliveryTypeArray.findIndex(item => {
+            return item.wu_product.code === '400';
+        });
+        return index > -1 ? [ '400' ] : [ '000','300','500' ];
+    };
+
     useEffect(() =>{
         dispatch({
             type: GET_STEP_PROGRESSBAR,
-            data: { title: 'Delivery Type', step: 3 }
+            data: { title: t('DELIVERY_TYPE'), step: 3 }
         })
-        const serviceOptions = transferDetails.service_options.service_option
+        let serviceOptions = transferDetails.service_options.service_option
+        const validCodes = getValidCode(serviceOptions)
+        serviceOptions = serviceOptions.filter((item) => validCodes.includes(item.wu_product.code))
         const obj = _.merge(formValues.values, { deliveryType: JSON.stringify(serviceOptions[ 0 ]) })
         initialize(obj)
     },[])
 
     const saveData = (values) => {
-        dispatch(postDeliveryData(values,incomeDetail))
-        submitData(values)
+        dispatch(postDeliveryData(values,incomeDetail,submitData))
     }
+
     const getServiceOptions = () => {
-        const serviceOptions = transferDetails.service_options.service_option
+        let serviceOptions = transferDetails.service_options.service_option
+        const validCodes = getValidCode(serviceOptions)
+        serviceOptions = serviceOptions.filter((item) => validCodes.includes(item.wu_product.code))
         return serviceOptions.map((item) => ({ value: JSON.stringify(item), label: item.wu_product.name }))
     }
     const getFeesData = (values) => {

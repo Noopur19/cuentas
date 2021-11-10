@@ -30,7 +30,7 @@ const ConfirmTransfer = (props) => {
     useEffect(() => {
         dispatch({
             type: GET_STEP_PROGRESSBAR,
-            data: { title: 'Confirm Transfer', step: 4 }
+            data: { title: t('CONFIRM_TRANSFER'), step: 4 }
         })
     }, [])
 
@@ -84,6 +84,13 @@ const ConfirmTransfer = (props) => {
                             <div className="d-flex justify-content-between info">
                                 <p>{t('PAYOUT_CITY')}</p>
                                 <span><b>{postDeliveryDetails?.receiver?.address.city}</b>
+                                </span>
+                            </div>
+                        }
+                        {postDeliveryDetails?.receiver?.address.state &&
+                            <div className="d-flex justify-content-between info">
+                                <p>{t('PAYOUT_STATE')}</p>
+                                <span><b>{postDeliveryDetails?.receiver?.address.state}</b>
                                 </span>
                             </div>
                         }
