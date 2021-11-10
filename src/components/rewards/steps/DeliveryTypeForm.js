@@ -29,7 +29,7 @@ const DelievryTypeForm = (props) => {
         var index = deliveryTypeArray.findIndex(item => {
             return item.wu_product.code === '400';
         });
-        return index > -1 ? [ '400' ] : [ '000','300','500' ];
+        return index > -1 ? [ '400' ] : [ '000','300' ];
     };
 
     useEffect(() =>{
