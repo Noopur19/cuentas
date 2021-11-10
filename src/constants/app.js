@@ -16,6 +16,7 @@ export const INCOMM_HEADERS = {
     'x-knetikcloud-physicalmemory': '16.00',
     'x-knetikcloud-appname': 'Cuentas',
     'x-knetikcloud-appversion': '2.6.0',
+    'x-knetikcloud-ipaddress': '181.198.203.52',
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 }
