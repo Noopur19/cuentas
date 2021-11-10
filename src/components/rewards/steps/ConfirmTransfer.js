@@ -110,11 +110,6 @@ const ConfirmTransfer = (props) => {
                         wu_product={ postDeliveryDetails?.wu_product }
                         payment={ postDeliveryDetails?.payment_details }
                     />}
-
-                    {getParseHtmlArticle('wu_117')}
-                    {getParseHtmlArticle('wu_114')}
-                    <Button onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
-                    <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
                     <p className="px-24 pt-4">
                         {getParseHtmlArticle('wu_115')}
                         {getParseHtmlArticle('wu_111')}

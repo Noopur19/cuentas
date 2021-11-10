@@ -18,6 +18,12 @@ export const Layout = (props) => {
     const activeCard = () =>{
         return history?.location?.pathname?.match('transaction-history-details')
     }
+
+    const stepData =  useSelector((state) => state.theme.stepData)
+    const getConfirmClassName = (value) => {
+        return stepData?.step == value && 'confirm'
+    }
+
     const loading = useSelector((state) =>
         state.articles.loading ||
         state.login.loading ||
@@ -31,7 +37,10 @@ export const Layout = (props) => {
         // _.isEmpty(articles) && dispatch(getAllArticles())
     }, [])
 
-    return(<StyledContainer className={ `main-layout ${ showProgressBar() && 'active-progress-bar' } ${ activeCard() && 'active-card' }` }>
+    return(<StyledContainer
+        className={ `main-layout ${ showProgressBar() &&
+            'active-progress-bar' } ${ activeCard() &&
+            'active-card' } ${ getConfirmClassName(4) } ` }>
         <Navbar showProgressBar={ showProgressBar } activeCard={ activeCard } />
         {loading && <MainLoader />}
         {props.children }
