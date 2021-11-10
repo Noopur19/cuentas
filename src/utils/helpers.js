@@ -31,8 +31,8 @@ export const getParseHtmlArticle = (id) => {
     return article?.body ? ReactHtmlParser(article?.body) : null
 }
 export const getStateCd = (state) =>{
-    return state && JSON.parse(state).city[ 0 ].state_cd
-
+    const stateObj =  state && JSON.parse(state)
+    return stateObj.city ? stateObj.city[ 0 ].state_cd : stateObj.data[ 0 ].state_cd
 }
 
 export const getStateName = (state) => {

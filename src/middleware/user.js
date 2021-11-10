@@ -13,12 +13,14 @@ import {
 import _ from 'lodash'
 import { setLocalDataJSON } from 'utils/cache'
 import { INCOMM_HEADERS } from 'constants/app'
-
+import { setLocale } from 'utils/helpers'
 export const getUserDetails = () => {
     return async (dispatch) => {
         dispatch(getUserRequest())
         const result  = await axiosInstance.get('/users/me')
         if( result.status === 200){
+            setLocale(result?.data?.additional_properties?.preferred_language?.value || 'en')
+
             setLocalDataJSON('user',result.data)
             dispatch(getUserSuccess(result.data))
         }else{

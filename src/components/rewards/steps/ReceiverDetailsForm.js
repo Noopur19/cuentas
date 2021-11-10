@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { change, Field, reduxForm } from 'redux-form';
 import { receiverFormSubmissionValidate as submissionValidate, receiverFormValidate as validate } from 'utils/validates'
 import { useDispatch, useSelector } from 'react-redux'
 import { renderField , renderSelectField } from 'utils/formUtils';
@@ -72,6 +72,8 @@ const ReceiverDetailsForm = (props) => {
             const obj = event.value && JSON.parse(event.value)
             const countryCode = obj.country === 'Canada' ? 'CA' : (obj.country === 'Mexico' ? 'Mexico' : obj.currency[ 0 ].country_cd)
             dispatch(getAllStates(countryCode))
+            dispatch(change('receiver_details','city',null))
+            dispatch(change('receiver_details','state',null))
         }
     }
 
@@ -79,6 +81,8 @@ const ReceiverDetailsForm = (props) => {
         const value  = event.value && JSON.parse(event.value)?.state
         const stateData = states.filter((data) => data.state ===  value)
         setState(stateData[ 0 ])
+        dispatch(change('receiver_details','city',null))
+
     }
 
     const getCitiesOptions = () => {
