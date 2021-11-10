@@ -18,14 +18,14 @@ export const Nav = Styled.nav`
     background-repeat: no-rerpeat;
     background-size: cover;
     width: 100%;
-    padding: 24px;
-    padding-bottom: 50px;
     z-index: 1;
     .top-header {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
+        padding: 24px;
+        padding-bottom: 50px;
         a {
             width: 10%;
         }
@@ -72,6 +72,22 @@ export const Nav = Styled.nav`
             }
         }
           
+    }
+    .header-progress {
+        padding-bottom: 30px;
+        display: none;
+        h5 {
+            background: #FFB701;
+            border-radius: 30px 30px 0 0;
+            width: 100%;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 150%;
+            text-align: center;
+            color: #896200;
+            margin-top: -22px;
+            padding: 10px;
+        }     
     }
 `;
 

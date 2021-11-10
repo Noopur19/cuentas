@@ -63,7 +63,7 @@ const RewardNumberPage = (props) => {
                     <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" href="#!">{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
 
                     <Card className="main-card">
-                        { getParseHtmlArticle('wu_131') }
+                        <p className="description">{ getParseHtmlArticle('wu_131') }</p>
                         <CardFooter></CardFooter>
                     </Card>
                 </ div>
