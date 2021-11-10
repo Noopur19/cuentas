@@ -32,13 +32,13 @@ const TransactionDetailsForm = (props) => {
     const country  = formValues.country && JSON.parse(formValues.country)
     const [ currencyChecked , setCurrencyChecked ] = useState(country?.currency && country?.currency[ 0 ].currency_cd)
 
-    const isUSD = () => {
-        return country?.currency && country?.currency[ 0 ].currency_cd === 'USD'
-    }
+    // const isUSD = () => {
+    //     return country?.currency && country?.currency[ 0 ].currency_cd === 'USD'
+    // }
 
     const transactionDetails = (currencyCd) => {
         const data = {
-            transactionType: isUSD(country) ? 'WMN' : 'WMF',
+            transactionType: 'WMN',
             amount: 1000,
             destCurrency: currencyCd || country?.currency && country?.currency[ 0 ].currency_cd,
             destCountry: country?.currency && country?.currency[ 0 ].country_cd

@@ -16,7 +16,7 @@ import 'translations/i18n';
 import { setLocale } from 'utils/helpers'
 
 const store = configureStore();
-setLocale('es')
+setLocale('en')
 ReactDOM.render(
     <ThemeProvider theme={ mainTheme } >
         <Provider store={ store }>
