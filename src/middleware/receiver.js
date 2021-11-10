@@ -21,6 +21,8 @@ import {
 import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
 import { deliveryTypeRequestPayload } from 'utils/helpers'
+import { notification } from 'services/notification';
+import { GET_ERROR_FIELD } from 'constants/app';
 
 export const postWUNumber = (wuNumber) => {
     return (dispatch) => {
@@ -30,6 +32,7 @@ export const postWUNumber = (wuNumber) => {
             dispatch(getWUNumberSuccess(response.data))
         }).catch((error) => {
             dispatch(getWUNumberFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -40,6 +43,7 @@ export const callMyNUNumber = (wuNumber) => {
             dispatch(getWUNumberSuccess(response.data))
         }).catch((error) => {
             dispatch(getWUNumberFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -51,6 +55,7 @@ export const getAllCountries = ( ) => {
             dispatch(getAllCountriesSuccess(response.data))
         }).catch((error) => {
             dispatch(getAllCountriesFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -62,6 +67,7 @@ export const getAllStates = (country) => {
             dispatch(getAllStatesSuccess(response.data))
         }).catch((error) => {
             dispatch(getAllStatesFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -77,6 +83,7 @@ export const postTransactionDetails = (data) => {
             dispatch(postTransactionDetailsSuccess(response.data))
         }).catch((error) => {
             dispatch(postTransactionDetailsFailed(error))
+            notification('error',GET_ERROR_FIELD.ERROR(error))
         })
     }
 }
@@ -93,6 +100,7 @@ export const postDeliveryData = (values, incomeDetail) => {
             dispatch(postDeliveryDataSuccess(response.data))
         }).catch((error) => {
             dispatch(postDeliveryDataFailed(error))
+            notification('error',GET_ERROR_FIELD.ERROR(error))
         })
     }
 }

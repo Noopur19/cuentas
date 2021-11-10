@@ -17,11 +17,12 @@ import {
     postConfirmTransferFailed
 } from 'actions/transaction-details';
 import { getUser } from 'utils/helpers'
-import { INCOMM_HEADERS } from 'constants/app'
+import { GET_ERROR_FIELD, INCOMM_HEADERS } from 'constants/app'
 import _ from 'lodash'
 import { confirmTransferRequestPayload } from '../utils/helpers';
 import history from 'utils/history';
 import { ROUTES } from 'constants/AppRoutes';
+import { notification } from 'services/notification';
 
 export const getTransactionHistory = () => {
     const user = getUser()
@@ -32,6 +33,7 @@ export const getTransactionHistory = () => {
                 dispatch(getTransactionHistorySuccess(response.data))
             }).catch((error) => {
                 dispatch(getTransactionHistoryFailed(error))
+                notification('error',GET_ERROR_FIELD.ERROR(error))
             })
     }
 }
@@ -80,6 +82,7 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
                         })
                 } else {
                     dispatch(postTransactionEnquiryFailed(error))
+                    notification('error',GET_ERROR_FIELD.ERROR(error))
                 }
             })
     }
@@ -95,6 +98,7 @@ export const postSendEmail = (invoiceId) => {
                 dispatch(postSendEmailSuccess(response.data))
             }).catch((error) => {
                 dispatch(postSendEmailFailed(error))
+                notification('error',GET_ERROR_FIELD.ERROR(error))
             })
     }
 }
@@ -111,6 +115,7 @@ export const postCancelTransaction = (data, receiver, sender, mtcn) => {
                 }
             }).catch((error) => {
                 dispatch(postCancelTransactionFailed(error))
+                notification('error',GET_ERROR_FIELD.ERROR(error))
             })
     }
 }
@@ -126,6 +131,7 @@ export const postConfirmTransfer = (data, finalAmount, stores) => {
                 history.push(ROUTES.SUCCESS_PAGE)
             }).catch((error) => {
                 dispatch(postConfirmTransferFailed(error))
+                notification('error',GET_ERROR_FIELD.ERROR(error))
             })
     }
 }

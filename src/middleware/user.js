@@ -38,6 +38,7 @@ export const getIncomeDetails = (incomeId) => {
             dispatch(getIncomeDetailsSuccess(response.data))
         }).catch((error) => {
             dispatch(getIncomeDetailsFailed(error))
+            // TO DO show error notification
         })
     }
 }
@@ -56,6 +57,7 @@ export const getStoreDetails = () => {
             dispatch(getStoreSuccess(response.data))
         }).catch((error) => {
             dispatch(getStoreFailed(error))
+            // TO DO show error notification
         })
     }
 }

@@ -20,3 +20,7 @@ export const INCOMM_HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 }
+
+export const GET_ERROR_FIELD = {
+    ERROR: (error) =>`${ error?.response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error }`
+}
