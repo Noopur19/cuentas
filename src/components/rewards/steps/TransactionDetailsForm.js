@@ -103,7 +103,9 @@ const TransactionDetailsForm = (props) => {
         <Card className="progress-card">
 
             <Transaction className="transaction">
-                <BorderTitle smallText><h3>{t('RECIVER_INFO')}</h3></BorderTitle>
+                <BorderTitle smallText><h3>{t('RECIVER_INFO')}
+                    <span className="underline"></span></h3>
+                </BorderTitle>
                 <div className="d-flex justify-content-between pb-2">
                     <span>{t('FULL_NAME')}</span>
                     <span><b>{`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</b></span>
@@ -121,10 +123,14 @@ const TransactionDetailsForm = (props) => {
                     <span><b>{formValues.state && getStateName(formValues.state) || ''}</b></span>
                 </div>}
 
-                <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}</h3></BorderTitle>
+                <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}
+                    <span className="underline"></span></h3>
+                </BorderTitle>
                 <p className="text-center"><b>{t('CURRENT_BALANCE')} { availBail }</b> </p>
 
-                <BorderTitle smallText className="mt-4"><h3>{t('PAYOUT_CURRENCY')}</h3></BorderTitle>
+                <BorderTitle smallText className="mt-4"><h3>{t('PAYOUT_CURRENCY')}
+                    <span className="underline"></span></h3>
+                </BorderTitle>
                 <form onSubmit={ handleSubmit(saveData) } >
                     { country?.currency && country?.currency.map((item, index) => {
                         return(
@@ -141,7 +147,9 @@ const TransactionDetailsForm = (props) => {
                             </div>
                         )
                     })}
-                    <BorderTitle smallText className="mt-4"><h3>{t('AMOUNT2SEND')}</h3></BorderTitle>
+                    <BorderTitle smallText className="mt-4"><h3>{t('AMOUNT2SEND')}
+                        <span className="underline"></span></h3>
+                    </BorderTitle>
                     { (formValues?.payoutCurrency || currencyChecked) !== 'USD' ?
                         <>
                             <div className="converter d-flex justify-content-between pb-2">
@@ -172,7 +180,9 @@ const TransactionDetailsForm = (props) => {
 
                     }
 
-                    <BorderTitle smallText className="mt-4"><h3>{t('PROMO_CODE')}</h3></BorderTitle>
+                    <BorderTitle smallText className="mt-4"><h3>{t('PROMO_CODE')}
+                        <span className="underline"></span></h3>
+                    </BorderTitle>
                     <Field
                         name="promoCode"
                         type="text"

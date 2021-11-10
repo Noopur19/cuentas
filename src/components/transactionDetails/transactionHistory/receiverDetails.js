@@ -29,7 +29,9 @@ const ReceiverDetails = (props) => {
 
     return (
         <div className="final-receiver">
-            <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}</h3></BorderTitle>
+            <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}
+                <span className="underline"></span></h3>
+            </BorderTitle>
 
             <div className="d-flex justify-content-between info">
                 <p>{t('NAME_TEXT')}</p>
@@ -56,7 +58,9 @@ const ReceiverDetails = (props) => {
                     </span>
                 </div>
             }
-            <BorderTitle smallText className="mt-4"><h3>{t('RECIEVER_INFO')}</h3></BorderTitle>
+            <BorderTitle smallText className="mt-4"><h3>{t('RECIEVER_INFO')}
+                <span className="underline"></span></h3>
+            </BorderTitle>
 
             <div className="d-flex justify-content-between info">
                 <p>{t('PAY_FROM_ACCOUNT')}</p>
