@@ -20,6 +20,17 @@ const StyledContainer = Styled.div`
            display: none;
          }
       }
+      &.confirm {
+         .header-progress {
+            display: block;
+         }
+         .progress-card {
+            border-radius: 0;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 24px 0;
+        }
+      } 
    } 
    &.active-card {
       .header-card {

@@ -61,33 +61,49 @@ const ConfirmTransfer = (props) => {
     }
 
     return (
-        <Card className="progress-card">
+        <Card className="progress-card p-none">
             <div>
                 <form onSubmit={ handleSubmit(saveData) } >
-                    <h5>{t('NOT_A_RECEIPT')}</h5>
-                    <p>{t('DATE_OF_TRANSACTION')}: {formattedDate}</p>
-                    {getParseHtmlArticle('wu_118')}
-                    {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
-                    <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}</h3></BorderTitle>
+                    <p className="px-24">{t('DATE_OF_TRANSACTION')}: {formattedDate}</p>
+                    <p  className="px-24">{getParseHtmlArticle('wu_118')}
+                        {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
+                        <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}</h3></BorderTitle>
+                    </p>
 
-                    <div className="d-flex justify-content-between info">
+                    <div className="d-flex justify-content-between info px-24">
                         <p>{t('NAME_TEXT')}</p>
                         <span><b> {postDeliveryDetails?.receiver?.name?.first_name || ''} {postDeliveryDetails?.receiver?.name?.middle_name || ''} {postDeliveryDetails?.receiver?.name.last_name || ''}</b>
                         </span>
                     </div>
 
-                    <div className="d-flex justify-content-between info">
+                    <div className="d-flex justify-content-between info px-24">
                         <p>{payoutLocationText()}</p>
                         <span><b>{getCountryName(countries, postDeliveryDetails?.receiver?.address.country_iso_code)}</b>
                         </span>
                     </div>
-                    {postDeliveryDetails?.receiver?.address.city &&
-                        <div className="d-flex justify-content-between info">
-                            <p>{t('PAYOUT_CITY')}</p>
-                            <span><b>{postDeliveryDetails?.receiver?.address.city}</b>
-                            </span>
+                    <p  className="px-24">
+                        {postDeliveryDetails?.receiver?.address.city &&
+                            <div className="d-flex justify-content-between info">
+                                <p>{t('PAYOUT_CITY')}</p>
+                                <span><b>{postDeliveryDetails?.receiver?.address.city}</b>
+                                </span>
+                            </div>
+                        }
+                        {postDeliveryDetails?.payment_details &&
+                        <TransactionDetails
+                            receiverData={ postDeliveryDetails?.receiver }
+                            wu_product={ postDeliveryDetails?.wu_product }
+                            payment={ postDeliveryDetails?.payment_details }
+                        />}
+                        {getParseHtmlArticle('wu_117')}
+                    </p>
+                    <p className="box-shadow px-24">
+                        {getParseHtmlArticle('wu_114')}
+                        <div className="confirm_btn d-flex my-3">
+                            <Button className="mr-2" onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
+                            <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
                         </div>
-                    }
+                    </p>
                     {postDeliveryDetails?.payment_details &&
                     <TransactionDetails
                         receiverData={ postDeliveryDetails?.receiver }
@@ -99,8 +115,10 @@ const ConfirmTransfer = (props) => {
                     {getParseHtmlArticle('wu_114')}
                     <Button onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
                     <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
-                    {getParseHtmlArticle('wu_115')}
-                    {getParseHtmlArticle('wu_111')}
+                    <p className="px-24 pt-4">
+                        {getParseHtmlArticle('wu_115')}
+                        {getParseHtmlArticle('wu_111')}
+                    </p>
                     <CardFooter/>
                 </form>
             </div>

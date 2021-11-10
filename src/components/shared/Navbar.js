@@ -40,7 +40,7 @@ const Navbar = (props)  => {
                     <a className="sentIcon" onClick={ () => onClickHandler() } href="#"><img src={ sentIcon } alt="back"/> </a>
                 </div>
                 { showProgressBar() &&
-                <div className="progress-wrapper">
+                <><div className="progress-wrapper">
                     <h3>{stepData?.title}</h3>
                     <ul className="progressbar">
                         <li className={ getActiveBar(1) }>{t('PROGRESS_TEXT')}</li>
@@ -49,8 +49,12 @@ const Navbar = (props)  => {
                         <li className={ getActiveBar(4) }></li>
                     </ul>
                 </div>
+                </>
                 }
                 {activeCard() && <NavbarCard />}
+            </div>
+            <div className="header-progress">
+                <h5>{t('NOT_A_RECEIPT')}</h5>
             </div>
         </Nav>
     )
