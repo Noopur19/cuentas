@@ -20,3 +20,11 @@ export const INCOMM_HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 }
+
+export const STATIC_URLS = {
+    registerLink:  'https://www.westernunion.com/mywu/us/',
+    privacyPolicy: (locale) =>  `https://www.westernunion.com/us/${ locale }/privacy-statement.html`,
+    termsAndConditions:  (locale) => `https://www.westernunion.com/us/${ locale }/legal/terms-conditions.html`,
+    faqs : (locale) => `https://www.westernunion.com/us/${ locale }/privacy-statement.html`,
+
+}

@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 import history from 'utils/history'
 import { useTranslation } from 'react-i18next';
 import { getParseHtmlArticle } from 'utils/helpers';
+import { STATIC_URLS } from 'constants/app';
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const [ isClicked, setIsClicked ] = React.useState(false);
@@ -62,7 +63,7 @@ const RewardNumberPage = (props) => {
                             </div>
                         </>
                     }
-                    <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" href="#!">{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
+                    <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () => window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
 
                     <Card className="main-card">
                         <p className="description">{ getParseHtmlArticle('wu_131') }</p>

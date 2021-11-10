@@ -30,7 +30,14 @@ export const getParseHtmlArticle = (id) => {
     const article = getArticle(`${ locale() }_${ id }`)
     return article?.body ? ReactHtmlParser(article?.body) : null
 }
+export const getStateCd = (state) =>{
+    return state && JSON.parse(state).city[ 0 ].state_cd
 
+}
+
+export const getStateName = (state) => {
+    return state && JSON.parse(state)?.state
+}
 export const getTransactionStatus = (status) => {
     switch (status) {
     case 'AVAILABLE':
@@ -60,7 +67,7 @@ export const deliveryTypeRequestPayload = (data, incomeDetail) => {
         middle_name: data?.middleName || '',
         last_name: data?.lastName || '',
         country_iso_code: data?.country && JSON.parse(data?.country)?.currency[ 0 ]?.country_cd,
-        state: data?.state,
+        state: data?.state && JSON.parse(data?.state).state,
         city: data?.city,
     }
 

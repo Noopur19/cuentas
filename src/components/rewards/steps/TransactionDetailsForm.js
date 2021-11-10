@@ -17,6 +17,7 @@ import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import { getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { useTranslation } from 'react-i18next';
+import { getStateCd, getStateName } from 'utils/helpers'
 
 const TransactionDetailsForm = (props) => {
     const { t } = useTranslation()
@@ -43,9 +44,9 @@ const TransactionDetailsForm = (props) => {
             destCurrency: currencyCd || country?.currency && country?.currency[ 0 ].currency_cd,
             destCountry: country?.currency && country?.currency[ 0 ].country_cd
         }
-        if(formValues?.state) data[ 'destState' ] = formValues?.state
+        if(formValues?.state) data[ 'destState' ] = formValues?.state && getStateCd(formValues?.state)
         if(formValues?.city) data[ 'destCity' ] = formValues?.city
-        dispatch(postTransactionDetails(data))
+        dispatch(postTransactionDetails(data,null))
     }
     useEffect(() => {
         transactionDetails()
@@ -70,13 +71,17 @@ const TransactionDetailsForm = (props) => {
         const serviceOption = transferDetails?.service_options?.service_option[ 0 ]
         const exchangeRate = serviceOption?.payment_details.exchange_rate && parseFloat(serviceOption?.payment_details.exchange_rate)
         if(type === 'USD'){
+            let amountData = exchangeRate*parseFloat(value)
+            amountData = amountData && parseFloat(amountData.toFixed(2))
             const obj = _.merge(formValues,{
-                amount: exchangeRate*parseFloat(value)
+                amount: amountData
             })
             initialize(obj)
         }else{
+            let amountData = parseFloat(value)/ exchangeRate
+            amountData = amountData && parseFloat(amountData.toFixed(2))
             const obj = _.merge(formValues,{
-                amountUSD: parseFloat(value)/ exchangeRate
+                amountUSD: amountData
             })
             initialize(obj)
         }
@@ -84,14 +89,15 @@ const TransactionDetailsForm = (props) => {
 
     const saveData = (values) => {
         const data = {
-            transactionType: values.payoutCurrency === 'USD' ? 'WMN' : 'WMF',
+            transactionType: 'WMN',
             amount: values.amountUSD && parseFloat(values.amountUSD),
             destCurrency: values.payoutCurrency || currencyChecked,
             destCountry: country?.currency && country?.currency[ 0 ].country_cd,
             promoCode: values?.promoCode
         }
-        dispatch(postTransactionDetails(data))
-        submitData(data)
+        if(formValues?.state) data[ 'destState' ] = formValues?.state && getStateCd(formValues?.state)
+        if(formValues?.city) data[ 'destCity' ] = formValues?.city
+        dispatch(postTransactionDetails(data,submitData))
     }
     return (
         <Card className="progress-card">
@@ -114,7 +120,7 @@ const TransactionDetailsForm = (props) => {
                 </div>}
                 {formValues.state && <div className="d-flex justify-content-between pb-2">
                     <span>{t('PAYOUT_STATE')}</span>
-                    <span><b>{formValues.state || ''}</b></span>
+                    <span><b>{formValues.state && getStateName(formValues.state) || ''}</b></span>
                 </div>}
 
                 <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}

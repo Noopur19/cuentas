@@ -32,11 +32,8 @@ const RewardsStep = () => {
         }
     },[])
 
-    const saveData = () =>{
-    }
     const nextPage = () => {
         setStep(step+1)
-        saveData()
     }
     const editDetails = () => {
         setStep(1)
@@ -56,7 +53,6 @@ const RewardsStep = () => {
             return <ReceiverDetailsForm
                 myWUNumber={ myWUNumber }
                 className="step-color-pallate"
-                saveData={ saveData }
                 submitData={ nextPage }
                 receivers={ receivers }
                 nextPage={ nextPage }
@@ -64,7 +60,6 @@ const RewardsStep = () => {
         case 2:
             return <TransactionDetailsForm
                 className="step-color-pallate"
-                saveData={ saveData }
                 prevPage={ prevPage }
                 submitData={ nextPage }
                 nextPage={ nextPage }
@@ -72,7 +67,6 @@ const RewardsStep = () => {
         case 3:
             return  <DeliveryTypeForm
                 className="step-color-pallate"
-                saveData={ saveData }
                 prevPage={ prevPage }
                 submitData={ nextPage }
                 nextPage={ nextPage }
@@ -80,7 +74,6 @@ const RewardsStep = () => {
         default:
             return <ConfirmTransfer
                 className="step-color-pallate"
-                saveData={ saveData }
                 editDetails={ editDetails }
                 submitData={ nextPage }
                 nextPage={ nextPage }

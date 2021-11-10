@@ -66,7 +66,7 @@ export const getAllStates = (country) => {
     }
 }
 
-export const postTransactionDetails = (data) => {
+export const postTransactionDetails = (data,callback) => {
     return(dispatch) => {
         dispatch(postTransactionDetailsRequest())
         axiosInstance.post('incomm/wu/feeinquiry',data,{
@@ -75,13 +75,14 @@ export const postTransactionDetails = (data) => {
             }
         }).then((response) => {
             dispatch(postTransactionDetailsSuccess(response.data))
+            callback && callback(data)
         }).catch((error) => {
             dispatch(postTransactionDetailsFailed(error))
         })
     }
 }
 
-export const postDeliveryData = (values, incomeDetail) => {
+export const postDeliveryData = (values, incomeDetail,callback) => {
     const data = deliveryTypeRequestPayload(values,incomeDetail)
     return(dispatch) => {
         dispatch(postDeliveryDataRequest())
@@ -91,6 +92,7 @@ export const postDeliveryData = (values, incomeDetail) => {
             }
         }).then((response) => {
             dispatch(postDeliveryDataSuccess(response.data))
+            callback && callback(values)
         }).catch((error) => {
             dispatch(postDeliveryDataFailed(error))
         })

@@ -63,19 +63,21 @@ const ReceiverDetailsForm = (props) => {
     }
 
     const getStatesOptions = () => {
-        return states && states?.map((item) => ({ value: item.state, label: item.state } ))
+        return states && states?.map((item) => ({ value: JSON.stringify(item), label: item.state } ))
     }
 
     const handleChangeCountry = (event) => {
         setDisableSubmit(true)
         if(event.value){
             const obj = event.value && JSON.parse(event.value)
-            dispatch(getAllStates(obj.country))
+            const countryCode = obj.country === 'Canada' ? 'CA' : (obj.country === 'Mexico' ? 'Mexico' : obj.currency[ 0 ].country_cd)
+            dispatch(getAllStates(countryCode))
         }
     }
 
     const handleChangeState = (event) => {
-        const stateData = states.filter((data) => data.state === event.value)
+        const value  = event.value && JSON.parse(event.value)?.state
+        const stateData = states.filter((data) => data.state ===  value)
         setState(stateData[ 0 ])
     }
 
@@ -155,7 +157,7 @@ const ReceiverDetailsForm = (props) => {
                         options= { getCountriesOptions() }
                         component={ renderSelectField }
                     />
-                    {!!states.length  && states[ 0 ].city &&
+                    {!!states.length  &&
                     <>
                         <Field
                             name="state"
@@ -164,7 +166,7 @@ const ReceiverDetailsForm = (props) => {
                             options= { getStatesOptions() }
                             component={ renderSelectField }
                         />
-                        { form.values.state &&
+                        { form.values.state && states[ 0 ].city &&
                         <Field
                             name="city"
                             placeholder={ t('CITY_TEXT') }
