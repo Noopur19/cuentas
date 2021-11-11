@@ -64,10 +64,9 @@ const TransactionDetails = (props) => {
 
     const getExchangeRate = () => {
         const rate = (_.get(paymentDetails,'exchange_rate'));
-        console.log(rate);
         return  rate && getCurrencySymbol(currencyCode) +
-        ` 1 ${ currencyCode } =` +
-        getCurrencySymbol(currencyCode) +
+        ` 1 ${ currencyCode } = ` +
+        getCurrencySymbol(receiverCurrencyCode) +
         `${ rate }` +
         `(${ receiverCurrencyCode })`
     };

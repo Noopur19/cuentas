@@ -57,7 +57,7 @@ export const getCountryName = (countries, code) => {
 }
 
 export const getWUStore = (stores) => {
-    return stores && stores?.result?.filter((item) => item.name === 'Western Union by Cuentas')[ 0 ]
+    return stores && stores?.result?.filter((item) => item.id === 418)[ 0 ]
 }
 
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
@@ -97,7 +97,7 @@ export const getCurrencySymbol = (currencyCode) => {
     case 'EUR':
         return '€'
     default:
-        return '$';
+        return '';
     }
 }
 
@@ -124,11 +124,11 @@ export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
             },
             retail_url: {
                 type: 'text',
-                value: wustore && wustore?.skus[ 0 ]?.additional_properties?.retail_url?.value || null,
+                value: wustore && wustore?.skus[ 0 ]?.additional_properties?.retail_url?.value || '',
             },
             sku_discount: {
                 type: 'text',
-                value:  wustore && wustore?.skus[ 0 ]?.additional_properties?.sku_discount?.value || null,
+                value:  wustore && wustore?.skus[ 0 ]?.additional_properties?.sku_discount?.value || '',
             },
         },
         paymentVendor: 'incomm',
@@ -140,6 +140,6 @@ export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
         temp_transaction_id: data?.temp_transaction_id || '' ,
         transaction_digest: data?.transaction_digest || '',
         date_time: data?.date_time || '',
-        df_detail: data?.df_detail || ''
+        df_details: data?.df_details || {}
     }
 }

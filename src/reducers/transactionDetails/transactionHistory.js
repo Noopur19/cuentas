@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
     case ActionTypes.POST_CONFIRM_TRANSFER_REQUEST:
         return { ...state, confirmLoading: true };
     case ActionTypes.POST_CONFIRM_TRANSFER_SUCCESS:
-        return { ...state, confirmLoading: false };
+        return { ...state, confirmLoading: false , confirmDetails: action.payload };
     case ActionTypes.POST_CONFIRM_TRANSFER_FAILED:
         return { ...state, confirmLoading: false };
     default:

@@ -13,6 +13,7 @@ const Success = () => {
     const { t } = useTranslation()
     const myWUNumber  = getLocalData('myWUNumber')
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
+    const confirmDetail = useSelector((state) => state.transactionHistory.confirmDetails)
     const countries = useSelector((state) => state.receiver.countries)
     const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
@@ -21,6 +22,8 @@ const Success = () => {
     const formattedTime = time && moment(time, 'hh:mm:ss').format('hh:mm A');
     const currencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'origination.currency_iso_code')
     const receiverCurrencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'destination.currency_iso_code')
+    const receiverDetail = useSelector((state) => state.receiver.receivers )
+    console.log(receiverDetail);
 
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
@@ -141,7 +144,18 @@ const Success = () => {
         } else {
             return null;
         }
-    };
+    }
+
+    const getTotalPoints = () => {
+        const newPointsEarned = confirmDetail && confirmDetail?.new_points_earned
+        let totalPoints = newPointsEarned ? newPointsEarned : 0;
+        if (myWUNumber && _.get(receiverDetail, 'wu_card.total_points_earned')) {
+            totalPoints =
+              parseInt(totalPoints) +
+              parseInt(_.get(receiverDetail, 'wu_card.total_points_earned'));
+        }
+        return totalPoints
+    }
 
     return (
         <Card>
@@ -151,10 +165,12 @@ const Success = () => {
                 <BorderTitle smallText className="mt-4"><h3>{t('TRACKING_INFO')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
+                {confirmDetail && confirmDetail?.money_transfer_control?.mtcn &&
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRACKING_NUMBER_MTCN')}</p>
-                    <span><b>{myWUNumber || 0}</b></span>
+                    <span><b>{confirmDetail?.money_transfer_control?.mtcn}</b></span>
                 </div>
+                }
                 <span>{getParseHtmlArticle('wu_134')}</span>
 
                 <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}
@@ -172,17 +188,19 @@ const Success = () => {
                     </span>
                 </div>
 
+                { myWUNumber &&
                 <div className="d-flex justify-content-between info">
                     <p>{t('MY_WU_NUMBER')}</p>
-                    <span><b>-----</b>
+                    <span><b>{myWUNumber}</b>
                     </span>
-                </div>
+                </div>}
 
+                { getTotalPoints() &&
                 <div className="d-flex justify-content-between info">
                     <p>{t('TOTAL_POINTS')}</p>
-                    <span><b>-----</b>
+                    <span><b>{getTotalPoints()}</b>
                     </span>
-                </div>
+                </div>}
 
                 {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
 

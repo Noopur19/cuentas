@@ -49,10 +49,10 @@ export const getStoreDetails = () => {
         dispatch(getStoreRequest())
         axiosInstance.post('/store/search',
             {
-                tags:[ 'retail' ]
+                tags:[ 'western_union' ]
             },
             {
-                headers: _.merge(INCOMM_HEADERS,{ 'x-knetikcloud-channel' : 'app' })
+                headers: _.merge(INCOMM_HEADERS,{ 'x-knetikcloud-channel' : 'both' })
             }
         ).then((response) => {
             dispatch(getStoreSuccess(response.data))
