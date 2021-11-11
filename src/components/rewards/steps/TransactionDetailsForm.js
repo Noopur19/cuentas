@@ -90,7 +90,7 @@ const TransactionDetailsForm = (props) => {
     const saveData = (values) => {
         const data = {
             transactionType: 'WMN',
-            amount: values.amountUSD && parseFloat(values.amountUSD),
+            amount: values.amountUSD && (parseFloat(values.amountUSD)*100),
             destCurrency: values.payoutCurrency || currencyChecked,
             destCountry: country?.currency && country?.currency[ 0 ].country_cd,
             promoCode: values?.promoCode

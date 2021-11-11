@@ -25,7 +25,6 @@ const RewardNumberPage = (props) => {
     const myWUNumber = getLocalData('myWUNumber')
     const { t } = useTranslation();
     const onSubmit = (values) => {
-        console.log(values.WUNumber);
         if (values.WUNumber) {
             setLocalData('myWUNumber',values.WUNumber)
             dispatch(postWUNumber(values.WUNumber));

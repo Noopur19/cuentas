@@ -23,7 +23,6 @@ const Success = () => {
     const currencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'origination.currency_iso_code')
     const receiverCurrencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'destination.currency_iso_code')
     const receiverDetail = useSelector((state) => state.receiver.receivers )
-    console.log(receiverDetail);
 
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
@@ -207,17 +206,20 @@ const Success = () => {
                 <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
-                <div className="d-flex justify-content-between info">
-                    <p>{t('NAME_TEXT')}</p>
-                    <span><b> {postDeliveryDetails?.receiver?.name?.first_name || ''} {postDeliveryDetails?.receiver?.name?.middle_name || ''} {postDeliveryDetails?.receiver?.name.last_name || ''}</b>
-                    </span>
-                </div>
-
-                <div className="d-flex justify-content-between info">
-                    <p>{payoutLocationText()}</p>
-                    <span><b>{getCountryName(countries, postDeliveryDetails?.receiver?.address.country_iso_code)}</b>
-                    </span>
-                </div>
+                {postDeliveryDetails?.receiver?.name &&
+                    <div className="d-flex justify-content-between info">
+                        <p>{t('NAME_TEXT')}</p>
+                        <span><b> {postDeliveryDetails?.receiver?.name?.first_name || ''} {postDeliveryDetails?.receiver?.name?.middle_name || ''} {postDeliveryDetails?.receiver?.name.last_name || ''}</b>
+                        </span>
+                    </div>
+                }
+                {postDeliveryDetails?.receiver?.address.country_iso_code &&
+                    <div className="d-flex justify-content-between info">
+                        <p>{payoutLocationText()}</p>
+                        <span><b>{getCountryName(countries, postDeliveryDetails?.receiver?.address.country_iso_code)}</b>
+                        </span>
+                    </div>
+                }
                 {postDeliveryDetails?.receiver?.address.city &&
                     <div className="d-flex justify-content-between info">
                         <p>{t('PAYOUT_CITY')}</p>
