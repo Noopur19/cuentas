@@ -126,7 +126,7 @@ export const postConfirmTransfer = (data, finalAmount, stores) => {
     return (dispatch) => {
         dispatch(postConfirmTransferRequest())
         axiosInstance.post('/incomm/wu/sms', postData,
-            { headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app' }) } )
+            { headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app', 'Content-Type' : 'application/json' }) } )
             .then((response) => {
                 dispatch(postConfirmTransferSuccess(response.data))
                 history.push(ROUTES.SUCCESS_PAGE)
