@@ -22,6 +22,7 @@ import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
 import { deliveryTypeRequestPayload } from 'utils/helpers'
 import { notification } from 'services/notification';
+import { GET_ERROR_FIELD } from 'constants/app';
 
 export const postWUNumber = (wuNumber) => {
     return (dispatch) => {
@@ -33,6 +34,7 @@ export const postWUNumber = (wuNumber) => {
             const errorData = error?.response?.data?.result && error.response.data.result[ 0 ].cause.root.Envelope.Body.Fault.detail[ 'error-reply' ].error
             notification('error',errorData)
             dispatch(getWUNumberFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -45,6 +47,7 @@ export const callMyNUNumber = (wuNumber) => {
             const errorData = error?.response?.data?.result && error.response.data.result[ 0 ].cause.root.Envelope.Body.Fault.detail[ 'error-reply' ].error
             notification('error',errorData)
             dispatch(getWUNumberFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -56,6 +59,7 @@ export const getAllCountries = ( ) => {
             dispatch(getAllCountriesSuccess(response.data))
         }).catch((error) => {
             dispatch(getAllCountriesFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -67,6 +71,7 @@ export const getAllStates = (country) => {
             dispatch(getAllStatesSuccess(response.data))
         }).catch((error) => {
             dispatch(getAllStatesFailed(error))
+            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -83,6 +88,7 @@ export const postTransactionDetails = (data,callback) => {
             callback && callback(data)
         }).catch((error) => {
             dispatch(postTransactionDetailsFailed(error))
+            notification('error',GET_ERROR_FIELD.ERROR(error))
         })
     }
 }
@@ -100,6 +106,7 @@ export const postDeliveryData = (values, incomeDetail,callback) => {
             callback && callback(values)
         }).catch((error) => {
             dispatch(postDeliveryDataFailed(error))
+            notification('error',GET_ERROR_FIELD.ERROR(error))
         })
     }
 }

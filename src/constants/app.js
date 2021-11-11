@@ -11,3 +11,7 @@ export const STATIC_URLS = {
     faqs : (locale) => `https://www.westernunion.com/us/${ locale }/privacy-statement.html`,
 
 }
+
+export const GET_ERROR_FIELD = {
+    ERROR: (error) =>`${ error?.response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error }`
+}
