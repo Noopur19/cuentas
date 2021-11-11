@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use((response) => {
     if(error.response.status === 401){
         //notification(NOTIFICATION_TYPES.ERROR, error.response.data.message)
         localStorage.clear()
-        history.push('/login')
+        history.push('/error')
         //return Promise.reject(error);
     }
     if(!error.response) {

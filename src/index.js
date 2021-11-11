@@ -13,10 +13,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import 'translations/i18n';
-import { setLocale } from 'utils/helpers'
 
 const store = configureStore();
-setLocale('en')
 ReactDOM.render(
     <ThemeProvider theme={ mainTheme } >
         <Provider store={ store }>

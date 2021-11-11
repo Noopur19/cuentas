@@ -12,7 +12,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
                 !token ?
                     <Redirect
                         to={ {
-                            pathname: '/',
+                            pathname: '/error',
                             state: { from: props.location },
                         } }
                     />

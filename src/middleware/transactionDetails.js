@@ -17,7 +17,8 @@ import {
     postConfirmTransferFailed
 } from 'actions/transaction-details';
 import { getUser } from 'utils/helpers'
-import { INCOMM_HEADERS } from 'constants/app'
+import { getIncommHeaders } from 'utils/helpers'
+
 import _ from 'lodash'
 import { confirmTransferRequestPayload } from '../utils/helpers';
 import history from 'utils/history';
@@ -65,14 +66,14 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
     return  (dispatch) => {
         dispatch(postTransactionEnquiryRequest())
         axiosInstance.post('incomm/wu/transaction/enquiry',receiverData,
-            { headers: INCOMM_HEADERS } )
+            { headers: getIncommHeaders() } )
             .then((result) => {
                 dispatch(postTransactionEnquirySuccess(result.data))
             }).catch((error) => {
                 if(error?.response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error === errorText) {
                     dispatch(postTransactionEnquiryRequest())
                     axiosInstance.post('incomm/wu/transaction/enquiry',senderData,
-                        { headers: INCOMM_HEADERS })
+                        { headers: getIncommHeaders() })
                         .then((result) => {
                             dispatch(postTransactionEnquirySuccess(result.data))
                         }).catch((err) => {
@@ -90,7 +91,7 @@ export const postSendEmail = (invoiceId) => {
         dispatch(postSendEmailRequest())
         axiosInstance.post('incomm/wu/sms/sendEmail', {
             invoiceId
-        }, { headers: INCOMM_HEADERS })
+        }, { headers: getIncommHeaders() })
             .then((response) => {
                 dispatch(postSendEmailSuccess(response.data))
             }).catch((error) => {
@@ -102,7 +103,7 @@ export const postSendEmail = (invoiceId) => {
 export const postCancelTransaction = (data, receiver, sender, mtcn) => {
     return (dispatch) => {
         dispatch(postCancelTransactionRequest())
-        axiosInstance.post('incomm/wu/cancel', data,{ headers: _.merge(INCOMM_HEADERS, { 'x-knetikcloud-channel' : 'app' }) } )
+        axiosInstance.post('incomm/wu/cancel', data,{ headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app' }) } )
             .then((response) => {
                 dispatch(postCancelTransactionSuccess(response.data))
                 if (response.data && response.data.transaction_status === 'REFUND FORCE PAID' ||
@@ -120,7 +121,7 @@ export const postConfirmTransfer = (data, finalAmount, stores) => {
     return (dispatch) => {
         dispatch(postConfirmTransferRequest())
         axiosInstance.post('/incomm/wu/sms', postData,
-            { headers: _.merge(INCOMM_HEADERS, { 'x-knetikcloud-channel' : 'app' }) } )
+            { headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app' }) } )
             .then((response) => {
                 dispatch(postConfirmTransferSuccess(response.data))
                 history.push(ROUTES.SUCCESS_PAGE)

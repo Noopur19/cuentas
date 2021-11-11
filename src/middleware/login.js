@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
-const querystring = require('querystring')
 import { setLocalData } from 'utils/cache'
 import { notification } from 'services/notification';
-import axiosInstance from 'services/api';
 import {
     loginRequest,
     loginSuccess,
@@ -10,22 +8,16 @@ import {
 } from 'actions/login';
 import { getStoreDetails, getUserDetails } from './user';
 
-export const login = (username, password) => {
+export const login = (access_token) => {
     return async(dispatch) => {
         dispatch(loginRequest())
-        const result = await axiosInstance.post('/oauth/token', querystring.stringify({
-            username,
-            password,
-            grant_type: 'password',
-            client_id: 'knetik'
-        }))
-        if(result.status === 200){
-            setLocalData('accessToken', result.data.access_token)
+        if(access_token){
+            setLocalData('accessToken', access_token)
             await dispatch(getUserDetails())
             await dispatch(getStoreDetails())
-            dispatch(loginSuccess(result))
+            dispatch(loginSuccess(access_token))
         }else{
-            dispatch(loginFailed(result))
+            dispatch(loginFailed(access_token))
             notification('error','Sorry token has been expired')
         }
 

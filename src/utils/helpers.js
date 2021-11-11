@@ -23,6 +23,9 @@ export const getArticle = (id) => {
 export const locale = () => {
     return getLocalData('locale')
 }
+export const getIncommHeaders = () => {
+    return getLocalData('incomm_headers') && JSON.parse(getLocalData('incomm_headers'))
+}
 export const setLocale = (val) => {
     return setLocalData('locale',val)
 }

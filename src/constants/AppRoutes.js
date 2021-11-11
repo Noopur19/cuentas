@@ -5,5 +5,6 @@ export const ROUTES = {
     TRANSACTION_HISTORY: '/transaction-history',
     TRANSACTION_HISTORY_DETAILS: '/transaction-history-details/:id',
     LANDING_PAGE: '/redirect_url',
-    SUCCESS_PAGE: '/success'
+    SUCCESS_PAGE: '/success',
+    ERROR_PAGE: '/error'
 }

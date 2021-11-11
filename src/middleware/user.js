@@ -12,7 +12,8 @@ import {
 } from 'actions/user';
 import _ from 'lodash'
 import { setLocalDataJSON } from 'utils/cache'
-import { INCOMM_HEADERS } from 'constants/app'
+import { getIncommHeaders } from 'utils/helpers'
+
 import { setLocale } from 'utils/helpers'
 export const getUserDetails = () => {
     return async (dispatch) => {
@@ -34,7 +35,7 @@ export const getIncomeDetails = (incomeId) => {
         dispatch(getIncomeDetailsRequest())
         axiosInstance.get(`/incomm/customers/${ incomeId }/account`,
             {
-                headers: _.merge(INCOMM_HEADERS,{ 'x-knetikcloud-channel' : 'MOB' })
+                headers: _.merge(getIncommHeaders(),{ 'x-knetikcloud-channel' : 'MOB' })
             }
         ).then((response) => {
             dispatch(getIncomeDetailsSuccess(response.data))
@@ -52,7 +53,7 @@ export const getStoreDetails = () => {
                 tags:[ 'western_union' ]
             },
             {
-                headers: _.merge(INCOMM_HEADERS,{ 'x-knetikcloud-channel' : 'both' })
+                headers: _.merge(getIncommHeaders(),{ 'x-knetikcloud-channel' : 'both' })
             }
         ).then((response) => {
             dispatch(getStoreSuccess(response.data))

@@ -9,13 +9,14 @@ import RewardsStep from 'components/rewards';
 import LandingPage  from 'components/landingPage';
 import TransactionHistory from 'components/transactionDetails/transactionHistory';
 import TransactionHistoryDetails from 'components/transactionDetails/transactionHistory/view';
+import ErrorPage from 'components/ErrorPage'
 import Success from 'components/success/index';
 
 function App() {
     return (
         <Layout className="main-layout">
             <Switch>
-                <Route exact path={ ROUTES.ROOT } component={ RewardNumberPage } />
+                <PrivateRoute exact path={ ROUTES.ROOT } component={ RewardNumberPage } />
                 <PrivateRoute
                     exact
                     path={ ROUTES.PROTECT_FORM }
@@ -40,9 +41,13 @@ function App() {
                     path={ ROUTES.LANDING_PAGE }
                     component={ LandingPage }
                 />
-                <Route exact
+                <PrivateRoute exact
                     path={ ROUTES.SUCCESS_PAGE }
                     component={ Success }
+                />
+                <Route exact
+                    path={ ROUTES.ERROR_PAGE }
+                    component={ ErrorPage }
                 />
             </Switch>
         </Layout>
