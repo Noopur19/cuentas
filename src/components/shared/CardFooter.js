@@ -1,7 +1,7 @@
 import React from 'react';
 import LinkText from '../shared/LinkText.styled'
 import Link from '../shared/Link.styled'
-import footerLogo from '../../images/wu_icon.png'
+import footerLogo from '../../images/logo.png'
 import CardBottom from '../shared/CardFooter.styled'
 import { useTranslation } from 'react-i18next';
 

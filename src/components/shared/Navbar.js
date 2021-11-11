@@ -56,6 +56,10 @@ const Navbar = (props)  => {
             <div className="header-progress">
                 <h5>{t('NOT_A_RECEIPT')}</h5>
             </div>
+            <div className="success-head">
+                <h3>{t('SUCCESS')}</h3>
+            </div>
+
         </Nav>
     )
 }

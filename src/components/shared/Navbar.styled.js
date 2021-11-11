@@ -89,6 +89,9 @@ export const Nav = Styled.nav`
             padding: 10px;
         }     
     }
+    .success-head {
+        display: none;
+    }
 `;
 
 export const HeaderCard = Styled.div`

@@ -62,7 +62,7 @@ const ConfirmTransfer = (props) => {
         <Card className="progress-card p-none">
             <div>
                 <form onSubmit={ handleSubmit(saveData) } >
-                    <p className="px-24">{t('DATE_OF_TRANSACTION')}: {formattedDate}</p>
+                    <p className="px-24 text-center">{t('DATE_OF_TRANSACTION')}: <b>{formattedDate}</b></p>
                     <p  className="px-24">{getParseHtmlArticle('wu_118')}
                         {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
                         <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}

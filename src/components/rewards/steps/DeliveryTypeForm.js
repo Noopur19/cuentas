@@ -15,6 +15,7 @@ import { FeeData } from './TransactionDetailsForm.styled'
 import { useTranslation } from 'react-i18next';
 import { locale  } from 'utils/helpers';
 import CardFooter from 'components/shared/CardFooter';
+import BorderTitle from 'components/shared/BorderTitle.styled';
 
 const DelievryTypeForm = (props) => {
     const { t } = useTranslation()
@@ -68,7 +69,9 @@ const DelievryTypeForm = (props) => {
         <Card className="progress-card">
 
             <div>
-                <h5>{t('SELECT_DELIVERY_TYPE')}</h5>
+                <BorderTitle smallText><h3>{t('SELECT_DELIVERY_TYPE')}
+                    <span className="underline"></span></h3>
+                </BorderTitle>
                 <form onSubmit={ handleSubmit(saveData) } >
 
                     <Field

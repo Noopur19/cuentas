@@ -32,6 +32,12 @@ const RewardNumber = Styled.div`
         > div:first-child {
             padding: 24px;
             padding-bottom: 0;
+            h3 {
+                overflow: hidden;
+                .underline:after {
+                    top: 15px;
+                }
+            }
         }
     }
     p {

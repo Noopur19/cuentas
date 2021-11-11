@@ -16,6 +16,10 @@ export const Layout = (props) => {
         return history?.location?.pathname?.match('transaction-history-details')
     }
 
+    const successCard = () =>{
+        return history?.location?.pathname?.match('success')
+    }
+
     const stepData =  useSelector((state) => state.theme.stepData)
     const getConfirmClassName = (value) => {
         return stepData?.step == value && 'confirm'
@@ -39,7 +43,9 @@ export const Layout = (props) => {
     return(<StyledContainer
         className={ `main-layout ${ showProgressBar() &&
             'active-progress-bar' } ${ activeCard() &&
-            'active-card' } ${ getConfirmClassName(4) } ` }>
+            'active-card' } ${ getConfirmClassName(4) } ${
+            successCard() && 'success'
+        } ` }>
         <Navbar showProgressBar={ showProgressBar } activeCard={ activeCard } />
         {loading && <MainLoader />}
         {props.children }

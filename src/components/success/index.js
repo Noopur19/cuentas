@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment'
 import { getLocalData } from 'utils/cache'
 import _ from 'lodash'
+import SuccessDetail from './successDetail.styled'
 
 const Success = () => {
     const { t } = useTranslation()
@@ -157,9 +158,8 @@ const Success = () => {
     }
 
     return (
-        <Card>
-            <div>
-                <h3>{t('SUCCESS')}</h3>
+        <Card className="success-container">
+            <SuccessDetail>
                 {getParseHtmlArticle('wu_130')}
                 <BorderTitle smallText className="mt-4"><h3>{t('TRACKING_INFO')}
                     <span className="underline"></span></h3>
@@ -170,7 +170,7 @@ const Success = () => {
                     <span><b>{confirmDetail?.money_transfer_control?.mtcn}</b></span>
                 </div>
                 }
-                <span>{getParseHtmlArticle('wu_134')}</span>
+                <span  className="small-text">{getParseHtmlArticle('wu_134')}</span>
 
                 <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}
                     <span className="underline"></span></h3>
@@ -280,7 +280,7 @@ const Success = () => {
                 {getParseHtmlArticle('wu_109')}
                 {getParseHtmlArticle('wu_110')}
                 {getParseHtmlArticle('wu_111')}
-            </div>
+            </SuccessDetail>
         </Card>
     )
 }

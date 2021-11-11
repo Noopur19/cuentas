@@ -1,6 +1,9 @@
 import Styled from 'styled-components';
 
 export const Card = Styled.div`
+  width: 600px;
+  max-width: 100%;
+  margin: auto;
   background: ${ props => props.theme.white };
   border-radius: 30px 30px 0 0;
   flex: 1;
@@ -12,7 +15,7 @@ export const Card = Styled.div`
   left: 0;
   right: 0;
   margin-top: -30px;
-  margin-bottom: 113px; 
+  padding-bottom: 113px; 
 `;
 
 export const FooterButton = Styled.footer`
@@ -31,6 +34,10 @@ export const FooterButton = Styled.footer`
   box-shadow: 0px 1px 20px 2px rgba(0, 0, 0, 0.25);
   a {
     margin: auto;
+    &:hover {
+      color: #fff;
+      text-decoration: none;
+    }
   }
   button {
     width: 49%;
