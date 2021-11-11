@@ -72,14 +72,14 @@ const TransactionDetailsForm = (props) => {
         const exchangeRate = serviceOption?.payment_details.exchange_rate && parseFloat(serviceOption?.payment_details.exchange_rate)
         if(type === 'USD'){
             let amountData = exchangeRate*parseFloat(value)
-            amountData = amountData && parseFloat(amountData.toFixed(2))
+            amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
                 amount: amountData
             })
             initialize(obj)
         }else{
             let amountData = parseFloat(value)/ exchangeRate
-            amountData = amountData && parseFloat(amountData.toFixed(2))
+            amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
                 amountUSD: amountData
             })
@@ -90,7 +90,7 @@ const TransactionDetailsForm = (props) => {
     const saveData = (values) => {
         const data = {
             transactionType: 'WMN',
-            amount: values.amountUSD && parseFloat(values.amountUSD),
+            amount: values.amountUSD && (parseFloat(values.amountUSD)*100),
             destCurrency: values.payoutCurrency || currencyChecked,
             destCountry: country?.currency && country?.currency[ 0 ].country_cd,
             promoCode: values?.promoCode

@@ -25,7 +25,6 @@ const RewardNumberPage = (props) => {
     const myWUNumber = getLocalData('myWUNumber')
     const { t } = useTranslation();
     const onSubmit = (values) => {
-        console.log(values.WUNumber);
         if (values.WUNumber) {
             setLocalData('myWUNumber',values.WUNumber)
             dispatch(postWUNumber(values.WUNumber));
@@ -58,6 +57,8 @@ const RewardNumberPage = (props) => {
                                     maxLength={ 9 }
                                     component={ renderField }
                                     normalize={ val => (val || '').replace(/[^\d]/g, '') }
+                                    pattern="[0-9]*"
+                                    inputMode="numeric"
                                 />
                                 <p className="note-para">{t('ENTER_WU_NUMBER')}</p>
                             </div>

@@ -33,10 +33,10 @@ const NavbarCard = () => {
     }
 
     const cancelTransData = {
-        'amount': transactions?.additional_properties?.amount?.value || null,
-        'invoiceId': transactions?.id || null,
-        'transactionId': transactions?.additional_properties?.transaction_id?.value || null,
-        'mtcn': transactions?.additional_properties?.mtcn?.value || null,
+        'amount': filteredTransaction?.additional_properties?.amount?.value || null,
+        'invoiceId': filteredTransaction?.id || null,
+        'transactionId': filteredTransaction?.additional_properties?.transaction_id?.value || null,
+        'mtcn': filteredTransaction?.additional_properties?.mtcn?.value || null,
     }
 
     const onCancelHandler = () => {
