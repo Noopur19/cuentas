@@ -72,14 +72,14 @@ const TransactionDetailsForm = (props) => {
         const exchangeRate = serviceOption?.payment_details.exchange_rate && parseFloat(serviceOption?.payment_details.exchange_rate)
         if(type === 'USD'){
             let amountData = exchangeRate*parseFloat(value)
-            amountData = amountData && parseFloat(amountData.toFixed(2))
+            amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
                 amount: amountData
             })
             initialize(obj)
         }else{
             let amountData = parseFloat(value)/ exchangeRate
-            amountData = amountData && parseFloat(amountData.toFixed(2))
+            amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
                 amountUSD: amountData
             })

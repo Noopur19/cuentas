@@ -58,6 +58,8 @@ const RewardNumberPage = (props) => {
                                     maxLength={ 9 }
                                     component={ renderField }
                                     normalize={ val => (val || '').replace(/[^\d]/g, '') }
+                                    pattern="[0-9]*"
+                                    inputMode="numeric"
                                 />
                                 <p className="note-para">{t('ENTER_WU_NUMBER')}</p>
                             </div>

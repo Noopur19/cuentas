@@ -62,6 +62,7 @@ export const getWUStore = (stores) => {
 
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
     const accountDetail = incomeDetail?.accountDetail
+    const myWUNumber  = getLocalData('myWUNumber')
     const receiver = {
         first_name: data?.firstName || '' ,
         middle_name: data?.middleName || '',
@@ -83,7 +84,7 @@ export const deliveryTypeRequestPayload = (data, incomeDetail) => {
             },
         },
         receiver: receiver,
-        mywu_number: null,
+        mywu_number: myWUNumber || '',
         selectedDeliveryType: null,
         wu_product: data?.deliveryType && JSON.parse(data?.deliveryType)?.wu_product || {},
         transaction_type: data?.deliveryType && JSON.parse(data?.deliveryType)?.transaction_type || '',
