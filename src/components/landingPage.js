@@ -9,8 +9,9 @@ import history from 'utils/history'
 import { getAllArticles } from 'middleware/articles';
 import queryString from 'query-string';
 import { setLocalData } from 'utils/cache'
-import { setLocale } from 'utils/helpers'
 import _ from 'lodash'
+import { geolocated } from 'react-geolocated';
+const publicIp = require('public-ip');
 import PropTypes from 'prop-types';
 
 var CryptoJS = require('crypto-js');
@@ -20,15 +21,15 @@ const LandingPage = (props) => {
 
     const dispatch = useDispatch()
     const articles = useSelector((state) => state.articles.articles)
-
+    setLocalData('latlong',`${ props?.coords?.latitude }-${ props?.coords?.longitude }`)
     useEffect(async()=>{
         const propsData = props
+        const ip = await publicIp.v4()
+        setLocalData('ip',ip)
         const  params = queryString.parse(propsData.location.search)
-        const { access_token , incomm_headers, preferred_language } = params
-        await setLocale(preferred_language)
+        const { access_token , incomm_headers } = params
         await setLocalData('incomm_headers',incomm_headers)
         const replaceAccessToken = access_token.replace(/ /g,'+');
-
         var bytes  = CryptoJS.AES.decrypt(replaceAccessToken, process.env.REACT_APP_SECRET_KEY);
         console.log(access_token)
         var accessToken = bytes.toString(CryptoJS.enc.Utf8);
@@ -49,4 +50,9 @@ LandingPage.propTypes = {
     access_token: PropTypes.string
 };
 
-export default withRouter(LandingPage)
+export default withRouter(geolocated({
+    positionOptions: {
+        enableHighAccuracy: false,
+    },
+    userDecisionTimeout: 5000,
+})(LandingPage))

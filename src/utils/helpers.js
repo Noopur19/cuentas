@@ -3,6 +3,8 @@ import { getLocalData, setLocalData } from './cache'
 import ReactHtmlParser from 'react-html-parser';
 import { TRANSLATIONS_EN }  from 'translations/locales/en'
 import { TRANSLATIONS_ES } from 'translations/locales/es'
+import _ from 'lodash'
+
 export const getUser = () => {
     return getLocalData('user') && JSON.parse(getLocalData('user'))
 }
@@ -24,7 +26,19 @@ export const locale = () => {
     return getLocalData('locale')
 }
 export const getIncommHeaders = () => {
-    return getLocalData('incomm_headers') && JSON.parse(getLocalData('incomm_headers'))
+    const incommHeaders =  getLocalData('incomm_headers') && JSON.parse(getLocalData('incomm_headers')) || {}
+    const user = getUser()
+    const appHeaders = {
+        'x-knetikcloud-date': new Date(),
+        'x-knetikcloud-channel': 'MOB',
+        'x-knetikcloud-ip': localStorage.ip,
+        'x-knetikcloud-username': user?.username,
+        'x-knetikcloud-gpscoordinates': localStorage?.latlong || '37.79-122.41',
+        'x-knetikcloud-appname': 'Cuentas'
+    }
+    const headerData =  _.merge(incommHeaders,appHeaders)
+    return headerData
+
 }
 export const setLocale = (val) => {
     return setLocalData('locale',val)
@@ -88,7 +102,6 @@ export const deliveryTypeRequestPayload = (data, incomeDetail) => {
         },
         receiver: receiver,
         mywu_number: myWUNumber || '',
-        selectedDeliveryType: null,
         wu_product: data?.deliveryType && JSON.parse(data?.deliveryType)?.wu_product || {},
         transaction_type: data?.deliveryType && JSON.parse(data?.deliveryType)?.transaction_type || '',
         payment_details: data?.deliveryType && JSON.parse(data?.deliveryType)?.payment_details || {},
@@ -109,6 +122,12 @@ export const getLocalByTitle = (title) => {
     const localType = locale()
     const TRANSLATION = localType == 'es' ? TRANSLATIONS_ES: TRANSLATIONS_EN
     return TRANSLATION[ title ]
+
+}
+
+export const getWUContactInfo = (val1,val2,val3,val4,val5,val6,val7) => {
+    locale() == 'en' ? `For questions or complaints about Western Union, contact:\nSending customer State regulatory name: ${ val1 }\nSending customer state regulatory phone #1: ${ val2 }\nSending customer state regulatory phone #2: ${ val3 }\nState regulatory agency website url: ${ val4 }\nConsumer Financial Protection Bureau CFPB phone #1: ${ val5 }\nCFPB phone #2: ${ val6 }\nCFPB website url: ${ val7 }` :
+        `Si tiene preguntas o quejas sobre Western Union, comuníquese con:\nNombre regulador del estado del cliente que envía: ${ val1 }\nEnvío de teléfono reglamentario del estado del cliente n. #1: ${ val2 }\nEnvío de teléfono reglamentario del estado del cliente #2: ${ val3 }\nURL del sitio web de la agencia reguladora estatal: ${ val4 }\nTeléfono CFPB de la Oficina de Protección Financiera del Consumidor #1: ${ val5 }\nTeléfono CFPB #2: ${ val6 }\nURL del sitio web de Safpub: ${ val7 }`
 
 }
 export const confirmTransferRequestPayload = (data, finalAmount, stores) => {

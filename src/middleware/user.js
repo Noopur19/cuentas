@@ -31,6 +31,9 @@ export const getUserDetails = () => {
 }
 
 export const getIncomeDetails = (incomeId) => {
+    const headersdd =  getIncommHeaders()
+    console.log(headersdd)
+    debugger
     return (dispatch) => {
         dispatch(getIncomeDetailsRequest())
         axiosInstance.get(`/incomm/customers/${ incomeId }/account`,

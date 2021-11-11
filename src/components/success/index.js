@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment'
 import { getLocalData } from 'utils/cache'
 import _ from 'lodash'
+import { getWUContactInfo } from 'utils/helpers'
 
 const Success = () => {
     const { t } = useTranslation()
@@ -127,19 +128,7 @@ const Success = () => {
                 cfb_phone2,
                 cfb_url,
             } = postDeliveryDetails.df_details;
-            return (
-                <div>
-                    {
-                        `${ state_agency_name }`,
-                        `${ csb_phone1 }`,
-                        `${ csb_phone2 }`,
-                        `${ csb_url }`,
-                        `${ cfb_phone1 }`,
-                        `${ cfb_phone2 }`,
-                        `${ cfb_url }`
-                    }
-                </div>
-            );
+            return getWUContactInfo(state_agency_name,csb_phone1,csb_phone2,csb_url,cfb_phone1, cfb_phone2,cfb_url)
         } else {
             return null;
         }
@@ -256,9 +245,7 @@ const Success = () => {
                     postDeliveryDetails?.receiver?.address?.country_iso_code!=='USA' &&
                     +postDeliveryDetails?.payment_details.origination.principal_amount > 1501 &&
                     <>
-                        {
-                            'For questions or complaints about Western Union, contact:\nSending customer State regulatory name:{0}\nSending customer state regulatory phone #1: {1}\nSending customer state regulatory phone #2: {2}\nState regulatory agency website url: {3}\nConsumer Financial Protection Bureau CFPB phone #1: {4}\nCFPB phone #2: {5}\nCFPB website url: {6}'
-                        }
+
                         { renderWUContactDetails() }
                     </>
                 }
