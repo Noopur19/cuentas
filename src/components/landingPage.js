@@ -27,7 +27,6 @@ const LandingPage = (props) => {
         const { access_token , incomm_headers, preferred_language } = params
         await setLocale(preferred_language)
         await setLocalData('incomm_headers',incomm_headers)
-        debugger
         const replaceAccessToken = access_token.replace(/ /g,'+');
 
         var bytes  = CryptoJS.AES.decrypt(replaceAccessToken, process.env.REACT_APP_SECRET_KEY);
