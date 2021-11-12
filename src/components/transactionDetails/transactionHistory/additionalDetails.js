@@ -3,7 +3,7 @@ import { getLocalData } from 'utils/cache'
 import PropTypes from 'prop-types';
 import moment from 'moment'
 import { useSelector,useDispatch } from 'react-redux'
-import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
+import { getCurrencySymbol, getCancelTransfer, getTransactionStatus, getCloseText } from 'utils/helpers';
 import { postCancelTransaction } from 'middleware/transactionDetails';
 import Modal from 'components/shared/Modal';
 import BorderTitle from '../../shared/BorderTitle.styled'
@@ -52,8 +52,8 @@ const AdditionalDetails = (props) => {
                 show={ isOpen }
                 handleClose={ () => toggleModal() }
                 handleCancel={ () => onCancelHandler() }
-                leftButtonText= { t('CLOSE_TEXT') }
-                rightButtonText={ t('CANCEL_TRANSFER') }
+                leftButtonText={ getCloseText() }
+                rightButtonText={ getCancelTransfer() }
             >
                 <h3>{t('STATUS_PENDING')}</h3>
                 <h4>(MTCN){transactions && transactions?.additional_properties?.mtcn?.value}</h4>
@@ -77,7 +77,6 @@ const AdditionalDetails = (props) => {
                     </div>
                     <div className="amount-img">
                         <img className="img-fluid" src={ historyIcon } alt="history-icon" />
-                        {renderModal()}
                         <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
                     </div>
                 </div>
@@ -124,7 +123,7 @@ const AdditionalDetails = (props) => {
                         </div>
                     }
                 </div>
-            </AdditionalDetailWrap></>
+            </AdditionalDetailWrap> {renderModal()}</>
     )
 }
 

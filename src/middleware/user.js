@@ -13,20 +13,26 @@ import {
 import _ from 'lodash'
 import { setLocalDataJSON } from 'utils/cache'
 import { getIncommHeaders } from 'utils/helpers'
-
+import history from 'utils/history'
 import { setLocale } from 'utils/helpers'
 export const getUserDetails = () => {
     return async (dispatch) => {
         dispatch(getUserRequest())
-        const result  = await axiosInstance.get('/users/me')
-        if( result.status === 200){
-            setLocale(result?.data?.additional_properties?.preferred_language?.value || 'en')
+        try{
+            const result  = await axiosInstance.get('/users/me')
+            if( result.status === 200){
+                setLocale(result?.data?.additional_properties?.preferred_language?.value || 'en')
 
-            setLocalDataJSON('user',result.data)
-            dispatch(getUserSuccess(result.data))
-        }else{
-            dispatch(getUserFailed({}))
+                setLocalDataJSON('user',result.data)
+                dispatch(getUserSuccess(result.data))
+            }else{
+                dispatch(getUserFailed({}))
+            }
+        }catch(e){
+            console.log(e)
+            history.push('/error')
         }
+
     }
 }
 

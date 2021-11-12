@@ -12,6 +12,7 @@ import SuccessDetail from './successDetail.styled'
 import { getWUContactInfo } from 'utils/helpers'
 import Button from 'components/shared/Button.styled'
 import Modal from 'components/shared/Modal'
+import { STATIC_URLS } from 'constants/app'
 
 const Success = () => {
     const { t } = useTranslation()
@@ -152,12 +153,15 @@ const Success = () => {
     const toggleModal = () => {
         setIsOpen(!isOpen)
     }
+    const gotoMobileApp = () => {
+        window.open(STATIC_URLS.APP_URL)
+    }
 
     const renderModal = () => {
         return (
             <Modal
                 show={ isOpen }
-                // handleClose={ () => toggleModal() }
+                handleClose={ () => gotoMobileApp() }
                 handleCancel={ () => toggleModal() }
                 leftButtonText={ t('GO_BACK_TO_APP') }
                 rightButtonText={ t('CLOSE_TEXT') }

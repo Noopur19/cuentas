@@ -4,6 +4,8 @@ import ReactHtmlParser from 'react-html-parser';
 import { TRANSLATIONS_EN }  from 'translations/locales/en'
 import { TRANSLATIONS_ES } from 'translations/locales/es'
 import _ from 'lodash'
+import history from 'utils/history'
+var CryptoJS = require('crypto-js');
 
 export const getUser = () => {
     return getLocalData('user') && JSON.parse(getLocalData('user'))
@@ -79,7 +81,6 @@ export const getWUStore = (stores) => {
 }
 
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
-    debugger
     const accountDetail = incomeDetail?.accountDetail
     const myWUNumber  = getLocalData('myWUNumber')
     const receiver = {
@@ -212,7 +213,14 @@ const getOtherFee = otherFee => {
     }
     return 0;
 };
+export const getAccessTokenBytes = (bytes) => {
+    try{
+        return bytes.toString(CryptoJS.enc.Utf8);
 
+    } catch(e) {
+        history.push('/error')
+    }
+}
 export const getTotalAmount = (paymentDetails, otherFee = 0) => {
     if (_.isEmpty(paymentDetails)) {
         return 0;
@@ -232,4 +240,10 @@ export const getErrorInsuff = (val) => {
 }
 export const getTrasactionTypeOnHandle = (type='left') => {
     return type === 'left' ? 'WMN' : 'WMF'
+}
+export const getCloseText = () => {
+    return  locale() === 'en' ? 'Close' : 'Cerrar'
+}
+export const getCancelTransfer = () => {
+    return locale() === 'en' ?  'Cancel Transfer' :  'Cancelar transferencia'
 }

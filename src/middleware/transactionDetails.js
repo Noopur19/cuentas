@@ -112,7 +112,7 @@ export const postSendEmail = (invoiceId) => {
 export const postCancelTransaction = (data, receiver, sender, mtcn) => {
     return (dispatch) => {
         dispatch(postCancelTransactionRequest())
-        axiosInstance.post('incomm/wu/cancel', data,{ headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'WEB' }) } )
+        axiosInstance.post('incomm/wu/cancel', data,{ headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app', 'Content-Type' : 'application/json' }) } )
             .then((response) => {
                 dispatch(postCancelTransactionSuccess(response.data))
                 if (response.data && response.data.transaction_status === 'REFUND FORCE PAID' ||

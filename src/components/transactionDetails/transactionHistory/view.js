@@ -8,6 +8,7 @@ import TransactionDetails from './transactionDetails'
 import { Card } from '../../shared/Footer.styled'
 import { postTransactionEnquiry } from 'middleware/transactionDetails'
 import { HistoryDetail } from './transactionHistory.styled'
+import history from 'utils/history'
 
 const TransactionHistoryDetails = (props) => {
     const dispatch = useDispatch();
@@ -16,10 +17,18 @@ const TransactionHistoryDetails = (props) => {
     const receiver = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties?.receiver?.value)
     const sender = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties?.sender?.value)
     const mtcn = filteredTransaction && filteredTransaction?.additional_properties?.mtcn?.value
-
+    const handleLoad = () => {
+        history.push('/transaction-history')
+    }
     useEffect(() => {
         dispatch(postTransactionEnquiry(receiver,sender,mtcn))
     }, [])
+    useEffect(() => {
+        window.addEventListener('load', handleLoad);
+        return () => {
+            window.removeEventListener('load', handleLoad);
+        }
+    },[])
 
     return (
         <Card className="transactionHistoryDetail pb-0">
