@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { postWUNumber } from 'middleware/receiver';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, change } from 'redux-form';
 import { renderField } from 'utils/formUtils';
 import Button from '../shared/Button.styled'
 import Link from '../shared/Link.styled'
@@ -56,6 +56,14 @@ const RewardNumberPage = (props) => {
 
     }
 
+    const continueWithoutMYWU = () => {
+
+        dispatch(change('WUNumber',''))
+        removeLocalData('myWUNumber')
+        history.push('/protect-form')
+
+    }
+
     return (
         <RewardNumber>
             <form onSubmit={ handleSubmit( onSubmit ) }>
@@ -85,8 +93,8 @@ const RewardNumberPage = (props) => {
                     <div className='continue-wrapper pt-5'>
                         {formValues?.values?.WUNumber ? <Button outlined className="w-100 m-auto"  type='submit'>{t('CONTINUE_WITH_MY_WU_NUMBER')}</Button>:  <Link outline bold to={ '#!' }>{t('ENTER_MY_WU_NUMBER')}</Link>}
                         <p className="description mt-3">{ getParseHtmlArticle('wu_131') }</p>
-                        <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () => window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
-                        <Link to='/protect-form' shadow >{t('Continue without MyWU')}</Link>
+                        <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () =>   window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
+                        <a className='btn btn-primary doTjAQ' onClick={ continueWithoutMYWU } to='/#' shadow >{t('Continue without MyWU')}</a>
                     </div>
                     <Card className="main-card">
                         <CardFooter></CardFooter>
