@@ -28,6 +28,8 @@ const RewardNumber = Styled.div`
         .main-card {
             position: unset;
             margin-top: 0;
+            padding-top: 0;
+            padding-bottom: 50px;
         }
         > div:first-child {
             padding: 24px;
@@ -39,9 +41,6 @@ const RewardNumber = Styled.div`
                 }
             }
         }
-    }
-    p {
-        margin-top: 17px;
     }
 
     
@@ -59,20 +58,27 @@ const RewardNumber = Styled.div`
             width: 50%;
             order: 1;
         }
+        input[type="checkbox"] {
+            width: calc(20% - 15px);
+            align-self: center;
+        }
         p {
             order: 3;
             margin:0;
         }
         .note-para {
             font-weight: 500;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 21px;
             color: ${ props => props.theme.secondary };
-            margin: 0 0 0 15px;
-            width: calc(50% - 15px);
+            width: calc(30% - 15px);
             order: 2;
+            text-transform: capitalize;
         }
         
+    }
+    .continue-wrapper {
+        padding: 22px;
     }
    
     .card-link {

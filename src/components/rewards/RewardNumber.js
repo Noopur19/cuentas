@@ -74,22 +74,26 @@ const RewardNumberPage = (props) => {
                                 pattern="[0-9]*"
                                 inputMode="numeric"
                             />
+                            <p>
+                                <input type="checkbox" id="test1" />
+                                <label htmlFor="test1"></label>
+                            </p>
                             <input type='checkbox' checked={ checked } onChange={ handleSaveWUnumber } />
                             <p className="note-para">{t('SAVE_WU_NUMBER')}</p>
                         </div>
                     </>
-                    <div className='mt-2'>
-                        {formValues?.values?.WUNumber ? <Button className="w-100" outlined type='submit'>{t('CONTINUE_WITH_MY_WU_NUMBER')}</Button>:  <Link className="link" bold color="textOrange"   to={ '#!' }>{t('ENTER_MY_WU_NUMBER')}</Link>}
+                    <div className='continue-wrapper pt-5'>
+                        {formValues?.values?.WUNumber ? <Button outlined className="w-100 m-auto"  type='submit'>{t('CONTINUE_WITH_MY_WU_NUMBER')}</Button>:  <Link outline bold to={ '#!' }>{t('ENTER_MY_WU_NUMBER')}</Link>}
+                        <p className="description mt-3">{ getParseHtmlArticle('wu_131') }</p>
+                        <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () => window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
+                        <Link to='/protect-form' shadow >{t('Continue without MyWU')}</Link>
                     </div>
                     <Card className="main-card">
-                        <p className="description">{ getParseHtmlArticle('wu_131') }</p>
-                        <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () => window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
-
                         <CardFooter></CardFooter>
                     </Card>
                 </ div>
                 <Footer>
-                    <Link to='/protect-form' >{t('NEXT')}</Link>
+                    {/* <Link to='/protect-form' >{t('Continue without MyWU')}</Link> */}
                 </Footer>
             </form>
         </RewardNumber>

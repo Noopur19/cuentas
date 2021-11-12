@@ -26,11 +26,11 @@ const Modal = (props) => {
                     {children}
                     {icon ?
                         <>
-                            <a  className='my-2' href={ STATIC_URLS.APP_ANDROID_URL }><img src={ googleImage } /></a>
-                            <a className='my-2' href={ STATIC_URLS.APP_IOS_URL }><img src={ iosImage } /></a>
+                            <a href={ STATIC_URLS.APP_ANDROID_URL }><img className='my-2' src={ googleImage } /></a>
+                            <a href={ STATIC_URLS.APP_IOS_URL }><img className='my-2' src={ iosImage } /></a>
                         </> :
-                        <Button onClick={ handleClose } > {leftButtonText || getCloseText() }</Button> }
-                    <Button onClick={ handleCancel } outlined type='submit'>{rightButtonText || getCancelTransfer()}</Button>
+                        <Button className="btn-close" onClick={ handleClose } > {leftButtonText || getCloseText() }</Button> }
+                    <Button className="btn-close" onClick={ handleCancel } outlined type='submit'>{rightButtonText || getCancelTransfer()}</Button>
                 </div>
             </div>
         </ModalWrapper>

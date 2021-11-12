@@ -15,5 +15,6 @@ const Button = Styled.button`
   color: ${ props => props.outlined ? props.theme.white : props.theme.primary };
   border: 1px solid ${ props => props.theme.primary };
   background: ${ props => props.outlined ? props.theme.primary : props.theme.white };
+
 `;
 export default Button

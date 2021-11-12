@@ -12,10 +12,17 @@ const Link = Styled(LinkButton)`
   max-width: 100%;
   padding: 22px 24px;
   display: inline-block;
+  text-decoration: none;
   color: ${ props => props.outline ? props.theme.primary : props.theme.white };
-  border: 1px solid ${ props => props.outline ? props.theme.primary : props.theme.white };
+  border: 1px solid ${ props => props.outline ? props.theme.primary : props.theme.primary };
   background: ${ props => props.outline ? props.theme.white : props.theme.primary };
 
+  box-shadow:${ props => props.shadow ? '0px 10px 25px rgba(52, 62, 223, 0.35)' : '' } ;
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+  }
   &.link {
     width: auto;
     padding: 0;

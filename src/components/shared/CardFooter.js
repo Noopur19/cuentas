@@ -13,7 +13,7 @@ const CardFooter = () => {
         <>
             <CardBottom className="CardFooter">
                 <div className="card-link text-center">
-                    <img className="img-fluid my-2" src={ footerLogo } alt="back"/>
+                    <img className="img-fluid" src={ footerLogo } alt="back"/>
                     <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" onClick={ () => window.open(STATIC_URLS.privacyPolicy(locale())) }  to='#!'>{t('PRIVACY_STATEMENT')}</Link></LinkText>
                     <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange"onClick={ () => window.open(STATIC_URLS.termsAndConditions(locale())) } to={ '#!' } >{t('TERMS_CONDITIONS')}</Link></LinkText>
                     <LinkText>{t('WU_TEXT')} <Link className="link" bold color="textOrange" onClick={ () => window.open(STATIC_URLS.faqs(locale())) } to={ '#!' }>{t('FAQS')}</Link></LinkText>

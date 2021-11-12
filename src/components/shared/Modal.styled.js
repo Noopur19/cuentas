@@ -20,6 +20,12 @@ const ModalWrapper = Styled.div`
             font-size: 14px;
             padding: 24px 3px;
             margin: 0 2px;
+            &.btn-close {
+                border-radius: 12px;
+                width: 162px;
+                padding: 18px;
+                margin-top: 12px;
+            }   
         }
         h3 {
             font-weight: bold;
@@ -36,7 +42,7 @@ const ModalWrapper = Styled.div`
             margin: 15px 0;
             text-align: center;
         } 
-    }   
+    }
 }
 `
 export default ModalWrapper
