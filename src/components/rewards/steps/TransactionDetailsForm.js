@@ -76,7 +76,7 @@ const TransactionDetailsForm = (props) => {
             let amountData = exchangeRate*parseFloat(value)
             amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
-                amount: amountData,
+                amount: parseFloat(amountData).toFixed(4),
                 amountLastHandle: 'left'
             })
             initialize(obj)
@@ -84,7 +84,7 @@ const TransactionDetailsForm = (props) => {
             let amountData = parseFloat(value)/ exchangeRate
             amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
-                amountUSD: amountData,
+                amountUSD: parseFloat(amountData).toFixed(4),
                 amountLastHandle: 'right'
             })
             initialize(obj)
@@ -169,7 +169,7 @@ const TransactionDetailsForm = (props) => {
                             <div className="converter d-flex justify-content-between pb-2">
                                 <Field
                                     name="amountUSD"
-                                    type="number"
+                                    type="tel"
                                     placeholder={ '(USD)' }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
                                     component={ renderField }
@@ -177,7 +177,7 @@ const TransactionDetailsForm = (props) => {
                                 <img src={ Vector } alt="back"/>
                                 <Field
                                     name="amount"
-                                    type="number"
+                                    type="tel"
                                     placeholder={ currencyChecked }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'other') }
                                     component={ renderField }
@@ -187,7 +187,7 @@ const TransactionDetailsForm = (props) => {
                             <p className="text-center"><b>{t('EXCHANGE_RATE')}: 1 USD = {transferDetails?.service_options?.service_option[ 0 ]?.payment_details.exchange_rate  } { currencyChecked }</b></p>
                         </> :  <Field
                             name="amountUSD"
-                            type="number"
+                            type="tel"
                             placeholder={ currencyChecked }
                             handleChange={ () => handleChangeUSD('USD') }
 
