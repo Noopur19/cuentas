@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { postWUNumber } from 'middleware/receiver';
 import { reduxForm, Field } from 'redux-form';
@@ -18,15 +18,18 @@ import history from 'utils/history'
 import { useTranslation } from 'react-i18next';
 import { getParseHtmlArticle } from 'utils/helpers';
 import { STATIC_URLS } from 'constants/app';
+import { useSelector } from 'react-redux'
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
-    const [ isClicked, setIsClicked ] = React.useState(false);
     const { handleSubmit, initialize } = props;
+    const formValues = useSelector((state) => state.form.rewardNumber)
+
     const myWUNumber = getLocalData('myWUNumber')
+    const [ checked ,setChecked ] =  useState(myWUNumber ? true : false)
     const { t } = useTranslation();
     const onSubmit = (values) => {
         if (values.WUNumber) {
-            setLocalData('myWUNumber',values.WUNumber)
+            checked && setLocalData('myWUNumber',values?.WUNumber)
             dispatch(postWUNumber(values.WUNumber));
         }else{
             removeLocalData('myWUNumber')
@@ -35,11 +38,23 @@ const RewardNumberPage = (props) => {
     }
 
     useEffect(() => {
-        initialize({
-            WUNumber: myWUNumber
-        })
-        myWUNumber && setIsClicked(true)
+        if(myWUNumber){
+            initialize({
+                WUNumber: myWUNumber
+            })
+        }
     },[ myWUNumber ])
+
+    const handleSaveWUnumber = (event) => {
+        if(event.target.checked){
+            setChecked(true)
+            formValues?.value?.WUNumber && setLocalData('myWUNumber',formValues?.value?.WUNumber)
+        }else{
+            setChecked(false)
+            setLocalData('myWUNumber','')
+        }
+
+    }
 
     return (
         <RewardNumber>
@@ -48,31 +63,33 @@ const RewardNumberPage = (props) => {
                     <BorderTitle> <h3>{t('HAVE_MY_WU_REWARDS_NUMBER')}
                         <span className="underline"></span></h3>
                     </BorderTitle>
-                    {!isClicked && <Button onClick={ () => setIsClicked(true) }>{t('CLICK_HEAR_TO_ENTER')}</Button>}
-                    {!!isClicked &&
-                        <>
-                            <div className="wu-number">
-                                <Field
-                                    name="WUNumber"
-                                    maxLength={ 9 }
-                                    component={ renderField }
-                                    normalize={ val => (val || '').replace(/[^\d]/g, '') }
-                                    pattern="[0-9]*"
-                                    inputMode="numeric"
-                                />
-                                <p className="note-para">{t('ENTER_WU_NUMBER')}</p>
-                            </div>
-                        </>
-                    }
-                    <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () => window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
 
+                    <>
+                        <div className="wu-number">
+                            <Field
+                                name="WUNumber"
+                                maxLength={ 9 }
+                                component={ renderField }
+                                normalize={ val => (val || '').replace(/[^\d]/g, '') }
+                                pattern="[0-9]*"
+                                inputMode="numeric"
+                            />
+                            <input type='checkbox' checked={ checked } onChange={ handleSaveWUnumber } />
+                            <p className="note-para">{t('SAVE_WU_NUMBER')}</p>
+                        </div>
+                    </>
+                    <div className='mt-2'>
+                        {formValues?.values?.WUNumber ? <Button className="w-100" outlined type='submit'>{t('CONTINUE_WITH_MY_WU_NUMBER')}</Button>:  <Link className="link" bold color="textOrange"   to={ '#!' }>{t('ENTER_MY_WU_NUMBER')}</Link>}
+                    </div>
                     <Card className="main-card">
                         <p className="description">{ getParseHtmlArticle('wu_131') }</p>
+                        <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () => window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
+
                         <CardFooter></CardFooter>
                     </Card>
                 </ div>
                 <Footer>
-                    { isClicked ? <Button className="w-100" outlined type='submit'>{t('NEXT')}</Button> : <Link to='/protect-form' >{t('NEXT')}</Link> }
+                    <Link to='/protect-form' >{t('NEXT')}</Link>
                 </Footer>
             </form>
         </RewardNumber>
