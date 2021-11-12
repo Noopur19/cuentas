@@ -30,11 +30,12 @@ export const getIncommHeaders = () => {
     const user = getUser()
     const appHeaders = {
         'x-knetikcloud-date': new Date(),
-        'x-knetikcloud-channel': 'MOB',
+        'x-knetikcloud-channel': 'WEB',
         'x-knetikcloud-ip': localStorage.ip,
         'x-knetikcloud-username': user?.username,
         'x-knetikcloud-gpscoordinates': localStorage?.latlong || '37.79-122.41',
-        'x-knetikcloud-appname': 'Cuentas'
+        'x-knetikcloud-appname': 'Cuentas',
+        'x-knetikcloud-ipaddress': '181.198.203.52'
     }
     const headerData =  _.merge(incommHeaders,appHeaders)
     return headerData

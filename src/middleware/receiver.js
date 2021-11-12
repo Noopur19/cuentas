@@ -34,7 +34,6 @@ export const postWUNumber = (wuNumber) => {
             const errorData = error?.response?.data?.result && error.response.data.result[ 0 ].cause.root.Envelope.Body.Fault.detail[ 'error-reply' ].error
             notification('error',errorData)
             dispatch(getWUNumberFailed(error))
-            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -47,7 +46,6 @@ export const callMyNUNumber = (wuNumber) => {
             const errorData = error?.response?.data?.result && error.response.data.result[ 0 ].cause.root.Envelope.Body.Fault.detail[ 'error-reply' ].error
             notification('error',errorData)
             dispatch(getWUNumberFailed(error))
-            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }

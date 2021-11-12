@@ -68,14 +68,14 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
     return  (dispatch) => {
         dispatch(postTransactionEnquiryRequest())
         axiosInstance.post('incomm/wu/transaction/enquiry',receiverData,
-            { headers: getIncommHeaders() } )
+            { headers: getIncommHeaders(), 'Content-Type' : 'application/json' } )
             .then((result) => {
                 dispatch(postTransactionEnquirySuccess(result.data))
             }).catch((error) => {
                 if(error?.response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error === errorText) {
                     dispatch(postTransactionEnquiryRequest())
                     axiosInstance.post('incomm/wu/transaction/enquiry',senderData,
-                        { headers: getIncommHeaders() })
+                        { headers: getIncommHeaders(),'Content-Type' : 'application/json'  })
                         .then((result) => {
                             dispatch(postTransactionEnquirySuccess(result.data))
                         }).catch((err) => {
@@ -83,7 +83,7 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
                         })
                 } else {
                     dispatch(postTransactionEnquiryFailed(error))
-                    notification('error',GET_ERROR_FIELD.ERROR(error))
+                    // notification('error',GET_ERROR_FIELD.ERROR(error))
                 }
             })
     }
@@ -107,7 +107,7 @@ export const postSendEmail = (invoiceId) => {
 export const postCancelTransaction = (data, receiver, sender, mtcn) => {
     return (dispatch) => {
         dispatch(postCancelTransactionRequest())
-        axiosInstance.post('incomm/wu/cancel', data,{ headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app' }) } )
+        axiosInstance.post('incomm/wu/cancel', data,{ headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'WEB' }) } )
             .then((response) => {
                 dispatch(postCancelTransactionSuccess(response.data))
                 if (response.data && response.data.transaction_status === 'REFUND FORCE PAID' ||

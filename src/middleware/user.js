@@ -35,7 +35,7 @@ export const getIncomeDetails = (incomeId) => {
         dispatch(getIncomeDetailsRequest())
         axiosInstance.get(`/incomm/customers/${ incomeId }/account`,
             {
-                headers: _.merge(getIncommHeaders(),{ 'x-knetikcloud-channel' : 'MOB' })
+                headers: _.merge(getIncommHeaders())
             }
         ).then((response) => {
             dispatch(getIncomeDetailsSuccess(response.data))
@@ -54,7 +54,7 @@ export const getStoreDetails = () => {
                 tags:[ 'western_union' ]
             },
             {
-                headers: _.merge(getIncommHeaders(),{ 'x-knetikcloud-channel' : 'both' })
+                headers: _.merge(getIncommHeaders(),{ 'x-knetikcloud-channel' : 'WEB' })
             }
         ).then((response) => {
             dispatch(getStoreSuccess(response.data))

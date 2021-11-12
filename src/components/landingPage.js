@@ -28,7 +28,7 @@ const LandingPage = (props) => {
         setLocalData('ip',ip)
         const  params = queryString.parse(propsData.location.search)
         const { access_token , incomm_headers } = params
-        await setLocalData('incomm_headers',incomm_headers)
+        incomm_headers && await setLocalData('incomm_headers',incomm_headers)
         const replaceAccessToken = access_token.replace(/ /g,'+');
         var bytes  = CryptoJS.AES.decrypt(replaceAccessToken, process.env.REACT_APP_SECRET_KEY);
         console.log(access_token)

@@ -14,8 +14,8 @@ export const login = (access_token) => {
         dispatch(loginRequest())
         if(access_token){
             const result = await axiosInstance.post('/oauth/token', querystring.stringify({
-                username: 'tk2041@gmail.com',
-                password: 'Secure@123',
+                username: 'cuentasalert22@mailinator.com',
+                password: 'Test@1234',
                 grant_type: 'password',
                 client_id: 'knetik'
             }))
