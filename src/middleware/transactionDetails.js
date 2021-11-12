@@ -68,14 +68,14 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
     return  (dispatch) => {
         dispatch(postTransactionEnquiryRequest())
         axiosInstance.post('incomm/wu/transaction/enquiry',receiverData,
-            { headers: getIncommHeaders(), 'Content-Type' : 'application/json' } )
+            { headers: _.merge(getIncommHeaders(), { 'Content-Type' : 'application/json' }) } )
             .then((result) => {
                 dispatch(postTransactionEnquirySuccess(result.data))
             }).catch((error) => {
                 if(error?.response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error === errorText) {
                     dispatch(postTransactionEnquiryRequest())
                     axiosInstance.post('incomm/wu/transaction/enquiry',senderData,
-                        { headers: getIncommHeaders(),'Content-Type' : 'application/json'  })
+                        { headers: _.merge(getIncommHeaders(), { 'Content-Type' : 'application/json' }) } )
                         .then((result) => {
                             dispatch(postTransactionEnquirySuccess(result.data))
                         }).catch((err) => {
