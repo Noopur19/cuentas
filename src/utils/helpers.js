@@ -79,6 +79,7 @@ export const getWUStore = (stores) => {
 }
 
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
+    debugger
     const accountDetail = incomeDetail?.accountDetail
     const myWUNumber  = getLocalData('myWUNumber')
     const receiver = {
@@ -166,4 +167,69 @@ export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
         date_time: data?.date_time || '',
         df_details: data?.df_details || {}
     }
+}
+
+const getTotalFees = paymentDetails => {
+    const fee = _.get(paymentDetails, 'fees');
+    const transferFee = !_.isEmpty(fee)
+        ? parseFloat(_.get(fee, 'base_charges', 0)) +
+        parseFloat(_.get(fee, 'delivery_charges', 0)) +
+        parseFloat(_.get(fee, 'other_charges', 0)) +
+        parseFloat(_.get(fee, 'charges', 0))
+        : 0;
+    return parseInt(transferFee) > 0 ? parseInt(transferFee) / 100 : 0;
+};
+
+const getTotalTaxes = paymentDetails => {
+    const taxes = _.get(paymentDetails, 'taxes');
+    const taxAmount = !_.isEmpty(taxes)
+        ? parseFloat(_.get(taxes, 'municipal_tax', 0)) +
+        parseFloat(_.get(taxes, 'state_tax', 0)) +
+        parseFloat(_.get(taxes, 'county_tax', 0))
+        : 0;
+    return parseInt(taxAmount) > 0 ? parseInt(taxAmount) / 100 : 0;
+};
+
+const getPrincipalAmount = paymentDetails => {
+    const principalAmount = _.get(
+        paymentDetails,
+        'origination.principal_amount',
+        0,
+    );
+    return parseInt(principalAmount) > 0 ? parseInt(principalAmount) / 100 : 0;
+};
+
+const getPromotionalDiscount = paymentDetails => {
+    const promotionDiscount = _.get(paymentDetails, 'promotion.discount', 0);
+    return parseInt(promotionDiscount) > 0
+        ? parseInt(promotionDiscount) / 100
+        : 0;
+};
+
+const getOtherFee = otherFee => {
+    if (_.isEmpty(otherFee) || otherFee !== 0 ) {
+        return parseInt(otherFee) > 0 ? parseInt(otherFee) / 100 : 0;
+    }
+    return 0;
+};
+
+export const getTotalAmount = (paymentDetails, otherFee = 0) => {
+    if (_.isEmpty(paymentDetails)) {
+        return 0;
+    }
+    return (
+        getPrincipalAmount(paymentDetails) +
+      getTotalFees(paymentDetails) +
+      getTotalTaxes(paymentDetails) +
+      getOtherFee(otherFee) -
+      getPromotionalDiscount(paymentDetails)
+    );
+};
+
+export const getErrorInsuff = (val) => {
+    return locale() === 'en' ? `Insufficient balance after adding all charges. Total payable amount after adding all charges will be ${ val }` :
+        `Saldo insuficiente después de sumar todos los cargos. El monto total a pagar después de agregar todos los cargos será ${ val }`
+}
+export const getTrasactionTypeOnHandle = (type='left') => {
+    return type === 'left' ? 'WMN' : 'WMF'
 }

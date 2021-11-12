@@ -130,7 +130,7 @@ export const postConfirmTransfer = (data, finalAmount, stores, t) => {
     return (dispatch) => {
         dispatch(postConfirmTransferRequest())
         axiosInstance.post('/incomm/wu/sms', postData,
-            { headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'WEB', 'Content-Type' : 'application/json' }) } )
+            { headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app', 'Content-Type' : 'application/json' }) } )
             .then((response) => {
                 if(response.status == 200){
                     dispatch(postConfirmTransferSuccess(response.data))

@@ -14,11 +14,13 @@ import Vector from '../../../images/Vector.svg'
 import CardFooter from '../../shared/CardFooter'
 import PropTypes from 'prop-types';
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
+import { change } from 'redux-form'
 import { getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { useTranslation } from 'react-i18next';
 import { getStateCd, getStateName } from 'utils/helpers'
-
+import { getTotalAmount, getErrorInsuff, getTrasactionTypeOnHandle } from 'utils/helpers'
+import { notification } from 'services/notification';
 const TransactionDetailsForm = (props) => {
     const { t } = useTranslation()
     const { handleSubmit, initialize ,prevPage, submitData } = props;
@@ -31,7 +33,7 @@ const TransactionDetailsForm = (props) => {
 
     const formValues = userInfo?.values || {}
     const country  = formValues.country && JSON.parse(formValues.country)
-    const [ currencyChecked , setCurrencyChecked ] = useState(country?.currency && country?.currency[ 0 ].currency_cd)
+    const [ currencyChecked , setCurrencyChecked ] = useState( formValues?.payoutCurrency || country?.currency && country?.currency[ 0 ].currency_cd)
 
     // const isUSD = () => {
     //     return country?.currency && country?.currency[ 0 ].currency_cd === 'USD'
@@ -74,14 +76,16 @@ const TransactionDetailsForm = (props) => {
             let amountData = exchangeRate*parseFloat(value)
             amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
-                amount: amountData
+                amount: amountData,
+                amountLastHandle: 'left'
             })
             initialize(obj)
         }else{
             let amountData = parseFloat(value)/ exchangeRate
             amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
-                amountUSD: amountData
+                amountUSD: amountData,
+                amountLastHandle: 'right'
             })
             initialize(obj)
         }
@@ -89,15 +93,25 @@ const TransactionDetailsForm = (props) => {
 
     const saveData = (values) => {
         const data = {
-            transactionType: 'WMN',
-            amount: values.amountUSD && (parseFloat(values.amountUSD)*100),
+            transactionType: getTrasactionTypeOnHandle(values.amountLastHandle),
+            amount:  getTrasactionTypeOnHandle(values.amountLastHandle) === 'WMN' ? values.amountUSD && (parseFloat(values.amountUSD)*100) : values.amount && (parseFloat(values.amount)*100),
             destCurrency: values.payoutCurrency || currencyChecked,
             destCountry: country?.currency && country?.currency[ 0 ].country_cd,
             promoCode: values?.promoCode
         }
         if(formValues?.state) data[ 'destState' ] = formValues?.state && getStateCd(formValues?.state)
         if(formValues?.city) data[ 'destCity' ] = formValues?.city
-        dispatch(postTransactionDetails(data,submitData,t))
+        const paymentDetails = transferDetails?.service_options?.service_option && transferDetails?.service_options?.service_option[ 0 ]?.payment_details
+        const totalAmount = getTotalAmount(paymentDetails,0)
+
+        if(availBail > ((data.amount/100) + totalAmount) ){
+            dispatch(postTransactionDetails(data,submitData,t))
+        }else{
+            notification('error',getErrorInsuff(totalAmount))
+        }
+    }
+    const handleChangeUSD = () => {
+        dispatch(change('amountLastHandle','left'))
     }
     return (
         <Card className="progress-card">
@@ -175,6 +189,8 @@ const TransactionDetailsForm = (props) => {
                             name="amountUSD"
                             type="number"
                             placeholder={ currencyChecked }
+                            handleChange={ () => handleChangeUSD('USD') }
+
                             component={ renderField }
                         />
 
