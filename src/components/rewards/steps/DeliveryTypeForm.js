@@ -48,7 +48,7 @@ const DelievryTypeForm = (props) => {
     },[])
 
     const saveData = (values) => {
-        dispatch(postDeliveryData(values,incomeDetail,submitData))
+        dispatch(postDeliveryData(values,incomeDetail,submitData, t))
     }
 
     const getServiceOptions = () => {

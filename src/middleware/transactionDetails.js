@@ -25,13 +25,19 @@ import history from 'utils/history';
 import { ROUTES } from 'constants/AppRoutes';
 import { notification } from 'services/notification';
 
-export const getTransactionHistory = () => {
+export const getTransactionHistory = (t) => {
     const user = getUser()
     return (dispatch) => {
         dispatch(getTransactionHistoryRequest())
         axiosInstance.get(`invoices?filterUser=${ user.id }&filterSku=western_union`)
             .then((response) => {
-                dispatch(getTransactionHistorySuccess(response.data))
+                if(response.status == 200){
+                    dispatch(getTransactionHistorySuccess(response.data))
+                } else if( response?.result[ 0 ] && response?.result[ 0 ]?.responseMessage){
+                    notification('error',response?.result[ 0 ]?.responseMessage)
+                } else {
+                    notification('error',`${ t('SOMETHING_WENT_WRONG_ERROR') }`)
+                }
             }).catch((error) => {
                 dispatch(getTransactionHistoryFailed(error))
                 notification('error',GET_ERROR_FIELD.ERROR(error))
@@ -83,7 +89,6 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
                         })
                 } else {
                     dispatch(postTransactionEnquiryFailed(error))
-                    // notification('error',GET_ERROR_FIELD.ERROR(error))
                 }
             })
     }
@@ -97,9 +102,9 @@ export const postSendEmail = (invoiceId) => {
         }, { headers: getIncommHeaders() })
             .then((response) => {
                 dispatch(postSendEmailSuccess(response.data))
+                response?.result[ 0 ]?.responseMessage &&  notification('error',response?.result[ 0 ]?.responseMessage)
             }).catch((error) => {
                 dispatch(postSendEmailFailed(error))
-                notification('error',GET_ERROR_FIELD.ERROR(error))
             })
     }
 }
@@ -116,20 +121,26 @@ export const postCancelTransaction = (data, receiver, sender, mtcn) => {
                 }
             }).catch((error) => {
                 dispatch(postCancelTransactionFailed(error))
-                notification('error',GET_ERROR_FIELD.ERROR(error))
             })
     }
 }
 
-export const postConfirmTransfer = (data, finalAmount, stores) => {
+export const postConfirmTransfer = (data, finalAmount, stores, t) => {
     const postData = confirmTransferRequestPayload(data, finalAmount, stores)
     return (dispatch) => {
         dispatch(postConfirmTransferRequest())
         axiosInstance.post('/incomm/wu/sms', postData,
-            { headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'app', 'Content-Type' : 'application/json' }) } )
+            { headers: _.merge(getIncommHeaders(), { 'x-knetikcloud-channel' : 'WEB', 'Content-Type' : 'application/json' }) } )
             .then((response) => {
-                dispatch(postConfirmTransferSuccess(response.data))
-                history.push(ROUTES.SUCCESS_PAGE)
+                if(response.status == 200){
+                    dispatch(postConfirmTransferSuccess(response.data))
+                    history.push(ROUTES.SUCCESS_PAGE)
+                }
+                else if( response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error ) {
+                    notification('error',response?.data?.result[ 0 ]?.cause?.root?.Envelope?.Body?.Fault?.detail[ 'error-reply' ].error)
+                } else {
+                    notification('error',`${ t('SOMETHING_WENT_WRONG_ERROR') }`)
+                }
             }).catch((error) => {
                 dispatch(postConfirmTransferFailed(error))
                 notification('error',GET_ERROR_FIELD.ERROR(error))

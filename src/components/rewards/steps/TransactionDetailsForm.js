@@ -46,7 +46,7 @@ const TransactionDetailsForm = (props) => {
         }
         if(formValues?.state) data[ 'destState' ] = formValues?.state && getStateCd(formValues?.state)
         if(formValues?.city) data[ 'destCity' ] = formValues?.city
-        dispatch(postTransactionDetails(data,null))
+        dispatch(postTransactionDetails(data,null,t))
     }
     useEffect(() => {
         transactionDetails()
@@ -97,7 +97,7 @@ const TransactionDetailsForm = (props) => {
         }
         if(formValues?.state) data[ 'destState' ] = formValues?.state && getStateCd(formValues?.state)
         if(formValues?.city) data[ 'destCity' ] = formValues?.city
-        dispatch(postTransactionDetails(data,submitData))
+        dispatch(postTransactionDetails(data,submitData,t))
     }
     return (
         <Card className="progress-card">

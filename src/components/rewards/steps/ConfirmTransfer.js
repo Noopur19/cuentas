@@ -40,8 +40,7 @@ const ConfirmTransfer = (props) => {
     };
 
     const saveData = () => {
-        dispatch(postConfirmTransfer(postDeliveryDetails, getFinalAmount(),storeDetails))
-
+        dispatch(postConfirmTransfer(postDeliveryDetails, getFinalAmount(),storeDetails, t))
     }
 
     const payoutLocationText =  () => {

@@ -55,9 +55,9 @@ export const getAllCountries = ( ) => {
         dispatch(getAllCountriesRequest())
         axiosInstance.get('/incomm/wu/countrycurrency').then((response) => {
             dispatch(getAllCountriesSuccess(response.data))
+            response?.error?.error && notification('error',`${ response?.error?.error }`)
         }).catch((error) => {
             dispatch(getAllCountriesFailed(error))
-            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
@@ -67,14 +67,14 @@ export const getAllStates = (country) => {
         dispatch(getAllStatesRequest())
         axiosInstance.get(`/incomm/wu/statecity?country=${ country }`).then((response) => {
             dispatch(getAllStatesSuccess(response.data))
+            response?.error?.error && notification('error',`${ response?.error?.error }`)
         }).catch((error) => {
             dispatch(getAllStatesFailed(error))
-            notification('error',`${ error?.response?.error?.error }`)
         })
     }
 }
 
-export const postTransactionDetails = (data,callback) => {
+export const postTransactionDetails = (data,callback, t) => {
     return(dispatch) => {
         dispatch(postTransactionDetailsRequest())
         axiosInstance.post('incomm/wu/feeinquiry',data,{
@@ -82,8 +82,16 @@ export const postTransactionDetails = (data,callback) => {
                 'Content-Type': 'application/json',
             }
         }).then((response) => {
-            dispatch(postTransactionDetailsSuccess(response.data))
-            callback && callback(data)
+            if (response.status === 200 ) {
+                dispatch(postTransactionDetailsSuccess(response.data))
+                callback && callback(data)
+            } else if (response.error && response.error.error) {
+                response?.error?.error ?
+                    notification('error',response?.error?.error)
+                    : notification('error',`${ t('FAILED_TO_CURRENCY_RATE') }`)
+            } else {
+                notification('error',`${ t('SOMETHING_WENT_WRONG_ERROR') }`)
+            }
         }).catch((error) => {
             dispatch(postTransactionDetailsFailed(error))
             notification('error',GET_ERROR_FIELD.ERROR(error))
@@ -91,7 +99,7 @@ export const postTransactionDetails = (data,callback) => {
     }
 }
 
-export const postDeliveryData = (values, incomeDetail,callback) => {
+export const postDeliveryData = (values, incomeDetail,callback, t) => {
     const data = deliveryTypeRequestPayload(values,incomeDetail)
     return(dispatch) => {
         dispatch(postDeliveryDataRequest())
@@ -100,8 +108,16 @@ export const postDeliveryData = (values, incomeDetail,callback) => {
                 'Content-Type': 'application/json',
             }
         }).then((response) => {
-            dispatch(postDeliveryDataSuccess(response.data))
-            callback && callback(values)
+            if (response.status === 200) {
+                dispatch(postDeliveryDataSuccess(response.data))
+                callback && callback(values)
+            } else if (response.error && response.error.error) {
+                response?.error?.error ?
+                    notification('error',response?.error?.error)
+                    : notification('error',`${ t('FAILED_TO_SEND_MONEY_VALUATION') }`)
+            } else {
+                notification('error',`${ t('SOMETHING_WENT_WRONG_ERROR') }`)
+            }
         }).catch((error) => {
             dispatch(postDeliveryDataFailed(error))
             notification('error',GET_ERROR_FIELD.ERROR(error))
