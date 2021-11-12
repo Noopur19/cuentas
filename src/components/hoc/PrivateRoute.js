@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom'
 import { getToken } from 'utils/helpers'
 export const PrivateRoute = ({ component: Component, ...rest }) => {
     const token = getToken()
-    const isMobile = window.navigator.userAgentData.mobile || true
+    const isMobile = window?.navigator?.userAgentData?.mobile || true
     if(isMobile){
         return (
             <Route
