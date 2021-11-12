@@ -55,7 +55,7 @@ const TransactionHistory = () => {
     }
 
     useEffect(async () => {
-        _.isEmpty(transactions) && await dispatch(getTransactionHistory())
+        _.isEmpty(transactions) && await dispatch(getTransactionHistory(t))
     }, [])
 
     return (
