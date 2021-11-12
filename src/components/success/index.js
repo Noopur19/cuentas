@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Card } from '../shared/Footer.styled'
 import { getCountryName, getCurrencySymbol, getParseHtmlArticle } from 'utils/helpers'
@@ -10,9 +10,12 @@ import { getLocalData } from 'utils/cache'
 import _ from 'lodash'
 import SuccessDetail from './successDetail.styled'
 import { getWUContactInfo } from 'utils/helpers'
+import Button from 'components/shared/Button.styled'
+import Modal from 'components/shared/Modal'
 
 const Success = () => {
     const { t } = useTranslation()
+    const [ isOpen, setIsOpen ] = useState(false);
     const myWUNumber  = getLocalData('myWUNumber')
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const confirmDetail = useSelector((state) => state.transactionHistory.confirmDetails)
@@ -146,10 +149,31 @@ const Success = () => {
         return totalPoints
     }
 
+    const toggleModal = () => {
+        setIsOpen(!isOpen)
+    }
+
+    const renderModal = () => {
+        return (
+            <Modal
+                show={ isOpen }
+                // handleClose={ () => toggleModal() }
+                handleCancel={ () => toggleModal() }
+                leftButtonText={ t('GO_BACK_TO_APP') }
+                rightButtonText={ t('CLOSE_TEXT') }
+            >
+                <h3>{t('TRANSACTION_COMPLETE')}</h3>
+                <p>{t('TRANSACTION_COMPLETE_SUBTEXT')}</p>
+
+            </Modal>
+        )
+    }
+
     return (
         <Card className="success-container">
             <SuccessDetail>
                 {getParseHtmlArticle('wu_130')}
+                {renderModal()}
                 <BorderTitle smallText className="mt-4"><h3>{t('TRACKING_INFO')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
@@ -267,6 +291,7 @@ const Success = () => {
                 {getParseHtmlArticle('wu_109')}
                 {getParseHtmlArticle('wu_110')}
                 {getParseHtmlArticle('wu_111')}
+                <Button className="w-100" onClick={ () => toggleModal() } outlined type='submit'>{t('CLOSE_TEXT')}</Button>
             </SuccessDetail>
         </Card>
     )

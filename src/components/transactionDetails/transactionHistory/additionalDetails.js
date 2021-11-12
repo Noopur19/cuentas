@@ -52,6 +52,8 @@ const AdditionalDetails = (props) => {
                 show={ isOpen }
                 handleClose={ () => toggleModal() }
                 handleCancel={ () => onCancelHandler() }
+                leftButtonText= { t('CLOSE_TEXT') }
+                rightButtonText={ t('CANCEL_TRANSFER') }
             >
                 <h3>{t('STATUS_PENDING')}</h3>
                 <h4>(MTCN){transactions && transactions?.additional_properties?.mtcn?.value}</h4>

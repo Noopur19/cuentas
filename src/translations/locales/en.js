@@ -648,5 +648,7 @@ export const TRANSLATIONS_EN = {
     'CARD_HOLDER_AGREEMENT_PDF': 'app_link_cha_pdf',
     'SCAN': 'Scan',
     'BAR_CODE_SCAN_MODAL_HEADING': 'Bill Pay Mexico',
-    'BAR_CODE_SCAN_MODAL_DESCRIPTION': 'To find your <account number>, locate a copy of your bill, and look for the highlighted area below \n \n You may also scan the provided bar code'
+    'BAR_CODE_SCAN_MODAL_DESCRIPTION': 'To find your <account number>, locate a copy of your bill, and look for the highlighted area below \n \n You may also scan the provided bar code',
+    'TRANSACTION_COMPLETE': 'Tu transacción está completa',
+    'GO_BACK_TO_APP': 'Go back to app'
 }
