@@ -645,5 +645,7 @@ export const TRANSLATIONS_ES = {
     'CARD_HOLDER_AGREEMENT_PDF': 'es_app_link_cha_pdf',
     'SCAN': 'Escanear',
     'BAR_CODE_SCAN_MODAL_HEADING': 'Pago de facturas México',
-    'BAR_CODE_SCAN_MODAL_DESCRIPTION': 'Para encontrar su <número de cuenta>, busque una copia de su factura y busque el área resaltada a continuación \n \n También puede escanear el código de barras proporcionado'
+    'BAR_CODE_SCAN_MODAL_DESCRIPTION': 'Para encontrar su <número de cuenta>, busque una copia de su factura y busque el área resaltada a continuación \n \n También puede escanear el código de barras proporcionado',
+    'TRANSACTION_COMPLETE': 'Your transaction is complete',
+    'TRANSACTION_COMPLETE_SUBTEXT': 'Please close your browser or click here to go back to your Cuentas app'
 }
