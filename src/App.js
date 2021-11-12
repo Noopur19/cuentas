@@ -49,6 +49,7 @@ function App() {
                     path={ ROUTES.ERROR_PAGE }
                     component={ ErrorPage }
                 />
+                <Route component={ ErrorPage } />
             </Switch>
         </Layout>
 

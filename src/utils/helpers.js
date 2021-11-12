@@ -247,3 +247,8 @@ export const getCloseText = () => {
 export const getCancelTransfer = () => {
     return locale() === 'en' ?  'Cancel Transfer' :  'Cancelar transferencia'
 }
+
+export const isIOSDevice = () => {
+    const navigator = window.navigator
+    return !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+}

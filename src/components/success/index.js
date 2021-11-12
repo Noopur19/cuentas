@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Card } from '../shared/Footer.styled'
-import { getCountryName, getCurrencySymbol, getParseHtmlArticle } from 'utils/helpers'
+import { getCountryName, getCurrencySymbol, getParseHtmlArticle, isIOSDevice } from 'utils/helpers'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
 import BorderTitle from 'components/shared/BorderTitle.styled';
 import { useTranslation } from 'react-i18next';
@@ -155,7 +155,7 @@ const Success = () => {
         setIsOpen(!isOpen)
     }
     const gotoMobileApp = () => {
-        window.open(STATIC_URLS.APP_URL)
+        window.open( isIOSDevice() ? STATIC_URLS.APP_IOS_BACK_URL : STATIC_URLS.APP_ANDROID_BACK_URL)
     }
 
     const renderModal = () => {
