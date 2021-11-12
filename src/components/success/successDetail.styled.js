@@ -34,5 +34,39 @@ const SuccessDetail = Styled.div`
             word-break: break-all;
         }
     }
+    .modal {
+        .modal-wrap {
+            .modal-container {
+                position: relative;
+                text-align: left;
+                h3 {
+                    font-size: 20px;
+                    line-height: 30px;
+                    margin-right: 20px;
+                }
+                p {
+                    font-size: 16px;
+                    line-height: 22px;
+                    text-align: left;
+                }
+
+                button {
+                    padding: 14px;
+                    border-radius: 14px;
+                    &:nth-of-type(1){
+                        margin-left: 0;
+                    }
+                    &:nth-of-type(2){
+                        margin-right: 0;
+                    }
+                }
+                .cancel {
+                    position: absolute;
+                    right: 30px;
+                    top: 22px;
+                }
+            }
+        }
+    }
 `
 export default SuccessDetail

@@ -13,6 +13,7 @@ import { getWUContactInfo } from 'utils/helpers'
 import Button from 'components/shared/Button.styled'
 import Modal from 'components/shared/Modal'
 import { STATIC_URLS } from 'constants/app'
+import Vector from '../../images/cancel.svg'
 
 const Success = () => {
     const { t } = useTranslation()
@@ -166,6 +167,9 @@ const Success = () => {
                 leftButtonText={ t('GO_BACK_TO_APP') }
                 rightButtonText={ t('CLOSE_TEXT') }
             >
+                <a className="cancel">
+                    <img src={ Vector } alt="back"/>
+                </a>
                 <h3>{t('TRANSACTION_COMPLETE')}</h3>
                 <p>{t('TRANSACTION_COMPLETE_SUBTEXT')}</p>
 

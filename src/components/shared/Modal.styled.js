@@ -16,7 +16,7 @@ const ModalWrapper = Styled.div`
             margin: auto;
         }
         button{
-            width: calc(50% - 20px);
+            width: calc(50% - 5px);
             font-size: 14px;
             padding: 24px 3px;
             margin: 0 5px;

@@ -32,6 +32,7 @@ export const FooterButton = Styled.footer`
   // padding-bottom: 55px;
   background: #FFFFFF;
   box-shadow: 0px 1px 20px 2px rgba(0, 0, 0, 0.25);
+  z-index: 1;
   a {
     margin: auto;
     &:hover {

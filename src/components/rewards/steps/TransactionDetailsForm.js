@@ -122,11 +122,11 @@ const TransactionDetailsForm = (props) => {
                 </BorderTitle>
                 <div className="d-flex justify-content-between pb-2">
                     <span>{t('FULL_NAME')}</span>
-                    <span><b>{`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</b></span>
+                    <span className="text-right"><b>{`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</b></span>
                 </div>
                 <div className="d-flex justify-content-between pb-2">
-                    <span>{t('PAYOUT_COUNTRY')}y</span>
-                    <span><b> {country?.country || ''}</b></span>
+                    <span>{t('PAYOUT_COUNTRY')}</span>
+                    <span className="text-right"><b> {country?.country || ''}</b></span>
                 </div>
                 {formValues.city && <div className="d-flex justify-content-between pb-2">
                     <span>{t('PAYOUT_CITY')}</span>
@@ -134,7 +134,7 @@ const TransactionDetailsForm = (props) => {
                 </div>}
                 {formValues.state && <div className="d-flex justify-content-between pb-2">
                     <span>{t('PAYOUT_STATE')}</span>
-                    <span><b>{formValues.state && getStateName(formValues.state) || ''}</b></span>
+                    <span className="text-right"><b>{formValues.state && getStateName(formValues.state) || ''}</b></span>
                 </div>}
 
                 <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}
@@ -170,7 +170,7 @@ const TransactionDetailsForm = (props) => {
                                 <Field
                                     name="amountUSD"
                                     type="number"
-                                    placeholder={ 'USD' }
+                                    placeholder={ '(USD)' }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
                                     component={ renderField }
                                 />

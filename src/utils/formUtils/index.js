@@ -92,6 +92,17 @@ const renderSelectField = (props) => {
             ...provided,
             display: 'none',
         }),
+        menu: (provided) => ({
+            ...provided,
+            borderRadius: '0 0 4px 4px',
+            marginTop: '5px',
+            padding: '0 5px',
+        }),
+        option: (provided) => ({
+            ...provided,
+            background: 'white',
+            color: '#000',
+        })
     }
 
     const changeValue=(event) => {
@@ -107,7 +118,6 @@ const renderSelectField = (props) => {
         <>
 
             <Select
-
                 className={ error && 'has-error' }
                 styles={ customSelect }
                 value={ selectedOption || getSelectedOption(input?.value) }
