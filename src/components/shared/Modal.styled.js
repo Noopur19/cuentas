@@ -19,7 +19,7 @@ const ModalWrapper = Styled.div`
             width: calc(50% - 5px);
             font-size: 14px;
             padding: 24px 3px;
-            margin: 0 5px;
+            margin: 0 2px;
         }
         h3 {
             font-weight: bold;
