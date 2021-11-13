@@ -14,6 +14,6 @@ source ~/.bashrc
 
 nvm use 10
 
-yarn install && yarn run build
+yarn install && yarn run build:stagging
 
 DIST_ID=${dist_id}  node bin/invalidate.js
