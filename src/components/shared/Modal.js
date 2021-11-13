@@ -9,6 +9,7 @@ import iosImage from 'images/ios.png'
 
 const Modal = (props) => {
     const {
+        hideRightButton,
         handleClose,
         icon,
         handleCancel,
@@ -30,13 +31,14 @@ const Modal = (props) => {
                             <a href={ STATIC_URLS.APP_IOS_URL }><img className='my-2' src={ iosImage } /></a>
                         </> :
                         <Button className="btn-close" onClick={ handleClose } > {leftButtonText || getCloseText() }</Button> }
-                    <Button className="btn-close" onClick={ handleCancel } outlined type='submit'>{rightButtonText || getCancelTransfer()}</Button>
+                    {!hideRightButton && <Button className="btn-close" onClick={ handleCancel } outlined type='submit'>{rightButtonText || getCancelTransfer()}</Button>}
                 </div>
             </div>
         </ModalWrapper>
     );
 };
 Modal.propTypes = {
+    hideRightButton: PropTypes.bool,
     icon: PropTypes.bool,
     handleClose: PropTypes.func,
     handleCancel: PropTypes.func,

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Card } from '../shared/Footer.styled'

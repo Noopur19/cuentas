@@ -30,6 +30,7 @@ const RewardNumberPage = (props) => {
     const onSubmit = (values) => {
         if (values.WUNumber) {
             checked && setLocalData('myWUNumber',values?.WUNumber)
+            setLocalData('myWUNumberTemp',  values?.WUNumber )
             dispatch(postWUNumber(values.WUNumber));
         }else{
             removeLocalData('myWUNumber')
@@ -60,6 +61,7 @@ const RewardNumberPage = (props) => {
 
         dispatch(change('WUNumber',''))
         removeLocalData('myWUNumber')
+        removeLocalData('myWUNumberTemp')
         history.push('/protect-form')
 
     }
@@ -94,7 +96,7 @@ const RewardNumberPage = (props) => {
                         {formValues?.values?.WUNumber ? <Button outlined className="w-100 m-auto"  type='submit'>{t('CONTINUE_WITH_MY_WU_NUMBER')}</Button>:  <Link outline bold to={ '#!' }>{t('ENTER_MY_WU_NUMBER')}</Link>}
                         <p className="description mt-3">{ getParseHtmlArticle('wu_131') }</p>
                         <LinkText className="register">{t('NO_MY_WU_REWARDS')} <Link className="link" bold color="textOrange" onClick={ () =>   window.open( STATIC_URLS.registerLink) }  to={ '#!' }>{t('CLICK_HEAR_TO_REGISTER')}</Link></LinkText>
-                        <a className='btn btn-primary doTjAQ' onClick={ continueWithoutMYWU } to='/#' shadow >{t('Continue without MyWU')}</a>
+                        <a className='btn btn-primary btn-p' onClick={ continueWithoutMYWU } to='/#' shadow >{t('Continue without MyWU')}</a>
                     </div>
                     <Card className="main-card">
                         <CardFooter></CardFooter>

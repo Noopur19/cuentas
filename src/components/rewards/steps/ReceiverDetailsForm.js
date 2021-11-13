@@ -30,8 +30,7 @@ const ReceiverDetailsForm = (props) => {
     const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
     const [ disableSubmit, setDisableSubmit ] = useState(false);
-    const myWUNumber  = getLocalData('myWUNumber')
-
+    const myWUNumber  = getLocalData('myWUNumber') || getLocalData('myWUNumberTemp')
     // const resetForm = () => {
     //     initialize({
     //         firstName: null,

@@ -16,7 +16,7 @@ import Steps from './steps.styles'
 const RewardsStep = () => {
     const dispatch = useDispatch()
     const [ step, setStep ] = useState(1)
-    const myWUNumber  = getLocalData('myWUNumber')
+    const myWUNumber  = getLocalData('myWUNumber') || getLocalData('myWUNumberTemp')
 
     const receivers = myWUNumber && useSelector((state) => state.receiver.receivers ) || []
 
@@ -28,7 +28,9 @@ const RewardsStep = () => {
     useEffect(() => {
         window.addEventListener('load', handleLoad);
         return () => {
+            localStorage.removeItem('myWUNumberTemp')
             window.removeEventListener('load', handleLoad);
+
         }
     },[])
 

@@ -652,7 +652,7 @@ export const TRANSLATIONS_EN = {
     'SCAN': 'Scan',
     'BAR_CODE_SCAN_MODAL_HEADING': 'Bill Pay Mexico',
     'BAR_CODE_SCAN_MODAL_DESCRIPTION': 'To find your <account number>, locate a copy of your bill, and look for the highlighted area below \n \n You may also scan the provided bar code',
-    'TRANSACTION_COMPLETE': 'Tu transacción está completa',
+    'TRANSACTION_COMPLETE': 'Your transaction is complete',
     'TRANSACTION_COMPLETE_SUBTEXT': 'Please close your browser or click here to go back to your Cuentas app',
     'GO_BACK_TO_APP': 'Go back to app',
     'OOPS_ERROR': 'Oops! Something went wrong.',

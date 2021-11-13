@@ -9,6 +9,7 @@ import history from 'utils/history'
 import { getAllArticles } from 'middleware/articles';
 import queryString from 'query-string';
 import { setLocalData } from 'utils/cache'
+import { useTranslation } from 'react-i18next';
 import _ from 'lodash'
 import { geolocated } from 'react-geolocated';
 const publicIp = require('public-ip');
@@ -17,6 +18,7 @@ import PropTypes from 'prop-types';
 var CryptoJS = require('crypto-js');
 
 const LandingPage = (props) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const articles = useSelector((state) => state.articles.articles)
     setLocalData('latlong',`${ props?.coords?.latitude }-${ props?.coords?.longitude }`)
@@ -27,12 +29,10 @@ const LandingPage = (props) => {
         const  params = queryString.parse(propsData.location.search)
         const { access_token , incomm_headers } = params
         incomm_headers && await setLocalData('incomm_headers',incomm_headers)
-        const replaceAccessToken = access_token.replace(/ /g,'+');
+        const replaceAccessToken = access_token?.replace(/ /g,'+') || ''
         var bytes  = CryptoJS.AES.decrypt(replaceAccessToken, process.env.REACT_APP_SECRET_KEY);
         var accessToken = getAccessTokenBytes(bytes)
-        console.log(accessToken)
-        //await dispatch(login('cuentasalert22@mailinator.com','Test@1234'))
-        await dispatch(login(accessToken))
+        await dispatch(login(accessToken,t))
         _.isEmpty(articles) && dispatch(getAllArticles())
         const incomeId = getUser()?.additional_properties?.incomm_customer_id?.value
         dispatch(getIncomeDetails(incomeId))
@@ -43,6 +43,7 @@ const LandingPage = (props) => {
 }
 LandingPage.propTypes = {
     incomm_headers: PropTypes.string,
+    coords: PropTypes.object,
     preferred_language: PropTypes.string,
     access_token: PropTypes.string
 };

@@ -10,7 +10,7 @@ import { getStoreDetails, getUserDetails } from './user';
 import history from 'utils/history'
 // import axiosInstance from 'services/api';
 // const querystring = require('querystring')
-export const login = (access_token) => {
+export const login = (access_token, t) => {
     return async(dispatch) => {
         dispatch(loginRequest())
         if(access_token){
@@ -20,15 +20,15 @@ export const login = (access_token) => {
             //     grant_type: 'password',
             //     client_id: 'knetik'
             // }))
-            //setLocalData('accessToken', result.data.access_token)
+            // setLocalData('accessToken', result.data.access_token)
             setLocalData('accessToken', access_token)
-            await dispatch(getUserDetails())
+            await dispatch(getUserDetails(t))
             await dispatch(getStoreDetails())
             dispatch(loginSuccess(access_token))
         }else{
             history.push('/error')
             dispatch(loginFailed(access_token))
-            notification('error','Sorry token has been expired')
+            notification('error',t('SESSION_TIMEOUT'))
         }
 
     }

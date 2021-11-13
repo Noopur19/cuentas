@@ -14,6 +14,7 @@ const ErrorPage = () => {
         <Modal
             show={ isOpen }
             icon={ true }
+            hideRightButton={ true }
             handleCancel={ () => toggleModal() }
             rightButtonText={ t('CLOSE_TEXT') }
         >
