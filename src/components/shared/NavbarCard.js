@@ -3,7 +3,6 @@ import { HeaderCard } from './Navbar.styled';
 import { useDispatch, useSelector } from 'react-redux'
 import historyIcon from '../../images/historyIcon.png';
 import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
-import history from 'utils/history';
 import moment from 'moment'
 import Modal from 'components/shared/Modal';
 import { postCancelTransaction } from 'middleware/transactionDetails';
@@ -16,15 +15,15 @@ const NavbarCard = () => {
     const dispatch = useDispatch()
     const transactions = useSelector((state) => state.transactionHistory?.invoices)
     const enquiry = useSelector((state) => state.transactionHistory?.enquiryDetails)
-
-    const filteredTransaction = transactions?.content?.filter((invoices) => invoices.id === +history.location.pathname.match(/\d+/g)[ 0 ]) [ 0 ];
-    const receiver = JSON.parse(filteredTransaction?.additional_properties.receiver.value)
-    const sender = JSON.parse(filteredTransaction?.additional_properties.sender.value)
+    const invoice = useSelector((state) => state.transactionHistory.invoiceDetails)
+    const filteredTransaction = invoice
+    const receiver = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties.receiver.value)
+    const sender = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties.sender.value)
     const mtcn = filteredTransaction?.additional_properties.mtcn.value
-    const currencyCode = JSON.parse(filteredTransaction?.additional_properties?.payment_details?.value).origination?.currency_iso_code
-    const dateTime = JSON.parse(filteredTransaction?.additional_properties?.transaction_response?.value).response.date_time
-    const date = (dateTime.split('T')[ 0 ]).trim();
-    const time = dateTime.substring(dateTime.indexOf('T') + 1)
+    const currencyCode = filteredTransaction &&  JSON.parse(filteredTransaction?.additional_properties?.payment_details?.value).origination?.currency_iso_code
+    const dateTime = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties?.transaction_response?.value).response.date_time
+    const date = (dateTime && dateTime.split('T')[ 0 ])?.trim();
+    const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
     const formattedDate = moment(date).format('DD MMMM,YYYY')
 
     const toggleModal = () => {

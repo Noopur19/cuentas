@@ -2,10 +2,10 @@ import React,{ useState } from 'react'
 import { getLocalData } from 'utils/cache'
 import PropTypes from 'prop-types';
 import moment from 'moment'
-import { useSelector,useDispatch } from 'react-redux'
-import { getCurrencySymbol, getCancelTransfer, getTransactionStatus, getCloseText } from 'utils/helpers';
-import { postCancelTransaction } from 'middleware/transactionDetails';
-import Modal from 'components/shared/Modal';
+import { useSelector } from 'react-redux'
+import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
+// import { postCancelTransaction } from 'middleware/transactionDetails';
+// import Modal from 'components/shared/Modal';
 import BorderTitle from '../../shared/BorderTitle.styled'
 import historyIcon from '../../../images/historyIcon.png'
 import { AdditionalDetailWrap } from './transactionHistory.styled'
@@ -14,8 +14,7 @@ import { useTranslation } from 'react-i18next';
 const AdditionalDetails = (props) => {
     const { t } = useTranslation()
 
-    const { transactions, receiver, sender, mtcn } = props;
-    const dispatch = useDispatch()
+    const { transactions } = props;
 
     const [ isOpen, setIsOpen ] = useState(false);
     const myWUNumber  = getLocalData('myWUNumber')
@@ -29,38 +28,9 @@ const AdditionalDetails = (props) => {
     const currencyCode = transactions && JSON.parse(transactions.additional_properties?.payment_details?.value).origination?.currency_iso_code
     const amountPaid = transactions && transactions?.additional_properties?.amount?.value
 
-    const cancelTransData = {
-        'amount': transactions?.additional_properties?.amount?.value || null,
-        'invoiceId': transactions?.id || null,
-        'transactionId': transactions?.additional_properties?.transaction_id?.value || null,
-        'mtcn': transactions?.additional_properties?.mtcn?.value || null,
-    }
-
     const toggleModal = () => {
         getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
             setIsOpen(!isOpen) : setIsOpen(isOpen) ;
-    }
-
-    const onCancelHandler = () => {
-        dispatch(postCancelTransaction(cancelTransData, receiver, sender, mtcn))
-        toggleModal()
-    }
-
-    const renderModal = () => {
-        return (
-            <Modal
-                show={ isOpen }
-                handleClose={ () => toggleModal() }
-                handleCancel={ () => onCancelHandler() }
-                leftButtonText={ getCloseText() }
-                rightButtonText={ getCancelTransfer() }
-            >
-                <h3>{t('STATUS_PENDING')}</h3>
-                <h4>(MTCN){transactions && transactions?.additional_properties?.mtcn?.value}</h4>
-                <p>{t('CANCEL_CONFIRMATION')}</p>
-
-            </Modal>
-        )
     }
 
     return (
@@ -123,7 +93,7 @@ const AdditionalDetails = (props) => {
                         </div>
                     }
                 </div>
-            </AdditionalDetailWrap> {renderModal()}</>
+            </AdditionalDetailWrap> </>
     )
 }
 

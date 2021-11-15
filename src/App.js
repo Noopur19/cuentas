@@ -11,7 +11,6 @@ import TransactionHistory from 'components/transactionDetails/transactionHistory
 import TransactionHistoryDetails from 'components/transactionDetails/transactionHistory/view';
 import ErrorPage from 'components/ErrorPage'
 import Success from 'components/success/index';
-
 function App() {
     return (
         <Layout className="main-layout">

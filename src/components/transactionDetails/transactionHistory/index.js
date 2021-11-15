@@ -18,7 +18,7 @@ const TransactionHistory = () => {
     const transactions = useSelector((state) => state.transactionHistory.invoices)
 
     const onClickHandler = (invoices) => {
-        history.push(`/transaction-history-details/${ invoices.id }`)
+        history.push(`/transaction-history/${ invoices.id }`)
     }
 
     const renderCard = () => {

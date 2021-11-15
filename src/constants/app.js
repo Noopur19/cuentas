@@ -11,7 +11,7 @@ export const STATIC_URLS = {
     faqs : (locale) => `https://www.westernunion.com/us/${ locale }/privacy-statement.html`,
     APP_ANDROID_URL: 'https://play.google.com/store/apps/details?id=com.knetik.cuentas.ngh',
     APP_IOS_URL: 'https://apps.apple.com/us/app/cuentas-prepaid-mastercard/id1483994878?ls=1',
-    APP_ANDROID_BACK_URL: 'https://hello.cuentas.com/apps',
+    APP_ANDROID_BACK_URL: 'https://www.cuentas.com',
     APP_IOS_BACK_URL: 'CuentasApp://'
 
 }

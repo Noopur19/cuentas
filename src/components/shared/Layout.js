@@ -13,7 +13,9 @@ export const Layout = (props) => {
         return [ ROUTES.RECEIVER_DETAILS ].includes(history.location.pathname)
     }
     const activeCard = () =>{
-        return history?.location?.pathname?.match('transaction-history-details')
+        // eslint-disable-next-line no-useless-escape
+        return history?.location?.pathname?.match(new RegExp('^/transaction-history\/\\d'))
+
     }
 
     const successCard = () =>{
