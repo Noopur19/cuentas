@@ -18,7 +18,7 @@ import { change } from 'redux-form'
 import { getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { useTranslation } from 'react-i18next';
-import { getStateCd, getStateName } from 'utils/helpers'
+import { getStateCd, getStateName, replaceNaN } from 'utils/helpers'
 import { getTotalAmount, getErrorInsuff, getTrasactionTypeOnHandle } from 'utils/helpers'
 import { notification } from 'services/notification';
 const TransactionDetailsForm = (props) => {
@@ -76,7 +76,7 @@ const TransactionDetailsForm = (props) => {
             let amountData = exchangeRate*parseFloat(value)
             amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
-                amount: parseFloat(amountData).toFixed(4),
+                amount:  replaceNaN(parseFloat(amountData).toFixed(4)),
                 amountLastHandle: 'left'
             })
             initialize(obj)
@@ -84,7 +84,7 @@ const TransactionDetailsForm = (props) => {
             let amountData = parseFloat(value)/ exchangeRate
             amountData = amountData && parseFloat(amountData.toFixed(4))
             const obj = _.merge(formValues,{
-                amountUSD: parseFloat(amountData).toFixed(4),
+                amountUSD: replaceNaN(parseFloat(amountData).toFixed(4)),
                 amountLastHandle: 'right'
             })
             initialize(obj)

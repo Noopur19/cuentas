@@ -252,3 +252,7 @@ export const isIOSDevice = () => {
     const navigator = window.navigator
     return !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 }
+
+export const replaceNaN = (val) => {
+    return isNaN(val) ? '' : val
+}
