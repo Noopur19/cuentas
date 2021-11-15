@@ -33,8 +33,13 @@ const Navbar = (props)  => {
         <Nav>
             <div className="top-header">
                 <a href="#" onClick={ handleBack } ><img src={ backIcon } alt="back"/> </a>
-                <NavbarTitle>{t('SEND_MONEY_WITH_CUENTAS')}
-                    <i>{t('POWERED_BY_WESTERN_UNION')}</i>
+                <NavbarTitle className="main-title">
+                    <h3>{t('SEND_MONEY_WITH_CUENTAS')}
+                        <i>{t('POWERED_BY_WESTERN_UNION')}</i>
+                    </h3>
+                    <div className="card-top-header">
+                        <h5>Transactions Details</h5>
+                    </div>
                 </NavbarTitle>
                 <div className="blankIcon">
                     <a className="sentIcon" onClick={ () => onClickHandler() } href="#"><img src={ sentIcon } alt="back"/> </a>
@@ -59,7 +64,6 @@ const Navbar = (props)  => {
             <div className="success-head">
                 <h3>{t('SUCCESS')}</h3>
             </div>
-
         </Nav>
     )
 }

@@ -3,6 +3,7 @@ import Styled from 'styled-components'
 export const HistoryDetail = Styled.div`
     background: #fff;
     margin: 30px -22px;
+    margin-bottom: 0; 
     padding: 4px 25px;
     border-radius: 25px 25px0 0;
     .info {

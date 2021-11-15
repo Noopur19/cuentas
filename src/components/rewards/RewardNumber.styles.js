@@ -1,7 +1,8 @@
 import Styled from 'styled-components'
 
 const RewardNumber = Styled.div`
-    height: calc(100vh - 81px);
+    height: calc(100vh - 48px);
+    padding-top: 107px;
     h3 {
         // padding: 20px 24px 0;
         background: ${ props => props.theme.light };
@@ -17,7 +18,7 @@ const RewardNumber = Styled.div`
         }
         .register {
             flex-wrap: wrap;
-            padding: 0 24px;
+            justify-content: flex-start;
         }
         .description {
             line-height: 21px;

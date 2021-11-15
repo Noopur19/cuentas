@@ -46,6 +46,12 @@ const StyledContainer = Styled.div`
             display: block;
          }
       }
+      .card-top-header {
+         display: block;
+      }
+      .main-title h3{
+         display: none;
+      }
    }
    .transactionHistoryDetail {
       padding-bottom: 0;

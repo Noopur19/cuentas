@@ -59,6 +59,11 @@ const SuccessDetail = Styled.div`
                     &:nth-of-type(2){
                         margin-right: 0;
                     }
+                    @media (max-width: 395px) {
+                        width: 100%;
+                        margin: 0;
+                        margin-bottom: 10px;
+                    }
                 }
                 .cancel {
                     position: absolute;

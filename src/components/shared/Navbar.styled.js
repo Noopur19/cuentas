@@ -1,24 +1,39 @@
 import Styled from 'styled-components';
 import bgImage from '../../images/header-img.png'
 
-export const NavbarTitle = Styled.h3`
-    text-align: center;
-    color: ${ (props) => props.theme.white };
-    font-size: 18px;
-    margin-bottom: 0;
-    i {
-        font-size: 12px;
-        line-height: 1;
-        display: block;
-        text-align: right;
+export const NavbarTitle = Styled.div`
+    h3{
+        text-align: center;
+        color: ${ (props) => props.theme.white };
+        font-size: 18px;
+        margin-bottom: 0;
+        i {
+            font-size: 12px;
+            line-height: 1;
+            display: block;
+            text-align: right;
+        }
+    }
+    .card-top-header {
+        display: none;
+        h5 {
+            text-align: center;
+            color: ${ (props) => props.theme.white };
+            font-size: 18px;
+            margin-bottom: 0;
+        }
     }
 `;
 export const Nav = Styled.nav`
     background-image: url(${ bgImage });
     background-repeat: no-rerpeat;
     background-size: cover;
-    width: 100%;
+    max-width: 600px;
     z-index: 1;
+    position: fixed;
+    top: 0;
+    left:0;right:0;
+    margin: auto;
     .top-header {
         display: flex;
         flex-wrap: wrap;
@@ -123,6 +138,7 @@ export const HeaderCard = Styled.div`
             line-height: 17px;
             color: rgb(0 0 0 / 90%);
             text-align: left;
+            color: ${ props => props.theme.success };
         }
     }
     .amount-img {
