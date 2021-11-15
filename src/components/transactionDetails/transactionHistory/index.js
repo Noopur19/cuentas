@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTransactionHistory, getInvoiceDetails } from 'middleware/transactionDetails'
+import { getTransactionHistory } from 'middleware/transactionDetails'
 import history from 'utils/history'
 import moment from 'moment'
 import { Card } from '../../shared/Footer.styled'
@@ -10,6 +10,7 @@ import HistoryCard from '../HistoryCard.styled'
 import BorderTitle from '../../shared/BorderTitle.styled'
 import historyIcon from '../../../images/historyIcon.png'
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 
 const TransactionHistory = () => {
     const { t } = useTranslation()
@@ -56,7 +57,7 @@ const TransactionHistory = () => {
 
     useEffect(async () => {
         _.isEmpty(transactions) && await dispatch(getTransactionHistory(t))
-        dispatch(getInvoiceDetails())
+        //  dispatch(getInvoiceDetails(props.match.params.id))
     }, [])
 
     return (
@@ -70,5 +71,9 @@ const TransactionHistory = () => {
         </Card>
     )
 }
+
+TransactionHistory.propTypes = {
+    match: PropTypes.object
+};
 
 export default TransactionHistory

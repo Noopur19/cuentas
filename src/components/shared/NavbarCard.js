@@ -16,12 +16,11 @@ const NavbarCard = () => {
     const transactions = useSelector((state) => state.transactionHistory?.invoices)
     const enquiry = useSelector((state) => state.transactionHistory?.enquiryDetails)
     const invoice = useSelector((state) => state.transactionHistory.invoiceDetails)
-    const filteredTransaction = invoice
-    const receiver = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties.receiver.value)
-    const sender = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties.sender.value)
-    const mtcn = filteredTransaction?.additional_properties.mtcn.value
-    const currencyCode = filteredTransaction &&  JSON.parse(filteredTransaction?.additional_properties?.payment_details?.value).origination?.currency_iso_code
-    const dateTime = filteredTransaction && JSON.parse(filteredTransaction?.additional_properties?.transaction_response?.value).response.date_time
+    const receiver = invoice && JSON.parse(invoice?.additional_properties.receiver.value)
+    const sender = invoice && JSON.parse(invoice?.additional_properties.sender.value)
+    const mtcn = invoice?.additional_properties.mtcn.value
+    const currencyCode = invoice &&  JSON.parse(invoice?.additional_properties?.payment_details?.value).origination?.currency_iso_code
+    const dateTime = invoice && JSON.parse(invoice?.additional_properties?.transaction_response?.value).response.date_time
     const date = (dateTime && dateTime.split('T')[ 0 ])?.trim();
     const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
     const formattedDate = moment(date).format('DD MMMM,YYYY')
@@ -32,10 +31,10 @@ const NavbarCard = () => {
     }
 
     const cancelTransData = {
-        'amount': filteredTransaction?.additional_properties?.amount?.value || null,
-        'invoiceId': filteredTransaction?.id || null,
-        'transactionId': filteredTransaction?.additional_properties?.transaction_id?.value || null,
-        'mtcn': filteredTransaction?.additional_properties?.mtcn?.value || null,
+        'amount': invoice?.additional_properties?.amount?.value || null,
+        'invoiceId': invoice?.id || null,
+        'transactionId': invoice?.additional_properties?.transaction_id?.value || null,
+        'mtcn': invoice?.additional_properties?.mtcn?.value || null,
     }
 
     const onCancelHandler = () => {
@@ -49,6 +48,8 @@ const NavbarCard = () => {
                 show={ isOpen }
                 handleClose={ () => toggleModal() }
                 handleCancel={ () => onCancelHandler() }
+                leftButtonText={ t('CLOSE_TEXT') }
+                rightButtonText={ t('CANCEL_TRANSFER') }
             >
                 <h3>{t('STATUS_PENDING')}</h3>
                 <h4>(MTCN){transactions?.additional_properties?.mtcn.value}</h4>
@@ -61,7 +62,7 @@ const NavbarCard = () => {
         <HeaderCard className="header-card">
             <div className="amount-paid">
                 <h2>{t('AMOUNT_PAID')}</h2>
-                <span>{getCurrencySymbol(currencyCode)} {filteredTransaction?.additional_properties?.amount?.value}</span>
+                <span>{getCurrencySymbol(currencyCode)} {invoice?.additional_properties?.amount?.value}</span>
                 <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
             </div>
             <div className="amount-img">

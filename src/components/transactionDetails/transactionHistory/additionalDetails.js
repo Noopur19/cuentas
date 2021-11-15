@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
-// import { postCancelTransaction } from 'middleware/transactionDetails';
-// import Modal from 'components/shared/Modal';
 import BorderTitle from '../../shared/BorderTitle.styled'
 import historyIcon from '../../../images/historyIcon.png'
 import { AdditionalDetailWrap } from './transactionHistory.styled'
