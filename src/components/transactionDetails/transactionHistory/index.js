@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTransactionHistory } from 'middleware/transactionDetails'
+import { getTransactionHistory, getInvoiceDetails } from 'middleware/transactionDetails'
 import history from 'utils/history'
 import moment from 'moment'
 import { Card } from '../../shared/Footer.styled'
@@ -56,6 +56,7 @@ const TransactionHistory = () => {
 
     useEffect(async () => {
         _.isEmpty(transactions) && await dispatch(getTransactionHistory(t))
+        dispatch(getInvoiceDetails())
     }, [])
 
     return (

@@ -42,6 +42,12 @@ export default (state = initialState, action) => {
         return { ...state, confirmLoading: false , confirmDetails: action.payload };
     case ActionTypes.POST_CONFIRM_TRANSFER_FAILED:
         return { ...state, confirmLoading: false };
+    case ActionTypes.GET_INVOICE_DETAILS_REQUEST:
+        return { ...state, invoiceLoading: true };
+    case ActionTypes.GET_INVOICE_DETAILS_SUCCESS:
+        return { ...state, invoiceLoading: false , invoiceDetails: action.payload };
+    case ActionTypes.GET_INVOICE_DETAILS_FAILED:
+        return { ...state, invoiceLoading: false };
     default:
         return state;
     }

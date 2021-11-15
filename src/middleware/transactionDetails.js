@@ -14,7 +14,10 @@ import {
     postCancelTransactionFailed,
     postConfirmTransferRequest,
     postConfirmTransferSuccess,
-    postConfirmTransferFailed
+    postConfirmTransferFailed,
+    getInvoiceDetailsRequest,
+    getInvoiceDetailsSuccess,
+    getInvoiceDetailsFailed
 } from 'actions/transaction-details';
 import { getUser } from 'utils/helpers'
 import { getIncommHeaders } from 'utils/helpers'
@@ -144,6 +147,19 @@ export const postConfirmTransfer = (data, finalAmount, stores, t) => {
             }).catch((error) => {
                 dispatch(postConfirmTransferFailed(error))
                 notification('error',GET_ERROR_FIELD.ERROR(error))
+            })
+    }
+}
+
+export const getInvoiceDetails = (invoiceId) => {
+    return (dispatch) => {
+        dispatch(getInvoiceDetailsRequest())
+        axiosInstance.get(`/invoices/${ invoiceId }`)
+            .then((response) => {
+                dispatch(getInvoiceDetailsSuccess(response.data))
+                response?.result[ 0 ]?.responseMessage &&  notification('error',response?.result[ 0 ]?.responseMessage)
+            }).catch((error) => {
+                dispatch(getInvoiceDetailsFailed(error))
             })
     }
 }

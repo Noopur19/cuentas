@@ -74,3 +74,18 @@ export const postConfirmTransferFailed = () => {
         type: ActionTypes.POST_CONFIRM_TRANSFER_FAILED,
     }
 }
+
+export const getInvoiceDetailsRequest = () => {
+    return { type: ActionTypes.GET_INVOICE_DETAILS_REQUEST }
+}
+export const getInvoiceDetailsSuccess = (response) => {
+    return {
+        type: ActionTypes.GET_INVOICE_DETAILS_SUCCESS,
+        payload: response
+    }
+}
+export const getInvoiceDetailsFailed = () => {
+    return {
+        type: ActionTypes.GET_INVOICE_DETAILS_FAILED,
+    }
+}
