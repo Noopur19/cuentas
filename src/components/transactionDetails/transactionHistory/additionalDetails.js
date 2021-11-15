@@ -79,11 +79,12 @@ const AdditionalDetails = (props) => {
                         <p>{t('TIME_OF_TRANSACTION')}</p>
                         <span>{formattedTime}</span>
                     </div>
+                    {myWUNumber &&
                     <div className="d-flex justify-content-between info">
                         <p>{t('MY_WU_NUMBER')}</p>
                         <span>{myWUNumber}
                         </span>
-                    </div>
+                    </div>}
                     {transactions?.additional_properties?.total_points?.value &&
                         <div className="d-flex justify-content-between info">
                             <p>{t('TOTAL_POINTS')}</p>

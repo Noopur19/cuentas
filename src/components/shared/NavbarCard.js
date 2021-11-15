@@ -62,7 +62,7 @@ const NavbarCard = () => {
         <HeaderCard className="header-card">
             <div className="amount-paid">
                 <h2>{t('AMOUNT_PAID')}</h2>
-                <span>{getCurrencySymbol(currencyCode)} {invoice?.additional_properties?.amount?.value}</span>
+                <span>- {getCurrencySymbol(currencyCode)} {invoice?.additional_properties?.amount?.value}</span>
                 <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
             </div>
             <div className="amount-img">

@@ -57,7 +57,6 @@ const TransactionHistory = () => {
 
     useEffect(async () => {
         _.isEmpty(transactions) && await dispatch(getTransactionHistory(t))
-        //  dispatch(getInvoiceDetails(props.match.params.id))
     }, [])
 
     return (

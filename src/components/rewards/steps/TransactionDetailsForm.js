@@ -128,13 +128,13 @@ const TransactionDetailsForm = (props) => {
                     <span>{t('PAYOUT_COUNTRY')}</span>
                     <span className="text-right"><b> {country?.country || ''}</b></span>
                 </div>
-                {formValues.city && <div className="d-flex justify-content-between pb-2">
-                    <span>{t('PAYOUT_CITY')}</span>
-                    <span><b> {formValues.city || ''} </b></span>
-                </div>}
                 {formValues.state && <div className="d-flex justify-content-between pb-2">
                     <span>{t('PAYOUT_STATE')}</span>
                     <span className="text-right"><b>{formValues.state && getStateName(formValues.state) || ''}</b></span>
+                </div>}
+                {formValues.city && <div className="d-flex justify-content-between pb-2">
+                    <span>{t('PAYOUT_CITY')}</span>
+                    <span><b> {formValues.city || ''} </b></span>
                 </div>}
 
                 <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}

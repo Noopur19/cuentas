@@ -169,7 +169,7 @@ const Success = () => {
                 rightButtonText={ t('CLOSE_TEXT') }
             >
                 <a className="cancel">
-                    <img src={ Vector } alt="back"/>
+                    <img src={ Vector }  onClick={ () => toggleModal() } alt="back"/>
                 </a>
                 <h3>{t('TRANSACTION_COMPLETE')}</h3>
                 <p>{t('TRANSACTION_COMPLETE_SUBTEXT')}</p>
@@ -197,31 +197,30 @@ const Success = () => {
                 <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
-                <div className="d-flex justify-content-between info">
+                {formattedDate && <div className="d-flex justify-content-between info">
                     <p>{t('DATE_OF_TRANSACTION')}</p>
                     <span><b>{formattedDate}</b>
                     </span>
-                </div>
+                </div>}
 
-                <div className="d-flex justify-content-between info">
+                {formattedTime && <div className="d-flex justify-content-between info">
                     <p>{t('TIME_OF_TRANSACTION')}</p>
                     <span><b>{formattedTime}</b>
                     </span>
-                </div>
+                </div>}
 
-                { myWUNumber &&
-                <div className="d-flex justify-content-between info">
+                {myWUNumber && <div className="d-flex justify-content-between info">
                     <p>{t('MY_WU_NUMBER')}</p>
                     <span><b>{myWUNumber}</b>
                     </span>
                 </div>}
 
-                { getTotalPoints() &&
-                <div className="d-flex justify-content-between info">
-                    <p>{t('TOTAL_POINTS')}</p>
-                    <span><b>{getTotalPoints()}</b>
-                    </span>
-                </div>}
+                {
+                    <div className="d-flex justify-content-between info">
+                        <p>{t('TOTAL_POINTS')}</p>
+                        <span><b>{getTotalPoints()}</b>
+                        </span>
+                    </div>}
 
                 {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
 
