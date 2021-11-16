@@ -82,7 +82,8 @@ export const getWUStore = (stores) => {
 
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
     const accountDetail = incomeDetail?.accountDetail
-    const myWUNumber  = getLocalData('myWUNumber')
+    const myWUNumber  = getLocalData('myWUNumberTemp')
+    console.log(myWUNumber);
     const receiver = {
         first_name: data?.firstName || '' ,
         middle_name: data?.middleName || '',

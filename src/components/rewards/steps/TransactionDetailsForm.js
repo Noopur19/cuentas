@@ -117,7 +117,7 @@ const TransactionDetailsForm = (props) => {
         <Card className="progress-card">
 
             <Transaction className="transaction">
-                <BorderTitle smallText><h3>{t('RECIVER_INFO')}
+                <BorderTitle smallText><h3>{t('RECEIVER_INFO')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
                 <div className="d-flex justify-content-between pb-2">

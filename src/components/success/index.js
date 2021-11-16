@@ -19,7 +19,7 @@ import Vector from '../../images/cancel.svg'
 const Success = () => {
     const { t } = useTranslation()
     const [ isOpen, setIsOpen ] = useState(false);
-    const myWUNumber  = getLocalData('myWUNumber')
+    const myWUNumber  = getLocalData('myWUNumberTemp')
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const confirmDetail = useSelector((state) => state.transactionHistory.confirmDetails)
     const countries = useSelector((state) => state.receiver.countries)
@@ -30,7 +30,7 @@ const Success = () => {
     const formattedTime = time && moment(time, 'hh:mm:ss').format('hh:mm A');
     const currencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'origination.currency_iso_code')
     const receiverCurrencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'destination.currency_iso_code')
-    const receiverDetail = useSelector((state) => state.receiver.receivers )
+    const receiverDetail = useSelector((state) => state.receiver.data )
 
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
@@ -143,11 +143,10 @@ const Success = () => {
 
     const getTotalPoints = () => {
         const newPointsEarned = confirmDetail && confirmDetail?.new_points_earned
-        let totalPoints = newPointsEarned ? newPointsEarned : 0;
-        if (myWUNumber && _.get(receiverDetail, 'wu_card.total_points_earned')) {
-            totalPoints =
-              parseInt(totalPoints) +
-              parseInt(_.get(receiverDetail, 'wu_card.total_points_earned'));
+        let totalPoints = newPointsEarned ? +newPointsEarned : 0;
+        const wuCard = _.get(receiverDetail, 'wu_card.total_points_earned')
+        if (myWUNumber && wuCard) {
+            totalPoints = totalPoints +  wuCard;
         }
         return totalPoints
     }
@@ -215,7 +214,7 @@ const Success = () => {
                     </span>
                 </div>}
 
-                {
+                {getTotalPoints() !== 0 &&
                     <div className="d-flex justify-content-between info">
                         <p>{t('TOTAL_POINTS')}</p>
                         <span><b>{getTotalPoints()}</b>

@@ -60,7 +60,7 @@ const ReceiverDetails = (props) => {
                     </span>
                 </div>
             }
-            <BorderTitle smallText className="mt-4"><h3>{t('RECIEVER_INFO')}
+            <BorderTitle smallText className="mt-4"><h3>{t('RECEIVER_INFO')}
                 <span className="underline"></span></h3>
             </BorderTitle>
 

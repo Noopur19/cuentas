@@ -25,7 +25,7 @@ const ConfirmTransfer = (props) => {
     const countries = useSelector((state) => state.receiver.countries )
     const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
-    const formattedDate = date && moment(date).format('DD MMMM,YYYY')
+    const formattedDate = date && moment(date).format('MMMM DD,YYYY')
 
     useEffect(() => {
         dispatch({

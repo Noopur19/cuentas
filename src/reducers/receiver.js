@@ -15,7 +15,10 @@ export default (state = initialState, action) => {
     case ActionTypes.GET_WU_NUMBER_REQUEST:
         return { ...state, loading: true };
     case ActionTypes.GET_WU_NUMBER_SUCCESS:
-        return { ...state,loading: false, isValid: true, receivers: action.payload.receiver };
+        return { ...state,loading: false, isValid: true,
+            receivers: action.payload.receiver ,
+            data: action.payload
+        };
     case ActionTypes.GET_WU_NUMBER_FAILED:
         return { ...state, loading: false, isValid: false };
     case ActionTypes.GET_COUNTRIES_REQUEST:

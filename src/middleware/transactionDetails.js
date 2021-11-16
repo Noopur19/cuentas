@@ -146,7 +146,7 @@ export const postConfirmTransfer = (data, finalAmount, stores, t) => {
                 }
             }).catch((error) => {
                 dispatch(postConfirmTransferFailed(error))
-                notification('error',GET_ERROR_FIELD.ERROR(error))
+                // notification('error',GET_ERROR_FIELD.ERROR(error))
             })
     }
 }

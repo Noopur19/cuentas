@@ -2,11 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import BorderTitle from '../../shared/BorderTitle.styled'
 import { useTranslation } from 'react-i18next';
+import { getCountryName } from 'utils/helpers';
+import { useSelector } from 'react-redux'
 
 const SenderDetails = (props) => {
     const { t } = useTranslation()
     const { transactions,  sender  } = props;
     const parsedSender = sender ||  transactions?.additional_properties?.sender?.value && JSON.parse(transactions?.additional_properties?.sender?.value)
+    const countries = useSelector((state) => state.receiver.countries )
 
     return (
         <div className="sender-info">
@@ -27,7 +30,7 @@ const SenderDetails = (props) => {
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('SENDER_STATE')}</p>
-                <span><b>{parsedSender?.address?.state}</b></span>
+                <span><b>{getCountryName(countries, parsedSender?.address.country_iso_code)}</b></span>
             </div>
             <div className="d-flex justify-content-between info">
                 <p>{t('SENDER_ZIP_CODE')}</p>
