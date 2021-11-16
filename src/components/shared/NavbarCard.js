@@ -1,63 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { HeaderCard } from './Navbar.styled';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import historyIcon from '../../images/historyIcon.png';
 import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
 import moment from 'moment'
-import Modal from 'components/shared/Modal';
-import { postCancelTransaction } from 'middleware/transactionDetails';
+
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const NavbarCard = () => {
+const NavbarCard = (props) => {
+    const { toggleModal } = props
     const { t } = useTranslation();
-    const [ isOpen, setIsOpen ] = useState(false);
-    const dispatch = useDispatch()
-    const transactions = useSelector((state) => state.transactionHistory?.invoices)
     const enquiry = useSelector((state) => state.transactionHistory?.enquiryDetails)
     const invoice = useSelector((state) => state.transactionHistory.invoiceDetails)
-    const receiver = invoice && JSON.parse(invoice?.additional_properties.receiver.value)
-    const sender = invoice && JSON.parse(invoice?.additional_properties.sender.value)
-    const mtcn = invoice?.additional_properties.mtcn.value
     const currencyCode = invoice &&  JSON.parse(invoice?.additional_properties?.payment_details?.value).origination?.currency_iso_code
     const dateTime = invoice && JSON.parse(invoice?.additional_properties?.transaction_response?.value).response.date_time
     const date = (dateTime && dateTime.split('T')[ 0 ])?.trim();
     const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
     const formattedDate = moment(date).format('DD MMMM,YYYY')
-
-    const toggleModal = () => {
-        console.log('called')
-        getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
-            setIsOpen(!isOpen) : setIsOpen(isOpen) ;
-    }
-
-    const cancelTransData = {
-        'amount': invoice?.additional_properties?.amount?.value || null,
-        'invoiceId': invoice?.id || null,
-        'transactionId': invoice?.additional_properties?.transaction_id?.value || null,
-        'mtcn': invoice?.additional_properties?.mtcn?.value || null,
-    }
-
-    const onCancelHandler = () => {
-        dispatch(postCancelTransaction(cancelTransData, receiver, sender, mtcn))
-        toggleModal()
-    }
-
-    const renderModal = () => {
-        return (
-            <Modal
-                show={ isOpen }
-                handleClose={ () => toggleModal() }
-                handleCancel={ () => onCancelHandler() }
-                leftButtonText={ t('CLOSE_TEXT') }
-                rightButtonText={ t('CANCEL_TRANSFER') }
-            >
-                <h3>{t('STATUS_PENDING')}</h3>
-                <h4>(MTCN){transactions?.additional_properties?.mtcn.value}</h4>
-                <h5>{t('CANCEL_CONFIRMATION')}</h5>
-            </Modal>
-        )
-    }
 
     return (
         <>
@@ -73,13 +33,13 @@ const NavbarCard = () => {
                 </div>
             </HeaderCard>
 
-            {renderModal()}
         </>
     )
 }
 
 NavbarCard.propTypes = {
     match: PropTypes.object,
+    toggleModal: PropTypes.func
 }
 
 export default NavbarCard
