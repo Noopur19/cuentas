@@ -25,7 +25,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-weight: normal;
 }
-
+.p-r{
+  float: right;
+}
 .btn-p{
   font-size: 1rem;
   font-weight: 500;

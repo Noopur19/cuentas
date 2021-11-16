@@ -58,7 +58,6 @@ const RewardNumberPage = (props) => {
     }
 
     const continueWithoutMYWU = () => {
-
         dispatch(change('WUNumber',''))
         removeLocalData('myWUNumber')
         removeLocalData('myWUNumberTemp')

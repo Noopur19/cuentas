@@ -22,13 +22,14 @@ const RewardsStep = () => {
 
     const handleLoad = () => {
         myWUNumber && dispatch(callMyNUNumber(myWUNumber))
+        localStorage.removeItem('myWUNumberTemp')
         const incomeId = getUser()?.additional_properties?.incomm_customer_id?.value
         dispatch(getIncomeDetails(incomeId))
     }
     useEffect(() => {
         window.addEventListener('load', handleLoad);
         return () => {
-            localStorage.removeItem('myWUNumberTemp')
+            //localStorage.removeItem('myWUNumberTemp')
             window.removeEventListener('load', handleLoad);
 
         }

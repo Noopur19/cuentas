@@ -15,7 +15,7 @@ import CardFooter from '../../shared/CardFooter'
 import PropTypes from 'prop-types';
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import { change } from 'redux-form'
-import { getParseHtmlArticle } from 'utils/helpers'
+import {  getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { useTranslation } from 'react-i18next';
 import { getStateCd, getStateName, replaceNaN } from 'utils/helpers'
@@ -113,6 +113,11 @@ const TransactionDetailsForm = (props) => {
     const handleChangeUSD = () => {
         dispatch(change('amountLastHandle','left'))
     }
+
+    const getCurrencyCd = (item) => {
+        const currencyCd = item?.currency && item?.currency [ 0 ]?.currency_cd
+        return currencyCd && `(${ currencyCd })`
+    }
     return (
         <Card className="progress-card">
 
@@ -149,7 +154,7 @@ const TransactionDetailsForm = (props) => {
                     { country?.currency && country?.currency.map((item, index) => {
                         return(
                             <div className="radio-wrapper">
-                                <label key={ index }> { item.currency }</label>
+                                <label key={ index }> { item.currency } { getCurrencyCd(country) }</label>
                                 <Field
                                     name="payoutCurrency"
                                     type="radio"

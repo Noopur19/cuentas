@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { change, Field, reduxForm } from 'redux-form';
+import { change, Field, reduxForm  } from 'redux-form';
 import { receiverFormSubmissionValidate as submissionValidate, receiverFormValidate as validate } from 'utils/validates'
 import { useDispatch, useSelector } from 'react-redux'
 import { renderField , renderSelectField } from 'utils/formUtils';
@@ -184,6 +184,7 @@ const ReceiverDetailsForm = (props) => {
                     <Footer>
                         <Button type='button' onClick={ () =>
                         {
+                            initialize({})
                             history.push(ROUTES.PROTECT_FORM)
                         } } >{ t('BACK') }</Button>
                         <Button outlined disabled={ disableSubmit } type='submit'>{t('CONTINUE')}</Button>

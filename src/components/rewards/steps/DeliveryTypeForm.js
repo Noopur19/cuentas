@@ -61,7 +61,7 @@ const DelievryTypeForm = (props) => {
         const delieveryType = values.deliveryType && JSON.parse(values.deliveryType)
         const charges = delieveryType?.payment_details?.fees?.charges && parseFloat(delieveryType?.payment_details?.fees?.charges) / 100
         return <div>
-            <span>{ delieveryType?.wu_product.name }  ${ parseFloat(charges).toFixed(2) }</span>
+            <span>{ delieveryType?.wu_product.name }  <span className='p-r'>${ parseFloat(charges).toFixed(2) }</span></span>
         </div>
     }
 
