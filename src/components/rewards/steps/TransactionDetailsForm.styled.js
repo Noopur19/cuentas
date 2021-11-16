@@ -15,6 +15,11 @@ export const Transaction = Styled.div`
             box-shadow: none;
         }
     }
+    .r-info {
+        span {
+            width: 50%;
+        }
+    }
     .converter {
         flex-wrap: wrap;
         input {

@@ -74,7 +74,6 @@ const RewardNumber = Styled.div`
             color: ${ props => props.theme.secondary };
             width: calc(30% - 15px);
             order: 2;
-            text-transform: capitalize;
         }
         
     }

@@ -17,6 +17,9 @@ export const Card = Styled.div`
   margin-top: -30px;
   padding-bottom: 113px; 
   z-index: 2;
+  @media (max-height: 440px) {
+    padding-bottom: 0px;
+  }
 `;
 
 export const FooterButton = Styled.footer`
@@ -34,6 +37,12 @@ export const FooterButton = Styled.footer`
   background: #FFFFFF;
   box-shadow: 0px 1px 20px 2px rgba(0, 0, 0, 0.25);
   z-index: 3;
+  @media (max-height: 440px) {
+    position: relative;
+    box-shadow: none;
+    padding: 20px 0;
+    border-top: 1px solid #dfdede;
+  }
   a {
     margin: auto;
     &:hover {

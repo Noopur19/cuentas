@@ -23,13 +23,13 @@ const SuccessDetail = Styled.div`
             font-weight: bold;
             font-size: 16px;
             line-height: 22px;
-            width: 60%
+            width: 50%
         }
         span{
             font-weight: bold;
             font-size: 16px;
             line-height: 22px;
-            width: 40%;
+            width: 50%;
             text-align: right;
             word-break: break-all;
         }

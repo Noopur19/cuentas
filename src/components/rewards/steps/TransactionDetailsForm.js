@@ -120,19 +120,19 @@ const TransactionDetailsForm = (props) => {
                 <BorderTitle smallText><h3>{t('RECEIVER_INFO')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
-                <div className="d-flex justify-content-between pb-2">
+                <div className="d-flex justify-content-between pb-2 r-info">
                     <span>{t('FULL_NAME')}</span>
                     <span className="text-right"><b>{`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</b></span>
                 </div>
-                <div className="d-flex justify-content-between pb-2">
+                <div className="d-flex justify-content-between pb-2 r-info">
                     <span>{t('PAYOUT_COUNTRY')}</span>
                     <span className="text-right"><b> {country?.country || ''}</b></span>
                 </div>
-                {formValues.state && <div className="d-flex justify-content-between pb-2">
+                {formValues.state && <div className="d-flex justify-content-between pb-2 r-info">
                     <span>{t('PAYOUT_STATE')}</span>
                     <span className="text-right"><b>{formValues.state && getStateName(formValues.state) || ''}</b></span>
                 </div>}
-                {formValues.city && <div className="d-flex justify-content-between pb-2">
+                {formValues.city && <div className="d-flex justify-content-between pb-2 r-info">
                     <span>{t('PAYOUT_CITY')}</span>
                     <span><b> {formValues.city || ''} </b></span>
                 </div>}
@@ -166,7 +166,7 @@ const TransactionDetailsForm = (props) => {
                     </BorderTitle>
                     { (formValues?.payoutCurrency || currencyChecked) !== 'USD' ?
                         <>
-                            <div className="converter d-flex justify-content-between pb-2">
+                            <div className="converter d-flex justify-content-between pb-2 r-info">
                                 <Field
                                     name="amountUSD"
                                     type="tel"
