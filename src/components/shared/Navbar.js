@@ -17,10 +17,11 @@ const Navbar = (props)  => {
     const history = useHistory();
 
     const { transactions } = props;
+
     const stepData =  useSelector((state) => state.theme.stepData)
     const dispatch = useDispatch()
     const onClickHandler = () => {
-        dispatch(postSendEmail(transactions.id))
+        dispatch(postSendEmail(transactions?.id))
     }
 
     const handleBack = () => {

@@ -26,6 +26,7 @@ const NavbarCard = () => {
     const formattedDate = moment(date).format('DD MMMM,YYYY')
 
     const toggleModal = () => {
+        console.log('called')
         getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
             setIsOpen(!isOpen) : setIsOpen(isOpen) ;
     }
@@ -59,18 +60,21 @@ const NavbarCard = () => {
     }
 
     return (
-        <HeaderCard className="header-card">
-            <div className="amount-paid">
-                <h2>{t('AMOUNT_PAID')}</h2>
-                <span>- {getCurrencySymbol(currencyCode)} {invoice?.additional_properties?.amount?.value}</span>
-                <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
-            </div>
-            <div className="amount-img">
-                <img className="img-fluid" src={ historyIcon } alt="history-icon" />
-                {renderModal()}
-                <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
-            </div>
-        </HeaderCard>
+        <>
+            <HeaderCard className="header-card">
+                <div className="amount-paid">
+                    <h2>{t('AMOUNT_PAID')}</h2>
+                    <span>- {getCurrencySymbol(currencyCode)} {invoice?.additional_properties?.amount?.value}</span>
+                    <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
+                </div>
+                <div className="amount-img">
+                    <img className="img-fluid" src={ historyIcon } alt="history-icon" />
+                    <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
+                </div>
+            </HeaderCard>
+
+            {renderModal()}
+        </>
     )
 }
 

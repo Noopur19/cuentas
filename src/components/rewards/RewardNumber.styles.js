@@ -10,7 +10,7 @@ const RewardNumber = Styled.div`
     .rewardWrapper {
         display: flex;
         flex-direction: column;
-        height: calc(100vh - 81px);
+        // height: calc(100vh - 81px);
         background: ${ props => props.theme.light };  
         button {
             margin: 0 24px;
@@ -30,7 +30,8 @@ const RewardNumber = Styled.div`
             position: unset;
             margin-top: 0;
             padding-top: 0;
-            padding-bottom: 50px;
+            height: auto;
+            overflow: unset;
         }
         > div:first-child {
             padding: 24px;

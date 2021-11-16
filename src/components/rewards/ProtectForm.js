@@ -23,11 +23,11 @@ const ProtectForm = () => {
                     <div className="card-link text-center">
                         <CardFooter></CardFooter>
                     </div>
+                    <Footer>
+                        <Button onClick={ () => history.push(ROUTES.ROOT) } >{t('CANCEL_TEXT')}</Button>
+                        <Button outlined onClick={ () => onClickHandler() } type='submit'>{t('AGREE_TEXT')}</Button>
+                    </Footer>
                 </Card>
-                <Footer>
-                    <Button onClick={ () => history.push(ROUTES.ROOT) } >{t('CANCEL_TEXT')}</Button>
-                    <Button outlined onClick={ () => onClickHandler() } type='submit'>{t('AGREE_TEXT')}</Button>
-                </Footer>
             </div>
         </>
     )

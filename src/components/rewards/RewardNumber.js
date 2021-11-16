@@ -7,7 +7,6 @@ import Button from '../shared/Button.styled'
 import Link from '../shared/Link.styled'
 import BorderTitle from '../shared/BorderTitle.styled'
 import LinkText from '../shared/LinkText.styled'
-import Footer from '../shared/Footer'
 import RewardNumber from './RewardNumber.styles'
 import { Card } from '../shared/Footer.styled'
 import CardFooter from '../shared/CardFooter'
@@ -101,9 +100,6 @@ const RewardNumberPage = (props) => {
                         <CardFooter></CardFooter>
                     </Card>
                 </ div>
-                <Footer>
-                    {/* <Link to='/protect-form' >{t('Continue without MyWU')}</Link> */}
-                </Footer>
             </form>
         </RewardNumber>
     )

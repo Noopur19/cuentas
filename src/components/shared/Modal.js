@@ -27,7 +27,7 @@ const Modal = (props) => {
                     {icon ?
                         <>
                             <a href={ STATIC_URLS.APP_ANDROID_URL }><img className='my-2' src={ googleImage } /></a>
-                            <a href={ STATIC_URLS.APP_IOS_URL }><img className='my-2' src={ iosImage } /></a>
+                            <a href={ STATIC_URLS.APP_IOS_URL }><img className='my-2 ml-2' src={ iosImage } /></a>
                         </> :
                         <Button className="btn-close" onClick={ handleClose } > {leftButtonText }</Button> }
                     {!hideRightButton && <Button className="btn-close" onClick={ handleCancel } outlined type='submit'>{rightButtonText}</Button>}
