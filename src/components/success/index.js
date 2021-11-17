@@ -125,7 +125,7 @@ const Success = () => {
     };
 
     const renderWUContactDetails = () => {
-        if (isDoddFrank() && postDeliveryDetails?.df_details) {
+        if (isDoddFrank() && !_.isEmpty(confirmDetail?.df_details)) {
             const {
                 state_agency_name,
                 csb_phone1,
@@ -134,8 +134,12 @@ const Success = () => {
                 cfb_phone1,
                 cfb_phone2,
                 cfb_url,
-            } = postDeliveryDetails.df_details;
-            return getWUContactInfo(state_agency_name,csb_phone1,csb_phone2,csb_url,cfb_phone1, cfb_phone2,cfb_url)
+            } = confirmDetail?.df_details;
+            return (
+                <>
+                    {getWUContactInfo(state_agency_name,csb_phone1,csb_phone2,csb_url,cfb_phone1, cfb_phone2,cfb_url)}
+                </>
+            )
         } else {
             return null;
         }
@@ -297,9 +301,6 @@ const Success = () => {
                 {getParseHtmlArticle('wu_117')}
                 {getParseHtmlArticle('wu_127')}
                 {
-                    postDeliveryDetails?.receiver?.address?.country_iso_code!=='US' &&
-                    postDeliveryDetails?.receiver?.address?.country_iso_code!=='USA' &&
-                    +postDeliveryDetails?.payment_details.origination.principal_amount > 1501 &&
                     <>
 
                         { renderWUContactDetails() }

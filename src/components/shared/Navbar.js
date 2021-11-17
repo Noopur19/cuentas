@@ -68,7 +68,7 @@ const Navbar = (props)  => {
                 rightButtonText={ t('CANCEL_TRANSFER') }
             >
                 <h3>{t('STATUS_PENDING')}</h3>
-                <h4>(MTCN){transactions?.additional_properties?.mtcn.value}</h4>
+                <h4>(MTCN){invoice?.additional_properties?.mtcn.value}</h4>
                 <h5>{t('CANCEL_CONFIRMATION')}</h5>
             </Modal>
         )

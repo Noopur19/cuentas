@@ -132,7 +132,7 @@ const TransactionDetailsForm = (props) => {
                 </div>}
                 {formValues.city && <div className="d-flex justify-content-between pb-2 r-info">
                     <span>{t('PAYOUT_CITY')}</span>
-                    <span><b> {formValues.city || ''} </b></span>
+                    <span className="text-right"><b> {formValues.city || ''} </b></span>
                 </div>}
 
                 <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}
