@@ -193,34 +193,6 @@ const Success = () => {
                 }
                 <span  className="small-text">{getParseHtmlArticle('wu_134')}</span>
 
-                <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}
-                    <span className="underline"></span></h3>
-                </BorderTitle>
-                {formattedDate && <div className="d-flex justify-content-between info">
-                    <p>{t('DATE_OF_TRANSACTION')}</p>
-                    <span><b>{formattedDate}</b>
-                    </span>
-                </div>}
-
-                {formattedTime && <div className="d-flex justify-content-between info">
-                    <p>{t('TIME_OF_TRANSACTION')}</p>
-                    <span><b>{formattedTime}</b>
-                    </span>
-                </div>}
-
-                {myWUNumber && <div className="d-flex justify-content-between info">
-                    <p>{t('MY_WU_NUMBER')}</p>
-                    <span><b>{myWUNumber}</b>
-                    </span>
-                </div>}
-
-                {getTotalPoints() !== 0 &&
-                    <div className="d-flex justify-content-between info">
-                        <p>{t('TOTAL_POINTS')}</p>
-                        <span><b>{getTotalPoints()}</b>
-                        </span>
-                    </div>}
-
                 {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
 
                 <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}
@@ -253,6 +225,57 @@ const Success = () => {
                     <span><b>{postDeliveryDetails?.receiver?.address.state}</b>
                     </span>
                 </div>}
+                <BorderTitle smallText className="mt-4"><h3>{t('TRANSACTION_DETAILS')}
+                    <span className="underline"></span></h3>
+                </BorderTitle>
+                {formattedDate && <div className="d-flex justify-content-between info">
+                    <p>{t('DATE_OF_TRANSACTION')}</p>
+                    <span><b>{formattedDate}</b>
+                    </span>
+                </div>}
+
+                {formattedTime && <div className="d-flex justify-content-between info">
+                    <p>{t('TIME_OF_TRANSACTION')}</p>
+                    <span><b>{formattedTime}</b>
+                    </span>
+                </div>}
+
+                {myWUNumber && <div className="d-flex justify-content-between info">
+                    <p>{t('MY_WU_NUMBER')}</p>
+                    <span><b>{myWUNumber}</b>
+                    </span>
+                </div>}
+
+                {getTotalPoints() !== 0 &&
+                    <div className="d-flex justify-content-between info">
+                        <p>{t('TOTAL_POINTS')}</p>
+                        <span><b>{getTotalPoints()}</b>
+                        </span>
+                    </div>}
+
+                <div className="d-flex justify-content-between info">
+                    <p>{t('TRANSFER_AMOUNT')}</p>
+                    <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount().toFixed(2)} {`(${ currencyCode })`}</span></div>
+                <div className="d-flex justify-content-between info">
+                    <p>{t('TRANSFER_FEES')}</p>
+                    <span>+{getCurrencySymbol(currencyCode)} {getTransferFee().toFixed(2)} {`(${ currencyCode })`}</span>
+                </div>
+                <div className="d-flex justify-content-between info">
+                    <p>{t('ADDITIONAL_FEES')}</p>
+                    <span>+{getCurrencySymbol(currencyCode)} {(0).toFixed(2)} {`(${ currencyCode })`}</span>
+                </div>
+                <div className="d-flex justify-content-between info">
+                    <p>{t('TRANSFER_TAXES')}</p>
+                    <span>+{getCurrencySymbol(currencyCode)} {getTotalTaxes().toFixed(2)} {`(${ currencyCode })`}</span>
+                </div>
+                <div className="d-flex justify-content-between info">
+                    <p>{t('PROMOTION_DISCOUNT')}</p>
+                    <span>-{getCurrencySymbol(currencyCode)} {getPromotionalDiscount().toFixed(2)} {`(${ currencyCode })`}</span>
+                </div>
+                <div className="d-flex justify-content-between info-heading">
+                    <h4>{t('TOTAL')}</h4>
+                    <span>-{getCurrencySymbol(currencyCode)} {getTotalAmount().toFixed(2)} {`(${ currencyCode })`}</span>
+                </div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('EXCHANGE_RATE')} </p>
                     <span>{getExchangeRate()}</span>
@@ -261,14 +284,15 @@ const Success = () => {
                     <p>{t('TRANSFER_AMOUNT')}</p>
                     <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
+                <div className="d-flex justify-content-between info">
+                    <p>{t('OTHER_FEES')}</p>
+                    <span>+{getCurrencySymbol(currencyCode)} {getOtherFee().toFixed(2)} {`(${ currencyCode })`}</span>
+                </div>
                 <div className="d-flex justify-content-between info-heading mt-3">
                     <h4 >{t('TOTAL_TO_RECEIVER')}</h4>
                     <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
-                <div className="d-flex justify-content-between info-heading">
-                    <h4>{t('TOTAL')}</h4>
-                    <span>-{getCurrencySymbol(currencyCode)} {getTotalAmount().toFixed(2)} {`(${ currencyCode })`}</span>
-                </div>
+
                 {getParseHtmlArticle('wu_117')}
                 {getParseHtmlArticle('wu_127')}
                 {
@@ -295,6 +319,7 @@ const Success = () => {
                     +postDeliveryDetails?.payment_details.origination.principal_amount < 1501 &&
                     getParseHtmlArticle('wu_105')
                 }
+                {getParseHtmlArticle('wu_116')}
                 {getParseHtmlArticle('wu_109')}
                 {getParseHtmlArticle('wu_110')}
                 {getParseHtmlArticle('wu_111')}
