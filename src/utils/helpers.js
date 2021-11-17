@@ -130,10 +130,10 @@ export const getLocalByTitle = (title) => {
 }
 
 export const getWUContactInfo = (val1,val2,val3,val4,val5,val6,val7) => {
-    locale() == 'en' ? `For questions or complaints about Western Union, contact:\nSending customer State regulatory name: ${ val1 }\nSending customer state regulatory phone #1: ${ val2 }\nSending customer state regulatory phone #2: ${ val3 }\nState regulatory agency website url: ${ val4 }\nConsumer Financial Protection Bureau CFPB phone #1: ${ val5 }\nCFPB phone #2: ${ val6 }\nCFPB website url: ${ val7 }` :
-        `Si tiene preguntas o quejas sobre Western Union, comuníquese con:\nNombre regulador del estado del cliente que envía: ${ val1 }\nEnvío de teléfono reglamentario del estado del cliente n. #1: ${ val2 }\nEnvío de teléfono reglamentario del estado del cliente #2: ${ val3 }\nURL del sitio web de la agencia reguladora estatal: ${ val4 }\nTeléfono CFPB de la Oficina de Protección Financiera del Consumidor #1: ${ val5 }\nTeléfono CFPB #2: ${ val6 }\nURL del sitio web de Safpub: ${ val7 }`
-
+    return locale() == 'en' ? `For questions or complaints about Western Union, contact: \nSending customer State regulatory name: ${ val1 } \nSending customer state regulatory phone #1: ${ val2 } \nSending customer state regulatory phone #2: ${ val3 } \nState regulatory agency website url: ${ val4 } \nConsumer Financial Protection Bureau CFPB phone #1: ${ val5 }\nCFPB phone #2: ${ val6 }\nCFPB website url: ${ val7 }` :
+        `Si tiene preguntas o quejas sobre Western Union, comuníquese con:\n Nombre regulador del estado del cliente que envía: ${ val1 }\nEnvío de teléfono reglamentario del estado del cliente n. #1: ${ val2 }\nEnvío de teléfono reglamentario del estado del cliente #2: ${ val3 }\nURL del sitio web de la agencia reguladora estatal: ${ val4 }\nTeléfono CFPB de la Oficina de Protección Financiera del Consumidor #1: ${ val5 }\nTeléfono CFPB #2: ${ val6 }\nURL del sitio web de Safpub: ${ val7 }`
 }
+
 export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
     const wustore = getWUStore(stores)
     return{
