@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { reduxForm } from 'redux-form';
 import Button from 'components/shared/Button.styled'
@@ -26,12 +26,31 @@ const ConfirmTransfer = (props) => {
     const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
     const formattedDate = date && moment(date).format('MMMM DD,YYYY')
+    const [ scrollBottom, setScrollBottom ] = useState(false)
+
+    const  isInViewport = (el) => {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    const handleScroll = () => {
+        const element = document.querySelector('.card-link')
+        setScrollBottom(isInViewport(element))
+    }
 
     useEffect(() => {
+        document.querySelector('.progress-card').addEventListener('scroll', handleScroll)
         dispatch({
             type: GET_STEP_PROGRESSBAR,
             data: { title: t('CONFIRM_TRANSFER'), step: 4 }
         })
+        return () => {
+            document.querySelector('.progress-card').removeEventListener('scroll', handleScroll)
+        }
     }, [])
 
     const getFinalAmount = () => {
@@ -107,7 +126,7 @@ const ConfirmTransfer = (props) => {
                         {getParseHtmlArticle('wu_114')}
                         <div className="confirm_btn d-flex my-3">
                             <Button className="mr-2" onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
-                            <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
+                            <Button disabled={ !scrollBottom } outlined type='submit'>{t('CONFIRM_SEND')}</Button>
                         </div>
                     </p>
                     <p className="px-24 pt-4">
