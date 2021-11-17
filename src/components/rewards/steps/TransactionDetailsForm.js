@@ -168,6 +168,7 @@ const TransactionDetailsForm = (props) => {
                                 <Field
                                     name="amountUSD"
                                     type="number"
+                                    fixed={ 2 }
                                     placeholder={ '(USD)' }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
                                     component={ renderNumberField }
@@ -178,6 +179,7 @@ const TransactionDetailsForm = (props) => {
                                 <img src={ Vector } alt="back"/>
                                 <Field
                                     name="amount"
+                                    fixed={ 2 }
                                     type="number"
                                     placeholder={ currencyChecked }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'other') }

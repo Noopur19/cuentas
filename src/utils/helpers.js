@@ -258,5 +258,5 @@ export const replaceNaN = (val) => {
 }
 
 export const onlyNumberNormalization = ( val ) => {
-    return  val.replace(/[^0-9.]/g,'')
+    return  val.toString().replace(/[^0-9.]/g,'')
 }

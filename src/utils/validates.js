@@ -30,15 +30,14 @@ const throwError = (type,error) => {
     })
 }
 export const receiverFormSubmissionValidate = (values, states) => {
-    if (states.length > 0 && states[ 0 ]?.city ) {
-        if (!values.state) {
-            throwError( 'state',getLocalByTitle('STATE_ERROR'))
-        }
-        if (!values.city) {
-            throwError( 'city',getLocalByTitle('CITY_ERROR'))
-        }
+    if (states.length > 0 && !values.state ) {
+        throwError( 'state',getLocalByTitle('STATE_ERROR'))
+    }else if(states.length > 0 && states[ 0 ]?.city && !values.city ){
+        throwError( 'city',getLocalByTitle('CITY_ERROR'))
+    }else{
+        return true
     }
-    return true;
+
 }
 export const transactionDetailsValidate = (values) => {
     const errors = {};

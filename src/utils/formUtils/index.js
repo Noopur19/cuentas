@@ -73,6 +73,7 @@ const renderField = (props) => {
 const renderNumberField = (props) => {
     const {
         input,
+        fixed,
         step,
         type,
         placeholder,
@@ -86,10 +87,22 @@ const renderNumberField = (props) => {
         defaultWarning
     } = props;
 
+    const checkTwoDecimal = (value) => {
+        if (value.includes('.')){
+            if (value.split('.')[ 1 ].length > 2){
+                return parseFloat(value).toFixed(fixed)
+            }else{
+                return parseFloat(value)
+            }
+        }else{
+            return value
+        }
+    }
+
     const changeData = (event) => {
         const value = event?.currentTarget?.value && event.currentTarget.value.replace(/[^0-9.]/g,'')
-        handleChange && handleChange(value)
-        input.onChange(value)
+        handleChange && ( fixed ? handleChange(checkTwoDecimal(value)) : handleChange(value))
+        fixed ? input.onChange(checkTwoDecimal(value)) :  input.onChange(value)
     }
 
     return (
