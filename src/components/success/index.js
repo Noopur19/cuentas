@@ -46,6 +46,30 @@ const Success = () => {
         }
     }
 
+    const getTransferAmountText = () => {
+        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            return  t('ESTIMATED_TRANSFER_AMOUNT')
+        } else {
+            return  t('TRANSFER_AMOUNT')
+        }
+    }
+
+    const getTotalToReceiverText = () => {
+        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            return  t('ESTIMATED_TOTAL_TO_RECEIVER')
+        } else {
+            return  t('TOTAL_TO_RECEIVER')
+        }
+    }
+
+    const getExchangeRateText = () => {
+        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            return  t('ESTIMATED_EXCHANGE_RATE')
+        } else {
+            return  t('EXCHANGE_RATE')
+        }
+    }
+
     const getTransferFee = () => {
         const fee = postDeliveryDetails &&_.get(postDeliveryDetails?.payment_details,'fees')
         const transferFee = !_.isEmpty(fee)
@@ -259,7 +283,7 @@ const Success = () => {
                     </div>}
 
                 <div className="d-flex justify-content-between info">
-                    <p>{t('TRANSFER_AMOUNT')}</p>
+                    <p>{getTransferAmountText()}</p>
                     <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount().toFixed(2)} {`(${ currencyCode })`}</span></div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRANSFER_FEES')}</p>
@@ -281,12 +305,13 @@ const Success = () => {
                     <h4>{t('TOTAL')}</h4>
                     <span>-{getCurrencySymbol(currencyCode)} {getTotalAmount().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
+                {postDeliveryDetails?.receiver?.address.country_iso_code !== 'US' &&
                 <div className="d-flex justify-content-between info">
-                    <p>{t('EXCHANGE_RATE')} </p>
+                    <p>{getExchangeRateText()} </p>
                     <span>{getExchangeRate()}</span>
-                </div>
+                </div>}
                 <div className="d-flex justify-content-between info">
-                    <p>{t('TRANSFER_AMOUNT')}</p>
+                    <p>{getTransferAmountText()}</p>
                     <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info">
@@ -294,18 +319,13 @@ const Success = () => {
                     <span>+{getCurrencySymbol(currencyCode)} {getOtherFee().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading mt-3">
-                    <h4 >{t('TOTAL_TO_RECEIVER')}</h4>
+                    <h4 >{getTotalToReceiverText()}</h4>
                     <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
 
                 {getParseHtmlArticle('wu_117')}
                 {getParseHtmlArticle('wu_127')}
-                {
-                    <>
-
-                        { renderWUContactDetails() }
-                    </>
-                }
+                { renderWUContactDetails()}
                 {getParseHtmlArticle('wu_121')}
                 {getParseHtmlArticle('wu_115')}
                 {getParseHtmlArticle('wu_122')}

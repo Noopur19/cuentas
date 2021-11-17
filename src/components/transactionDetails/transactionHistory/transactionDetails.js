@@ -8,6 +8,7 @@ import BorderTitle from '../../shared/BorderTitle.styled'
 import CardFooter  from '../../shared/CardFooter';
 import { useTranslation } from 'react-i18next';
 import { Transaction } from './transactionHistory.styled'
+import { useSelector } from 'react-redux'
 
 const TransactionDetails = (props) => {
     const { t } = useTranslation()
@@ -18,6 +19,23 @@ const TransactionDetails = (props) => {
     const dfDetails = transactions && JSON.parse(transactions?.additional_properties?.df_details?.value) || {}
     const currencyCode = _.get(paymentDetails,'origination.currency_iso_code')
     const receiverCurrencyCode = _.get(paymentDetails,'destination.currency_iso_code')
+    const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
+
+    const getTransferAmountText = () => {
+        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            return  t('ESTIMATED_TRANSFER_AMOUNT')
+        } else {
+            return  t('TRANSFER_AMOUNT')
+        }
+    }
+
+    const getTotalToReceiverText = () => {
+        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            return  t('ESTIMATED_TOTAL_TO_RECEIVER')
+        } else {
+            return  t('TOTAL_TO_RECEIVER')
+        }
+    }
 
     const getTransferFee = () => {
         const fee = _.get(paymentDetails,'fees')
@@ -71,6 +89,14 @@ const TransactionDetails = (props) => {
         `(${ receiverCurrencyCode })`
     };
 
+    const getExchangeRateText = () => {
+        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            return  t('ESTIMATED_EXCHANGE_RATE')
+        } else {
+            return  t('EXCHANGE_RATE')
+        }
+    }
+
     const getTotalAmount = () => {
         if (_.isEmpty(paymentDetails)){
             return 0;
@@ -94,7 +120,7 @@ const TransactionDetails = (props) => {
                 <span>{parsedServiceType?.name}</span>
             </div>
             <div className="d-flex justify-content-between info">
-                <p>{t('TRANSFER_AMOUNT')}</p>
+                <p>{getTransferAmountText()}</p>
                 <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount().toFixed(2)} {`(${ currencyCode })`}</span></div>
             <div className="d-flex justify-content-between info">
                 <p>{t('TRANSFER_FEES')}</p>
@@ -118,15 +144,15 @@ const TransactionDetails = (props) => {
             </div>
             {receiver?.address?.country_iso_code !== 'US' &&
             <div className="d-flex justify-content-between info">
-                <p>{t('EXCHANGE_RATE')} </p>
+                <p>{getExchangeRateText()} </p>
                 <span>{getExchangeRate()}</span>
             </div>}
             <div className="d-flex justify-content-between info">
-                <p>{t('TRANSFER_AMOUNT')}</p>
+                <p>{getTransferAmountText()}</p>
                 <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
             </div>
             <div className="d-flex justify-content-between info-heading mt-3">
-                <h4 >{t('TOTAL_TO_RECEIVER')} </h4>
+                <h4 >{getTotalToReceiverText()} </h4>
                 <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}
                 </span>
             </div>
