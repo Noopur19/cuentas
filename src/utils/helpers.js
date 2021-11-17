@@ -257,3 +257,7 @@ export const isIOSDevice = () => {
 export const replaceNaN = (val) => {
     return isNaN(val) ? '' : val
 }
+
+export const onlyNumberNormalization = ( val ) => {
+    return  val.replace(/[^0-9.]/g,'')
+}

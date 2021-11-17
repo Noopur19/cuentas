@@ -70,7 +70,44 @@ const renderField = (props) => {
         </>
     );
 };
+const renderNumberField = (props) => {
+    const {
+        input,
+        step,
+        type,
+        placeholder,
+        disabled,
+        checked,
+        validationError,
+        handleChange,
+        meta: { touched, error, warning },
+        maxLength,
+        rows,
+        defaultWarning
+    } = props;
 
+    const changeData = (event) => {
+        const value = event?.currentTarget?.value && event.currentTarget.value.replace(/[^0-9.]/g,'')
+        handleChange && handleChange(value)
+        input.onChange(value)
+    }
+
+    return (
+        <>
+            <Input rows={ rows } { ...input } pattern="[0-9][0-9.]*[0-9]" step={ step || 'any' } checked={ checked } onChange={ changeData }   maxLength={ maxLength } disabled={ disabled || false } type={ type } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
+
+            {defaultWarning && !input.value && <span className="default-warning"><i className="fas fa-exclamation-triangle"></i> {defaultWarning}</span>}
+            <Validations
+                props={ {
+                    touched,
+                    error,
+                    validationError,
+                    warning,
+                } }
+            />
+        </>
+    );
+};
 const renderSelectField = (props) => {
     const {
         input,
@@ -141,5 +178,6 @@ const renderSelectField = (props) => {
 
 export {
     renderField,
-    renderSelectField
+    renderSelectField,
+    renderNumberField
 };

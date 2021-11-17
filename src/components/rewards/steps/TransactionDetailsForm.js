@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
-import { renderField } from 'utils/formUtils';
+import { renderField , renderNumberField } from 'utils/formUtils';
 import { postTransactionDetails } from 'middleware/receiver'
 import { Card } from '../../shared/Footer.styled'
 import _ from 'lodash'
@@ -18,7 +18,7 @@ import { change } from 'redux-form'
 import {  getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { useTranslation } from 'react-i18next';
-import { getStateCd, getStateName, replaceNaN } from 'utils/helpers'
+import { getStateCd, getStateName, replaceNaN, onlyNumberNormalization } from 'utils/helpers'
 import { getTotalAmount, getErrorInsuff, getTrasactionTypeOnHandle } from 'utils/helpers'
 import { notification } from 'services/notification';
 const TransactionDetailsForm = (props) => {
@@ -71,6 +71,7 @@ const TransactionDetailsForm = (props) => {
 
     const handleChangeAmountCalculation = (value,type) => {
         const serviceOption = transferDetails?.service_options?.service_option[ 0 ]
+
         const exchangeRate = serviceOption?.payment_details.exchange_rate && parseFloat(serviceOption?.payment_details.exchange_rate)
         if(type === 'USD'){
             let amountData = exchangeRate*parseFloat(value)
@@ -174,18 +175,23 @@ const TransactionDetailsForm = (props) => {
                             <div className="converter d-flex justify-content-between pb-2 r-info">
                                 <Field
                                     name="amountUSD"
-                                    type="tel"
+                                    type="number"
                                     placeholder={ '(USD)' }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
-                                    component={ renderField }
+                                    component={ renderNumberField }
+                                    normalize={ onlyNumberNormalization }
+
                                 />
+
                                 <img src={ Vector } alt="back"/>
                                 <Field
                                     name="amount"
-                                    type="tel"
+                                    type="number"
                                     placeholder={ currencyChecked }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'other') }
-                                    component={ renderField }
+                                    component={ renderNumberField }
+                                    normalize={ onlyNumberNormalization }
+
                                 />
 
                             </div>
