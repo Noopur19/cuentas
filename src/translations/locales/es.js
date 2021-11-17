@@ -117,7 +117,7 @@ export const TRANSLATIONS_ES = {
     'EMPTY_BIRTHDAY': 'Se requiere la fecha de nacimiento',
     'ILD_REWARDS_TITLE': 'Términos de recompensa en Llamadas de Larga Distancia',
     'LICENSE_AGREEMENT': 'Acuerdo de licencia',
-    'AGREE_TEXT': 'de acuerdo',
+    'AGREE_TEXT': 'De acuerdo',
     'DECLINE_TEXT': 'declinar',
     'HOME': 'Hogar',
     'WALLET': 'Cartera',
@@ -480,8 +480,8 @@ export const TRANSLATIONS_ES = {
     'MONEY_IN_MINUTES': 'Dinero en minutos',
     'STATE_TEXT': 'Expresar',
     'CITY_TEXT': 'Ciudad',
-    'BACK': 'atrás',
-    'CONTINUE': 'Continu',
+    'BACK': 'Atrás',
+    'CONTINUE': 'Continuar',
     'WU_TEXT': 'Western Union ',
     'PRIVACY_STATEMENT': 'Declaracion de privacidad',
     'TERMS_CONDITIONS': 'Términos y condiciones',
@@ -652,5 +652,6 @@ export const TRANSLATIONS_ES = {
     'TRANSACTION_COMPLETE': 'Tu transacción está completa',
     'TRANSACTION_COMPLETE_SUBTEXT': 'Cierre su navegador o haga clic aquí para volver a la aplicación Cuentas',
     'VISIT_APP_STORE': 'Visite su tienda de aplicaciones para descargar la aplicación Cuentas y solicitar su tarjeta.',
-    'OOPS_ERROR': '¡UPS! Algo salió mal'
+    'OOPS_ERROR': '¡UPS! Algo salió mal',
+    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continuar sin Mi número de WU'
 }

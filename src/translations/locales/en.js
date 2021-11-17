@@ -657,4 +657,5 @@ export const TRANSLATIONS_EN = {
     'GO_BACK_TO_APP': 'Go back to app',
     'OOPS_ERROR': 'Oops! Something went wrong.',
     'VISIT_APP_STORE': 'Please visit your app store to download the Cuentas app and apply for your card',
+    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continue without my WU number'
 }

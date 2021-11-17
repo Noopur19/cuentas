@@ -83,7 +83,6 @@ export const getWUStore = (stores) => {
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
     const accountDetail = incomeDetail?.accountDetail
     const myWUNumber  = getLocalData('myWUNumberTemp')
-    console.log(myWUNumber);
     const receiver = {
         first_name: data?.firstName || '' ,
         middle_name: data?.middleName || '',
@@ -101,11 +100,11 @@ export const deliveryTypeRequestPayload = (data, incomeDetail) => {
                 name: 'Cuentas',
                 account_number: accountDetail?.spendingAccount?.accountNumber,
                 routing_number: accountDetail?.spendingAccount?.routingNumber,
-                account_type: 'CheckingAcct', //TODO
+                account_type: 'CheckingAcct',
             },
+            mywu_number: myWUNumber || '',
         },
         receiver: receiver,
-        mywu_number: myWUNumber || '',
         wu_product: data?.deliveryType && JSON.parse(data?.deliveryType)?.wu_product || {},
         transaction_type: data?.deliveryType && JSON.parse(data?.deliveryType)?.transaction_type || '',
         payment_details: data?.deliveryType && JSON.parse(data?.deliveryType)?.payment_details || {},
