@@ -45,6 +45,8 @@ export default (state = initialState, action) => {
         return { ...state, loading: false, postDeliveryData: action.payload  }
     case ActionTypes.POST_DELIVERY_DATA_FAILED:
         return { ...state, loading: false }
+    case 'CLEAR_STATES':
+        return { ...state, loading: false, states: [] }
     default:
         return state;
     }

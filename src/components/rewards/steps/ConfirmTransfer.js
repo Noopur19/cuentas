@@ -15,6 +15,7 @@ import CardFooter from 'components/shared/CardFooter';
 import { Card } from 'components/shared/Footer.styled';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash'
+import { getAllStates } from 'middleware/receiver';
 
 const ConfirmTransfer = (props) => {
     const { t } = useTranslation()
@@ -23,6 +24,8 @@ const ConfirmTransfer = (props) => {
     const storeDetails = useSelector((state) => state.user.storeDetail)
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const countries = useSelector((state) => state.receiver.countries )
+    const states = useSelector((state) => state.receiver.states )
+
     const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
     const formattedDate = date && moment(date).format('MMMM DD,YYYY')
@@ -45,12 +48,13 @@ const ConfirmTransfer = (props) => {
 
     useEffect(() => {
         document.querySelector('.progress-card').addEventListener('scroll', handleScroll)
+        dispatch(getAllStates(postDeliveryDetails?.sender?.address?.country_iso_code))
         dispatch({
             type: GET_STEP_PROGRESSBAR,
             data: { title: t('CONFIRM_TRANSFER'), step: 4 }
         })
         return () => {
-            document.querySelector('.progress-card').removeEventListener('scroll', handleScroll)
+            document.querySelector('.progress-card') && document.querySelector('.progress-card').removeEventListener('scroll', handleScroll)
         }
     }, [])
 
@@ -83,7 +87,7 @@ const ConfirmTransfer = (props) => {
                 <form onSubmit={ handleSubmit(saveData) } >
                     <p className="px-24 text-center">{t('DATE_OF_TRANSACTION')}: <b>{formattedDate}</b></p>
                     <p  className="px-24">{getParseHtmlArticle('wu_118')}
-                        {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
+                        {postDeliveryDetails?.sender && <SenderDetails states={ states }  countries={ countries } sender={ postDeliveryDetails?.sender } />}
                         <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}
                             <span className="underline"></span></h3>
                         </BorderTitle>

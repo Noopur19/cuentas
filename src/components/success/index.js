@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Card } from '../shared/Footer.styled'
 import { getCountryName, getCurrencySymbol, getParseHtmlArticle, isIOSDevice } from 'utils/helpers'
 import SenderDetails from 'components/transactionDetails/transactionHistory/senderDetails'
@@ -15,8 +15,9 @@ import Button from 'components/shared/Button.styled'
 import Modal from 'components/shared/Modal'
 import { STATIC_URLS } from 'constants/app'
 import Vector from '../../images/cancel.svg'
-
+import { getAllStates  } from 'middleware/receiver'
 const Success = () => {
+    const dispatch = useDispatch()
     const { t } = useTranslation()
     const [ isOpen, setIsOpen ] = useState(false);
     const myWUNumber  = getLocalData('myWUNumberTemp')
@@ -24,6 +25,7 @@ const Success = () => {
     const confirmDetail = useSelector((state) => state.transactionHistory.confirmDetails)
     const countries = useSelector((state) => state.receiver.countries)
     const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
+    const states = useSelector((state) => state.receiver.states)
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
     const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
     const formattedDate = date && moment(date).format('DD MMMM,YYYY')
@@ -32,6 +34,10 @@ const Success = () => {
     const receiverCurrencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'destination.currency_iso_code')
     const receiverDetail = useSelector((state) => state.receiver.data )
 
+    useEffect(() => {
+        postDeliveryDetails && dispatch(getAllStates(postDeliveryDetails?.sender?.address?.country_iso_code))
+
+    },[ postDeliveryDetails ])
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
             if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
@@ -222,7 +228,7 @@ const Success = () => {
                 }
                 <span  className="small-text">{getParseHtmlArticle('wu_134')}</span>
 
-                {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } />}
+                {postDeliveryDetails?.sender && <SenderDetails sender={ postDeliveryDetails?.sender } countries={ countries } states={ states } />}
 
                 <BorderTitle smallText className="mt-4"><h3>{t('FINAL_RECEIVER')}
                     <span className="underline"></span></h3>

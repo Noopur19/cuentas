@@ -76,6 +76,12 @@ export const getCountryName = (countries, code) => {
     return country && country[ 0 ]?.country
 }
 
+export const getStateByCode = (countries,states,address) => {
+    console.log(countries)
+    const state =  states.filter((item) => item?.data && item?.data[ 0 ]?.state_cd === address.state )[ 0 ] || {}
+    return state?.state || ''
+
+}
 export const getWUStore = (stores) => {
     return stores && stores?.result?.filter((item) => item.id === 418)[ 0 ]
 }

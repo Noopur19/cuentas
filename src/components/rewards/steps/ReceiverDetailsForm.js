@@ -40,6 +40,12 @@ const ReceiverDetailsForm = (props) => {
     // }
     useEffect(() => {
         dispatch(getAllCountries())
+        if(form?.values?.country){
+            const obj = JSON.parse(form.values.country)
+            const countryCode = obj.country === 'Canada' ? 'CA' : (obj.country === 'Mexico' ? 'Mexico' : obj.currency[ 0 ].country_cd)
+            dispatch(getAllStates(countryCode))
+        }
+
         dispatch({
             type: GET_STEP_PROGRESSBAR,
             data: { title: `${ t('RECIEVER') } ${ t('DETAILS') }`, step: 1 }
@@ -85,7 +91,9 @@ const ReceiverDetailsForm = (props) => {
     }
 
     const getCitiesOptions = () => {
-        return state && state.city && state.city.map((item) => ({ value: item.city, label: item.city } )) || []
+        const formValues = form && form.values
+        const stateData = state ||  formValues.state && JSON.parse(formValues.state)
+        return stateData && stateData.city && stateData.city.map((item) => ({ value: item.city, label: item.city } )) || []
     }
 
     const getReceivers = () =>{
