@@ -27,6 +27,7 @@ const ConfirmTransfer = (props) => {
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
     const formattedDate = date && moment(date).format('MMMM DD,YYYY')
     const [ scrollBottom, setScrollBottom ] = useState(false)
+    console.log(scrollBottom)
 
     const  isInViewport = (el) => {
         const rect = el.getBoundingClientRect();
@@ -126,7 +127,7 @@ const ConfirmTransfer = (props) => {
                         {getParseHtmlArticle('wu_114')}
                         <div className="confirm_btn d-flex my-3">
                             <Button className="mr-2" onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
-                            <Button disabled={ !scrollBottom } outlined type='submit'>{t('CONFIRM_SEND')}</Button>
+                            <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
                         </div>
                     </p>
                     <p className="px-24 pt-4">
