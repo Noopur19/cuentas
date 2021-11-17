@@ -46,6 +46,11 @@ body {
   background:  #255DC8;
 }
 
+button[disabled]{
+  opacity: .6;
+  pointer-events: none;
+}
+
 code {
   font-family: 'sf_pro_display', sans-serif;
 }
