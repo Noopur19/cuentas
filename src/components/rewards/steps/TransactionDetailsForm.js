@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
 import { renderField , renderNumberField } from 'utils/formUtils';
-import { postTransactionDetails } from 'middleware/receiver'
+import { postTransactionDetails, postTransactionDetailsSubmission } from 'middleware/receiver'
 import { Card } from '../../shared/Footer.styled'
 import _ from 'lodash'
 import Button from 'components/shared/Button.styled'
@@ -19,8 +19,7 @@ import {  getParseHtmlArticle } from 'utils/helpers'
 import { transactionDetailsValidate as validate } from 'utils/validates'
 import { useTranslation } from 'react-i18next';
 import { getStateCd, getStateName, replaceNaN, onlyNumberNormalization } from 'utils/helpers'
-import { getTotalAmount, getErrorInsuff, getTrasactionTypeOnHandle } from 'utils/helpers'
-import { notification } from 'services/notification';
+import { getTotalAmount, getTrasactionTypeOnHandle } from 'utils/helpers'
 const TransactionDetailsForm = (props) => {
     const { t } = useTranslation()
     const { handleSubmit, initialize ,prevPage, submitData } = props;
@@ -102,21 +101,14 @@ const TransactionDetailsForm = (props) => {
         }
         if(formValues?.state) data[ 'destState' ] = formValues?.state && getStateCd(formValues?.state)
         if(formValues?.city) data[ 'destCity' ] = formValues?.city
-        const paymentDetails = transferDetails?.service_options?.service_option && transferDetails?.service_options?.service_option[ 0 ]?.payment_details
-        const totalAmount = getTotalAmount(paymentDetails,0)
-
-        if(availBail > ((data.amount/100) + totalAmount) ){
-            dispatch(postTransactionDetails(data,submitData,t))
-        }else{
-            notification('error',getErrorInsuff(totalAmount))
-        }
+        dispatch(postTransactionDetailsSubmission(data,submitData,t, availBail,  getTotalAmount ))
     }
     const handleChangeUSD = () => {
         dispatch(change('amountLastHandle','left'))
     }
 
-    const getCurrencyCd = (item) => {
-        const currencyCd = item?.currency && item?.currency [ 0 ]?.currency_cd
+    const getCurrencyCd = (obj) => {
+        const currencyCd = obj.currency_cd
         return currencyCd && `(${ currencyCd })`
     }
     return (
@@ -155,7 +147,7 @@ const TransactionDetailsForm = (props) => {
                     { country?.currency && country?.currency.map((item, index) => {
                         return(
                             <div className="radio-wrapper">
-                                <label key={ index }> { item.currency } { getCurrencyCd(country) }</label>
+                                <label key={ index }> { item.currency } { getCurrencyCd(item) }</label>
                                 <Field
                                     name="payoutCurrency"
                                     type="radio"

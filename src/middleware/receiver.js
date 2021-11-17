@@ -20,7 +20,7 @@ import {
 } from 'actions/receiver';
 import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
-import { deliveryTypeRequestPayload } from 'utils/helpers'
+import { deliveryTypeRequestPayload , getErrorInsuff } from 'utils/helpers'
 import { notification } from 'services/notification';
 import { GET_ERROR_FIELD } from 'constants/app';
 
@@ -120,6 +120,38 @@ export const postDeliveryData = (values, incomeDetail,callback, t) => {
             }
         }).catch((error) => {
             dispatch(postDeliveryDataFailed(error))
+            notification('error',GET_ERROR_FIELD.ERROR(error))
+        })
+    }
+}
+
+export const postTransactionDetailsSubmission = (data,callback, t,availBail,  getTotalAmount) => {
+    return(dispatch) => {
+        dispatch(postTransactionDetailsRequest())
+        axiosInstance.post('incomm/wu/feeinquiry',data,{
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => {
+            if (response.status === 200 ) {
+                const paymentDetails = response.data?.service_options?.service_option && response.data?.service_options?.service_option[ 0 ]?.payment_details
+                const totalAmount = getTotalAmount(paymentDetails)
+                if(availBail >= totalAmount ){
+                    dispatch(postTransactionDetailsSuccess(response.data))
+                    callback && callback(data)
+                }else{
+                    dispatch(postTransactionDetailsFailed(null))
+                    notification('error',getErrorInsuff(totalAmount))
+                }
+            } else if (response.error && response.error.error) {
+                response?.error?.error ?
+                    notification('error',response?.error?.error)
+                    : notification('error',`${ t('FAILED_TO_CURRENCY_RATE') }`)
+            } else {
+                notification('error',`${ t('SOMETHING_WENT_WRONG_ERROR') }`)
+            }
+        }).catch((error) => {
+            dispatch(postTransactionDetailsFailed(error))
             notification('error',GET_ERROR_FIELD.ERROR(error))
         })
     }

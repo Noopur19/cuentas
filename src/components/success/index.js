@@ -153,6 +153,7 @@ const Success = () => {
 
     const toggleModal = () => {
         setIsOpen(!isOpen)
+
     }
     const gotoMobileApp = () => {
         window.open( isIOSDevice() ? STATIC_URLS.APP_IOS_BACK_URL : STATIC_URLS.APP_ANDROID_BACK_URL)
