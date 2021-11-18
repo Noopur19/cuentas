@@ -72,12 +72,12 @@ const ConfirmTransfer = (props) => {
 
     const payoutLocationText =  () => {
         if(postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
-            if(postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            if(postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
                 return t('EXPECTED_FOREIGN_COUNTRY_PAYOUT_LOCATION')
             } else {
                 return t('FOREIGN_COUNTRY_PAYOUT_LOCATION')
             }
-        } else if(postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        } else if(postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return t('EXPECTED_COUNTRY_PAYOUT_LOCATION')
         } else {
             return t('COUNTRY_PAYOUT_LOCATION')

@@ -22,7 +22,7 @@ const TransactionDetails = (props) => {
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
 
     const getTransferAmountText = () => {
-        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return  t('ESTIMATED_TRANSFER_AMOUNT')
         } else {
             return  t('TRANSFER_AMOUNT')
@@ -30,7 +30,7 @@ const TransactionDetails = (props) => {
     }
 
     const getTotalToReceiverText = () => {
-        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return  t('ESTIMATED_TOTAL_TO_RECEIVER')
         } else {
             return  t('TOTAL_TO_RECEIVER')
@@ -90,7 +90,7 @@ const TransactionDetails = (props) => {
     };
 
     const getExchangeRateText = () => {
-        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return  t('ESTIMATED_EXCHANGE_RATE')
         } else {
             return  t('EXCHANGE_RATE')

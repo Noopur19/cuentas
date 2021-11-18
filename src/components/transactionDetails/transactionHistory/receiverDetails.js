@@ -12,9 +12,7 @@ const ReceiverDetails = (props) => {
     const paymentDetails = transactions && JSON.parse(transactions?.additional_properties?.payment_details?.value)?.fix_on_send
 
     const payoutLocationText =  () => {
-        console.log(paymentDetails);
         if(parsedReceiver?.address?.country_iso_code !== 'US') {
-
             if(paymentDetails === 'N') {
                 return t('EXPECTED_FOREIGN_COUNTRY_PAYOUT_LOCATION')
             } else {

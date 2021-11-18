@@ -36,16 +36,15 @@ const Success = () => {
 
     useEffect(() => {
         postDeliveryDetails && dispatch(getAllStates(postDeliveryDetails?.sender?.address?.country_iso_code))
-
     },[ postDeliveryDetails ])
     const payoutLocationText = () => {
         if (postDeliveryDetails?.receiver?.address.country_iso_code !== 'US') {
-            if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+            if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
                 return  t('EXPECTED_FOREIGN_COUNTRY_PAYOUT_LOCATION')
             } else {
                 return  t('FOREIGN_COUNTRY_PAYOUT_LOCATION')
             }
-        } else if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        } else if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return t('EXPECTED_COUNTRY_PAYOUT_LOCATION')
         } else {
             return t('COUNTRY_PAYOUT_LOCATION')
@@ -53,7 +52,7 @@ const Success = () => {
     }
 
     const getTransferAmountText = () => {
-        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return  t('ESTIMATED_TRANSFER_AMOUNT')
         } else {
             return  t('TRANSFER_AMOUNT')
@@ -61,7 +60,7 @@ const Success = () => {
     }
 
     const getTotalToReceiverText = () => {
-        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return  t('ESTIMATED_TOTAL_TO_RECEIVER')
         } else {
             return  t('TOTAL_TO_RECEIVER')
@@ -69,7 +68,7 @@ const Success = () => {
     }
 
     const getExchangeRateText = () => {
-        if (postDeliveryDetails?.paymentDetails?.fix_on_send === 'N') {
+        if (postDeliveryDetails?.payment_details?.fix_on_send === 'N') {
             return  t('ESTIMATED_EXCHANGE_RATE')
         } else {
             return  t('EXCHANGE_RATE')

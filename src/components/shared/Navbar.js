@@ -41,7 +41,6 @@ const Navbar = (props)  => {
     }
 
     const toggleModal = () => {
-        console.log('called')
         getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
             setIsOpen(!isOpen) : setIsOpen(isOpen) ;
     }
