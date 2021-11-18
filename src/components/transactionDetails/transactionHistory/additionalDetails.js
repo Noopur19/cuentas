@@ -40,7 +40,7 @@ const AdditionalDetails = (props) => {
                 <div className="header-card d-none">
                     <div className="amount-paid">
                         <h2>{t('AMOUNT_PAID')}</h2>
-                        <span> {'-'} {getCurrencySymbol(currencyCode)} {amountPaid}</span>
+                        <span> {'-'} {getCurrencySymbol(currencyCode)} {(+amountPaid).toFixed(2)}</span>
                         <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
                     </div>
                     <div className="amount-img">
@@ -51,7 +51,7 @@ const AdditionalDetails = (props) => {
                 <div className="additionalDetailsCard">
                     <div className="d-flex justify-content-between info">
                         <p>{t('AMOUNT_PAID')}</p>
-                        <span className="price"> {'-'} {getCurrencySymbol(currencyCode)} {amountPaid}</span>
+                        <span className="price"> {'-'} {getCurrencySymbol(currencyCode)} {(+amountPaid).toFixed(2)}</span>
                     </div>
                     <div className="d-flex justify-content-between info">
                         <p>{t('TRANSFER_TO')}</p>
