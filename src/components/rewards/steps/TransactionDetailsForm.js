@@ -167,25 +167,23 @@ const TransactionDetailsForm = (props) => {
                             <div className="converter d-flex justify-content-between pb-2 r-info">
                                 <Field
                                     name="amountUSD"
-                                    type="number"
                                     fixed={ 2 }
                                     placeholder={ '(USD)' }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'USD') }
                                     component={ renderNumberField }
                                     normalize={ onlyNumberNormalization }
-
+                                    inputMode="decimal"
                                 />
 
                                 <img src={ Vector } alt="back"/>
                                 <Field
                                     name="amount"
                                     fixed={ 2 }
-                                    type="number"
                                     placeholder={ currencyChecked }
                                     handleChange={ (value) => handleChangeAmountCalculation(value,'other') }
                                     component={ renderNumberField }
                                     normalize={ onlyNumberNormalization }
-
+                                    inputMode="decimal"
                                 />
 
                             </div>
