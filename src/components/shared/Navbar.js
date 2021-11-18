@@ -74,7 +74,7 @@ const Navbar = (props)  => {
         <>
             <Nav>
                 <div className="top-header">
-                    <a href="#" onClick={ handleBack } ><img src={ backIcon } alt="back"/> </a>
+                    <a href="#" onClick={ () => handleBack() } ><img src={ backIcon } alt="back"/> </a>
                     <NavbarTitle className="main-title">
                         <h3>{t('SEND_MONEY_WITH_CUENTAS')}
                             <i>{t('POWERED_BY_WESTERN_UNION')}</i>
