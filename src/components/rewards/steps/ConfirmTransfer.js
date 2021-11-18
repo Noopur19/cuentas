@@ -42,8 +42,11 @@ const ConfirmTransfer = (props) => {
         );
     }
     const handleScroll = () => {
-        const element = document.querySelector('.card-link')
-        setScrollBottom(isInViewport(element))
+        const element = document.querySelector('.CardFooter')
+        // setScrollBottom(isInViewport(element))
+        if(isInViewport(element)){
+            setScrollBottom(true)
+        }
     }
 
     useEffect(() => {
@@ -131,7 +134,7 @@ const ConfirmTransfer = (props) => {
                         {getParseHtmlArticle('wu_114')}
                         <div className="confirm_btn d-flex my-3">
                             <Button className="mr-2" onClick={ editDetails } >{t('EDIT_DETAILS')}</Button>
-                            <Button outlined type='submit'>{t('CONFIRM_SEND')}</Button>
+                            <Button disabled={ !scrollBottom } outlined type='submit'>{t('CONFIRM_SEND')}</Button>
                         </div>
                     </p>
                     <p className="px-24 pt-4">
