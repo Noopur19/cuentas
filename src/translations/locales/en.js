@@ -511,9 +511,9 @@ export const TRANSLATIONS_EN = {
     'STATE_TEXT': 'State',
     'CITY_TEXT': 'City',
     'BACK': 'Back',
-    'SAVE_WU_NUMBER': 'save WU number',
-    'ENTER_MY_WU_NUMBER': 'Enter my wu number',
-    'CONTINUE_WITH_MY_WU_NUMBER': 'Continue with my wu number',
+    'SAVE_WU_NUMBER': 'Save MY WU number',
+    'ENTER_MY_WU_NUMBER': 'Enter MY WU number',
+    'CONTINUE_WITH_MY_WU_NUMBER': 'Continue with MY WU number',
     'CONTINUE': 'Continue',
     'REGISTRATION': 'Registration',
     'WU_TEXT': 'Western Union ',
@@ -657,5 +657,5 @@ export const TRANSLATIONS_EN = {
     'GO_BACK_TO_APP': 'Go back to app',
     'OOPS_ERROR': 'Oops! Something went wrong.',
     'VISIT_APP_STORE': 'Please visit your app store to download the Cuentas app and apply for your card',
-    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continue without my WU number'
+    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continue without MY WU number'
 }
