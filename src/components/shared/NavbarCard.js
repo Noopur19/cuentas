@@ -4,13 +4,15 @@ import { useSelector } from 'react-redux'
 import historyIcon from '../../images/historyIcon.png';
 import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
 import moment from 'moment'
-
+import { useDispatch } from 'react-redux';
+import { postSendEmail } from 'middleware/transactionDetails';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 const NavbarCard = (props) => {
     const { toggleModal } = props
     const { t } = useTranslation();
+    const dispatch = useDispatch()
     const enquiry = useSelector((state) => state.transactionHistory?.enquiryDetails)
     const invoice = useSelector((state) => state.transactionHistory.invoiceDetails)
     const currencyCode = invoice &&  JSON.parse(invoice?.additional_properties?.payment_details?.value).origination?.currency_iso_code
@@ -18,6 +20,10 @@ const NavbarCard = (props) => {
     const date = (dateTime && dateTime.split('T')[ 0 ])?.trim();
     const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
     const formattedDate = moment(date).format('DD MMMM,YYYY')
+
+    const onClickHandler = () => {
+        dispatch(postSendEmail(invoice?.id))
+    }
 
     return (
         <>
@@ -28,7 +34,7 @@ const NavbarCard = (props) => {
                     <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
                 </div>
                 <div className="amount-img">
-                    <img className="img-fluid" src={ historyIcon } alt="history-icon" />
+                    <img className="img-fluid" onClick={ () => onClickHandler() } src={ historyIcon } alt="history-icon" />
                     <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
                 </div>
             </HeaderCard>

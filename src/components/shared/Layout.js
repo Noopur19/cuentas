@@ -35,7 +35,8 @@ export const Layout = (props) => {
         state.transactionHistory.loading ||
         state.transactionHistory.enquiryLoading ||
         state.transactionHistory.confirmLoading ||
-        state.transactionHistory.cancelLoading
+        state.transactionHistory.cancelLoading ||
+        state.transactionHistory.emailLoading
     )
 
     useEffect(async() => {
