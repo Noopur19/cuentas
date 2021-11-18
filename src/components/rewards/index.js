@@ -26,10 +26,6 @@ const RewardsStep = () => {
         dispatch(getIncomeDetails(incomeId))
     }
     useEffect(() => {
-        dispatch({
-            type: SET_STEP,
-            step: 1
-        })
         window.addEventListener('load', handleLoad);
         return () => {
             //localStorage.removeItem('myWUNumberTemp')
