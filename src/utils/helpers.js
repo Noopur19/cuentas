@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable camelcase */
 import { getLocalData, setLocalData } from './cache'
 import ReactHtmlParser from 'react-html-parser';
@@ -5,6 +6,8 @@ import { TRANSLATIONS_EN }  from 'translations/locales/en'
 import { TRANSLATIONS_ES } from 'translations/locales/es'
 import _ from 'lodash'
 import history from 'utils/history'
+import { ROUTES } from 'constants/AppRoutes';
+import { SET_STEP } from 'constants/app'
 var CryptoJS = require('crypto-js');
 
 export const getUser = () => {
@@ -134,8 +137,8 @@ export const getLocalByTitle = (title) => {
 }
 
 export const getWUContactInfo = (val1,val2,val3,val4,val5,val6,val7) => {
-    return locale() == 'en' ? `For questions or complaints about Western Union, contact: \nSending customer State regulatory name: ${ val1 } \nSending customer state regulatory phone #1: ${ val2 } \nSending customer state regulatory phone #2: ${ val3 } \nState regulatory agency website url: ${ val4 } \nConsumer Financial Protection Bureau CFPB phone #1: ${ val5 }\nCFPB phone #2: ${ val6 }\nCFPB website url: ${ val7 }` :
-        `Si tiene preguntas o quejas sobre Western Union, comuníquese con:\n Nombre regulador del estado del cliente que envía: ${ val1 }\nEnvío de teléfono reglamentario del estado del cliente n. #1: ${ val2 }\nEnvío de teléfono reglamentario del estado del cliente #2: ${ val3 }\nURL del sitio web de la agencia reguladora estatal: ${ val4 }\nTeléfono CFPB de la Oficina de Protección Financiera del Consumidor #1: ${ val5 }\nTeléfono CFPB #2: ${ val6 }\nURL del sitio web de Safpub: ${ val7 }`
+    return locale() == 'en' ? `For questions or complaints about Western Union, contact: \nSending customer State regulatory name: ${ val1 } \nSending customer state regulatory phone #1: ${ val2 } \nSending customer state regulatory phone #2: ${ val3 } \nState regulatory agency website url: ${ val4 } \nConsumer Financial Protection Bureau CFPB phone #1: ${ val5 }\nCFPB phone #2: ${ val6 }\nCFPB website url: ${ val7 } \n` :
+        `Si tiene preguntas o quejas sobre Western Union, comuníquese con:\n Nombre regulador del estado del cliente que envía: ${ val1 }\nEnvío de teléfono reglamentario del estado del cliente n. #1: ${ val2 }\nEnvío de teléfono reglamentario del estado del cliente #2: ${ val3 }\nURL del sitio web de la agencia reguladora estatal: ${ val4 }\nTeléfono CFPB de la Oficina de Protección Financiera del Consumidor #1: ${ val5 }\nTeléfono CFPB #2: ${ val6 }\nURL del sitio web de Safpub: ${ val7 } \n`
 }
 
 export const confirmTransferRequestPayload = (data, finalAmount, stores) => {
@@ -269,4 +272,57 @@ export const onlyNumberNormalization = ( val ) => {
 export const getLocalDataMyWuNumber = () => {
     const user  = getUser()
     return user?.additional_properties?.western_union?.map?.wu_number?.value
+}
+
+export const redirectForSteps = (path, dispatch, step ) => {
+    if(step ===1 ){
+        history.push(ROUTES.PROTECT_FORM)
+    }else if(step == 2 ){
+        dispatch({
+            type: SET_STEP,
+            step: 1
+        })
+    }else if(step === 3){
+        dispatch({
+            type: SET_STEP,
+            step: 2
+        })
+    }else if(step === 4){
+        dispatch({
+            type: SET_STEP,
+            step: 3
+        })
+    }
+}
+
+export const redirectWithPrefix = (path) => {
+    if(path?.match(new RegExp('^/transaction-history\/\\d'))){
+        history.push(ROUTES.TRANSACTION_HISTORY)
+    }
+}
+export const navigateBackForApp = (path, dispatch, step) => {
+    switch(path){
+    case ROUTES.ROOT:
+        return null
+    case ROUTES.PROTECT_FORM:
+        history.push(ROUTES.ROOT)
+        break;
+    case ROUTES.RECEIVER_DETAILS:
+        redirectForSteps(path,dispatch, step)
+        break;
+    case ROUTES.SUCCESS_PAGE:
+        dispatch({
+            type: SET_STEP,
+            step: 4
+        })
+        break;
+    case ROUTES.ERROR_PAGE:
+        return null
+    case ROUTES.TRANSACTION_HISTORY:
+        history.push(ROUTES.RECEIVER_DETAILS)
+        break;
+    default:
+        redirectWithPrefix(path)
+        break
+    }
 }

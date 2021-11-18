@@ -6,17 +6,18 @@ import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
 import NavbarCard from './NavbarCard';
-import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { postSendEmail } from 'middleware/transactionDetails';
 import {  getTransactionStatus } from 'utils/helpers';
-
+import { navigateBackForApp } from 'utils/helpers'
 import Modal from 'components/shared/Modal';
 import { postCancelTransaction } from 'middleware/transactionDetails';
 const Navbar = (props)  => {
-    const { showProgressBar, activeCard } = props
+    const { showProgressBar, activeCard , history } = props
     const [ isOpen, setIsOpen ] = useState(false);
+    const step = useSelector((state) => state.theme.step)
+
     const dispatch = useDispatch()
     const enquiry = useSelector((state) => state.transactionHistory?.enquiryDetails)
     const invoice = useSelector((state) => state.transactionHistory.invoiceDetails)
@@ -24,15 +25,19 @@ const Navbar = (props)  => {
     const sender = invoice && JSON.parse(invoice?.additional_properties.sender.value)
     const mtcn = invoice?.additional_properties.mtcn.value
     const { t } = useTranslation()
-    const history = useHistory();
 
     const stepData =  useSelector((state) => state.theme.stepData)
     const onClickHandler = () => {
         dispatch(postSendEmail(invoice?.id))
     }
+    const getCurrentPath = () => {
+        return history.location.pathname
+    }
 
     const handleBack = () => {
-        history.goBack()
+        const path = getCurrentPath()
+        navigateBackForApp(path, dispatch,step)
+
     }
     const getActiveBar = (value) => {
         return stepData?.step >= value && 'active'
@@ -114,7 +119,8 @@ const Navbar = (props)  => {
 Navbar.propTypes = {
     showProgressBar: PropTypes.func,
     activeCard: PropTypes.func,
-    transactions: PropTypes.object
+    transactions: PropTypes.object,
+    history: PropTypes.history
 }
 
 export default withRouter(Navbar);

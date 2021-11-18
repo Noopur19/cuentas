@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react'
+import React, { useEffect  } from 'react'
 import PropTypes from 'prop-types';
 import { withRouter  } from 'react-router-dom';
 import { useSelector } from 'react-redux'
@@ -12,12 +12,11 @@ import { useDispatch } from 'react-redux'
 import { callMyNUNumber } from 'middleware/receiver'
 import { getIncomeDetails } from 'middleware/user'
 import Steps from './steps.styles'
-
+import { SET_STEP } from 'constants/app'
 const RewardsStep = () => {
     const dispatch = useDispatch()
-    const [ step, setStep ] = useState(1)
     const myWUNumber  = getLocalDataMyWuNumber() || getLocalData('myWUNumberTemp')
-
+    const step = useSelector((state) => state.theme.step) || 1
     const receivers = myWUNumber && useSelector((state) => state.receiver.receivers ) || []
 
     const handleLoad = () => {
@@ -27,6 +26,10 @@ const RewardsStep = () => {
         dispatch(getIncomeDetails(incomeId))
     }
     useEffect(() => {
+        dispatch({
+            type: SET_STEP,
+            step: 1
+        })
         window.addEventListener('load', handleLoad);
         return () => {
             //localStorage.removeItem('myWUNumberTemp')
@@ -36,14 +39,23 @@ const RewardsStep = () => {
     },[])
 
     const nextPage = () => {
-        setStep(step+1)
+        dispatch({
+            type: SET_STEP,
+            step: (step+1)
+        })
     }
     const editDetails = () => {
-        setStep(1)
+        dispatch({
+            type: SET_STEP,
+            step: 1
+        })
     }
 
     const prevPage = () =>  {
-        setStep(step-1)
+        dispatch({
+            type: SET_STEP,
+            step: (step-1)
+        })
     }
 
     // const finalSubmit = () =>{

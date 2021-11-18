@@ -44,8 +44,14 @@ export const transactionDetailsValidate = (values) => {
     if (!values.amount) {
         errors.amount = getLocalByTitle('PLEASE_ENTER_AMOUNT');
     }
-    if (!values.amountUSD) {
-        errors.amountUSD = getLocalByTitle('PLEASE_ENTER_AMOUNT');
+    if(!values.amount) {
+        errors.amount = getLocalByTitle('PLEASE_ENTER_AMOUNT');
+    }
+    if(values.amountUSD && values.amountUSD.toString().split('.').length > 2 ) {
+        errors.amountUSD = `${ getLocalByTitle('PLEASE_ENTER_VALID') } ${ getLocalByTitle('AMOUNT') }`;
+    }
+    if(values.amount && values.amount.toString().split('.').length > 2 ) {
+        errors.amount = `${ getLocalByTitle('PLEASE_ENTER_VALID') } ${ getLocalByTitle('AMOUNT') }`
     }
 
     return errors;

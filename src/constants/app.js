@@ -3,7 +3,7 @@ export const MESSAGE = {
     VALID_ENTER: (value) => `Please enter valid ${ value }`,
 }
 export const GET_STEP_PROGRESSBAR = 'GET_STEP_PROGRESSBAR'
-
+export const SET_STEP = 'SET_STEP'
 export const STATIC_URLS = {
     registerLink:  'https://www.westernunion.com/mywu/us/',
     privacyPolicy: (locale) =>  `https://www.westernunion.com/us/${ locale }/privacy-statement.html`,
@@ -13,7 +13,6 @@ export const STATIC_URLS = {
     APP_IOS_URL: 'https://apps.apple.com/us/app/cuentas-prepaid-mastercard/id1483994878?ls=1',
     APP_ANDROID_BACK_URL: 'https://www.cuentas.com',
     APP_IOS_BACK_URL: 'CuentasApp://'
-
 }
 
 export const GET_ERROR_FIELD = {
