@@ -322,7 +322,7 @@ const Success = () => {
 
                 {getParseHtmlArticle('wu_117')}
                 {getParseHtmlArticle('wu_127')}
-                { renderWUContactDetails()}
+                { <div className='wrap-content'>{renderWUContactDetails()}</div>}
                 {getParseHtmlArticle('wu_121')}
                 {getParseHtmlArticle('wu_115')}
                 {getParseHtmlArticle('wu_122')}

@@ -63,7 +63,7 @@ code {
 }
 form input > p {
   min-height: 14px;
-  
+
 }
 .px-24 {
   padding-left: 24px;
@@ -77,4 +77,8 @@ form input > p {
 }
 .main-layout {
   height: 100vh;
+}
+
+.wrap-content {
+  white-space: pre-line;
 }
