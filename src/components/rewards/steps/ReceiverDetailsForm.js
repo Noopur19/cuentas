@@ -72,12 +72,23 @@ const ReceiverDetailsForm = (props) => {
         return states && states?.map((item) => ({ value: JSON.stringify(item), label: item.state } ))
     }
 
+    const callStates = (countryCode, obj) =>{
+        if(obj.country === 'United States' ||  obj.country === 'Mexico' || obj.country === 'Canada') {
+            dispatch(getAllStates(countryCode))
+        }else{
+            setDisableSubmit(false)
+            dispatch({
+                type: 'CLEAR_STATES'
+            })
+        }
+    }
+
     const handleChangeCountry = (event) => {
         setDisableSubmit(true)
         if(event.value){
             const obj = event.value && JSON.parse(event.value)
             const countryCode = obj.country === 'Canada' ? 'CA' : (obj.country === 'Mexico' ? 'Mexico' : obj.currency[ 0 ].country_cd)
-            dispatch(getAllStates(countryCode))
+            callStates(countryCode, obj)
             dispatch(change('receiver_details','city',null))
             dispatch(change('receiver_details','state',null))
         }
