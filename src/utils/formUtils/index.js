@@ -92,7 +92,7 @@ const renderNumberField = (props) => {
             if (value.split('.')[ 1 ].length > 2){
                 return parseFloat(value).toFixed(fixed)
             }else{
-                return parseFloat(value)
+                return (value)
             }
         }else{
             return value
