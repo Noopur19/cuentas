@@ -75,6 +75,7 @@ const renderNumberField = (props) => {
         input,
         fixed,
         step,
+        type,
         inputMode,
         placeholder,
         disabled,
@@ -107,8 +108,8 @@ const renderNumberField = (props) => {
 
     return (
         <>
-            <Input rows={ rows } { ...input }  step={ step || 'any' } checked={ checked } onChange={ changeData }   maxLength={ maxLength } disabled={ disabled || false } inputMode={ inputMode }
-                pattern="[0-9]*" className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
+            <Input rows={ rows } { ...input }  step={ step || 'any' } type ={ type } checked={ checked } onChange={ changeData }   maxLength={ maxLength } disabled={ disabled || false }
+                inputMode={ inputMode } className={ validationError || (touched && error) ? 'form-control validation-error' : 'form-control' } placeholder={ placeholder || '' }/>
 
             {defaultWarning && !input.value && <span className="default-warning"><i className="fas fa-exclamation-triangle"></i> {defaultWarning}</span>}
             <Validations
