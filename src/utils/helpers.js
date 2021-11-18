@@ -265,3 +265,8 @@ export const replaceNaN = (val) => {
 export const onlyNumberNormalization = ( val ) => {
     return  val.toString().replace(/[^0-9.]/g,'')
 }
+
+export const getLocalDataMyWuNumber = () => {
+    const user  = getUser()
+    return user?.additional_properties?.western_union?.map?.wu_number?.value
+}

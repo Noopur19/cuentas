@@ -18,6 +18,7 @@ import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import { useTranslation } from 'react-i18next';
+import { getLocalDataMyWuNumber } from 'utils/helpers'
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
@@ -30,7 +31,7 @@ const ReceiverDetailsForm = (props) => {
     const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
     const [ disableSubmit, setDisableSubmit ] = useState(false);
-    const myWUNumber  = getLocalData('myWUNumber') || getLocalData('myWUNumberTemp')
+    const myWUNumber  = getLocalDataMyWuNumber() || getLocalData('myWUNumberTemp')
     // const resetForm = () => {
     //     initialize({
     //         firstName: null,

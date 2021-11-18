@@ -13,9 +13,26 @@ import {
 import _ from 'lodash'
 import { setLocalDataJSON } from 'utils/cache'
 import { getIncommHeaders } from 'utils/helpers'
+
 import history from 'utils/history'
 import { setLocale } from 'utils/helpers'
 import { notification } from 'services/notification';
+
+const userUpdatePayload = (myWuNumber) => {
+    return {
+        'additional_properties': {
+            'western_union': {
+                'type': 'map',
+                'map': {
+                    'wu_number': {
+                        'type': 'text',
+                        'value': myWuNumber
+                    }
+                }
+            }
+        }
+    }
+}
 export const getUserDetails = (t) => {
     return async (dispatch) => {
         dispatch(getUserRequest())
@@ -28,6 +45,27 @@ export const getUserDetails = (t) => {
                 dispatch(getUserSuccess(result.data))
             }else{
                 dispatch(getUserFailed({}))
+            }
+        }catch(e){
+            console.log(e)
+            notification('error',t('SESSION_TIMEOUT'))
+
+            history.push('/error')
+        }
+
+    }
+}
+
+export const getUserDetailsUpdate = (t,myWuNumber) => {
+    return async (dispatch) => {
+        dispatch(getUserRequest())
+        const data = userUpdatePayload(myWuNumber)
+        try{
+            const result  = await axiosInstance.put('/users/me',data, {
+                headers:  { 'Content-Type' : 'application/json' }
+            })
+            if( result.status === 200 || result.status === 204 ){
+                dispatch(getUserDetails(t))
             }
         }catch(e){
             console.log(e)

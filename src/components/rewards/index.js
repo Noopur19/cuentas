@@ -6,7 +6,7 @@ import ReceiverDetailsForm from  './steps/ReceiverDetailsForm'
 import ConfirmTransfer from  './steps/ConfirmTransfer'
 import TransactionDetailsForm from  './steps/TransactionDetailsForm'
 import DeliveryTypeForm from  './steps/DeliveryTypeForm'
-import { getUser } from 'utils/helpers'
+import { getUser, getLocalDataMyWuNumber } from 'utils/helpers'
 import { getLocalData } from 'utils/cache'
 import { useDispatch } from 'react-redux'
 import { callMyNUNumber } from 'middleware/receiver'
@@ -16,7 +16,7 @@ import Steps from './steps.styles'
 const RewardsStep = () => {
     const dispatch = useDispatch()
     const [ step, setStep ] = useState(1)
-    const myWUNumber  = getLocalData('myWUNumber') || getLocalData('myWUNumberTemp')
+    const myWUNumber  = getLocalDataMyWuNumber() || getLocalData('myWUNumberTemp')
 
     const receivers = myWUNumber && useSelector((state) => state.receiver.receivers ) || []
 
