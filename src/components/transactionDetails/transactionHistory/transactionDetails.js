@@ -97,17 +97,9 @@ const TransactionDetails = (props) => {
         }
     }
 
-    const getTotalAmount = () => {
-        if (_.isEmpty(paymentDetails)){
-            return 0;
-        }
-        return (
-            getPrincipalAmount() +
-            getTransferFee() +
-            getTotalTaxes() +
-            getOtherFee() -
-            getPromotionalDiscount()
-        );
+    const getGrossAmount = () => {
+        const grossAmount = _.get(paymentDetails,'origination.gross_amount');
+        return parseInt(grossAmount) > 0 ? parseInt(grossAmount) / 100 : 0
     };
 
     return (
@@ -158,7 +150,7 @@ const TransactionDetails = (props) => {
             </div>
             <div className="d-flex justify-content-between info-heading">
                 <h4>{t('TOTAL')}</h4>
-                <span>-{getCurrencySymbol(currencyCode)} {getTotalAmount().toFixed(2)} {`(${ currencyCode })`}</span>
+                <span>-{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             {!payment && <>
                 <div className="article">

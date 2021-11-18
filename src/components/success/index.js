@@ -127,17 +127,9 @@ const Success = () => {
         return parseInt(payoutAmount) > 0 ? parseInt(payoutAmount) / 100 : 0
     };
 
-    const getTotalAmount = () => {
-        if (_.isEmpty(postDeliveryDetails?.payment_details)){
-            return 0;
-        }
-        return (
-            getPrincipalAmount() +
-            getTransferFee() +
-            getTotalTaxes() +
-            getOtherFee() -
-            getPromotionalDiscount()
-        );
+    const getGrossAmount = () => {
+        const grossAmount = postDeliveryDetails && _.get(postDeliveryDetails?.payment_details,'origination.gross_amount');
+        return parseInt(grossAmount) > 0 ? parseInt(grossAmount) / 100 : 0
     };
 
     const isDoddFrank = () => {
@@ -308,7 +300,7 @@ const Success = () => {
                 </div>
                 <div className="d-flex justify-content-between info-heading">
                     <h4>{t('TOTAL')}</h4>
-                    <span>-{getCurrencySymbol(currencyCode)} {getTotalAmount().toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>-{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 {postDeliveryDetails?.receiver?.address.country_iso_code !== 'US' &&
                 <div className="d-flex justify-content-between info">
