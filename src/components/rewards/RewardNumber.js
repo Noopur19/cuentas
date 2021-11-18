@@ -10,29 +10,30 @@ import LinkText from '../shared/LinkText.styled'
 import RewardNumber from './RewardNumber.styles'
 import { Card } from '../shared/Footer.styled'
 import CardFooter from '../shared/CardFooter'
-import { setLocalData, getLocalData, removeLocalData } from 'utils/cache';
+import { setLocalData, removeLocalData } from 'utils/cache';
 import { rewardNumberValidation as validate } from 'utils/validates'
 import PropTypes from 'prop-types';
 import history from 'utils/history'
 import { useTranslation } from 'react-i18next';
-import { getParseHtmlArticle } from 'utils/helpers';
+import { getParseHtmlArticle, getLocalDataMyWuNumber } from 'utils/helpers';
 import { STATIC_URLS } from 'constants/app';
 import { useSelector } from 'react-redux'
+import { getUserDetailsUpdate } from 'middleware/user'
 const RewardNumberPage = (props) => {
     const dispatch = useDispatch();
     const { handleSubmit, initialize } = props;
     const formValues = useSelector((state) => state.form.rewardNumber)
 
-    const myWUNumber = getLocalData('myWUNumber')
+    const myWUNumber = getLocalDataMyWuNumber()
     const [ checked ,setChecked ] =  useState(myWUNumber ? true : false)
     const { t } = useTranslation();
     const onSubmit = (values) => {
+        const checkedMyWuNumber = checked ? values?.WUNumber : null
+        dispatch(getUserDetailsUpdate(t,checkedMyWuNumber))
         if (values.WUNumber) {
-            checked && setLocalData('myWUNumber',values?.WUNumber)
             setLocalData('myWUNumberTemp',  values?.WUNumber )
             dispatch(postWUNumber(values.WUNumber));
         }else{
-            removeLocalData('myWUNumber')
             history.push('/protect-form')
         }
     }
@@ -46,19 +47,12 @@ const RewardNumberPage = (props) => {
     },[ myWUNumber ])
 
     const handleSaveWUnumber = (event) => {
-        if(event.target.checked){
-            setChecked(true)
-            formValues?.value?.WUNumber && setLocalData('myWUNumber',formValues?.value?.WUNumber)
-        }else{
-            setChecked(false)
-            setLocalData('myWUNumber','')
-        }
-
+        setChecked(event.target.checked)
     }
 
     const continueWithoutMYWU = () => {
+        myWUNumber && dispatch(getUserDetailsUpdate(t,null))
         dispatch(change('WUNumber',''))
-        removeLocalData('myWUNumber')
         removeLocalData('myWUNumberTemp')
         history.push('/protect-form')
 

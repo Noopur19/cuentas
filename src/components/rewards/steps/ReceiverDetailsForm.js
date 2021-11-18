@@ -18,6 +18,7 @@ import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
 import { GET_STEP_PROGRESSBAR } from 'constants/app'
 import { useTranslation } from 'react-i18next';
+import { getLocalDataMyWuNumber } from 'utils/helpers'
 
 const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
@@ -30,7 +31,7 @@ const ReceiverDetailsForm = (props) => {
     const form = useSelector((state) => state.form.receiver_details)
     const [ state, setState ] = useState(null)
     const [ disableSubmit, setDisableSubmit ] = useState(false);
-    const myWUNumber  = getLocalData('myWUNumber') || getLocalData('myWUNumberTemp')
+    const myWUNumber  = getLocalDataMyWuNumber() || getLocalData('myWUNumberTemp')
     // const resetForm = () => {
     //     initialize({
     //         firstName: null,
@@ -71,12 +72,23 @@ const ReceiverDetailsForm = (props) => {
         return states && states?.map((item) => ({ value: JSON.stringify(item), label: item.state } ))
     }
 
+    const callStates = (countryCode, obj) =>{
+        if(obj.country === 'United States' ||  obj.country === 'Mexico' || obj.country === 'Canada') {
+            dispatch(getAllStates(countryCode))
+        }else{
+            setDisableSubmit(false)
+            dispatch({
+                type: 'CLEAR_STATES'
+            })
+        }
+    }
+
     const handleChangeCountry = (event) => {
         setDisableSubmit(true)
         if(event.value){
             const obj = event.value && JSON.parse(event.value)
             const countryCode = obj.country === 'Canada' ? 'CA' : (obj.country === 'Mexico' ? 'Mexico' : obj.currency[ 0 ].country_cd)
-            dispatch(getAllStates(countryCode))
+            callStates(countryCode, obj)
             dispatch(change('receiver_details','city',null))
             dispatch(change('receiver_details','state',null))
         }

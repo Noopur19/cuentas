@@ -1,5 +1,5 @@
 import React,{ useState } from 'react'
-import { getLocalData } from 'utils/cache'
+import { getLocalDataMyWuNumber } from 'utils/helpers'
 import PropTypes from 'prop-types';
 import moment from 'moment'
 import { useSelector } from 'react-redux'
@@ -15,7 +15,7 @@ const AdditionalDetails = (props) => {
     const { transactions } = props;
 
     const [ isOpen, setIsOpen ] = useState(false);
-    const myWUNumber  = getLocalData('myWUNumber')
+    const myWUNumber  = getLocalDataMyWuNumber()
     const enquiry = useSelector((state) => state.transactionHistory.enquiryDetails)
     const parsedReceiver = transactions && JSON.parse(transactions?.additional_properties?.receiver?.value)
     const dateTime = transactions && JSON.parse(transactions?.additional_properties?.transaction_response?.value).response?.date_time
