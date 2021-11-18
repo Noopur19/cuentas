@@ -311,6 +311,7 @@ export const navigateBackForApp = (path, dispatch, step) => {
         redirectForSteps(path,dispatch, step)
         break;
     case ROUTES.SUCCESS_PAGE:
+        history.push(ROUTES.RECEIVER_DETAILS)
         dispatch({
             type: SET_STEP,
             step: 4
