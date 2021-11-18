@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { NavbarTitle, Nav } from './Navbar.styled';
 import backIcon from '../../images/backIcon.svg';
-import sentIcon from '../../images/sentIcon.svg';
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -9,7 +8,6 @@ import NavbarCard from './NavbarCard';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { postSendEmail } from 'middleware/transactionDetails';
 import {  getTransactionStatus } from 'utils/helpers';
 
 import Modal from 'components/shared/Modal';
@@ -26,12 +24,7 @@ const Navbar = (props)  => {
     const { t } = useTranslation()
     const history = useHistory();
 
-    const { transactions } = props;
-
     const stepData =  useSelector((state) => state.theme.stepData)
-    const onClickHandler = () => {
-        dispatch(postSendEmail(transactions?.id))
-    }
 
     const handleBack = () => {
         history.goBack()
@@ -85,9 +78,6 @@ const Navbar = (props)  => {
                             <h5>Transactions Details</h5>
                         </div>
                     </NavbarTitle>
-                    <div className="blankIcon">
-                        <a className="sentIcon" onClick={ () => onClickHandler() } href="#"><img src={ sentIcon } alt="back"/> </a>
-                    </div>
                     { showProgressBar() &&
                     <><div className="progress-wrapper">
                         <h3>{stepData?.title}</h3>

@@ -100,11 +100,11 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
 export const postSendEmail = (invoiceId) => {
     return (dispatch) => {
         dispatch(postSendEmailRequest())
-        axiosInstance.post('incomm/wu/sms/sendEmail', {
-            invoiceId
-        }, { headers: getIncommHeaders() })
+        axiosInstance.post('incomm/wu/sms/sendEmail', { invoiceId },
+            { headers: _.merge(getIncommHeaders(), { 'Content-Type' : 'application/json' }) } )
             .then((response) => {
                 dispatch(postSendEmailSuccess(response.data))
+                notification('success','Successfully sent receipt')
                 response?.result[ 0 ]?.responseMessage &&  notification('error',response?.result[ 0 ]?.responseMessage)
             }).catch((error) => {
                 dispatch(postSendEmailFailed(error))
