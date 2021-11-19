@@ -21,7 +21,7 @@ const LandingPage = (props) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const articles = useSelector((state) => state.articles.articles)
-    setLocalData('latlong',`${ props?.coords?.latitude }-${ props?.coords?.longitude }`)
+    setLocalData('latlong',`${ props?.coords?.latitude || '37.79' }-${ props?.coords?.longitude || '122.41' }`)
     useEffect(async()=>{
         const propsData = props
         const ip = await publicIp.v4()
