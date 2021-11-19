@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 import BorderTitle from '../../shared/BorderTitle.styled'
 import { useTranslation } from 'react-i18next';
-import { getStateByCode } from 'utils/helpers';
+import { getPhoneNumberFormat, getStateByCode } from 'utils/helpers';
 import { useDispatch  } from 'react-redux';
 const SenderDetails = (props) => {
     const { t } = useTranslation()
@@ -41,10 +41,12 @@ const SenderDetails = (props) => {
                 <p>{t('SENDER_ZIP_CODE')}</p>
                 <span><b>{parsedSender?.address?.postal_code}</b></span>
             </div>
-            <div className="d-flex justify-content-between info">
-                <p>{t('SENDER_PHONE')}</p>
-                <span><b>{parsedSender?.contact_phone}</b></span>
-            </div>
+            {parsedSender?.contact_phone &&
+                <div className="d-flex justify-content-between info">
+                    <p>{t('SENDER_PHONE')}</p>
+                    <span><b>{getPhoneNumberFormat(parsedSender?.contact_phone)}</b></span>
+                </div>
+            }
         </div>
     )
 }

@@ -327,3 +327,17 @@ export const navigateBackForApp = (path, dispatch, step) => {
         break
     }
 }
+
+export const getPhoneNumberFormat = (number) => {
+    if (_.isEmpty(number)) {
+        return '';
+    }
+    if (number.length === 10) {
+        var cleaned = ('' + number).replace(/\D/g, '');
+        var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+        if (match) {
+            return match[ 1 ] + '-' + match[ 2 ] + '-' + match[ 3 ];
+        }
+    }
+    return number;
+}
