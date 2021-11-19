@@ -120,7 +120,7 @@ export const postDeliveryData = (values, incomeDetail,callback, t) => {
             }
         }).catch((error) => {
             dispatch(postDeliveryDataFailed(error))
-            notification('error',`${ t('SOMETHING_WENT_WRONG_ERROR') }`)
+            notification('error',GET_ERROR_FIELD.ERROR(error))
         })
     }
 }
