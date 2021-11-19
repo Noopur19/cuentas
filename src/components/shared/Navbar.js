@@ -1,29 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavbarTitle, Nav } from './Navbar.styled';
 import backIcon from '../../images/backIcon.svg';
 import sentIcon from '../../images/sentIcon.svg';
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types';
-import NavbarCard from './NavbarCard';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { postSendEmail } from 'middleware/transactionDetails';
-import {  getTransactionStatus } from 'utils/helpers';
 import { navigateBackForApp } from 'utils/helpers'
-import Modal from 'components/shared/Modal';
-import { postCancelTransaction } from 'middleware/transactionDetails';
+
 const Navbar = (props)  => {
-    const { showProgressBar, activeCard , history } = props
-    const [ isOpen, setIsOpen ] = useState(false);
+    const { showProgressBar , history } = props
     const step = useSelector((state) => state.theme.step)
 
     const dispatch = useDispatch()
-    const enquiry = useSelector((state) => state.transactionHistory?.enquiryDetails)
     const invoice = useSelector((state) => state.transactionHistory.invoiceDetails)
-    const receiver = invoice && JSON.parse(invoice?.additional_properties.receiver.value)
-    const sender = invoice && JSON.parse(invoice?.additional_properties.sender.value)
-    const mtcn = invoice?.additional_properties.mtcn.value
+
     const { t } = useTranslation()
 
     const stepData =  useSelector((state) => state.theme.stepData)
@@ -43,43 +36,11 @@ const Navbar = (props)  => {
         return stepData?.step >= value && 'active'
     }
 
-    const toggleModal = () => {
-        getTransactionStatus(enquiry?.transaction_status) === `${ t('CANCEL_TEXT') }` ?
-            setIsOpen(!isOpen) : setIsOpen(isOpen) ;
-    }
-
-    const cancelTransData = {
-        'amount': invoice?.additional_properties?.amount?.value || null,
-        'invoiceId': invoice?.id || null,
-        'transactionId': invoice?.additional_properties?.transaction_id?.value || null,
-        'mtcn': invoice?.additional_properties?.mtcn?.value || null,
-    }
-
-    const onCancelHandler = () => {
-        dispatch(postCancelTransaction(cancelTransData, receiver, sender, mtcn))
-        toggleModal()
-    }
-
-    const renderModal = () => {
-        return (
-            <Modal
-                show={ isOpen }
-                handleClose={ () => toggleModal() }
-                handleCancel={ () => onCancelHandler() }
-                leftButtonText={ t('CLOSE_TEXT') }
-                rightButtonText={ t('CANCEL_TRANSFER') }
-            >
-                <h3>{t('STATUS_PENDING')}</h3>
-                <h4>(MTCN){invoice?.additional_properties?.mtcn.value}</h4>
-                <h5>{t('CANCEL_CONFIRMATION')}</h5>
-            </Modal>
-        )
-    }
     const transactionCard = () =>{
         // eslint-disable-next-line no-useless-escape
         return history?.location?.pathname?.match('/transaction-history')
-
     }
+
     return (
         <>
             <Nav>
@@ -111,7 +72,6 @@ const Navbar = (props)  => {
                     </div>
                     </>
                     }
-                    {activeCard() && <NavbarCard toggleModal={ toggleModal } />}
                 </div>
                 <div className="header-progress">
                     <h5>{t('NOT_A_RECEIPT')}</h5>
@@ -120,7 +80,6 @@ const Navbar = (props)  => {
                     <h3>{t('SUCCESS')}</h3>
                 </div>
             </Nav>
-            {renderModal()}
         </>
     )
 }

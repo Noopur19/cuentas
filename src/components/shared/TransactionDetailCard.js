@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeaderCard } from './Navbar.styled';
+import { HeaderCard, HeaderCardWrapper } from './Navbar.styled';
 import { useSelector } from 'react-redux'
 import historyIcon from '../../images/historyIcon.png';
 import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
@@ -9,7 +9,7 @@ import { postSendEmail } from 'middleware/transactionDetails';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const NavbarCard = (props) => {
+const TransactionDetailCard = (props) => {
     const { toggleModal } = props
     const { t } = useTranslation();
     const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const NavbarCard = (props) => {
     }
 
     return (
-        <>
+        <HeaderCardWrapper>
             <HeaderCard className="header-card">
                 <div className="amount-paid">
                     <h2>{t('AMOUNT_PAID')}</h2>
@@ -38,14 +38,13 @@ const NavbarCard = (props) => {
                     <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
                 </div>
             </HeaderCard>
-
-        </>
+        </HeaderCardWrapper>
     )
 }
 
-NavbarCard.propTypes = {
+TransactionDetailCard.propTypes = {
     match: PropTypes.object,
     toggleModal: PropTypes.func
 }
 
-export default NavbarCard
+export default TransactionDetailCard

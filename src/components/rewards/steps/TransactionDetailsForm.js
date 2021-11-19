@@ -188,13 +188,15 @@ const TransactionDetailsForm = (props) => {
 
                             </div>
                             <p className="text-center"><b>{t('EXCHANGE_RATE')}: 1 USD = {transferDetails?.service_options?.service_option[ 0 ]?.payment_details.exchange_rate  } { currencyChecked }</b></p>
-                        </> :  <Field
+                        </> :
+                        <Field
                             name="amountUSD"
                             fixed={ 2 }
                             placeholder={ currencyChecked }
                             handleChange={ () => handleChangeUSD('USD') }
-                            inputMode="decimal"
                             component={ renderNumberField }
+                            normalize={ onlyNumberNormalization }
+                            inputMode="decimal"
                         />
 
                     }

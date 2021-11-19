@@ -38,8 +38,13 @@ const StyledContainer = Styled.div`
       } 
    } 
    &.active-card {
+      nav{
+         background-image: none;
+         background-color: #081c81;
+      }
       .header-card {
          display: flex;
+         margin-top: 0;
       }
       .top-header {
          .sentIcon {
@@ -55,7 +60,7 @@ const StyledContainer = Styled.div`
    }
    .transactionHistoryDetail {
       padding-bottom: 0;
-      top: 290px;
+      // top: 290px;
       border-radius: 0;
       background: ${ props => props.theme.light }
    }
