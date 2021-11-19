@@ -1,5 +1,6 @@
 import Styled from 'styled-components';
 import bgImage from '../../images/header-img.png'
+import bgFullImage from '../../images/header-full.png'
 
 export const NavbarTitle = Styled.div`
     h3{
@@ -165,4 +166,12 @@ export const HeaderCard = Styled.div`
         margin-bottom: 0;
     }
 } 
+`
+export const HeaderCardWrapper = Styled.div`
+    margin: -24px -24px 0;
+    padding: 0 24px 24px;
+    background-color: #081c81;
+    background-image: url(${ bgFullImage });
+    background-position: bottom;
+    background-size: cover;
 `

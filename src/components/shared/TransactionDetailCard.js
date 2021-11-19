@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeaderCard } from './Navbar.styled';
+import { HeaderCard, HeaderCardWrapper } from './Navbar.styled';
 import { useSelector } from 'react-redux'
 import historyIcon from '../../images/historyIcon.png';
 import { getCurrencySymbol, getTransactionStatus } from 'utils/helpers';
@@ -26,7 +26,7 @@ const TransactionDetailCard = (props) => {
     }
 
     return (
-        <>
+        <HeaderCardWrapper>
             <HeaderCard className="header-card">
                 <div className="amount-paid">
                     <h2>{t('AMOUNT_PAID')}</h2>
@@ -38,8 +38,7 @@ const TransactionDetailCard = (props) => {
                     <p>{formattedDate} | {moment(time, 'hh:mm:ss').format('hh:mm')}</p>
                 </div>
             </HeaderCard>
-
-        </>
+        </HeaderCardWrapper>
     )
 }
 
