@@ -273,7 +273,7 @@ const Success = () => {
                 </div>
                 <div className="d-flex justify-content-between info-heading">
                     <h4>{t('TOTAL')}</h4>
-                    <span>-{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 {postDeliveryDetails?.receiver?.address.country_iso_code !== 'US' &&
                 <div className="d-flex justify-content-between info">

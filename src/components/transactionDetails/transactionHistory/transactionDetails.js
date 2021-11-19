@@ -150,7 +150,7 @@ const TransactionDetails = (props) => {
             </div>
             <div className="d-flex justify-content-between info-heading">
                 <h4>{t('TOTAL')}</h4>
-                <span className="text-right">-{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
+                <span className="text-right">{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             {!payment && <>
                 <div className="article">
