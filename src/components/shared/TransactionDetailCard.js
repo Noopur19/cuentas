@@ -9,7 +9,7 @@ import { postSendEmail } from 'middleware/transactionDetails';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-const NavbarCard = (props) => {
+const TransactionDetailCard = (props) => {
     const { toggleModal } = props
     const { t } = useTranslation();
     const dispatch = useDispatch()
@@ -43,9 +43,9 @@ const NavbarCard = (props) => {
     )
 }
 
-NavbarCard.propTypes = {
+TransactionDetailCard.propTypes = {
     match: PropTypes.object,
     toggleModal: PropTypes.func
 }
 
-export default NavbarCard
+export default TransactionDetailCard

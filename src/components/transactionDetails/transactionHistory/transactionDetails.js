@@ -145,12 +145,12 @@ const TransactionDetails = (props) => {
             </div>
             <div className="d-flex justify-content-between info-heading mt-3">
                 <h4 >{getTotalToReceiverText()} </h4>
-                <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}
+                <span className="text-right">{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}
                 </span>
             </div>
             <div className="d-flex justify-content-between info-heading">
                 <h4>{t('TOTAL')}</h4>
-                <span>-{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
+                <span className="text-right">-{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
             </div>
             {!payment && <>
                 <div className="article">
