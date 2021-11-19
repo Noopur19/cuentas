@@ -62,10 +62,14 @@ const TransactionHistory = () => {
     return (
         <Card className="transaction-card mb-0">
             <div>
-                <BorderTitle><h3>{t('MYWU_HISTORY')}
-                    <span className="underline"></span></h3>
-                </BorderTitle>
-                {renderCard()}
+                <div className="fixed-header">
+                    <BorderTitle><h3>{t('MYWU_HISTORY')}
+                        <span className="underline"></span></h3>
+                    </BorderTitle>
+                </div>
+                <div className="content-wrapper">
+                    {renderCard()}
+                </div>
             </div>
         </Card>
     )

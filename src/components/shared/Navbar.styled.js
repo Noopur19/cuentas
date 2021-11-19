@@ -42,7 +42,7 @@ export const Nav = Styled.nav`
         padding: 24px;
         padding-bottom: 50px;
         a {
-            width: 10%;
+            width: 4%;
         }
         .sentIcon {
             display: none;

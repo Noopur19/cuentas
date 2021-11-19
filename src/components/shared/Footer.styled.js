@@ -17,6 +17,25 @@ export const Card = Styled.div`
   right: 0;
   margin-top: -30px; 
   z-index: 2;
+  &.transaction-card {
+    border-radius: 0;
+    padding-top: 0;
+    .fixed-header {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      padding: 0 30px;
+      background: #fff;
+      padding-top: 20px;
+       &>div {
+         margin-bottom: 10px;
+       }
+    }
+    .content-wrapper {
+      padding-top: 60px;
+    }
+  }
 `;
 
 export const FooterButton = Styled.footer`

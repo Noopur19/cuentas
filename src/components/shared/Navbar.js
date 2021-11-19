@@ -75,18 +75,26 @@ const Navbar = (props)  => {
             </Modal>
         )
     }
+    const transactionCard = () =>{
+        // eslint-disable-next-line no-useless-escape
+        return history?.location?.pathname?.match('/transaction-history')
+
+    }
     return (
         <>
             <Nav>
                 <div className="top-header">
                     <a href="#" onClick={ () => handleBack() } ><img src={ backIcon } alt="back"/> </a>
                     <NavbarTitle className="main-title">
-                        <h3>{t('SEND_MONEY_WITH_CUENTAS')}
+                        { !transactionCard() && <h3>{t('SEND_MONEY_WITH_CUENTAS')}
                             <i>{t('POWERED_BY_WESTERN_UNION')}</i>
-                        </h3>
+                        </h3> }
                         <div className="card-top-header">
                             <h5>Transactions Details</h5>
                         </div>
+                        {transactionCard() &&  <div className="transaction-history">
+                            <h3>MyWUHistory</h3>
+                        </div>}
                     </NavbarTitle>
                     <div className="blankIcon">
                         <a className="sentIcon" onClick={ () => onClickHandler() } href="#"><img src={ sentIcon } alt="back"/> </a>
