@@ -25,13 +25,17 @@ const TransactionDetailCard = (props) => {
         dispatch(postSendEmail(invoice?.id))
     }
 
+    const getClassName = () => {
+        return getTransactionStatus(enquiry?.transaction_status) === 'Cancel' ? 'text-green' : ''
+    }
+
     return (
         <HeaderCardWrapper>
             <HeaderCard className="header-card">
                 <div className="amount-paid">
                     <h2>{t('AMOUNT_PAID')}</h2>
                     <span>- {getCurrencySymbol(currencyCode)} {(+invoice?.additional_properties?.amount?.value).toFixed(2) }</span>
-                    <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
+                    <p className={ getClassName() } onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
                 </div>
                 <div className="amount-img">
                     <img className="img-fluid" onClick={ () => onClickHandler() } src={ historyIcon } alt="history-icon" />

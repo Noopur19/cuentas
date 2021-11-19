@@ -72,7 +72,7 @@ export const Nav = Styled.nav`
                 background: ${ (props) => props.theme.progress };
                 box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
                 border-radius: 38px;
-                margin-top: 12px; 
+                margin-top: 12px;
 
                 font-weight: 500;
                 font-size: 12px;
@@ -80,14 +80,14 @@ export const Nav = Styled.nav`
                 color: ${ (props) => props.theme.success };
                 &:last-child {
                     margin-right: 0;
-                } 
+                }
                 &.active {
-                    background: ${ (props) => props.theme.success }; 
+                    background: ${ (props) => props.theme.success };
                     border: 3px solid ${ (props) => props.theme.progress };
-                }              
+                }
             }
         }
-          
+
     }
     .header-progress {
         padding-bottom: 30px;
@@ -103,7 +103,7 @@ export const Nav = Styled.nav`
             color: #896200;
             margin-top: -12px;
             padding: 10px;
-        }     
+        }
     }
     .success-head {
         display: none;
@@ -115,7 +115,7 @@ export const HeaderCard = Styled.div`
     border-radius: 30px;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;    
+    justify-content: space-between;
     align-items: stretch;
     padding: 22px;
     margin-top: 20px;
@@ -132,6 +132,7 @@ export const HeaderCard = Styled.div`
             font-size: 36px;
             line-height: 41px;
             color: ${ props => props.theme.price };
+            white-space: nowrap;
         }
         p {
             margin-top: 30px;
@@ -139,7 +140,9 @@ export const HeaderCard = Styled.div`
             line-height: 17px;
             color: rgb(0 0 0 / 90%);
             text-align: left;
-            color: ${ props => props.theme.success };
+            &.text-green{
+                color: ${ props => props.theme.success };
+            }
         }
     }
     .amount-img {
@@ -153,19 +156,20 @@ export const HeaderCard = Styled.div`
         margin-left: auto;
         margin-bottom: 20px;
     }
-    
+
     .amount-img {
         text-align: right;
     }
-    
+
     p {
         font-size: 14px;
         line-height: 17px;
         text-align: right;
         color: #CECBDE;
         margin-bottom: 0;
+        white-space: nowrap;
     }
-} 
+}
 `
 export const HeaderCardWrapper = Styled.div`
     margin: -24px -24px 0;

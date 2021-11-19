@@ -558,7 +558,7 @@ export const TRANSLATIONS_EN = {
     'WU_PRIVACEY_AGGREEMENT': 'I agree to the Privacy statement',
     'WU_TERMS_AGGREEMENT': 'I agree to the Terms and Conditions',
     'WU_TERMS_ERROR': 'Please accept terms and conditions to proceed ahead.',
-    'PAY_FROM_ACCOUNT': 'Pay From Account',
+    'PAY_FROM_ACCOUNT': 'Pay from Account',
     'ASSOCIATE_CHECKING': 'Associate Checking',
     'PAYOUT_COUNTRY': 'Payout Country',
     'PAYOUT_STATE': 'Payout State',
@@ -657,5 +657,6 @@ export const TRANSLATIONS_EN = {
     'GO_BACK_TO_APP': 'Go back to app',
     'OOPS_ERROR': 'Oops! Something went wrong.',
     'VISIT_APP_STORE': 'Please visit your app store to download the Cuentas app and apply for your card.',
-    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continue without MY WU number'
+    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continue without MY WU number',
+    'CLOSE_TAB': 'This tab can now be closed'
 }

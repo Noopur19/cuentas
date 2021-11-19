@@ -653,5 +653,6 @@ export const TRANSLATIONS_ES = {
     'TRANSACTION_COMPLETE_SUBTEXT': 'Cierre su navegador o haga clic aquí para volver a la aplicación Cuentas',
     'VISIT_APP_STORE': 'Visite su tienda de aplicaciones para descargar la aplicación Cuentas y solicitar su tarjeta.',
     'OOPS_ERROR': '¡UPS! Algo salió mal',
-    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continuar sin Mi número de WU'
+    'CONTINUE_WITHOUT_MY_WU_NUMBER': 'Continuar sin Mi número de WU',
+    'CLOSE_TAB': 'Esta pestaña puede cerrarse ahora'
 }

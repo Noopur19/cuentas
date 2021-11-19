@@ -76,10 +76,6 @@ const RewardNumberPage = (props) => {
                                 pattern="[0-9]*"
                                 inputMode="numeric"
                             />
-                            <p>
-                                <input type="checkbox" id="test1" />
-                                <label htmlFor="test1"></label>
-                            </p>
                             <input type='checkbox' checked={ checked } onChange={ handleSaveWUnumber } />
                             <p className="note-para">{t('SAVE_WU_NUMBER')}</p>
                         </div>

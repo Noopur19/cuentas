@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from 'react'
+import React,{ useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Card } from '../shared/Footer.styled'
 import { getCountryName, getCurrencySymbol, getParseHtmlArticle, isIOSDevice } from 'utils/helpers'
@@ -12,14 +12,11 @@ import _ from 'lodash'
 import SuccessDetail from './successDetail.styled'
 import { getWUContactInfo } from 'utils/helpers'
 import Button from 'components/shared/Button.styled'
-import Modal from 'components/shared/Modal'
 import { STATIC_URLS } from 'constants/app'
-import Vector from '../../images/cancel.svg'
 import { getAllStates  } from 'middleware/receiver'
 const Success = () => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
-    const [ isOpen, setIsOpen ] = useState(false);
     const myWUNumber  = getLocalData('myWUNumberTemp')
     const postDeliveryDetails = useSelector((state) => state.receiver.postDeliveryData)
     const confirmDetail = useSelector((state) => state.transactionHistory.confirmDetails)
@@ -176,38 +173,14 @@ const Success = () => {
         return totalPoints
     }
 
-    const toggleModal = () => {
-        setIsOpen(!isOpen)
-
-    }
     const gotoMobileApp = () => {
         window.open( isIOSDevice() ? STATIC_URLS.APP_IOS_BACK_URL : STATIC_URLS.APP_ANDROID_BACK_URL)
-    }
-
-    const renderModal = () => {
-        return (
-            <Modal
-                show={ isOpen }
-                handleClose={ () => gotoMobileApp() }
-                handleCancel={ () => toggleModal() }
-                leftButtonText={ t('GO_BACK_TO_APP') }
-                rightButtonText={ t('CLOSE_TEXT') }
-            >
-                <a className="cancel">
-                    <img src={ Vector }  onClick={ () => toggleModal() } alt="back"/>
-                </a>
-                <h3>{t('TRANSACTION_COMPLETE')}</h3>
-                <p>{t('TRANSACTION_COMPLETE_SUBTEXT')}</p>
-
-            </Modal>
-        )
     }
 
     return (
         <Card className="success-container">
             <SuccessDetail>
                 {getParseHtmlArticle('wu_130')}
-                {renderModal()}
                 <BorderTitle smallText className="mt-4"><h3>{t('TRACKING_INFO')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
@@ -342,7 +315,8 @@ const Success = () => {
                 {getParseHtmlArticle('wu_109')}
                 {getParseHtmlArticle('wu_110')}
                 {getParseHtmlArticle('wu_111')}
-                <Button className="w-100" onClick={ () => toggleModal() } outlined type='submit'>{t('CLOSE_TEXT')}</Button>
+                <Button className="w-100" onClick={ () => gotoMobileApp() } outlined type='submit'>{t('GO_BACK_TO_APP')}</Button>
+                <p className="text-center mt-2">{t('CLOSE_TAB')}</p>
             </SuccessDetail>
         </Card>
     )
