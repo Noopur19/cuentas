@@ -70,7 +70,7 @@ export const getTransactionStatus = (status) => {
     case 'PAID':
         return 'Refunded';
     default:
-        return '';
+        return status;
     }
 }
 
