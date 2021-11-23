@@ -163,7 +163,7 @@ const renderSelectField = (props) => {
     }
 
     const getSelectedOption = (value) => {
-        return options.filter((item) => item.value === value )
+        return options?.filter((item) => item.value === value )
     }
 
     return (

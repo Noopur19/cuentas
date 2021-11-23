@@ -48,12 +48,22 @@ export const getTransactionHistory = (t) => {
     }
 }
 
+const getReceiverObject = (item) => {
+    if(item.name.first_name && item.name.last_name) {
+        return { 'first_name': item.name.first_name || '',
+            'last_name':  item.name.last_name || '' }
+    } else {
+        return { 'first_name': item.name.given_name || '',
+            'paternal_name': item.name.paternal_name || '',
+            'maternal_name': item.name.maternal_name || '' }
+    }
+}
+
 export const postTransactionEnquiry = (receiver,sender,mtcn) => {
     const receiverData = {
         'receiver': {
             'name': {
-                'first_name': receiver.name.first_name || '',
-                'last_name':  receiver.name.last_name || ''
+                ...getReceiverObject(receiver)
             },
             'address': {
                 'country_iso_code': receiver.address.country_iso_code || ''
@@ -64,8 +74,7 @@ export const postTransactionEnquiry = (receiver,sender,mtcn) => {
     const senderData = {
         'receiver': {
             'name': {
-                'first_name': sender.name.first_name || '',
-                'last_name':  sender.name.last_name || ''
+                ...getReceiverObject(sender)
             },
             'address': {
                 'country_iso_code': sender.address.country_iso_code || ''

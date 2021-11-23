@@ -25,7 +25,7 @@ const Success = () => {
     const states = useSelector((state) => state.receiver.states)
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
     const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
-    const formattedDate = date && moment(date).format('DD MMMM,YYYY')
+    const formattedDate = date && moment(date).format('DD MMMM, YYYY')
     const formattedTime = time && moment(time, 'hh:mm:ss').format('hh:mm A');
     const currencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'origination.currency_iso_code')
     const receiverCurrencyCode = postDeliveryDetails && _.get(postDeliveryDetails.payment_details,'destination.currency_iso_code')
@@ -254,26 +254,26 @@ const Success = () => {
 
                 <div className="d-flex justify-content-between info">
                     <p>{getTransferAmountText()}</p>
-                    <span>{getCurrencySymbol(currencyCode)} {getPrincipalAmount().toFixed(2)} {`(${ currencyCode })`}</span></div>
+                    <span>{getCurrencySymbol(currencyCode)}{getPrincipalAmount().toFixed(2)} {`(${ currencyCode })`}</span></div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRANSFER_FEES')}</p>
-                    <span>+{getCurrencySymbol(currencyCode)} {getTransferFee().toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>+{getCurrencySymbol(currencyCode)}{getTransferFee().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('ADDITIONAL_FEES')}</p>
-                    <span>+{getCurrencySymbol(currencyCode)} {(0).toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>+{getCurrencySymbol(currencyCode)}{(0).toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('TRANSFER_TAXES')}</p>
-                    <span>+{getCurrencySymbol(currencyCode)} {getTotalTaxes().toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>+{getCurrencySymbol(currencyCode)}{getTotalTaxes().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('PROMOTION_DISCOUNT')}</p>
-                    <span>-{getCurrencySymbol(currencyCode)} {getPromotionalDiscount().toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>-{getCurrencySymbol(currencyCode)}{getPromotionalDiscount().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading">
                     <h4>{t('TOTAL')}</h4>
-                    <span>{getCurrencySymbol(currencyCode)} {getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>{getCurrencySymbol(currencyCode)}{getGrossAmount().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 {postDeliveryDetails?.receiver?.address.country_iso_code !== 'US' &&
                 <div className="d-flex justify-content-between info">
@@ -282,15 +282,15 @@ const Success = () => {
                 </div>}
                 <div className="d-flex justify-content-between info">
                     <p>{getTransferAmountText()}</p>
-                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
+                    <span>{getCurrencySymbol(receiverCurrencyCode)}{getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info">
                     <p>{t('OTHER_FEES')}</p>
-                    <span>+{getCurrencySymbol(currencyCode)} {getOtherFee().toFixed(2)} {`(${ currencyCode })`}</span>
+                    <span>+{getCurrencySymbol(currencyCode)}{getOtherFee().toFixed(2)} {`(${ currencyCode })`}</span>
                 </div>
                 <div className="d-flex justify-content-between info-heading mt-3">
                     <h4 >{getTotalToReceiverText()}</h4>
-                    <span>{getCurrencySymbol(receiverCurrencyCode)} {getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
+                    <span>{getCurrencySymbol(receiverCurrencyCode)}{getPayoutAmount().toFixed(2)} {`(${ receiverCurrencyCode })`}</span>
                 </div>
 
                 {getParseHtmlArticle('wu_117')}

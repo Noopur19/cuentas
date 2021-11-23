@@ -16,7 +16,7 @@ import { getLocalData } from 'utils/cache'
 import PropTypes from 'prop-types';
 import history from 'utils/history'
 import { ROUTES } from 'constants/AppRoutes'
-import { GET_STEP_PROGRESSBAR } from 'constants/app'
+import { GET_STEP_PROGRESSBAR, MAT_PAT_FORMAT, MID_LAST_FORMAT } from 'constants/app'
 import { useTranslation } from 'react-i18next';
 import { getLocalDataMyWuNumber } from 'utils/helpers'
 
@@ -24,7 +24,10 @@ const ReceiverDetailsForm = (props) => {
     const dispatch  = useDispatch()
     const { t } = useTranslation()
 
-    const { handleSubmit,receivers, initialize ,submitData } = props;
+    const nameFormat = useSelector((state) => state.theme.format)
+    const matPatFormat = useSelector((state) => state.theme.isMatPatFormat)
+    const midLastFormat = useSelector((state) => state.theme.isMidLastFormat)
+    const { handleSubmit,receivers, initialize , submitData } = props;
     const countries = useSelector((state) => state.receiver.countries )
     const statesLoading = useSelector((state) => state.receiver.statesLoading )
     const states = useSelector((state) => state.receiver.states )
@@ -32,13 +35,7 @@ const ReceiverDetailsForm = (props) => {
     const [ state, setState ] = useState(null)
     const [ disableSubmit, setDisableSubmit ] = useState(false);
     const myWUNumber  = getLocalDataMyWuNumber() || getLocalData('myWUNumberTemp')
-    // const resetForm = () => {
-    //     initialize({
-    //         firstName: null,
-    //         lastName: null,
-    //         country: null
-    //     })
-    // }
+
     useEffect(() => {
         dispatch(getAllCountries())
         if(form?.values?.country){
@@ -99,7 +96,33 @@ const ReceiverDetailsForm = (props) => {
         const stateData = states.filter((data) => data.state ===  value)
         setState(stateData[ 0 ])
         dispatch(change('receiver_details','city',null))
+    }
 
+    const handleFormatA = () => {
+        dispatch({ type: MID_LAST_FORMAT,set: true })
+        initialize({
+            givenName: '',
+            paternalName: '',
+            maternalName: '',
+        })
+    }
+
+    const handleFormatB = () => {
+        dispatch({ type: MAT_PAT_FORMAT,set: true })
+        initialize({
+            firstName: '',
+            lastName: '',
+            middleName: ''
+        })
+    }
+
+    const handleChangeFormat = (event) => {
+        const value  = event.value
+        {value ===  t('FIRST_LAST_NAME_FORMAT') ? handleFormatA() : handleFormatB()}
+        dispatch({
+            type: 'SELECT_NAME_FORMAT',
+            data: { value: event.value, label: event.label }
+        })
     }
 
     const getCitiesOptions = () => {
@@ -109,8 +132,14 @@ const ReceiverDetailsForm = (props) => {
     }
 
     const getReceivers = () =>{
-        return receivers && receivers.map((item) => ({ value: JSON.stringify(item), label: `${ item.name.first_name } ${ item.name.last_name }` }))
-        // receivers && receivers.map((item) => item)
+        return receivers && receivers.map((item) => ({ value: JSON.stringify(item),label: `${ item?.name?.first_name } ${ item?.name?.last_name }` }))
+    }
+
+    const getNameFormatOptions = () => {
+        const options = [
+            { value: t('FIRST_LAST_NAME_FORMAT'), label: t('FIRST_LAST_NAME_FORMAT') },
+            { value: t('MAT_PAT_NAME_FORMAT'), label: t('MAT_PAT_NAME_FORMAT') } ]
+        return  options.map((item) => ({ value: item.value, label: item.value }))
     }
 
     const handleChangeReceiver = (event) => {
@@ -120,6 +149,8 @@ const ReceiverDetailsForm = (props) => {
         initialize({
             firstName: data?.name?.first_name,
             lastName: data?.name?.last_name,
+            paternalName: data?.name?.paternal_name,
+            maternalName: data?.name?.maternal_name,
             country: obj[ 0 ] && JSON.stringify(obj[ 0 ] )
         })
     }
@@ -137,7 +168,7 @@ const ReceiverDetailsForm = (props) => {
                         </BorderTitle>
                         <Field
                             name="receiver"
-                            placeholder="Receivers first name*"
+                            placeholder="None"
                             handleChange = { handleChangeReceiver }
                             component={ renderSelectField }
                             options={ getReceivers() }
@@ -150,23 +181,51 @@ const ReceiverDetailsForm = (props) => {
                         <span className="underline"></span></h3>
                     </BorderTitle>
                     <Field
-                        name="firstName"
-                        type="text"
-                        placeholder={ t('RECEIVERS_FIRST_NAME_STAR') }
-                        component={ renderField }
+                        name="nameFormat"
+                        placeholder={ t('Select name format') }
+                        handleChange = { handleChangeFormat }
+                        options= { getNameFormatOptions() }
+                        component={ renderSelectField }
+                        selectedOption={  nameFormat }
                     />
-                    <Field
-                        name="middleName"
-                        type="text"
-                        placeholder={ t('RECEIVERS_MIDDLE_NAME') }
-                        component={ renderField }
-                    />
-                    <Field
-                        name="lastName"
-                        type="text"
-                        placeholder={ t('RECEIVERS_LAST_NAME_STAR') }
-                        component={ renderField }
-                    />
+                    {midLastFormat &&
+                    <>
+                        <Field
+                            name="firstName"
+                            type="text"
+                            placeholder={ t('RECEIVERS_FIRST_NAME_STAR') }
+                            component={ renderField }
+                        />
+                        <Field
+                            name="middleName"
+                            type="text"
+                            placeholder={ t('RECEIVERS_MIDDLE_NAME') }
+                            component={ renderField } />
+                        <Field
+                            name="lastName"
+                            type="text"
+                            placeholder={ t('RECEIVERS_LAST_NAME_STAR') }
+                            component={ renderField } />
+                    </>}
+                    {matPatFormat &&
+                    <>
+                        <Field
+                            name="givenName"
+                            type="text"
+                            placeholder={ t('RECEIVERS_GIVEN_NAME') }
+                            component={ renderField }
+                        />
+                        <Field
+                            name="paternalName"
+                            type="text"
+                            placeholder={ t('RECEIVERS_PATERNAL_NAME') }
+                            component={ renderField } />
+                        <Field
+                            name="maternalName"
+                            type="text"
+                            placeholder={ t('RECEIVERS_MATERNAL_NAME') }
+                            component={ renderField } />
+                    </>}
                     <Field
                         name="email"
                         type="email"

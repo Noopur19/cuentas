@@ -91,13 +91,25 @@ export const getWUStore = (stores) => {
 export const deliveryTypeRequestPayload = (data, incomeDetail) => {
     const accountDetail = incomeDetail?.accountDetail
     const myWUNumber  = getLocalData('myWUNumberTemp')
-    const receiver = {
-        first_name: data?.firstName || '' ,
-        middle_name: data?.middleName || '',
-        last_name: data?.lastName || '',
-        country_iso_code: data?.country && JSON.parse(data?.country)?.currency[ 0 ]?.country_cd,
-        state: data?.state && JSON.parse(data?.state).state,
-        city: data?.city,
+    let receiver = {}
+    if(data.givenName && data.paternalName && data.maternalName) {
+        receiver = {
+            first_name: data?.givenName || '',
+            paternal_name: data?.paternalName || '',
+            maternal_name: data?.maternalName || '',
+            country_iso_code: data?.country && JSON.parse(data?.country)?.currency[ 0 ]?.country_cd,
+            state: data?.state && JSON.parse(data?.state).state,
+            city: data?.city,
+        }
+    } else {
+        receiver = {
+            first_name: data?.firstName || '' ,
+            middle_name: data?.middleName || '',
+            last_name: data?.lastName || '',
+            country_iso_code: data?.country && JSON.parse(data?.country)?.currency[ 0 ]?.country_cd,
+            state: data?.state && JSON.parse(data?.state).state,
+            city: data?.city,
+        }
     }
 
     return{

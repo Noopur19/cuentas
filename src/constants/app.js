@@ -4,6 +4,9 @@ export const MESSAGE = {
 }
 export const GET_STEP_PROGRESSBAR = 'GET_STEP_PROGRESSBAR'
 export const SET_STEP = 'SET_STEP'
+export const MAT_PAT_FORMAT = 'MAT_PAT_FORMAT'
+export const MID_LAST_FORMAT = 'MID_LAST_FORMAT'
+export const SELECT_NAME_FORMAT = 'SELECT_NAME_FORMAT'
 export const STATIC_URLS = {
     registerLink:  'https://www.westernunion.com/mywu/us/',
     privacyPolicy: (locale) =>  `https://www.westernunion.com/us/${ locale }/privacy-statement.html`,

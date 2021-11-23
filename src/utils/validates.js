@@ -7,20 +7,39 @@ export const rewardNumberValidation = values => {
     }
     return errors;
 }
-export const receiverFormValidate = values => {
+export const receiverFormValidate = (values) => {
     const errors = {};
-    if (!values.firstName) {
-        errors.firstName = getLocalByTitle('FIRST_NAME')
+    if(values.nameFormat === 'Paternal/Maternal Name Format') {
+        if (!values?.givenName) {
+            errors.givenName = getLocalByTitle('GIVEN_NAME');
+        }
+        if (!values?.paternalName) {
+            errors.paternalName = getLocalByTitle('PATERNAL_NAME');
+        }
+        if (!values?.maternalName) {
+            errors.maternalName = getLocalByTitle('MATERNAL_NAME');
+        }
+        if(values.email && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))){
+            errors.email = getLocalByTitle('CHECK_MAIL_LENGTH');
+        }
+        if (!values.country) {
+            errors.country = getLocalByTitle('COUNTRY_ERROR');
+        }
+    } else if(values.nameFormat === 'First/Last Name Format') {
+        if (!values?.firstName) {
+            errors.firstName = getLocalByTitle('FIRST_NAME')
+        }
+        if (!values?.lastName) {
+            errors.lastName = getLocalByTitle('LAST_NAME');
+        }
+        if(values.email && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))){
+            errors.email = getLocalByTitle('CHECK_MAIL_LENGTH');
+        }
+        if (!values.country) {
+            errors.country = getLocalByTitle('COUNTRY_ERROR');
+        }
     }
-    if (!values.lastName) {
-        errors.lastName = getLocalByTitle('LAST_NAME');
-    }
-    if(values.email && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))){
-        errors.email = getLocalByTitle('CHECK_MAIL_LENGTH');
-    }
-    if (!values.country) {
-        errors.country = getLocalByTitle('COUNTRY_ERROR');
-    }
+
     return errors;
 }
 const throwError = (type,error) => {

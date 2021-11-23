@@ -34,10 +34,6 @@ const TransactionDetailsForm = (props) => {
     const country  = formValues.country && JSON.parse(formValues.country)
     const [ currencyChecked , setCurrencyChecked ] = useState( formValues?.payoutCurrency || country?.currency && country?.currency[ 0 ].currency_cd)
 
-    // const isUSD = () => {
-    //     return country?.currency && country?.currency[ 0 ].currency_cd === 'USD'
-    // }
-
     const transactionDetails = (currencyCd) => {
         const data = {
             transactionType: 'WMN',
@@ -120,7 +116,15 @@ const TransactionDetailsForm = (props) => {
                 </BorderTitle>
                 <div className="d-flex justify-content-between pb-2 r-info">
                     <span>{t('FULL_NAME')}</span>
-                    <span className="text-right"><b>{`${ userInfo.values.firstName || '' } ${ userInfo.values.middleName || '' } ${ userInfo.values.lastName || '' }` }</b></span>
+                    <span className="text-right"><b>
+                        {`${ userInfo?.values?.firstName || '' }
+                        ${ userInfo?.values?.middleName || '' }
+                        ${ userInfo?.values?.lastName || '' }
+                        ${ userInfo?.values?.givenName || '' }
+                        ${ userInfo?.values?.maternalName || '' }
+                        ${ userInfo?.values?.paternalName || '' }
+                        ` }</b>
+                    </span>
                 </div>
                 <div className="d-flex justify-content-between pb-2 r-info">
                     <span>{t('PAYOUT_COUNTRY')}</span>
@@ -138,7 +142,7 @@ const TransactionDetailsForm = (props) => {
                 <BorderTitle smallText className="mt-4"><h3>{t('YOUR_ACCOUNT_INFO')}
                     <span className="underline"></span></h3>
                 </BorderTitle>
-                <p className="text-center"><b>{t('CURRENT_BALANCE')} { availBail }</b> </p>
+                <p className="text-center"><b>{t('CURRENT_BALANCE')} ${ availBail }</b> </p>
 
                 <BorderTitle smallText className="mt-4"><h3>{t('PAYOUT_CURRENCY')}
                     <span className="underline"></span></h3>

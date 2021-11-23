@@ -21,7 +21,7 @@ const AdditionalDetails = (props) => {
     const dateTime = transactions && JSON.parse(transactions?.additional_properties?.transaction_response?.value).response?.date_time
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
     const time = dateTime && dateTime.substring(dateTime.indexOf('T') + 1)
-    const formattedDate = moment(date).format('DD MMMM,YYYY')
+    const formattedDate = moment(date).format('DD MMMM, YYYY')
     const formattedTime =  moment(time, 'hh:mm:ss').format('hh:mm A');
     const currencyCode = transactions && JSON.parse(transactions.additional_properties?.payment_details?.value).origination?.currency_iso_code
     const amountPaid = transactions && transactions?.additional_properties?.amount?.value
@@ -40,7 +40,7 @@ const AdditionalDetails = (props) => {
                 <div className="header-card d-none">
                     <div className="amount-paid">
                         <h2>{t('AMOUNT_PAID')}</h2>
-                        <span> {'-'} {getCurrencySymbol(currencyCode)} {(+amountPaid).toFixed(2) || ''}</span>
+                        <span> {'-'} {getCurrencySymbol(currencyCode)}{(+amountPaid).toFixed(2) || ''}</span>
                         <p onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
                     </div>
                     <div className="amount-img">
@@ -51,13 +51,16 @@ const AdditionalDetails = (props) => {
                 <div className="additionalDetailsCard">
                     <div className="d-flex justify-content-between info">
                         <p>{t('AMOUNT_PAID')}</p>
-                        <span className="price"> {'-'} {getCurrencySymbol(currencyCode)} {(+amountPaid).toFixed(2) || ''}</span>
+                        <span className="price"> {'-'}{getCurrencySymbol(currencyCode)}{(+amountPaid).toFixed(2) || ''}</span>
                     </div>
                     <div className="d-flex justify-content-between info">
                         <p>{t('TRANSFER_TO')}</p>
                         <span>{parsedReceiver?.name?.first_name || ''}
                             {parsedReceiver?.name?.middle_name || ''}
                             {parsedReceiver?.name?.last_name || ''}
+                            {parsedReceiver?.name?.given_name || ''}
+                            {parsedReceiver?.name?.paternal_name || ''}
+                            {parsedReceiver?.name?.maternal_name || ''}
                         </span>
                     </div>
                     <div className="d-flex justify-content-between info">

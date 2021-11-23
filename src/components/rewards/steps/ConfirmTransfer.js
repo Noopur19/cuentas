@@ -28,7 +28,7 @@ const ConfirmTransfer = (props) => {
 
     const dateTime = postDeliveryDetails && postDeliveryDetails?.date_time
     const date = dateTime && (dateTime.split('T')[ 0 ]).trim();
-    const formattedDate = date && moment(date).format('MMMM DD,YYYY')
+    const formattedDate = date && moment(date).format('MMMM DD, YYYY')
     const [ scrollBottom, setScrollBottom ] = useState(false)
     console.log(scrollBottom)
 

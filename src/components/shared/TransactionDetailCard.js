@@ -34,7 +34,7 @@ const TransactionDetailCard = (props) => {
             <HeaderCard className="header-card">
                 <div className="amount-paid">
                     <h2>{t('AMOUNT_PAID')}</h2>
-                    <span>- {getCurrencySymbol(currencyCode)} {(+invoice?.additional_properties?.amount?.value).toFixed(2) }</span>
+                    <span>- {getCurrencySymbol(currencyCode)}{(+invoice?.additional_properties?.amount?.value).toFixed(2) }</span>
                     <p className={ getClassName() } onClick={ () => toggleModal() }>{getTransactionStatus(enquiry?.transaction_status)}</p>
                 </div>
                 <div className="amount-img">
